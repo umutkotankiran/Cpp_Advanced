@@ -10,7 +10,7 @@ const Myclass &r = Myclass{}; burada da aynısı var.
 
 Myclass &r = Myclass{}; // burası zaten sentaks hatası
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Move tür dönüştürme yapıyor.Taşınmaya aday olmayan objeler taşınmnaya aday hale geliyor.
 
@@ -20,7 +20,7 @@ Temel C++ ta görüldüğünden yazmıyorum
 
 move<m> ile static_cast<Myclass&&>(m) aynı şey oldu
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Move un en basit template hali
 
@@ -30,7 +30,7 @@ constexpr std::remove_reference_t<T>&& Move(T&& t)noexcept
 	return static_cast<std::remove_reference_t<T>&&>(t);
 }
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Temel C++ konularında da var bu örnek
 
@@ -54,7 +54,7 @@ int main()
 	func(Myclass{});
 }
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Burada çok basic soru soruldu yazmıyorum
 
@@ -62,7 +62,7 @@ moved from state.
 moved from state teki datanın ne olduğu unspecified behavior ama valid
 tekrar bir atama yapılabilir.
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Func parametresi sağ taraf referansı diye illaha kaynak çalınacak değil.
 Belki sağ taraf ve sol taraf değeri için ayrı kodlar yazılabilir.%95 çalma yapılacak :D
@@ -76,7 +76,7 @@ Kaynak çalınmamışta olabilir.
 
 Kaynağını çalınmasını istemediğimiz nesne varsa onu göndermeyeceğiz.
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 IN OUT parameter
 
@@ -89,7 +89,7 @@ Taşıma semantiğinin olmadığı dönemde func return değerini vectoryada str
 string func(Myclass&r) yerine kopyalama maliyetini azaltmak için func parametresini lvalue reference yapıyorduk ve verdiğimiz nesneye yazdırıyorduk
 void func(Myclass&r);
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Taşıma semantiği out parametre kullanımını azalttı.
 
@@ -125,7 +125,7 @@ const Myclass cm;
 func(std::move(cm)); burada varsa const Myclass& çağrılır varsa const Myclass&& daha uygun.
 const nesne, const olmayan referansa bağlanamaz.
 
-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CALL BY VALUE 
 
@@ -145,7 +145,7 @@ int main()
 	func(m); // AMbigiuty
 }
 
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Call by value nesneyi değiştiremezdi ama move semantics kurallaır dğeiştiriyor.
 Aşağıda call by value olmasına rağmen taşıma semantiği nesneyi dğeiştirecek.
@@ -192,7 +192,7 @@ void func(Myclass &&r)
 
 3 adet çalma görüldü.
 
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Myclass foo()
 {
@@ -224,7 +224,7 @@ int main()
 }			// Yani const yapınca taşıma yerine kopyalama semantiği devreye giriyor.
 
 
--------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Taşımadan da iyisi var. Zaten taşıma semantiği herzaman daha verimli olacak diye birşey yok.
 
@@ -264,6 +264,7 @@ Myclass x = func(); //Burada move ctor ile x in hayata gelmesi beklenebilir. Ret
 
 C++17 ile kurallar değişti ve biraz daha karmaşık hale geldi.
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2. Optimizasyon Tekniği
 -----------------------
@@ -293,6 +294,7 @@ int main()
 	auto mvec = foo(); // Burada yine bu nesneyi mvec için ayrılan yerde oluşturuyor. İki ayrı nesne oluşmuyor burada.
 }
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. Optimizasyon Tekniği
 -----------------------
@@ -414,7 +416,7 @@ int main()
 
 Bu şekilde taşımaya yada kopyalamaya kapatılmış sınıflar için fabrika functionları yazabileceğiz.
 
-----------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Eskiden olsa bir functionun parametresini sınıf türünden yapmaya çekiniliyordu.
 Şimdi taşıma semantik ve mandatory copy ellision sayesinde parametresi sınıf türden olan funclar çok sık kullanılmaya başlandı.
@@ -428,8 +430,7 @@ Pr value expr ile çağrı yapsak ne kopyalama ne de taşıma olacak.PR value ex
 Bir sağ taraf değeri ile çağrı yaparsak taşıma semantiği çalışacak.
 Dolayısıyla func parametresi sınıf türünden olması durumunda Pr value exp ile yapılan çağrı çok avantajlı hale geliyor.
 
-
----------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Myclass func()
 {
@@ -473,7 +474,7 @@ Mandatory Copy ellision kod yazma biçiminide değiştiriyor. Return değeri sı
 
 MOLA
 
----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 En iyi durum copy ellision yoksa move ctor o da yoksa fall back copy ctor.
 
@@ -496,7 +497,7 @@ int main()
 }
 
 
-----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 
@@ -517,7 +518,7 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 	
 	} burası ok
 	
-	---------------------
+	----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	Nec foo(Nec x) //dikkat
 	{
@@ -525,7 +526,7 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 		return x; // artık copy ellision çalışmaz.Move Ctor çağrılır
 	}
 
-	-----------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2. Static ömürlü bir nesneyi return ifadesi yaparsak yine copy ellision devre dışı kalır.Static ömürlü nesnenin
 	yeri zaten belli, return slotta oluşma ihtimali yok.
@@ -542,7 +543,7 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 		Nec x{foo()};
 	}
 
---------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. Funcitonun birden fazla return deyimine sahip olamsı fakat hepsinin isimlendirilmiş yerel değişken olmaması.
 
@@ -582,7 +583,7 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 	}
 
 
-	------------------
+	----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	class Base{};
 
@@ -596,8 +597,8 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 	}
 
 
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Taşıma Semantiğinden Faydalanmaya Yönelik Diğer kod Yapıları
 
@@ -628,7 +629,7 @@ int main()
 	// taşıma semantiğinden hiç faydanılmadı, veri elemanları initialize ettiğimizde copy ctor çağrıldı.
 
 
-	-------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	PersonClassic per{"mustafa ahmet xxxxxxx","kahraman tolgar"};
 	//Bu c stringlerin referansa bağlanabilmesi için ortrada string nesnesinin oluşturulması gerekiyor,
@@ -640,7 +641,7 @@ int main()
 
 }
 
--------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2. DURUM
 class PersonRValueRef{
@@ -660,7 +661,7 @@ Bunu taşıyacağız. move kullanmasaydık copy ctor çağrılacaktı.
 
 Sol taraf değeriylede çağrılamaz burası.
 
--------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. DURUM
 
@@ -686,102 +687,14 @@ taşınacak.
 BUnu sol taraf değeri argümanlarla da çağırabiliriz. Sol taraf değeri argüman olursa burada func parametresi için copy ctor
 veri elemanları için move ctor çağrılacak.
 
-
--------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 4. durumda her ihtimale karşı herşeyi yazmış hoca onu yazmayacağım.	2:32
 
-
----------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 bir benchmark programı yazılmış buradan performansa bakıldı. yazmadım.
 chrono library kullanılmış burada.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 */
