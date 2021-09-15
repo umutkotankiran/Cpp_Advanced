@@ -503,7 +503,7 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 
 1. Functionun parametre değişkeninin geridönüş değerinde kullanılması
 	functionun parametre dğeişkeni çin ayrılan yer ayrı return slot ayrı bir yerde ise, bu durumda
-	özellikle derleyici func ın kodunuda görüyorsa copy ellision imkansız hale geliyor.
+	özellikle derleyici func ın kodunuda görmüyorsa copy ellision imkansız hale geliyor.
 
 	Nec foo(Nec x)
 	{
