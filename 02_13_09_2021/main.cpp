@@ -505,9 +505,8 @@ Copy Ellision Hangi Durumlarda Devredışı Kalıyor
 	functionun parametre dğeişkeni çin ayrılan yer ayrı return slot ayrı bir yerde ise, bu durumda
 	özellikle derleyici func ın kodunuda görüyorsa copy ellision imkansız hale geliyor.
 
-	Nec foo(Nec)
+	Nec foo(Nec x)
 	{
-		Nec x;
 		return x;	
 	}
 
