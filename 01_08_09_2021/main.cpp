@@ -40,7 +40,7 @@ Buradaki şekili yazmayacağım zaten yazmıştım C++ ta.
 glvalue : bu ifade bir nesneye yada bir kimliğe karşılık geliyormu
 lvalue  : glvalue ama x value değil. kaynağı güvenli olarak çalınamayan ifadeler.
 prvalue : bir ifadenin değerini hesaplamak veya bir nesneyi initialize etmek için kullanılıyor.kaynağı çalınabilir güvenli şekilde.
-xvalue  : Taşıma semantiği ile eklendi.Öyle bir glvalue ki kaynakları tekrar kullanılabilir anlamında. expiring value
+xvalue  : Taşıma semantiği ile eklendi.Öyle bir glvalue ki kaynakları tekrar kullanılabilir anlamında. expiring value.Hem Rvalue Hemde GLvalue
 
 Kısaca decltype a girildi.
 
