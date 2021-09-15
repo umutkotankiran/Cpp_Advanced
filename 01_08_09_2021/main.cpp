@@ -4,6 +4,8 @@
 GENEL TEKRARLAR YAPILACAK BU SEBEPLE ÇOK NOT ALMADIM.
 BU DERSTE ANLATILAN ŞEYLERİN BUYÜK ÇOĞUNLUĞU TEMEL C++ TA VAR.
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Başlangıç konusu Taşıma Semantiği / Move Semantics
 
 C++11 de geldi move semantics. C++11 ve C++20 önemli değişilikleri getiren standartlar.AYnı şekilde C++17 de önemli
@@ -15,21 +17,23 @@ Value kategori ifadeyi niteleyen bir terim
 int x; / bu değişkenin value kategirisi ne demek saçma bir soru.
 Bu bir değişkenle ilgili değil. Value category ifadeleri niteleyen terim.
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 İfadenin 2 önemli niteliği var. 
 İfadenin türü
 Değer kategorisi
 
 ÖR:
-x + 10 bunun bir type ı var birde değer kategorisi var.
+x + 10 bunun bir data type ı var birde değer kategorisi var.
 Değişken türü referans türü olabilir pointer türü olabilir ama ifadelerin türü referans türü OLAMAZ.
-İfadelerin referans olmayuan bir türü vardır birde değer kategorisi vardır. Bunlar farklı şeyler.
+İfadelerin referans olmayan bir türü vardır birde değer kategorisi vardır. Bunlar farklı şeyler.
 
 Bir ifadenin türü int, myclass, myclass * ,int * olabilr.
 
 İfadenin değer kategorisi, o ifadenin dilin kurallarına göre nerelerde kullanılabileceğini ve kullanımmlarının ne ifade edeceğini belirliyor.
 
 Bir ifadenin değer kategorisi 3 farklı kategoriden birine ait olmak zorunda. Bunlara primary value categories deniyor.
-Lvalue Expression PrValue Expression Xvalue Expression. BUnlardan ikisine birden ait olamaz.
+Lvalue Expression PrValue Expression Xvalue Expression. Bunlardan ikisine birden ait olamaz.
 
 Buradaki şekili yazmayacağım zaten yazmıştım C++ ta.
 
@@ -149,12 +153,15 @@ pvcat(+x);
 pvcat(x);
 ....
 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Xvalue expression
 -----------------
 Bunlar birkaç tane.Hatta visual studio bir tanesinde de hatalı gösteriyor.
 
 - Return değeri sağ taraf referansı olan functionlara yapılan çağrı ifadeleridir.
-- Move un return eğeride X value expr.
+- Move un return değeride X value expr.
 - PRvalue expression olan bir nesnenin nonstatic veri elemanına erişmek xvalue expressiondur.
 
 
@@ -323,7 +330,7 @@ Not Declared
 User Declared
 İmplicitly Declared
 
-Derleyicinin implicitly delete etmesi durumları... private func çağırmak gibi, cosnt bir nesneye ilk değer vermemek gibi, referansa ilk değer vermemek, delete
+Derleyicinin implicitly delete etmesi durumları... private func çağırmak gibi, const bir nesneye ilk değer vermemek gibi, referansa ilk değer vermemek, delete
 edilmiş funa a çağrı gibi durumlarda compiler çağırması gereken/default etmesi gereken funcları delete ediyor.
 
 Bizim special member tablosundan ilerlendi.
@@ -336,10 +343,44 @@ const Myclass&& bunu move etmek UB Değil.
 2:20 de örneği var ben yazmıyorum.
 Yİne temel C++ konuları 3 tane overload yazdı hoca.
 
-&
-const&
-&&
-parametreli üç fonksiyon nasıl çağrılır ... gibi.
+#include <iostream>
+
+class Myclass {
+	//
+};
+
+
+void foo(Myclass&)
+{
+	std::cout << "foo(Myclass&)\n";
+}
+
+void foo(const Myclass&)
+{
+	std::cout << "foo(const Myclass&)\n";
+}
+
+void foo(Myclass &&)
+{
+	std::cout << "foo(Myclass&&)\n";
+}
+
+Myclass g;
+Myclass bar() { return g; }
+Myclass& baz() { return g; }
+
+int main()
+{
+	Myclass x;
+	const Myclass cx;
+
+	foo(x);
+	foo(cx);
+	foo(std::move(x));
+	foo(Myclass{});
+	foo(bar());
+	foo(baz());
+}
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
