@@ -645,7 +645,7 @@ void call_func(Nec &x)
 
 void call_func(const Nec &x)
 {
-	func(std::move(x));		
+	func(x);		
 }
 
 void call_func(Nec &&x)
