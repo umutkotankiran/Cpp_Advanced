@@ -110,7 +110,7 @@ int main()
 		//rvalue. lvalue referans değilse ya rvalue reference yada referans değil.
 	}
 	
-	if constexpr(std::is_lvalue_reference_v<decltype((x + 5))>){
+	if constexpr(std::is_reference_v<decltype((x + 5))>){
 		//lvalue
 	}
 	
