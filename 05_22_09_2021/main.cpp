@@ -284,7 +284,7 @@ int main()
 	std::string s;
 
 	insert(vec, s); //gecersiz
-	insert(vec, std::string{ "necati" }); //gecersiz
+	insert(vec, std::string{}); //Geçerli
 }
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -315,7 +315,7 @@ AYRI BİR TEMPLATE PARAMETRESİ YAPARAKTA ÇÖZÜLÜR
 #include <vector>
 #include <string>
 
-template<typename ElemType, typename T>
+template<typename ElemType, typename T>  // 2 adet template tür parametresi yazdık Ayrı ayrı çıkarım oldu hata yok
 void insert(std::vector<ElemType>& vec, T&& elem)
 {
 	vec.push_back(std::forward<T>(elem));
