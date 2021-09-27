@@ -197,7 +197,7 @@ void func(T&& x)
 {
 	if constexpr(std::is_lvalue_reference_v<T>)
 	{
-		//BURAYA GİRERSE GELEN LVALUE. int& lvalue ve int&& xvalue. BUnlar değilse rvalue oluyor zaten
+		//BURAYA GİRERSE GELEN LVALUE. int& lvalue. Değilse rvalue oluyor zaten
 	}
 	else
 	{
