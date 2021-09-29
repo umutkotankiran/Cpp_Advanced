@@ -308,6 +308,12 @@ int main()
 	insert(vec, s);
 }
 
+AÇIKLAMA !!!!!!!!!!!!
+Parametresi yukarıdaki gibi olduğunda 1. parametre için tür çıkarımı yapılamıyor ama 2. parametre için tür çıkarımı string& olarak yapılıyor.
+T, 2. parametreden string& olarak çıkınca remove_reference_t ile referanslık silinince artık string olmuş oluyor. Yerine koyunca stringi
+vector<string>& oluyor 1. parametre. Eğer 2. parametre olmasaydı 1. parametreden tel başına iken deduction olmayacaktı çünkü burada tür
+T ye bağlı. C++20 ile typename kuralları gevşetildi biraz.
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 AYRI BİR TEMPLATE PARAMETRESİ YAPARAKTA ÇÖZÜLÜR
