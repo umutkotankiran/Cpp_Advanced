@@ -778,34 +778,4 @@ int a[]{1,2,3}; GEÇERLİ
     Data mydata(1,2,3); //C++17 SENTAKS HATASI, C++20 GEÇERLI
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 */
-
-
