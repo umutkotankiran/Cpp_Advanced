@@ -235,7 +235,28 @@ int main()
 INTEGRAL CONSTANT
 -----------------
 Metafunction oluşturma konusunda asıl desteği veren taban sınıf.
-BURAYA GITHBDAN YAPIŞTIR.
+
+template<class T, T v>
+struct integral_constant {
+    static constexpr T value = v;
+    using value_type = T;
+    using type = integral_constant; // using injected-class-name
+    constexpr operator value_type() const noexcept { return value; }
+    constexpr value_type operator()() const noexcept { return value; } // C++14
+};
+
+true_type	std::integral_constant<bool, true>
+false_type	std::integral_constant<bool, false>
+
+value_type		T
+type			std::integral_constant<T,v>
+
+constexpr T value       static constant of type T with value v
+
+operator value_type	returns the wrapped value
+ 
+operator()		returns the wrapped value
+ 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
