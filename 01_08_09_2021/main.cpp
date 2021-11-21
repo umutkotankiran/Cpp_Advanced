@@ -60,13 +60,13 @@ struct Valcat
 	constexpr static const char *p = "PR Value";
 };
 
-template<typename T>
+template<typename T>	//Partial Specialization
 struct Valcat<T&>
 {
 	constexpr static const char *p = "L Value";
 };
 
-template<typename T>
+template<typename T> 	//Partial Specialization
 struct Valcat<T&&>
 {
 	constexpr static const char *p = "X Value";
