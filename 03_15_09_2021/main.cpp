@@ -550,6 +550,18 @@ int main()
   getchar();
 }
 
+Bu örnekte referans var. Getchar dan sonra çağrılan bir destructor yok !!!!!!!
+Yani referns tamamen boşa çıkmış.Eğer referans dangling olmasaydı referansa bağlanan nesne r nin kapsamı bittiğinde
+destroy olurdu !!!!!!!!!!!!!!
+
+ÇIKTI
+-----
+B destructor
+A destructor
+B destructor
+A destructor
+
+getchar() çağrısı
 
 -------------------------------------
 
@@ -591,6 +603,8 @@ int main()
 
 BU İKİ ÖRNEĞİ HOCAYA SORDUM. ÇOK AÇIKLAYICI.
 
+BUrada ise getchar dan sonra bir nesne daha destructor çağrılacak yanni reference scopeu bittiğinde bir 
+destructor daha çağrılacak. Demekki referans dangling değil.Life extension olmuş 
 
 
 ==================================================================================================================
