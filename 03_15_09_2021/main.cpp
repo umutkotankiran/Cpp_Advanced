@@ -529,7 +529,7 @@ public:
 	std::cout << "B destructor\n";
   }
   A ax;
-  const A &geta()const
+  const A &geta()const		// DİKKAT !!!!!!!!!!!!!!
   {
 	return ax;
   }
@@ -568,7 +568,7 @@ public:
 	std::cout << "B destructor\n";
   }
   A ax;
-  A geta()const
+  A geta()const		// DİKKAT !!!!!!!!!!!!!!
   {
 	return ax;
   }
