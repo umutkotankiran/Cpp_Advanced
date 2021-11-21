@@ -382,6 +382,14 @@ int main()
 	foo(baz());
 }
 
+ÇIKTI
+foo(Myclass&)
+foo(const Myclass&)
+foo(Myclass&&)
+foo(Myclass&&)
+foo(Myclass&&)
+foo(Myclass&)
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int& foo(); // sınıf türünden olabilir.
