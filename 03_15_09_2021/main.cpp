@@ -422,7 +422,7 @@ Burada referans döndürebiliriz.
 
 class Person{
 public:
-	std::string& get_address()const // BUNUN DEZAVANTAJI NE OLABİLİR ? MALİYET
+	std::string& get_address()const
 	{
 		return m_address;
 	}
