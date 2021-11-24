@@ -676,10 +676,10 @@ Model
 
 BURADAN BAŞLADIK 
 
-class AnimalConcepet // Bu concept olarak kullandığım sınıf model olarak kullanılacak sınıfa bir interface sağlıyor.
+class AnimalConcept // Bu concept olarak kullandığım sınıf model olarak kullanılacak sınıfa bir interface sağlıyor.
 {
 public:
-	virtual ~AnimalConvept() = default;
+	virtual ~AnimalConcept() = default;
 
 	virtual void cry() = 0; // Sanal function ama buradaki virtual dispatch interfacete değil. Buradaki v.dispatch implementasyonda kalacak
 };							// Runtime polymorphism clientlar açısından olmayacak
@@ -850,7 +850,7 @@ private: // Yukarıdaki nested type yaptık ve private oldular.Clientlerın bund
 		//copy isimli bir func koyduk, bu clone yapacak.Bu durumda animalmodel bu funcı override etmeli
 		virtual std::unique_ptr<AnimalConcept> copy()const = 0; // 5. ADIM
 
-		};	
+	};	
 
 	template <typename ErasedType>
 	class AnimalModel : public AnimalConcept {
