@@ -476,7 +476,7 @@ int main()
 }
 
 
-HERB SUTTER VERSION
+SCOTT MEYERS VERSION
 
 using usptr = std::unique_ptr<std::string>;
 
