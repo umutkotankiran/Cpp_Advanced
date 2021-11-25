@@ -1034,15 +1034,17 @@ int main()
 
 --------------------------------------------------------------------------------------------
 
+GEÇERLİ KOD AMA VISUAL STUDIO SAÇMALIYOR BURADA
+
 class Nec{
 public:
     Nec() {}
-    int get()const;
+    constexpr int get()const;
 };
 
 constexpr int foo(int x)
 {
-    Nec mynec; //SENTAKS HATASI ÇÜNKÜ LITERAL TYPE DEĞİL
+    Nec mynec; //SENTAKS HATASI ÇÜNKÜ LITERAL TYPE DEĞİL BURASI.  
 
     return mynec.get() + x; 
 }
@@ -1057,16 +1059,15 @@ FUNC İÇİNDEKİ LOCAL DEĞİŞKENLERİN LİTERAL TYPE OLMASI GEREKİYOR
 
 --------------------------------------------------------------------------------------------
 
+AYNI ŞEKİLDE GEÇERLİ KOD AMA VISUAL STUDIO SAÇMALIYOR BURADA
+
 CONSTRUCTORU SİLERSEK VEYA USER DEFİNED DEFAULTED YAPARSAK EĞER HATA KALKIYOR
 ARTIK NEC SINIFI LITERAL TYPE OLMAYA TERFİ ETTİ.
 
 class Nec{
 public:
     Nec() = default;
-
-    // Nec() { }  buda olurdu
-
-    int get()const;
+    constexpr int get()const;
 };
 
 constexpr int foo(int x)
