@@ -642,13 +642,13 @@ int main()
     int x = 10, y = 20;
     double d = 5.6;
     
-    auto f = [&x]() { ++x; ++y; d*= 10.5; };
+    auto f = [=]()mutable { ++x; ++y; d*= 10.5; };
 
     f();
     
-    std::cout << "x = " << x << "\n"; // 11
-    std::cout << "y = " << y << "\n"; // 21
-    std::cout << "d = " << d << "\n"; // 56
+    std::cout << "x = " << x << "\n"; // 10
+    std::cout << "y = " << y << "\n"; // 20
+    std::cout << "d = " << d << "\n"; // 5.6
 }
 
 -----------------------------------------------------------------------------
@@ -661,14 +661,14 @@ int main()
     int x = 10, y = 20;
     double d = 5.6;
 
-    auto f = [&x]() { ++x; ++y; d*= 10.5; };
+    auto f = [&]() { ++x; ++y; d*= 10.5; };
 
     // f yi de capture edeceği için aşağıdaki capture ifadesi içinde kullanabiliriz.
     // En sık kullanılan idiyomlardan biri.
     [=](){};
     std::cout << "x = " << x << "\n"; // 11
     std::cout << "y = " << y << "\n"; // 21
-    std::cout << "d = " << d << "\n"; // 56
+    std::cout << "d = " << d << "\n"; // 58.8
 }
 
 -----------------------------------------------------------------------------
