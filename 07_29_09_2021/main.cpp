@@ -1087,6 +1087,8 @@ int main()
 CONSTEXPR NITELEYİCİSİ YAZILIRSA EĞER İFADE CONSTEXPR OLMAZSA HATA OLUR .
 YAZMAZSAK OLMADIĞINDA DA SORUN DEĞİL. OLURSADA DEFAULTTA ZATEN CONSTEXPR
 
+-----------------------------------------------------------------------------------------
+
 int main()
 {
     auto fsum = [](int x, int y){
