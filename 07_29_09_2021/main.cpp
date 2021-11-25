@@ -155,9 +155,8 @@ bir function yazıyor.
 ->type = Trailing return type.Compiler functionunun return değeri türünü belirtme hakkımız var.
          Belirtmezsek derleyici func ın return ifadesine bakarak deduction yoluyla çıkarım yapacak
 
-mutable = Derleyicinin yazdımı member func const member func. Fakat bazı durumlarda compiler yazdığı member funcların
+mutable = Derleyicinin yazdığı member func const member func. Fakat bazı durumlarda compiler yazdığı member funcların
 const olması işimize gelmiyor. Çünkü derleyicinin yazdığı closure typeın veri elemanları olduğunda const member func içinde
-
 a - O veri elemanlarını değiştiremiyoruz.
 b - Bu veri elemanları sınıf türündense, onların const olmayan member funclarını çağıramıyoruz.
     Sadece const member funclarını çağırabiliriz.
@@ -167,7 +166,7 @@ constexpr = Functionun constexpr olduğunu gösteriyor. Bunu kullanmazsakta cons
 
 
 Noexcept = Bu default değil. Derleyicinin yazdığı sınıfın func call operator funcı/lamba funcı da denebilir bu function noexcept değil.
-            Noexcepti sağlıyor olsada defaultta noexcept değil.
+            Noexcepti sağlıyor olsada defaultta noexcept değil.Biz bunu belirtebiliriz.
 
 <typename T>  = Burasıda C++ 20 ile geldi.
 
@@ -379,9 +378,9 @@ int main()
     generate(ivec.begin(), ivec.end(), []{return rand() % 1000;});
     
     sort(ivec.begin(), ivec.end(), [](const string& s1, const string& s2)
-        { return s1.lengt() < s2.length() || s1.length() == s2.length() && s1 < s2; });
+        { return s1.lengt() < s2.length() || (s1.length() == s2.length() && s1 < s2); });
         //Çok uzun lambda ifadesi
-        //Özel bir karşılaştırma kriteriyle kıyaslandı. Kıa olanlar başta ve onlarda kendş içinde
+        //Özel bir karşılaştırma kriteriyle kıyaslandı. Kısa olanlar başta ve onlarda kendi içinde
         //lexicographical olarak kıyaslandı
 }
 
@@ -396,8 +395,7 @@ Functionun return type ı eğer trailing return type kullanılmazsa return ifade
 
 [](int x){ return x + 1; };
 
-Tür çıkarımı return değeri ifadesinden çıkarım çok daha fazla kullanılıyor.
-Bazı urumlarda trailing return type kullanılarak çıkarım yapılmasını beklemiyip
+Tür çıkarımı return değeri ifadesinden çıkarım çok daha fazla kullanılıyor.Bazı durumlarda trailing return type kullanılarak çıkarım yapılmasını beklemeyip
 return değeri türünün bizim istediğimiz tür olmasını sağlıyoruz.
 
 [](int x)->double{ return x + 1;}
@@ -585,7 +583,7 @@ int main()
 {
     int x = 10, y = 20;
     double d = 5.6;
-    auto f = [&x]{x++;}; // x i değil bağlandığı nesneyi değiştiriyorum.
+    auto f = [&x]{x++;}; // x i değil bağlandığı nesneyi değiştiriyorum.Bu sebeple mutable yazmaya gerek yok. Şaşırılan nokta burası
 
     f();  // x 11 oldu
 
