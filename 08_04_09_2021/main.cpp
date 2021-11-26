@@ -207,7 +207,7 @@ int main()
 Forward list enteresan bir container. Tanımındaki ana gayelerden biri C de yazılmış singly list koduna göre bir maliyet içermemesi.Bunun sonucunda size functionu
 constant time da olamayacağından sınıfın size functionu yok. Size için constant time değil containera dolaşmamız gerekiyor. Bunun için kod örneği yazıldı ben yazmıyorum
 
-Ufaktan forward liste girdi hoca. Gerek yoktu ama anlatıyor.Yazmıyorum.
+Ufaktan forward liste girdi hoca. Yazmıyorum.
 before begin, erase after konuları...
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
