@@ -836,6 +836,14 @@ public:
 	//BU Copy ctor yazılmazsa animal nesneleri birbirine kopyalanamaz çünkü unique ptr elemanı var.
 	Animal(const Animal &other) : uptr(other.uptr->copy()) { } // 7. ADIM
 
+	
+	Animal& operator=(const Animal& other)
+	{
+		return *this = Animal(other);
+	}
+
+	Animal(Animal&&)noexcept = default;
+	Animal& operator=(Animal&&)noexcept = default;
 
 private: // Yukarıdaki nested type yaptık ve private oldular.Clientlerın bundan haberi yok.
 
