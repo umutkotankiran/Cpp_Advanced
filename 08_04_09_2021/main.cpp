@@ -533,7 +533,7 @@ int main()
 	auto [y,z] = foo(); // Z POINTER MI 10 ELEMANLI INT DIZI MI ?
 						// DİZİ. Biz burada funcın return değeri olan türden bir nesne oluşturduk, y ve z o nesnenin elemanlarına eş isim olarak kullanılıyor.
 
-	auto constexpr b = is_pointer_v<decltype<z>>; //FALSE
+	auto constexpr b = is_pointer_v<decltype(z)>; //FALSE
 
 }
 
