@@ -219,16 +219,14 @@ void func(vector<shared_ptr<string>> &s)
 {
 	//
 	sort(s.begin(), s.end(),[](const shared_ptr<string> &x, const shared_ptr<string> &y)
-		{
+	{
 		return *x < *y;
-		}
-	);
-
+	}
+	
 	for_each(s.begin(), s.end(),[](const shared_ptr<string> &s)
-		{
-			if(s) std::cout << *s << "\n"; 
-		}
-	);
+	{
+		if(s) std::cout << *s << "\n"; 
+	}
 }
 
 
@@ -238,16 +236,16 @@ void func(vector<shared_ptr<string>> &s)
 {
 	//
 	sort(s.begin(), s.end(),[](const auto &x, const auto &y)
-		{
+	{
 			return *x < *y;
-		}
-	);
+	}
+	
 
 	for_each(s.begin(), s.end(),[](const auto &s)
-		{
+	{
 			if(s) std::cout << *s << "\n";
-		}
-	);
+	}
+	
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -262,7 +260,7 @@ void vprint(Args&&... args)
 
 int main()
 {
-	auto f = [](auto&& ..args){
+	auto f = [](auto&& ...args){
 		vprint(std::forward<decltype(args)>(args)...);
 	}
 
@@ -281,7 +279,7 @@ int main()
 	}
 	
 	[](auto&x){
-		decay_t<decltype(x)>::value_type; // Buda okuma ve yazma zahmeti getiriyor. C++20 ILE GELEN .... LAMBDA BURAYI ANLAMADIM. BAK SONRA 
+		decay_t<decltype(x)>::value_type; // Buda okuma ve yazma zahmeti getiriyor. C++20 ILE GELEN .... LAMBDA BURAYI ANLAMADIM. BAK SONRA ????????????????
 	}
 }
 
@@ -305,8 +303,8 @@ int main()
 	vector<int> xvec(100);
 
 	transform(ivec.begin(),ivec.end(),xvec.begin(), f); // YUKARIDA 1 FUNC OLSAYDI BIR SENTAKS HATASI YOKTU
-														// Aynı isimli birden fazla overload olduğunda range deki öğeler int olduğuna göre derleyici parametresi int olan funcı 
-														// seçecek diyemeyiz.Buradaki ambigiuty yi çözmenin yollarından biri static_cast ile tür dönüşümü
+							// Aynı isimli birden fazla overload olduğunda range deki öğeler int olduğuna göre derleyici parametresi int olan funcı 
+							// seçecek diyemeyiz.Buradaki ambigiuty yi çözmenin yollarından biri static_cast ile tür dönüşümü
 
 	
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -320,7 +318,7 @@ int main()
 	LAMBDA İFADESİ KULLANARAK ÇÖZÜLEBİLİR
 
 	transform(ivec.begin(),ivec.end(),xvec.begin(), [](auto x){ return f(x);}); // Derleyici ivec teki elemanların int olduğunu bilecek.x inde türünü çıkarabilecek.
-																				// int ise x te int olacak. functionda int parametreli seçilecek.
+										// int ise x te int olacak. functionda int parametreli seçilecek.
 
 }
 
@@ -351,12 +349,12 @@ public:
 		
 		FOO İÇİNDE MX KULLANINCA DERLEYİCİ ONU THİS->MX E ÇEVİRİYOR. BİR LAMBDA İÇİNDE MX KJULLANABİLMEM İÇİN THİS POINTERINI CAPTURE ETMELİYİM
 		1.  [=] DEPRECATED EDİLDİ. THİS POINTERINI COPY İLE CAPTURE EDİYORUZ. YİNE ADRESİNİ CAPTURE ETMİŞ OLDUK YANİ
-		2.  [&] THİS POINTERINI REFERANS İLE CAPTURE EDİYORUZ.TIS BIR POINTER OLUNCA COPY YADA REFERANS CAPTURE ETMEK ARASINDA FARK KALMIYOR.
+		2.  [&] THİS POINTERINI REFERANS İLE CAPTURE EDİYORUZ.THIS BIR POINTER OLUNCA COPY YADA REFERANS CAPTURE ETMEK ARASINDA FARK KALMIYOR.
 		3.  [this] BUDA THIS CAPTURE
 
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 		
-		[&] İLE CATCH EDİLİNCE DİKKARLİ KULLANILMAZSA DANGLING REFERANS OLUŞABİLİYOR. 
+		[&] İLE CATCH EDİLİNCE DİKKATLİ KULLANILMAZSA DANGLING REFERANS OLUŞABİLİYOR. 
 		THISIN CAPTURE EDİLMESİ DEMEK *THIS İN REFERANS YOLUYLA CAPTURE EDİLMESİ DEMEK.BURASI KARIŞIK
 		
 		ÖR:
@@ -425,8 +423,8 @@ int main()
 
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	auto f = [](int x){return x * x;}; //GEÇERLİ.POSITIVE LAMBDA IDIOM. İfade closure type türünden bir pr value expression. f burada func pointer değil.
-											// f burada closure type türünden sınıf nesnesi. 
+	auto f = [](int x){return x * x;}; //GEÇERLİ. İfade closure type türünden bir pr value expression. f burada func pointer değil.
+					   // f burada closure type türünden sınıf nesnesi. 
 
 	constexpr auto bx = is_pointer_v<decltype(f)>; //false. Pointer türü değil.
 	constexpr auto by = is_class_v<decltype(f)>; //True. Sınıf türü.
@@ -454,7 +452,7 @@ IIFE IDIOM - IMMEDIATELY INVOKED FUNCTION/LAMBDA EXPRESSION
 Yoğun kullanılan bir idiyom çünkü bir soruna çare oluyor.
 C++ta nesneler oluşturuyoruz ve bu nesnelere ilk değer veriyoruz.Nesne const olduğunda zaten initialize etmeme durumuda yok. İlk değer verme mecburi.
 
-Const nesneere ilk değer vermek istediğimde bazı durumlarda vereceğim ilk değer basit bir ifade, bazı durumlarda da bir hesaplama sonucu elde edilebilecek değer.
+Const nesnelere ilk değer vermek istediğimde bazı durumlarda vereceğim ilk değer basit bir ifade, bazı durumlarda da bir hesaplama sonucu elde edilebilecek değer.
 Bu hesaplama işleminde çoğu zaman başka değpişkenleride kullanıyoruz. Bunlar basit hesaplama olsaydı ternary operator bizi kurtarıyordu.
 const int x = a > 2 ? z : y + 5; gibi
 
@@ -491,7 +489,7 @@ Burada const olmayan bir nesneyede tabiki ilk değer verebiliriz. Ama kullanıla
 BIR SINIFIN VERI ELEMANLARI IÇINDE KULLANILIYOR
 
 Constructorda sınıfın veri elemanları init ediliyor.İdeali sınıfın veri elemanları member / Ctor init list ile init etmek.
-Aynı problem burada da var. Bu bir const veri elemanı olabilir veya buu ilk değer verecek bir hesaplama sözkonusu olabilir.
+Aynı problem burada da var. Bu bir const veri elemanı olabilir veya bunu ilk değer verecek bir hesaplama sözkonusu olabilir.
 Burada da IIFE kullanabiliriz. Gerisi artık bunu ne derece benimsediğimize bağlı. Cpp core guideliness iife idiyomunun özellikle kullanılmasını tavsiye ediyor.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -558,7 +556,7 @@ int main()
 	rfill(ivec,100,Irand{0,10'000});
 
 	auto ip = minmax_element(ivec.begin(), ivec.end()); // Bir range teki hem min hemde max değeri buluyor. 
-											  // Return değeri iterator.karşılaştırma less functorı kullanılıyor defaultta.Return değeri pair
+							  // Return değeri iterator.karşılaştırma less functorı kullanılıyor defaultta.Return değeri pair
 	
 	Burada ip nin türü, pair<vector<int>::iterator, vector<int>::iterator>. Bunu yazmak yerien auto kullanıyoruz daha pratik olduğundan
 
@@ -627,8 +625,8 @@ Kendi karşılaştırma kriterimi oluşturmak için bir predicate functor kullan
 int main()
 {
 	auto f = [](int x, int y){ return x % 100 < y % 100;}; //DİKKAT!!! STRICT WEAK ORDERING KURALLARINA GÖRE YAPILIYOR.YOKSA UNDEFINED BEHAVIOR
-															//ASSOCIATIVE CONTAINERLARDA STRICT WEAK ORDERING YANI EQUIVALANCE
-															//UNORDERED ASSOCIATIVE CONTAINERLARDA EQUALITY
+								//ASSOCIATIVE CONTAINERLARDA STRICT WEAK ORDERING YANI EQUIVALANCE
+								//UNORDERED ASSOCIATIVE CONTAINERLARDA EQUALITY
 	
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -646,19 +644,19 @@ int main()
 	
 	C++17
 
-	set<int,decltype<f>> myset; // C++17 DE SENTAKS HATASI.Setin kodlarına bakarsak bu karşılaştırmayı yapmak için bir nesneye ihtiyaç var ve o nesne default init ediliyor
-								// dolayısı ile decltype(f) in default constructible bir tür olmalı.Ama default ctoru yok. Bu sebeple SEntaks hatası oldu 
+	set<int,decltype(f)> myset; // C++17 DE SENTAKS HATASI.Setin kodlarına bakarsak bu karşılaştırmayı yapmak için bir nesneye ihtiyaç var ve o nesne default init ediliyor
+					// dolayısı ile decltype(f) in default constructible bir tür olmalı.Ama default ctoru yok. Bu sebeple SEntaks hatası oldu 
 						
 	myset.insert(12);
 
 
 	C++17 ÇÖZÜMÜ
-	set<int,decltype<f>> myset(f);
+	set<int,decltype(f)> myset(f);
 
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	C++20 DE GEÇERLİ
-	set<int,decltype<f>> myset; // GEÇERLİ. DEFAULT CTOR ÇÜNKÜ VAR ARTIK.DELETE EDİLMEMİŞ.
+	set<int,decltype(f)> myset; // GEÇERLİ. DEFAULT CTOR ÇÜNKÜ VAR ARTIK.DELETE EDİLMEMİŞ.
 
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -738,33 +736,6 @@ public:
 private:
 	decltype([](){}) mx; // derleyicinin oluşturduğu closure type türünden eleman
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
