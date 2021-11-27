@@ -807,9 +807,9 @@ int main()
 {
 	Person p;
 	string_view sv = p.getname(); // BU FUNCIN RETURN DEĞERINI BIR CONST LVALUE REF VEYA RVALUE REF INITIALIZE ETMEK IÇIN KULLANIRSAK
-}									// LIFE EXTENSION OLUR AMA BUNU BIR STRINGVIEW NESNESINE ILK DEĞER OLARAK VERIRSEK, BU NESNE ASLINDA SADECE
-									// BU YAZIYA ILIŞKIN POINTER TUTUYOR. BU DURUMDA FUNC RETURN DEĞERI NESNENIN HAYATI BITTIĞINDEN
-									// SV DANGLING REFERANS OLACAK.
+}				      // LIFE EXTENSION OLUR AMA BUNU BIR STRINGVIEW NESNESINE ILK DEĞER OLARAK VERIRSEK, BU NESNE ASLINDA SADECE
+				      // BU YAZIYA ILIŞKIN POINTER TUTUYOR. BU DURUMDA FUNC RETURN DEĞERI NESNENIN HAYATI BITTIĞINDEN
+				      // SV DANGLING REFERANS OLACAK.
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -889,33 +889,5 @@ int main()
 	cout << boolalpha << sx.ends_with("oglu") << "\n"; // True
 	cout << boolalpha << sx.ends_with("Aglu") << "\n"; // False
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 */
