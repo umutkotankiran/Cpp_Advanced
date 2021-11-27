@@ -283,6 +283,8 @@ int main()
 	}
 }
 
+NOT : DECAY AUTOYA KARŞILIK GELEN TÜRÜ VERIYOR. CONST AUTO X = 23;  BURADA X İN TÜRÜ CONST INT AMA AUTOYA KARIŞIK GELEN TÜR INT !!!!!!!!!!!!
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 BELİRLİ IDIYOMLAR
