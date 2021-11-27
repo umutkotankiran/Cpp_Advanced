@@ -40,7 +40,7 @@ int main()
 		Ben burada autoya karşılık gelen türü öğrenmek istesem aşağıdakini yapacağım.
 
 		using V = decltype(vals); // Bu vals in türünü veriyor.Bize autoya karşılık gelen tür lazım.
-								  // Burada referanslık ve constluğun gitmesi için decay templateini kullanacağım.Bu bir trait
+					  // Burada referanslık ve constluğun gitmesi için decay templateini kullanacağım.Bu bir trait
 
 		using V = decay_t<decltype(vals)>; // artık autoya karşılık gelen türü bulduk. vals e karşılık gelen değil !!!!!!
 
@@ -52,6 +52,8 @@ int main()
 	};
 }
 
+NOT : DECAY AUTOYA KARŞILIK GELEN TÜRÜ VERIYOR. CONST AUTO X = 23;  BURADAX İN TÜRÜ CONST INT AMA AUTOYA KARIŞIK GELEN TÜR INT !!!!!!!!!!!!
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 YENİ SENTAKSTA BUNLARA İHTİYAÇ YOK ÇÜNKÜ BİR T TÜRÜNÜ DOĞRUDAN TEMPLATE SENTAKSI İLE BELİRTEBİLECEĞİZ.
@@ -61,7 +63,7 @@ int main()
 	auto f = []<typename T>(const std::vector<T>&vals){			//Burada type ve nontype parametre oluşturabiliriz.
 		
 		// Bu template sadece vector türleri için kullanılacak.
-		// Bu funca vectorun ilt açılımı double açılımı ve string açılımı türünden nesneyi geçebiliriz.
+		// Bu funca vectorun int açılımı double açılımı ve string açılımı türünden nesneyi geçebiliriz.
 
 		Doğrudan T olarak kullanıyoruz.
 		T x{};
@@ -170,8 +172,8 @@ int main()
 	------------------------------------------------------------------------------------------------------------------------------------------------
 
 	auto f = []<typename T>(T x){ return x + 5;};
-	f.operator()<int>(16); //GEÇERLİ. AMA MARJİNAL BİR SENARYO BU.
-							// Generalized lambda expressionda zaten func call oper funcı template halinde
+	f.operator()<int>(16);  //GEÇERLİ. AMA MARJİNAL BİR SENARYO BU.
+				// Generalized lambda expressionda zaten func call oper funcı template halinde
 
 }
 
@@ -204,7 +206,7 @@ auto delay_invoke(F f, Args ...args)
 		return std::invoke(f,args...);
 	};
 }
- 
+
 int foo(int x, int y, int z)
 {
 	std::cout << "foo cagrildi\n";
@@ -231,12 +233,13 @@ template <class F, class... Args>
 auto delay_invoke(F f, Args... args)
 {
 	return [f = std::move(f), _args = std::move(args)...]() -> decltype(auto){		// std::move(args)... SENTAKS HATASIYDI ÖNCEDEN!!!!!
-		return std::invoke(f, _args...);
+		return std::invoke(f, _args...);						// KODUN TAMAMI ÇALIŞMAYABİLİR !!!
 	};
 }
 
 
 BUNU GERÇEKLEŞTİRMEK İÇİN BAZI WORKAROUNDLAR UYDURULMUŞTU. TUPLE DAN FAYDALANILIYORDU
+BURASI C++17
 
 template<class F f, Args... Args>
 auto delay_invoke(F f, Args... args)
@@ -248,16 +251,23 @@ auto delay_invoke(F f, Args... args)
 	};
 }
 
-50. DAKİKADA BİR ÖRNEK DAHA VERDİ. ONU YAZMIYORUM
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+C++ 20 İLE C++17 FARKI AŞAĞIDAKİ GİBİ
+
+template <class F, class ...Args>
+auto delay_apply(F&& f, Args&&... args)
+
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-C++20 İLE BU ÇÖZÜLDÜ. SENTAKSA DİKKAT !!!!
+C++20 SENTAKSA DİKKAT !!!!
 
 template <typename F, typename ...Args>
 auto delay_call(F&& f, Args&& ...args)
 {
-	return[f = std::forward<F>(f), ...f_args = std::forward<Args>(args)]() -> decltype(auto) {
+	return[f = std::forward<F>(f), ...f_args = std::forward<Args>(args)]() -> decltype(auto) { 
 		return f(f_args...);
 	};
 }
