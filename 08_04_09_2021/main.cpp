@@ -279,7 +279,7 @@ int main()
 	}
 	
 	[](auto&x){
-		decay_t<decltype(x)>::value_type; // Buda okuma ve yazma zahmeti getiriyor. C++20 ILE GELEN .... LAMBDA BURAYI ANLAMADIM. BAK SONRA ????????????????
+		decay_t<decltype(x)>::value_type; // Buda okuma ve yazma zahmeti getiriyor. C++20 ILE GELEN TEMPLATED LAMBDA BURAYI ÇÖZÜYOR
 	}
 }
 
