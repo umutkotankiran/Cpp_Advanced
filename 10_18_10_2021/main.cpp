@@ -1,19 +1,20 @@
 ﻿/*
 
 STRİNG VIEWDA KALMIŞTIK.
-TEMEL VARLI NEDENI YAZI İLEİLGİLİ İŞLEMLERDE YAZININ KOPYALANMASI İLE OLUŞAN MAALİYETTEN KAÇMAK İÇİN VAR
+TEMEL VARLIK NEDENI YAZI İLE İLGİLİ İŞLEMLERDE YAZININ KOPYALANMASI İLE OLUŞAN MAALİYETTEN KAÇMAK.
 
 1 pointer 1 tamsayı olabilir içerisinde, 2 pointer olabilir. Standartlar bunu söylemiyor.
 Maliyeti az, 2 pointer olsa 8byte zaten. String kopyalanmasına göre çok çok daha maliyetsiz.
 
 1 - String view nesnesi yazının sahibi değil, başkasının yazısının adresini tutuyor içinde.
-	Stringview hayatta iken ilgili yzının hayatı biterse dangling referans olacak.
+	Stringview hayatta iken ilgili yazının hayatı biterse dangling referans olacak.
+	
 2 - Bir functionun stringview döndürmesi en sık hatalardan biri. Otomotik ömürlü nesneyi stringview
 	ile dönmek mesela.
 
 3 - Stringview ın bir interface i var.String sınıfının tüm get interface i stringviewda var.
-	2 noktaya dikkat etmek lazım. Datayı çağırınca string vector array de olduğu içi bir adres veriyor.
-	Bu adres stringviewda tutulan adres. Dolayısı ile bu yazı sonunda nullcharacter olmak zorunda değil.
+	2 noktaya dikkat etmek lazım. Datayı çağırınca string vector array de olduğu için bir adres veriyor.
+	Bu adres stringviewda tutulan adres. Dolayısı ile bu yazı sonunda null character olmak zorunda değil.
 	olabilir, olmayadabilir. Yani data funcının return değerini null termnated byte stream olarak kullanma girişimi
 	TANIMSIZ DAVRANIŞ.
 
@@ -92,7 +93,7 @@ int main()
 ---------------------------------------------------------------------------------------------------------------------------------
 
 TEMEL C++ TA LITERAL OPERATOR FUNCLARI GÖRDÜK.
-KISACA HOCA BAHSETTİ.
+KISACA HOCA BAHSETTİ.ANLATILACAK BURADA DA
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -111,13 +112,15 @@ y yi kullanınca bu bir func çağprısına karşılık geliyor.
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
+ÇOK ÖNEMLİ BURASI !!!!!!!!!!!!!!
+
 int main()
 {
 	using namespace std;
 
 	char str[] = {'a','l','p','e','r'};
 
-	string_view sv{str}; //BUrada çalışan cstring parametreli ctor
+	string_view sv{str}; //Burada çalışan cstring parametreli ctor
 
 	std::cout << sv << "\n"; // UNDEFINED BEHAVIOR VAR. NULL TERMINATED BYTE STREAM DEĞİL.
 	
@@ -136,7 +139,7 @@ int main()
 	string_view sv{str,5}; 
 
 	std::cout << sv.data() << "\n"; // UNDEFINED BEHAVIOR.Çünkü şuanda çalışan cstring inserter. 
-									// null char istiyor ama yazı sonunda nullchar yok :D:D
+					// null char istiyor ama yazı sonunda nullchar yok :D:D
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -180,10 +183,10 @@ int main()
 	string_view sv = str; // Burada sentaks hatası yok.Çünkü string_view ın string parametreli Ctoru var.
 
 	sv = str; // Burada atama var. HATA DA YOK. NASIL OLUYORDA GEÇERLİ OLDU ??
-			  // TÜR DÖNÜŞTÜRME OPERATOR FUNCTIONU
-			  // str.operator std::basic_string_view<char, std::char_traits<char>>();
-			  // Bu bildiğimiz tür dönüştürme operator func.Stringview gereken yerde string kullnırsak
-}			  // Bu stringi stringviewa dönüştürecek. 
+		  // TÜR DÖNÜŞTÜRME OPERATOR FUNCTIONU
+		  // str.operator std::basic_string_view<char, std::char_traits<char>>();
+		  // Bu bildiğimiz tür dönüştürme operator func.Stringview gereken yerde string kullnırsak
+}		  // Bu stringi stringviewa dönüştürecek. 
 
 ---------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -232,7 +235,8 @@ int main()
 	---------------------------------------------------------------------------------------
 
 	DİKKAT!!
-
+	BU FARKLI !!!
+	
 	std::cout << "(" << str << ")\n";
 	str.remove_prefix(6); // dikkat!!! ön tarafdan daralttık
 
@@ -369,9 +373,9 @@ int main()
 	string_view sv{str};
 
 	sv.remove_prefix(min(sv.find_first_not_of(" \t"),sv.size())); //DİKKAT !!! Min func geldi.
-																  //Burada eğer yazı tamamen boşsa npos max tamsayı değeri olacak ve diğer sayıyı yani 
-																  // sv.size() değerini döndürecek min func. Eğer bir index dönerse zaten bu size den ufak olacak 
-																  // çünkü zaten yazı içerisinden index dönüyor. Bu şekilde dönen indexe göre hareket edilecek.
+									//Burada eğer yazı tamamen boşsa npos max tamsayı değeri olacak ve diğer sayıyı yani 
+									// sv.size() değerini döndürecek min func. Eğer bir index dönerse zaten bu size den ufak olacak 
+									// çünkü zaten yazı içerisinden index dönüyor. Bu şekilde dönen indexe göre hareket edilecek.
 	std::cout << "|" << sv << "|" << "\n";				// artık tamamı yazı olsa bile sorun çözülmüş oldu
 }
 
@@ -496,7 +500,7 @@ stringview için olanı C++17 de geldi.
 
 LITERAL OPERATORS
 -----------------
-TEMEL C++ 44. DERSTE GÖRÜLDÜ.Yazsam mı yazmasam mı diye düşünüyorum :D
+TEMEL C++ 44. DERSTE GÖRÜLDÜ.
 Modern C++ ta geldi.Hem standart library kullanıyor hemde custom yazabiliriz.
 
 "Alican"s buda öyle.
