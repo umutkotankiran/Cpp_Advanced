@@ -247,7 +247,6 @@ auto delay_invoke(F f, Args... args)
 	return [f = std::move(f), tup = std::make_tuple(std::move(args)...)]() -> decltype(auto){  //BURADAKİ STD::MOVE(ARGS)... SENTAKS HATASI OLUŞTURMUYOR.
 		
 		return std::apply(f,tup); // apply tupledaki tutulan öğeleri tek tek f e argüman olarak gönderiyor.
-	
 	};
 }
 
@@ -255,19 +254,23 @@ auto delay_invoke(F f, Args... args)
 
 C++ 20 İLE C++17 FARKI AŞAĞIDAKİ GİBİ
 
+C++17
+-----
 template <class F, class ...Args>
-auto delay_apply(F&& f, Args&&... args)
-
-
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+auto delay_apply(F&& f, Args&&... args)  // Amaç elemanları perfect forward etmek
+{
+	return[f = std::forward<F>(f), tup = std::make_tuple(std::forward<Args>(args)...)]() -> decltype(auto)
+	{
+		return std::apply(f,tup); // 	
+	};
+}
 
 C++20 SENTAKSA DİKKAT !!!!
 
 template <typename F, typename ...Args>
 auto delay_call(F&& f, Args&& ...args)
 {
-	return[f = std::forward<F>(f), ...f_args = std::forward<Args>(args)]() -> decltype(auto) { 
+	return[f = std::forward<F>(f), ...f_args = std::forward<Args>(args)]() -> decltype(auto) { // yine aynı örnek yukarıdaki ile
 		return f(f_args...);
 	};
 }
