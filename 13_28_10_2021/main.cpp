@@ -3,8 +3,9 @@
 Function şablonları overload edilebilir.
 FUnction overload resolution zaten karmaşık, templateler girince işin içine dahada karmaşık.
 
-- İmzaları farklı birden aynı isimli template, aynı scopeta bulunabilir.
+- İmzaları farklı birden fazla aynı isimli template, aynı scopeta bulunabilir.
 	Gerçek functionların imza tanımıyla func şablonlarının imza tanımları birbirinden farklı.
+	Function template return değeride imzaya dahildi.
 	Geçen ders konuştuk
 
 	template<typename T, typename U>
@@ -23,7 +24,7 @@ FUnction overload resolution zaten karmaşık, templateler girince işin içine 
 
 	YUKARIDAKI TEMPLATE ÖRNEĞINI YAZALIM TEKRAR AMA OVERLOADING OLMADAN YAZALIM.
 	Eğer burada overloading olmasaydı biri bir header fileda diğeri başka header fileda
-	olsaydı, bu durumda bu tanımlar birbirinden farklıysa ayrı kaynak dosyalarda isntantiate olsa dahi
+	olsaydı, bu durumda bu tanımlar birbirinden farklıysa ayrı kaynak dosyalarda instantiate olsa dahi
 	tanımsız davranış olacaktı.ODR ihlal edilecekti.
 
 	A.h
@@ -47,7 +48,7 @@ FUnction overload resolution zaten karmaşık, templateler girince işin içine 
 	template<typename T, typename U>
 	void func(U x, T y) { }
 
-	Şimdi bunlar farklı kaynbak dosyalarda olsalar ortada sentaks hatası yok ve link aşamasında
+	Şimdi bunlar farklı kaynak dosyalarda olsalar ortada sentaks hatası yok ve link aşamasında
 	farklı templatelerde oluşturulmuş olan functionlara ilişkin referans isim farklı olacak.
 
 ----------------------------------------------------------------------------------------------------------------
@@ -86,7 +87,6 @@ void func(T x)
 {
 	std::cout << "func(T x)\n";
 }
-
 
 //#2
 template <typename T>
@@ -149,8 +149,8 @@ bu hata olarak ele alınmıyor ve derleyici tarafından overload setten çıkart
 ÖR:
 template <typename T>
 typename T::nec func(T x); // T burada int. int e bağlı bir tür mümkün değil.SFINAE.
-							// Burada hata olmasının sebebi, bu func overload setten çıkartılınca
-							// başka function kalmıyor :D:D.
+			   // Burada hata olmasının sebebi, bu func overload setten çıkartılınca
+			   // başka function kalmıyor :D:D.
 int main()
 {
 	int x = 10;
@@ -214,7 +214,7 @@ int main()
 	DİKKAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	BU AÇILIMIN SIZE_TYPE I VAR MI? DERLEYINCE HATA VERMEDI, 2. FUNC SEÇILDI.
 	DERLEYICI ARTIK 2. FUNCTAN INSTANTIATE YAPACAK. SUBSTITUTION BAŞKA INSTANTIATION BAŞKA
-	INSTANTIATION GERÇEK KODU YAZMA AŞAMASI
+	INSTANTIATION GERÇEK KODU YAZMA AŞAMASI.SUBSTITUTION İSE FUNCIN PARAMETRİK YAPISININ/İMZASININ ORTAYA ÇIKMA AŞAMASI.
 	KODU ÇALIŞTIRINCA T.SIZE() DA HATA VAR DEDI. YANI T NIN SIZE FUNCI YOK :D:D:D::D
 	allocator<int> te size func yok :D:D:D:D
 
@@ -226,7 +226,6 @@ int main()
 
 #include <iostream>
 #include <vector>
-
 
 template<typename T, unsigned N>
 std::size_t len(T(&)[N])
@@ -244,7 +243,6 @@ std::size_t len(...) // C den bildiğimiz variadic func.
 {
 	return 0;
 }
-
 
 int main()
 {
