@@ -32,7 +32,7 @@ int main()
 
 BITWISE YAZDIRMA KODU
 
-unsigned int operator"" _b(const char* p)
+constexpr unsigned int operator"" _b(const char* p)
 {
 	unsigned uval = 0;
 
