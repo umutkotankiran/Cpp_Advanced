@@ -453,8 +453,8 @@ int main()
 		std::cout << "String: " << std::quoted(str) << ". "; // std::quoted çift tırnak içine alma işlemi yapıyor.
 
 		int result{}; // Otomatik ömürlü bir değişkene verecek bir değer yoksa,
-					  // daha sonra değer verilecekse bile yinede value init etmek öneriliyor.cppcore guideliness tada böyle diyor.
-					  // Yani 0 değeri ile başlattık.
+			      // daha sonra değer verilecekse bile yinede value init etmek öneriliyor.cppcore guideliness tada böyle diyor.
+			      // Yani 0 değeri ile başlattık.
 
 		auto [ptr, ec] { std::from_chars(str.data(), str.data() + str.size(), result) };
 
