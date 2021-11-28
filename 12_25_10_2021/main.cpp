@@ -124,7 +124,7 @@ inline void func(int)
 İnline koymasakta derleyici inline expansion yapabilirse yapar zaten.İnline ın asıl işlevi bu değil artık.
 Token by token tanım aynıysa ODR bozulmaz.
 
-Function şablonları sınıf şablonları class definitionlar bunlar header file a konuyor ve ODR ihlal edilmiş olmuyor.
+Function şablonları sınıf şablonları class definitionlar bunlar header file a konuyor ve ODR ihlal edilmemiş olmuyor.
 C++17 ile değişkenlerede uyguladılar.
 
 inline int x = 23; 
