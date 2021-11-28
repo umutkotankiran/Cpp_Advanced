@@ -569,7 +569,7 @@ constexpr double operator""_fag(long double val)
 
 int main()
 {
-	constexpr auto diff = 38.7_c - 50_fag;
+	constexpr auto diff = 38.7_c - 50.4_fag;
 }
 
 -------------------------------------------------------------------------------------------------------------
@@ -600,7 +600,7 @@ int main()
 
 -------------------------------------------------------------------------------------------------------------
 
-Cooked örneği
+Cooked örneğinden devam
 
 Date operator""_date(const char* p, size_t n)
 {
