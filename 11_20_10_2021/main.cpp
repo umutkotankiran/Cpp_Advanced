@@ -390,7 +390,7 @@ int main()
 
 	x = m; //Türler farklı atamada geçersiz oldu
 
-	x = 12.5kg;
+	x = 12.5_kg;
 }
 
 BUradan sonra templateler daha iyi bilinmeli. Mesela CRTP kullanacağız yada başka durumlarda Mixing oluşturacağız.
