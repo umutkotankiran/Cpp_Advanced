@@ -32,24 +32,21 @@ int main()
 
 BITWISE YAZDIRMA KODU
 
-unsigned int operator""_b(const char *p)
+unsigned int operator"" _b(const char* p)
 {
-	unsigned result{};
+	unsigned uval = 0;
 
-	while(*p)
-	{
+	while (*p) {
 		char digit = *p;
-		if(digit != '0' && digit != '1')
-		{
-			throw runtime_error{"Invalid binary character!"};
+		if (digit != '1' && digit != '0') {
+			throw std::runtime_error("0 ya da 1 olmayan karakter\n");
 		}
 
-		result = result * + digit - '0'; // idiyom bu bitwise için
-
+		uval = uval * 2 + (digit - '0');
 		++p;
 	}
 
-	return result;
+	return uval;
 }
 
 int main()
