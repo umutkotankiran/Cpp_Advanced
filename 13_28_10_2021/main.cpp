@@ -395,7 +395,7 @@ void example(int *p)
 
 T yerine A türünü alalım
 
-A, const A* bu argümanlarla alttaki template e çağrı yapmaya çalışırsak sentaks hatası olur 2. argüman const çünkü
+A*, const A* bu argümanlarla alttaki template e çağrı yapmaya çalışırsak sentaks hatası olur 2. argüman const çünkü
 
 const B*, B * bunlarla çağrı yaparsak burada da 1. argüman const olduğundan uyum sağlamıyor.
 
