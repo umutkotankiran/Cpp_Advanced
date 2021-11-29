@@ -1044,7 +1044,7 @@ class Myclass<int> //  Buradaki <> içindeki tür primary template ile uyuşmal�
 public:
 	Myclass()
 	{
-		std::cout << "Primary template\n";
+		std::cout << "Myclass<int>\n";
 	}
 };
 
