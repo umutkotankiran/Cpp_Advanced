@@ -1146,7 +1146,7 @@ class Myclass<T,int> //DİKKAT !!!!!
 public:
 	Myclass()
 	{
-		std::cout << "Myclass<T,T>\n";
+		std::cout << "Myclass<T,int>\n";
 	}
 };
 
@@ -1172,9 +1172,9 @@ public:
 };
 
 template <typename T, typename U>
-class Myclass<std::pair<T,U>>    // GEÇERLİ. ÖNEMLİ OLAN TEMPLATE ARGÜMANI OLARAK YAZDIĞIMIZ ARGÜMANIN SAYICA TUTMASI
-{								// BURADAKİ ARGÜMAN STD::PAIR. YANİ YİNE 1 TANE ARGÜMAN VAR:D:D:D
-public:							// DOĞRUDAN <T,U> SENTAKS HATASI
+class Myclass<std::pair<T,U>>    	// GEÇERLİ. ÖNEMLİ OLAN TEMPLATE ARGÜMANI OLARAK YAZDIĞIMIZ ARGÜMANIN SAYICA TUTMASI
+{					// BURADAKİ ARGÜMAN STD::PAIR. YANİ YİNE 1 TANE ARGÜMAN VAR:D:D:D
+public:					// DOĞRUDAN <T,U> SENTAKS HATASI
 	Myclass()
 	{
 		std::cout << "Partial spec.\n";
@@ -1190,7 +1190,7 @@ int main()
 ------------------------------------------------------------------------------------------------------------------------
 
 NOT : SFINAE SINIF TEMPLATELERİ İÇİN DEĞİL FUNCTİON TEMPLATELERİ İÇİN SÖZKONUSU VE FUNCTION OVERLOADING İLE İLGİLİ.
-SUNSTİTUTİONDA SENTAKS HATASI OLURSA İLGİLİ FUNC OVERLOAD SETTEN ÇIKARTILIYOR
+SUBSTİTUTİONDA SENTAKS HATASI OLURSA İLGİLİ FUNC OVERLOAD SETTEN ÇIKARTILIYOR
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1208,36 +1208,40 @@ int main()
 
 	--------------------------------------------------------------------------------------------------
 
-	enable_if<false>::type  bu yok
+	enable_if<false>::type  bu yok.Bunun olmamasını kullanarak substitution aşamasında hata çıkarıp sfinae out yaptıracağız.
 	enable_if<true>::type  bu var çünkü <true,void> için partial specialization var.
+}
 
-	--------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 
-	BURADA YAZILDI
+BURADA TEMPLATE YAZILDI
+
+template<bool B, class T = void>
+struct enable_if {};
+
+template<class T>
+struct enable_if<true, T> 
+{ 
+	typedef T type; 
+}; 
+
+True açılımında type var.false ise primary emplate ten boş gelecek.
+
+--------------------------------------------------------------------------------------------------
+
+BIR HERHANGIBIR TEMPLATTE ENABLE IF KULLANIRSAK, BURADA ENABLE IF FALSE AÇILIMI SÖZKONUSU ISE VE
+ENABLE IF TYPE INI KULLANIRSAK GEÇERSIZ BIR TÜR OLACAĞI IÇIN SFINAE OUT OLACAK
+
+template <typename T>
+std::enable_if<true,T>::type foo(T,x) // T türünün kendisini elde etmiş olurum burada
+{
 	
-	template<bool B, class T = void>
-	struct enable_if {};
-
-	template<class T>
-	struct enable_if<true, T> { typedef T type; };
-
-	--------------------------------------------------------------------------------------------------
-
-	BIR HERHANGIBIR TEMPLATTE ENABLE IF KULLANIRSAK, BURADA ENABLE IF FALSE AÇILIMI SÖZKONUSU ISE VE
-	ENABLE IF TYPE INI KULLANIRSAK GEÇERSIZ BIR TÜR OLACAĞI IÇIN SFINAE OUT OLACAK
-
-	template <typename T>
-	std::enable_if<true,T>::type foo(T,x) // T türünün kendisini elde etmiş olurum burada
-	{
+}
 	
-	}
+template <typename T>
+std::enable_if<false,T>::type foo(T,x) // Burada type olmadığı için geçersiz tür oluşacak yani substitution failure olacak
+{					// ve overload setten çıkarılacak. SFINAE OUT
 	
-	template <typename T>
-	std::enable_if<false,T>::type foo(T,x) // Burada type olmadığı için geçersiz tür oluşacak yani substitution failure olacak
-	{										// ve overload setten çıkarılacak. SFINAE OUT
-	
-	}
-
 }
 
 ------------------------------------------------------------------------------------------------------------------------
