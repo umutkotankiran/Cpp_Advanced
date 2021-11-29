@@ -618,9 +618,9 @@ Templateler belirli türler için uygun olabiliyor ama bazı türler için derle
 olmayabiliyor. Biz bu durumda belirli türlerin farklı bir muamele görmesini istiyoruz.
 
 Burada funclar sözkonusu olduğunda zaten overloading ile bunu yapabiliyoruz.
-Burada ana template ve uyum sağlamayanlar için template yazmak veya bunun için gerçek func yazmak
+Burada amaç ana template ve uyum sağlamayanlar için template yazmak veya bunun için gerçek func yazmak
 
-Geren func gerek sınıf şablonları için Ana kod template değilde bizim verdiğimiz diğer template kullanılsın isteyebiliriz.
+GereK func gerek sınıf şablonları için Ana kod template değilde bizim verdiğimiz diğer template kullanılsın isteyebiliriz.
 Burada explicit specialization denmesinin sebebi vereceğimiz alternatif kodda tüm parametreleri
 açıkça bildirme zorunluluğu.
 
@@ -649,7 +649,7 @@ void func(int)
 	std::cout << "explicit/full specialization";
 }
 
-DİKKAT: Bu specializationun kendisi bir template değil.Derleyicibu function templateinden, template argümanı 
+DİKKAT: Bu specializationun kendisi bir template değil.Derleyici bu function templateinden, template argümanı 
 olarak int seçildiğinde, bir kod yazman gerekirse ana kodu değil verdiğimiz kod olacak.Yani alttaki.
 Bunun olması için T karşılığı int olması gerekir argümanın. Double olduğunda bizim specialization kullanılmayacak.
 
