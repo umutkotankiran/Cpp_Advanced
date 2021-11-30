@@ -167,16 +167,16 @@ int main()
 	---------------------------------------------------------------------------------------------------------------------------------------------
 
 	integral_constant<int,5>{} +  integral_constant<int,9>{}; // Bu durumda toplama operatörünün operandları olduğundan operator value type 
-															 //  kullanılarak int türüne dönüştürülecek ve bunlar constexpr funclar olduğundan
-															// buradaki ifadeler compile time sabiti olacak.
+								  // kullanılarak int türüne dönüştürülecek ve bunlar constexpr funclar olduğundan
+								  // buradaki ifadeler compile time sabiti olacak.
 	
 	---------------------------------------------------------------------------------------------------------------------------------------------
 
 	FUNC CALL OPERATOR FUNC
 
 	constexpr value_type operator()() const noexcept { return value; } // integral constant nesnesi func call operatörünün operandı olunca
-																		// bu function constexpr, geri dönüş değeri value type,
-																		// sınıfın const member functionu ve noexcept
+									   // bu function constexpr, geri dönüş değeri value type,
+									   // sınıfın const member functionu ve noexcept
 }
 
 VALUE'YU ELDE ETMENIN 3 YOLU VAR
@@ -316,7 +316,7 @@ struct is_pointer_helper<T*> : std::true_type {};
 
 template<typename T>
 struct is_pointer : is_pointer_helper< typename std::remove_cv<T>::type > {}; // Olay burada dönüyor. ispointer helper burada remove_cv ile constluk ve volatile olma özelliğini 
-																				// kaldırıyor ve pointer mı diye bakıyor. Burada cosntta volatile da olsa pointer var ise pointer kabul edilir.
+									      // kaldırıyor ve pointer mı diye bakıyor. Burada constta volatile da olsa pointer var ise pointer kabul edilir.
 
 
 int main()
@@ -437,7 +437,7 @@ Burada is_aggregate diye bir metafuncta var.Yani bir sınıf
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Eğer bu sınıf türünden nesneler memcopy gibi bir funcla copy edilebilir nitelikteyse eleman eleman koplayalam yerine
+Eğer bu sınıf türünden nesneler memcopy gibi bir funcla copy edilebilir nitelikteyse eleman eleman koplayalama yerine
 bellek bloğunu memcopy ile kopyalayayım diyor. Ama bu karar compile timeda veriliyor.
 
 is_standart_layout, bu bize bazı garantiler veriyor. Derleyici bazı kod seçimlerinde diyecekki bu kodu standart layouta giriyor. Bu işlemler UB oluşturmayacak.
@@ -487,7 +487,7 @@ int main()
 	mt19937 eng;
 
 	generate_n(back_inserter(ivec), 20,[]{return eng();}); // Burada eleştirilecek şey ? eng nin sizeı 5000 byte. Burada 5000 bytelık kopyalama var. 
-															// bunu std:ref(eng) ile göndermek mantıklı !!!!
+								// bunu std:ref(eng) ile göndermek mantıklı !!!!
 
 	copy(ivec.begin(), ivec.end(), ostream_iterator<int>{cout," "}); 
 
@@ -578,7 +578,7 @@ void Advance_impl(Iter& iter, int n, std::bidirectional_iterator_tag) // son par
 template <typename Iter>
 void Advance(Iter& iter, int n)
 {
-	typename std::iterator_traits<Iter>::iterator_category;
+	//typename std::iterator_traits<Iter>::iterator_category;
 
 	Advance_impl(iter, n, typename std::iterator_traits<Iter>::iterator_category{}); // Bu ifadeyi gönderme sebebim func overloadingte seçim yapmak.
 }
