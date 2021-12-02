@@ -116,13 +116,13 @@ auto find_if(Con &&c, Pred &&pred) // Bildiğimiz find_if bir iterator rangei al
 	auto beg_iter = begin(c),end_iter = end(c);
 
 	auto result = std::find_if(beg_iter, end_iter, pred); // result bir iterator, türü compile timeda belli olacak
-	
+
 	using iterator = decltype(result); // Result iteratorune eş isim verdik.
 
 	if(result == end_iter) // result end_iter ise bu öğe bulunamamıştır
 	{
 		return std::optional<iterator>(); // öğe bulunamadıysa bunu döndürüyoruz.Bu durumda default ctor çağrılacak yani değeri olmayan optional döndürülecek
-	}									  // auto ile tür çıkarımı yapıldığı için nullopt değilde bu şekilde yazdık. 
+	}									  // auto ile tür çıkarımı yapıldığı için nullopt değilde bu şekilde yazdık.
 
 	return std::optional<iterator>(result);
 }
@@ -165,7 +165,7 @@ public:
 	friend std::ostream& operator<<(std::ostream&os, const UserRecord &user)
 	{
 		os << user.m_name << ' ';
-		
+
 		if(user.m_nick) // bu ifler olmazsa Undefined behavior riski var.
 		{
 			os << *user.m_nick << ' ';
@@ -318,7 +318,7 @@ DEFAULT INIT EDILEBİLİR
 
 int main()
 {
-	variant<int, double, string> vx; // Default init edilen variant nesnesi 1. alternatif ne ise o türden değer tutuyor.o türden değer tutuyor. 
+	variant<int, double, string> vx; // Default init edilen variant nesnesi 1. alternatif ne ise o türden değer tutuyor.o türden değer tutuyor.
 									  // ilk öğe string olsaydı string türden tutacaktı ve Value init ediyor.
 
 	cout << get<0>(vx) << "\n"; // Value initten ötürü 0.
@@ -326,8 +326,8 @@ int main()
 
 	----------------------------------------------------------------------
 
-	variant<Date, int, double, string> vx; // Default init edilen variant nesnesi 1. alternatif ne ise o türden değer tutuyor.o türden değer tutuyor. 
-	
+	variant<Date, int, double, string> vx; // Default init edilen variant nesnesi 1. alternatif ne ise o türden değer tutuyor.o türden değer tutuyor.
+
 	cout << get<Date>(vx) << "\n"; // Default init edilmiş bir Date nesnesi tutacak.tarih 1.1.1900 olabilir.
 
 }
@@ -358,7 +358,7 @@ int main()
 
 DEFAULT CTORU OLMAYAN SINIF ÖRNEĞI
 
-class Myclass // 
+class Myclass //
 {
 public:
 	Myclass(int);
@@ -367,7 +367,7 @@ public:
 int main()
 {
 	variant<Myclass,int, double> vx;  // Myclassın default ctoru olmadığından burada SENTAKS HATASI
-	
+
 	variant<int, Myclass, double> vx; // HATA DEĞİL.Burada variantın tuttuğu değer int.İlk alternatif kullanılıyor burada.
 }
 
@@ -389,7 +389,7 @@ public:
 
 int main()
 {
-	
+
 	variant<Myclass, int, double> vx; //SENTAKS HATASI
 
 	--------------------------------------------------------------------------------------------------------------------
@@ -402,21 +402,21 @@ int main()
 	variant<Myclass, int, double> vx = 12; // Argüman int olduğundan int alternatifi kullanılır.
 
 	--------------------------------------------------------------------------------------------------------------------
-	
+
 	variant<Myclass, int, double> vx = 1.2; // Argüman double olduğundan double alternatifi kullanılır.
-	
+
 	--------------------------------------------------------------------------------------------------------------------
-	
+
 	variant<Myclass, int, double> vx = 4.5f; // Floattan double a promotion oldu. GEÇERLİ
 
 	--------------------------------------------------------------------------------------------------------------------
-	
+
 	variant<Myclass, int, double> vx = 5u; // Unsigned int olduğundan SENTAKS HATASI
 
 	--------------------------------------------------------------------------------------------------------------------
-	
+
 	variant<Myclass, int, double> vx = Myclass{ 1,5 }; // Argüman myclass olduğundan myclass alternatifi kullanılır.
-	
+
 	--------------------------------------------------------------------------------------------------------------------
 
 	DİKKAT !!!!!!!
@@ -426,7 +426,7 @@ int main()
 
 	variant<Date,Myclass,int,double> vx {in_place_index<0>,3,5,1985}; // 0 indexli alternatifte Default Ctor çalıştırıldı
 
-	cout << get<Date>(vx)<< "\n"; 
+	cout << get<Date>(vx)<< "\n";
 
 	--------------------------------------------------------------------------------------------------------------------
 
@@ -444,7 +444,7 @@ int main()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-TUTULAN DEĞERE ERİŞMEK 
+TUTULAN DEĞERE ERİŞMEK
 Çok kritik burası
 
 GEÇERSİZ INDEX/TÜR ARGÜMANI KULLANIMI SENTAKS HATASI !!!!
@@ -459,12 +459,12 @@ int main()
 
 	variant<char,double,float> vx;
 	auto val = get<int>(vx); // SENTAKS HATASI.Burada chardan inte promotion yok.
-	
+
 	-----------------------------------------------------------------------------------------
 
 	variant<char,double,float> vx;
 	auto val = get<3>(vx); // COMPILE TIME HATASI.3 indexi yok.
-	
+
 	-----------------------------------------------------------------------------------------
 
 
@@ -472,7 +472,7 @@ int main()
 	bad_variant_access türünden exception throw eder.
 
 	variant<char,double,float> vx{4.5};
-	
+
 	try{
 		auto val = get<char>(vx); // Exception throw eder.Alternatif char değil, double.
 		auto val = get<2>(vx); // Exception throw eder.Alternatif float değil, double.
@@ -524,7 +524,7 @@ int main()
 	std::cout << vx.index() << '\n';		// 2
 }
 
-NOT: emplace var 
+NOT: emplace var
 vx.emplace<double>
 vx.emplace<1>   ikiside index verilebiliyor.
 
@@ -584,9 +584,9 @@ int main()
 	vx = 4.5;
 
 	vx = monostate{}; // burada monostate geçici nesnesi atanmış.
-	
+
 	vx = {}; // Atama yapıldı. Aynı türden bir başka variant nesnesi oluşturup onu atamış oldum.Default init edildiğinden bu
-		     // monostate nesnesi tutuyor.Çünkü ilk tür monostate. İlk elemanı int olsaydı türü int olacaktı
+			 // monostate nesnesi tutuyor.Çünkü ilk tür monostate. İlk elemanı int olsaydı türü int olacaktı
 
 ----------------------------------------------------------------------------------------------------------
 
@@ -618,7 +618,7 @@ GET_IF
 int main()
 {
 	variant<int,double,string> vx{"Mustafa Ceyhan"}; // şaunda index 2
-	
+
 	// get_if<2>(&x) de yazılabilir aşağıda
 
 	if(auto p = get_if<string>(&x))    // Alternatif string ise p nullptr olmuyor. Yani string * oluyor
@@ -684,13 +684,13 @@ int main()
 	NOT : ALTERNATİFİ KÜÇÜK OLAN KÜÇÜK OLUYOR.ALTERNATİF AYNIYSA DOĞRUDAN DEĞERLER KARŞILAŞTIRILIR
 
 	std::cout << boolalpha;
-	
+
 	std::cout << "v1 == v2 : " << (v1 == v2) << '\n'; // FALSE. V1 V2 V3 türleri aynı kıyaslama yapılabilir.
-	
+
 	std::cout << "v1 < v2 : " << (v1 < v2) << '\n'; // TRUE
-	
+
 	std::cout << "v2 < v3 : " << (v2 < v3) << '\n'; // FALSE
-	
+
 	v2 = 89
 
 	std::cout << "v2 < v3 : " << (v2 < v3) << '\n';  // TRUE. İkiside int türünden artık. Değerler karşılaştırılıyor. 89 < 123  TRUE
@@ -737,18 +737,18 @@ Visit functionuna herhangibir callable gönderebilirim.
 Bu callable varianttaki alternatiflerin tamamını alabilecek bir operator funclar olmalı
 
 struct Print{
-	
+
 	// BUNLAR MEMBER TEMPLATE İLE YAZILABİLİRDİ.
 	void operator()(int x)const  // func call operator func yazıyoruz callable yazılacak çünkü visite
 	{
 		std::cout << x << '\n';
 	}
-	
+
 	void operator()(double x)const
 	{
 		std::cout << x << '\n';
 	}
-	
+
 	void operator()(string x)const
 	{
 		std::cout << quoted(x) << '\n';
@@ -768,10 +768,10 @@ int main()
 	variant<int,double,string> vx ("Murat Hepeyiler");
 
 	visit{Print{},vx}; // Az önce yukarıda yazdığımız else if merdiveni Visit funcının içinde var zaten.
-	
+
 	vx = 4.5;
 	visit(Print{},vx); // Bu seferde 4.5 i yazar.
-	
+
 	vx = "melike";
 	visit(Print{},vx);
 
@@ -807,7 +807,7 @@ int main()
 }
 
 
-2 - Bunlar aynı aynı funclar olması yerine eğer template haline gelebilecek genel bir func ise operator funcını template 
+2 - Bunlar aynı aynı funclar olması yerine eğer template haline gelebilecek genel bir func ise operator funcını template
 	yapabiliriz.
 
 struct Print
@@ -825,28 +825,55 @@ int main()
 	visit(Print{},vx);
 }
 
-2:11
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+visit(callable, variant_object);
+
+struct Print
+{
+	template <typename T>
+	void operator()(const T& r)
+	{
+		std::cout << "(" << r << ")" << '\n';
+	}
+};
+
+int main()
+{
+	variant<int,double,string> vx{"Melike"};
+	visit(Print{}, vx); // Melike yazar
+
+	--------------------------------------------------------------------------
+
+	variant<int,double,string> vx = 65;
+	visit(Print{}, vx); // 65 yazar
+}
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-visit(callable, variant_object); 
+GENERALİZED LAMBDA EXPRESSIONDAN FAYDALANACAĞIZ
 
 int main()
 {
 	variant<int,double,string> vx("Melike");
 
-	visit([](const autop&r){ std::cout << r << '\n';}, vx); 
+	visit([](const auto &r){ std::cout << r << '\n';}, vx);
 
 	-------------------------------------------------------------------
 
 	Lambda dışarıda da olabilirdi
 
+	auto f = [](const auto &r){ std::cout << r << '\n';};
+	visit(f,vx);
+
 }
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 struct Triple
 {
 	template<typename T>
-	void operator()(T& t)const
+	void operator()(T& t)const // const demek nesneyi değiştirmeyecek demek. t burada parametre.
 	{
 		t = t + t + t;
 	}
@@ -856,11 +883,11 @@ int main()
 {
 	variant<string, int, double> vx{21};
 
-	std::cout << get<1>(vx);
-	
+	std::cout << get<1>(vx); //21
+
 	visit(Triple{}, vx); // Burada toplama işlemi yaptırdık :D
 
-	std::cout << get<1>(vx);
+	std::cout << get<1>(vx); //63
 }
 
 
@@ -870,23 +897,53 @@ int main()
 {
 	variant<int,string, double> vx{"salih"};
 
-	std::cout << get<0>(vx).size() << '\n';
-	
-	visit([](auto &val){ 
-	val = remove_reference_t<decltype(val)>{}; }, vx);
+	std::cout << get<1>(vx).size() << '\n'; // salihin size 5
 
-	std::cout << get<0>(vx) << '\n'; //BURAYI YINE YAZ
+	auto setdef = [](auto &val){
+	val = remove_reference_t<decltype(val)>{}; // İlk önce string& türü için string türünü elde ettik içeride açıkça
+	};											// Bu uzunluğu default değere çekecek
+												// val = string{} gibi bir işlem yapıyor yani
+	
+	visit(setdef, vx);
+
+	std::cout << get<1>(vx).size() << '\n'; //
 }
 
 -----------------------------------------------------------------------------------------------
+AYNI ÖRNEĞİN İNT VERSİONU
+
+int main()
+{
+	variant<int,string, double> vx{3456};
+
+	std::cout << get<1>(vx) << '\n'; 
+
+	auto setdef = [](auto &val){
+	val = remove_reference_t<decltype(val)>{}; 
+	};											
+
+	visit(setdef, vx);
+
+	std::cout << get<1>(vx) << '\n';
+}
+
+ÇIKTI
+-----
+3456
+0
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
 
 OVERLOADER IDIYOM
+-----------------
+Productionda en çok kullanılan idiyom.
 
 template <typename ...Ts>
 struct overload : Ts... {
 
-	using Ts::operator()...; // Taban sınıfların tün func call operator funclarını visible hale getirdik
-		
+	using Ts::operator()...; // Tüm Taban sınıfların tüm func call operator funclarını, overload sınıfı içinde visible hale getirdik
 };
 
 BİRDE DEDUCTION GUIDE VERİLİYOR. C++20 DE DEDUCTION GUIDE A GEREK YOK
@@ -899,52 +956,62 @@ int main()
 
 	variant<int,string> vx(123);
 
-	visit(overload{ 
+	visit(overload{
 				[](int ival) {cout << "int : " << ival << '\n';},
 				[](const std::string &s) {cout << "string : " << s << '\n';} }, vx);
 
+				// Burada CTAD devreye girecek. Yani overloadun Ctoruna gönderdiğimiz argüamanlardan
+				// Tür anlaşılacak. Overloadun taban sınıf parametrelerini ve lambda ifadelerini argüman
+				// olarak gönderiyoruz.
+	// 123 YAZAR
+	
+	---------------------------------------------------------------------------------
+	
+	variant<int,string> vy{"Murat"};
+
+	visit(overload{
+			[](int ival) {cout << "int : " << ival << '\n';},
+			[](const std::string &s) {cout << "string : " << s << '\n';} }, vx);
+
+	// Murat YAZAR
 }
 
-SON ÖRNEĞİ YAZ.
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+KALITIM KONUSUNA BAKALIM
+
+Kapalı bir hiyerarşi olacak. kalıtımda kullanılacak türler baştan belli olacak.
+Bunları bir taban sınıftan kalıtımla elde etmek yerine variantın alternatifleri yapılacak.
+Ve bu polymorphic davranışıda visiter kullanarak temsil edeceğiz.
+
+Burada kısaca bir kalıtım anlatıldı
 
 
+class Cat{
 
+};
 
+class Dog{
 
+};
 
+class Lamb{
 
+};
 
+using namespace std;
+using Animal = std::variant<Dog,Cat,lamb>;
 
+int main()
+{
+	vector<Animal> avec; // vocabulary types lar vectorde tutulabilir.
 
+	Animal vx;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	visit( [](const auto &t){
+		t.cry(); // cry yazamadık o yüzden hata var burada şuanda
+	}, vx);
+}
 
 */
