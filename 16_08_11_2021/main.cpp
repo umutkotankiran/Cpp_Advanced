@@ -328,7 +328,7 @@ std::size_t combinedHashValue(const Types&... args) // hash değerlerini combine
 	return seed;
 }
 
-, nasıl bileştirdi bunları bak ????
+https://cppinsights.io/ tan inceledim kodu
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
