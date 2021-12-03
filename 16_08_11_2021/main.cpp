@@ -358,7 +358,7 @@ int main()
 	//pushback_left(vec, 2, 3, 5, 7, 11, 13); // 2 3 5 7 11 13 
 
 	pushback_right(vec, 2, 3, 5, 7, 11, 13); //  2 3 5 7 11 13  Birşey değişmedi. Virgül operatorü olduğu için değişen birşey yok.
-											 // , ün her seferinde sağındaki solundaki ifade çalışıp vector push yapacak.Öncelik soldan sağa yani.
+						// , ün her seferinde sağındaki solundaki ifade çalışıp vector push yapacak.Öncelik soldan sağa yani.
 	for (auto i : vec)
 		std::cout << i << "\n";
 }
@@ -392,7 +392,7 @@ int main()
 {
 	std::vector<int> ivec;
 
-	push_back(ivec, 1, 2, 3, 4).push_back(5); // pushback global push back miş
+	push_back(ivec, 1, 2, 3, 4).push_back(5); // Pushback global push back miş
 
  		std::cout << i << " ";
 }
@@ -409,7 +409,7 @@ void func(T x)
 
 INSTANTIATION NE DEMEK?
 Bir template ten derleyici bir ürün elde edecek.Bu ürün bir sınıf bir function bir değişken bir tür eş ismi olabilir.
-Derleyicinin nihayi olarak bu süreç başarılı olursa template ten elde eeceği ürün o template in bir specializationu.
+Derleyicinin nihayi olarak bu süreç başarılı olursa template ten elde edeceği ürün o template in bir specializationu.
 Specialization kelimesini explicit veya partial specialization ile karıştırmayalım.
 
 Template ten üretilen herhangibir ürün o template in specializationu. func bir function template ise 
@@ -437,16 +437,14 @@ template <typename T>
 void func(T x)
 {
 	foo(x); // Buradaki x dependent expression. Neden hata değil ? Bu template in instantiate edildiği yerde belkide ADL
-}			// ile bu isim bulunacak. 2 faz isim arama yapılacak. birinci fazda instantiationdan bağımsız sentaks hatası olması
-			// gereken yerler sentaks hatası olsun. İkinci fazda, Eğer dependent expressiona bağlı ise burada ismin aranmnası
-			// 2. fazda olacak. 2. fazda ismin aranması tamamen ADL e göre.
+}		// ile bu isim bulunacak. 2 faz isim arama yapılacak. birinci fazda instantiationdan bağımsız sentaks hatası olması
+		// gereken yerler sentaks hatası olsun. İkinci fazda, Eğer dependent expressiona bağlı ise burada ismin aranması
+		// 2. fazda olacak. 2. fazda ismin aranması tamamen ADL e göre.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 Funca gönderilen argümanlardan kaç tanesi boolean değerde ise count funcında return değeride o olacak.
-
-
 
 bool pred(int i)
 {
@@ -502,8 +500,8 @@ int main()
 AŞAĞIDAKİLER TEMEL C++ TA GÖRÜLDÜ
 
 Member Function Pointerlar ile alakalı soru var yazmayacağım.
-Burada düzel açıklama yaptı.
-std::invoke anlattı
+Burada güzel açıklama yaptı.
+std::invoke anlattı kısaca
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -513,8 +511,12 @@ qualified name ve unqualified name.
 Standartlarda qualified name lookup ve unqualified name lookup diye geçiyor.
 
 Burada kastedilen, bir isim unary yada binary eğer çözünürlük operatörünün operandı olarak kullanılmışsa(A::x),
-nokta operatörünün operandı olarak kullanılmışsa(x.y) ve ok operatörünün operandı olarak
+nokta operatörünün operandı olarak kullanılmışsa(x.y) veya ok operatörünün operandı olarak
 kullanılmışsa buna qualified name/nitelenmiş isim diyoruz.
+A::x
+::x
+A.x
+A->x
 
 Ama isim bu operatörlerin operandı olmadan kullanılmşsa o zaman unqualified name deniyor.
 Neden önemli, dilin kuralları isim arama / name lookup konusunda, name lookupın kurallarını
@@ -608,6 +610,7 @@ public:
 };
 
 template <typename ...Ts>
+void func(Ts ...args)
 {
 	Myclass<Ts ...>x;
 	// Myclass<Ts ...>x(args...); // böylede yazabilirdik.
@@ -641,12 +644,14 @@ public:
 
 int main()
 {
-	constexpr auto n = Myclass<int, double>::size;
+	constexpr auto n = Myclass<int, double>::size; // 2
+	
+	Myclass<int, double, long, char> x;
 }
 
 ÇIKTI
 -----
-class Var<int,double>
+class Var<int,double,long,char>
 
 NOT: 
 public Var<Types...>,
@@ -732,10 +737,11 @@ struct Z {
 };
 
 template <typename ...Types>
-class A : public Types ... { // A yı Types tan kalııtmla elde ediliyor.
+class A : public Types ... 	// A yı Types tan kalııtmla elde ediliyor.
+{ 
 public:
 	A() : Types{ 0 }... //Base sınıfın Ctoruna 0 ile çağrı yapılmış
-	{					// Multiple inheritance var.X Y ve Z den kalıtımla elde edilmiş.
+	{		    // Multiple inheritance var.X Y ve Z den kalıtımla elde edilmiş.
 
 	}
 };
@@ -745,6 +751,12 @@ int main()
 {
 	A<X, Y, Z> ax;
 }
+
+ÇIKTI
+-----
+X(int i) i = 0
+Y(int i) i = 0
+Z(int i) i = 0
 
 ----------------------------------------------------------------------------------------------------
 
