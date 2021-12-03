@@ -20,14 +20,15 @@ unary right fold	( pack + ... )		 (p1 + (p2 + (p3 + p4)))
 binary left fold	(+ ... +)			 (value + ... + pack) // elipsis pakedin solunca left fold oldu 
 binary right fold	(+ ... +)			 (pack + ...+ value)  // elipsis pakedin sağında right fold oldu.
 
-Yani binary olunca işin içine value da girdi. O kadar fark var.
+Yani binary olunca işin içine value da girdi. O kadar fark var.Binary fold expressionda iki operatorde aynı olmalı !!!!!!!!!!!
+Yani + ise (+ ... +),  / ise (/ ... /) şeklinde olmalı !!!!!!!!!!!!!!!!!!!!!!
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 template <typename ...TS>
 auto leftfunc(TS ...args)
 {
-	return (... + && args);  // logic ve ortadaki
+	return (... && args);  // logic ve ortadaki
 }
 
 Problemlerden biri, belirli operatorler dışında pakedin boş olması durumu sentaks hatası.
@@ -134,8 +135,8 @@ int main()
 	std::cout << "y = " << y << "\n";
 
 	auto sx = sum_left("ali"s, "can", " usta", "oglu"); // Burada durum farklı. 1. işlem string + cstring
-														// ilk işlemden elde edilen değer string. yine string + cstring
-														// sonra yine string + cstring
+							    // ilk işlemden elde edilen değer string. yine string + cstring
+							    // sonra yine string + cstring
 
 	std::cout << "sx = " << sx << "\n";
 	//auto sy = sum_right("ali"s, "can", " usta", "oglu"); // SENTAKS HATASI ÇÜNKÜ BU RİGHT FOLD. SAĞDAN BAŞLAYACAK TOPLAMAYA
@@ -193,8 +194,8 @@ void FoldPrintComma(First&& f, Args&&... args)
 	};
 
 	(..., withComma(std::forward<Args>(args))); // RETURN İFADESİ OLMAK ZORUNDA DEĞİL.PAKET SAĞDA ELİPSİS SOLDA
-												// WITHCOMMA BİR LAMBDA İFAESİNDEN ELDEEDİLMİŞ NESNE
-												// BURADA HEM TÜR HEMDE FUNC PARAM PAKETİ AÇILACAK.
+						    // WITHCOMMA BİR LAMBDA İFAESİNDEN ELDE EDİLMİŞ NESNE
+						    // BURADA HEM TÜR HEMDE FUNC PARAM PAKETİ AÇILACAK.
 	std::cout << '\n';
 }
 
@@ -210,8 +211,7 @@ hello, 10, 20, 30
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 bu örnek
-unary left fold ile unary right fold arasındaki farkı
-göstermeye yönelik.
+unary left fold ile unary right fold arasındaki farkı göstermeye yönelik.
 
 
 #include <utility>
@@ -247,7 +247,7 @@ template<typename ...Args>
 void fprint(Args&& ...args)
 {
 	(std::cout << ... << std::forward<Args>(args)) << " " << '\n'; // binary left fold. cout << p1 << p2 << p3 .... forwardı atladık tabi
-}															// forward edilmiş halleri gönderiliyor.
+}									// forward edilmiş halleri gönderiliyor.
 
 #include <string>
 #include <bitset>
