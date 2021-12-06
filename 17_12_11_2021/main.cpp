@@ -53,7 +53,7 @@ int main()
 {
 	Myclass mx;
 
-	mx.foo(get_i()).func(get_d()); //fluent api - chaining.
+	mx.foo(get_i()).foo(get_d()); //fluent api - chaining.
 	// Burada get_i nin get_d den önce çağrılma garantisi var mı?
 	// C++17 den önce bu garanti yoktu.Bu programcının başını belaya sokuyordu
 	// C++17 den sonra ise get_i, get_d den önce çağrılır.
@@ -61,7 +61,7 @@ int main()
 	--------------------------------------------------------------------------------------------------
 
 	std::cout << get_i() << get_d() ; // C++17 den önce hangisinin daha önce çağrılacağız belli değil.
-										// C++17 den sonra get_i den sonra get_d çağrılır.
+					// C++17 den sonra get_i den sonra get_d çağrılır.
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ BELİRLİ OPERATÖRLER İÇİN İŞLEMİN DAHA ÖNCE YAPILMA GARANTİSİ VAR.BUN
 Sol operand full evaluated olacak sonra sağ operand yapılacak.
 
 Not: Operator önceliği ile bu karıştırılmamalı.Bu operatorlerin operandı olan ifadelerin seçimi ile ilgili.
-İşlemin önce yapılması ise sequence before ile ilgili.Mülaktlarda çok soruluyor.
+İşlemin önce yapılması ise sequence before ile ilgili.Mülakatlarda çok soruluyor.
 
 int x = f1() + 5 * f2(); //Bir ifadenin bir sequence point yoksa subs expr leri için hangisinin daha önce işleme sokulacağı
 konusunda garanti yok.Aynı derleyici farklı contexlerde farklı kod üretebilir.
@@ -167,6 +167,11 @@ Instantiation otomatik olabiliyor, birde explicit olabiliyor.
 
 =========================================================================================================================================
 =========================================================================================================================================
+=========================================================================================================================================
+=========================================================================================================================================
+=========================================================================================================================================
+=========================================================================================================================================
+=========================================================================================================================================
 
 TEMPLATE EXPLICIT INSTANTIATION
 -------------------------------
@@ -180,10 +185,10 @@ class Myclass;
 int main()
 {
 	Myclass<int> *p; // Mesela incomplete type pointer değişken için yeterli.Burada bir instantiation yapmayacak
-						// incomplete type yeterliyse instantiation gerekemiyorsa derleyici template koddan bir
-						// specialization oluşturmayacak.
+			 // incomplete type yeterliyse instantiation gerekemiyorsa derleyici template koddan bir
+			 // specialization oluşturmayacak.
 	
-	Myclass<int> x; // Burası ise sentaks hatası.Yukarıdaki sınıf complete type olmalı.
+	Myclass<int> x;  // Burası ise sentaks hatası.Yukarıdaki sınıf complete type olmalı.
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -196,9 +201,9 @@ class Myclass
 int main()
 { 
 	Myclass<int> x; // Bu nesneyi tanımlayınca derleyici bir instantiation yapacak.Bunu yaptığı noktaya Point of Instantiation
-					// deniyor. Yani kodu yazacağı nokta.Bu otomatik olarak yapılıyor. Derleyici bunu bize sormuyor.
-					// Öyle bir sentaks varki derleyici instantiation yapmaya, point of instantiation oluşturup,
-					// Derleyici bu şablondan bu specialization kodunu yaz diyebiliyoruz.
+			// deniyor. Yani kodu yazacağı nokta.Bu otomatik olarak yapılıyor. Derleyici bunu bize sormuyor.
+			// Öyle bir sentaks varki derleyici instantiation yapmaya, point of instantiation oluşturup,
+			// Derleyici bu şablondan bu specialization kodunu yaz diyebiliyoruz.
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -214,10 +219,10 @@ void func(T)
 template void func<int>(int); // burası explicit instantiation.Yani kod burada olacak.
 
 template void func<>(double); // Func ın double argümanı için bir specialization yaz demek.
-							  // <> olduğundan deduction olacak.double çıkacaj
+			      // <> olduğundan deduction olacak.double çıkacak
 
-template void func(float);    // Func ın float argümanı için bir specialization yaz demek.Açısal par. kullanmasakta legal
-							  // Derleyici bu specializationları bizim için instantiation edecek.
+template void func(float);    // Func ın float argümanı için bir specialization yaz demek.Açısal parantez kullanmasakta legal
+			      // Derleyici bu specializationları bizim için instantiation edecek.
 
 int main()
 {
@@ -257,15 +262,15 @@ Template kodlar header fileda olmalı.Çünkü derleyicinin instantiation yapabi
 
 Şöyle bir yük var. Bu başlık dosyası birden fazla kod dosyasında include edildiğinden derleyici bunları ayrı ayrı derlediğinden,
 o template kodların parse edilmesi ve instantiation süreci tekrar tekrar aynı template argümanları için sözkonusu olduğunda
-her kaynak dosya derlendiğinde bu işlemler tekrar yapılıyor.Bu işlemler tekrar yappılıyor buda build time uzatıyor.
+her kaynak dosya derlendiğinde bu işlemler tekrar yapılıyor.Bu işlemler tekrar yapılıyor buda build time uzatıyor.
 Tempalte lerden en fazla şikayet bu noktada.
 
 Bunun için bazı teknikler kullanılabilir.Yani ayrı ayrı dosyalarda farklı farklı instantiationlar oluşturulmasını istemiyoruz.
-Bu build timeı düşürmek için neler yapılabilir.Tekrar tekrar compile edildiğinde bu instantiation yükünü azaltabiliyoruz.
+Bu build time ı düşürmek için neler yapılabilir.Tekrar tekrar compile edildiğinde bu instantiation yükünü azaltabiliyoruz.
 
 1. TEKNIK
 ---------
-Bir bir dosya oluşturabiliriz. Deneme.h yarattık, buraya func şablonunun bildirimini buraya koyuyoruz.
+Bir bir dosya oluşturabiliriz. Deneme.h yarattık, buraya func şablonunun bildirimini koyuyoruz.
 
 Deneme.h
 --------
@@ -290,9 +295,9 @@ Deneme.cpp
 #include "Deneme.hpp"    
 
 template void foo(int); // TEMPLATE EXPLICIT INSTANTIATION
-						// DENEME.HPP INCLUDE EDILDIĞI IÇIN, DERLEYICI DENEME.CPP YI DERLEDIĞINDE FOO YU GÖRÜYOR.
-						// ZATEN GÖRMESE INSTANTIATION YAPMA OLANAĞI YOKTU.DENEME.CPP NIN DERLEMESI DEMEK ARTIK
-						// INSTANTIATIONUN YAPILMASI DEMEK
+			// DENEME.HPP INCLUDE EDILDIĞI IÇIN, DERLEYICI DENEME.CPP YI DERLEDIĞINDE FOO YU GÖRÜYOR.
+			// ZATEN GÖRMESE INSTANTIATION YAPMA OLANAĞI YOKTU.DENEME.CPP NIN DERLENMESI DEMEK ARTIK
+			// INSTANTIATIONUN YAPILMASI DEMEK
 
 main.cpp
 --------
@@ -301,9 +306,9 @@ main.cpp
 int main()
 {
 	foo(12); // DERLEYICI ŞUANDA BU NOKTADA SADECE BILDIRIM GÖRDÜĞÜNDEN INSTANTIATION YAPMADI AMA DENEME.CPP
-			 // KAYNAK DOSYASINI DERLEDIĞINDE INSTANTIATION YAPTI VE LINK AŞAMASINDA KOD OLDUĞUNDA ARTIK BIR
-			 // PROBLEM OLMAYACAK.ZATEN MAIN IÇIDE FOO NUN DECLERATIONI VAR, DENEME.H DEN INCLUDE ETTI.
-			 // TEMPLATE DENEME.HPP DE, KODUN KENDISI YANI INSTANTIATION EDILMIŞ HALI ISE DENEME.CPP DE.
+		 // KAYNAK DOSYASINI DERLEDIĞINDE INSTANTIATION YAPTI VE LINK AŞAMASINDA KOD OLDUĞUNDA ARTIK BIR
+		 // PROBLEM OLMAYACAK.ZATEN MAIN IÇIDE FOO NUN DECLERATIONI VAR, DENEME.H DEN INCLUDE ETTI.
+		 // TEMPLATE DENEME.HPP DE, KODUN KENDISI YANI INSTANTIATION EDILMIŞ HALI ISE DENEME.CPP DE.
 }
 
 
@@ -318,6 +323,7 @@ template void foo(int);
 template void foo(double);
 template void foo(long); // BUNLARA EXPLICIT INSTANTIATION DEFINITIONDA DENIYOR.
 
+-----------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 2. TEKNIK
@@ -334,12 +340,12 @@ template <typename T> void f()  //Bu func şablonunun tanımı
 extern template void f<float>(); 
 
 extern template void f<int>();  // ÖNCEKINDE EXTERN YOKTU.BU BILDIRIME EXPLICIT INSTANTIATION DECLERATION DENIYOR.
-								// DERLEYICI BU BILDIRIMI GÖRDÜĞÜNDE, DERLEYICI BU FUNC ŞABLONUNDAN INT ARGÜMANI IÇIN 
-								// OLUŞTURULACAK SPECIALIZATION IÇIN INSTANTIATION YAPMA.ÇÜNKÜ BAŞKA BIR MODÜLDE BUNUN INSTANTIATIONU YAPILMIŞ.
-								// EĞER BURADA INSTANTIATION YAPARSAK BIRDEN FAZLA KEZ INSTANTIATION YAPILACAK. BÖYLECE DERLEYICIYE TEMPLATEIN TANIMINI
-								// GÖRMESINE RAĞMEN INT SPECIALIZATIONU IÇIN INSTANTIATION YAPMAYACAK.
-								// SONRASI KOLAY, BİR BAŞKA DOSYADA BU SPECİALİZATİONLAR İÇİN EXPLICIT INSTANTIATION DEFINITION VERECEĞİZ.
-								// BÖYLECE BİR CPP DOSYASINDA BU ARGÜMANLAR İÇİN TANIM OLARAK AMA KODUN TAMAMI BAŞLIK DOSYASINA GELECEK.
+				// DERLEYICI BU BILDIRIMI GÖRDÜĞÜNDE, DERLEYICI BU FUNC ŞABLONUNDAN INT ARGÜMANI IÇIN 
+				// OLUŞTURULACAK SPECIALIZATION IÇIN INSTANTIATION YAPMA.ÇÜNKÜ BAŞKA BIR MODÜLDE BUNUN INSTANTIATIONU YAPILMIŞ.
+				// EĞER BURADA INSTANTIATION YAPARSAK BIRDEN FAZLA KEZ INSTANTIATION YAPILACAK. BÖYLECE DERLEYICIYE TEMPLATEIN TANIMINI
+				// GÖRMESINE RAĞMEN INT SPECIALIZATIONU IÇIN INSTANTIATION YAPMAYACAK.
+				// SONRASI KOLAY, BİR BAŞKA DOSYADA BU SPECİALİZATİONLAR İÇİN EXPLICIT INSTANTIATION DEFINITION VERECEĞİZ.
+				// BÖYLECE BİR CPP DOSYASINDA BU ARGÜMANLAR İÇİN TANIM OLARAK AMA KODUN TAMAMI BAŞLIK DOSYASINA GELECEK.
 
 
 
@@ -355,7 +361,7 @@ template <typename T> void f()
 extern template void f<float>();	
 
 extern template void f<int>(); // Explicit template instantiation decleration.Bu bildirim derleyiciye diyor ki f template inin int specializationu için sen 
-								// instantiation yapmayacaksın, çünkü bunun instantiationu başka bir kaynak dosyada yapılıyor.
+				// instantiation yapmayacaksın, çünkü bunun instantiationu başka bir kaynak dosyada yapılıyor.
 						
 
 t.cpp
@@ -373,7 +379,7 @@ main.cpp
 int main()
 {
 	f<int>();  // Derleyici yukarıdaki kodu gördü. Yukarıdaki decleration kodlarını görünce derleyici bir instantiation yapmama kararı aldı.
-				// derleyici func call kodunu üretti ama bu templatten kodu instantation etmedi.
+		   // derleyici func call kodunu üretti ama bu templatten kodu instantation etmedi.
 }
 
 Temel C de görülen extern bildirimini kullanmışlar burada.Aynı mantıkta.
