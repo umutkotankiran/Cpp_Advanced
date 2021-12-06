@@ -613,7 +613,7 @@ template <typename ...Ts>
 void func(Ts ...args)
 {
 	Myclass<Ts ...>x;
-	// Myclass<Ts ...>x(args...); // böylede yazabilirdik.
+	// Myclass<Ts ...>x(args...); // böylede yazabilirdik eğer constructoruda yazsaydık
 }
 
 int main()
