@@ -337,7 +337,7 @@ template <typename T> void f()  //Bu func şablonunun tanımı
 
 }
 
-extern template void f<float>(); 
+extern template void f<float>();   // extern template void f(float);  BU ŞEKİLDE YAZSAMDA OLUR
 
 extern template void f<int>();  // ÖNCEKINDE EXTERN YOKTU.BU BILDIRIME EXPLICIT INSTANTIATION DECLERATION DENIYOR.
 				// DERLEYICI BU BILDIRIMI GÖRDÜĞÜNDE, DERLEYICI BU FUNC ŞABLONUNDAN INT ARGÜMANI IÇIN 
