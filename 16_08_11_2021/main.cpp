@@ -826,11 +826,11 @@ int main()
 	array x{2L, 4L, 8L};
 
 	list ls(vec.begin(), vec.end()); // HEPSİ OK AMA BURADA SORUN VAR GİBİ. LS NİN TÜRÜ LİST<İNT>.
-									 // ARGÜMAN OLARAK GÖNDERDİĞİM İFADELER VECTOR<INT>::ITERATOR TÜRDEN HALBUKİ
-									 // BUNU SAĞLAYAN DEDUCTION GUIDE C++17 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+					// ARGÜMAN OLARAK GÖNDERDİĞİM İFADELER VECTOR<INT>::ITERATOR TÜRDEN HALBUKİ
+					 // BUNU SAĞLAYAN DEDUCTION GUIDE C++17 !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	list ls{vec.begin(), vec.end()}; // NORMAL PARANTEZ YERİNE KÜME PARANTEZİ VERİLDİ.ARGÜMANLAR YİNE VECTOR<INT>::ITERATOR 
-									// LS NİN TÜRÜ LİST<VECTOR<INT>::ITERATOR> YANİ VALUE TYPE İTERATOR TÜRÜ OLDU
+					// LS NİN TÜRÜ LİST<VECTOR<INT>::ITERATOR> YANİ VALUE TYPE İTERATOR TÜRÜ OLDU
 
 }
 
