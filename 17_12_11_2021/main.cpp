@@ -378,7 +378,7 @@ main.cpp
 
 int main()
 {
-	f<int>();  // Derleyici yukarıdaki kodu gördü. Yukarıdaki decleration kodlarını görünce derleyici bir instantiation yapmama kararı aldı.
+	f<int>(5);  // Derleyici yukarıdaki kodu gördü. Yukarıdaki decleration kodlarını görünce derleyici bir instantiation yapmama kararı aldı.
 		   // derleyici func call kodunu üretti ama bu templatten kodu instantation etmedi.
 }
 
