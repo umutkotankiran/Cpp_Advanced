@@ -384,6 +384,13 @@ int main()
 
 Temel C de görülen extern bildirimini kullanmışlar burada.Aynı mantıkta.
 
+1. TEKNİK İLE 2. TEKNİĞİN FARKI, BİRİNCİDE MAİNDEN, DOĞRUDAN HPP FİLE İNCLUDE EDİLMİYOR BAŞKA BİR HEADER FİLEDAN BİLDİRİMİ İNCLUDE EDİLİYOR.
+BURADA EXPLICIT TEMPLATE INSTANTIATION DEFINITION KULLANILIYOR YANİ EXTERN KEYWORD KULLANILMIYOR.YANİ BURADA BİR TEMP. EXPLC. INSTANT.DECLERATION YOK
+
+2. TEKNİKTE İSE DOĞRUDAN HPP FİLE YANİ TEMPLATE TANIMINI İNCLUDE ETTİĞİMİZ İÇİN BURADA HPP FİLE İÇERİSİNDE TEMPLATE EXPLICIT INSTANTIATION DECLERATION VAR,
+VE BİR CPP FİLE İÇERİSİNDE DE TEMPLATE EXPLICIT INSTANTIATION DEFINITION VAR
+
+
 BU ÖRNEĞİ IDE ÜZERİNDE TEST EDİYORUZ.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
