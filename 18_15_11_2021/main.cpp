@@ -145,8 +145,8 @@ int main()
 	list ls{ 1.2, 2.3, 6.6, 1.9 };
 	set s1{ 2, 4, 6, 8 };
 	set s2{ {2, 4, 6, 8}, [](int a, int b) {return b < a; } }; // Burada bir lambda ifadesi kullandık.Closure type türünden geçici nesne.
-															   // Bu lambdanın türü neyse setin 2. template parametresine karşılık gelen tür argümanı
-}															   // yine ctad ile çıkarım yapılacak.
+								   // Bu lambdanın türü neyse setin 2. template parametresine karşılık gelen tür argümanı
+}								   // yine ctad ile çıkarım yapılacak.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -238,11 +238,11 @@ int main()
 	auto x = foo; // int (*)(int). Burada function to pointer conversion / decay var.
 
 	auto &y = foo; // int(int). Burada decay yok. Burada autoya karşılık gelen tür func türü.Yani int(int)
-					// y referans olduğundan bu türe referans. int (&y)(int) = foo;
+		       // y referans olduğundan bu türe referans. int (&y)(int) = foo;
 
 	auto &z = &foo; // SENTAKS HATASI.& operandı olunca ifade pr value expr.
-					// Sol taraf referansına sağ taraf değeri atanmaya çalışılmış.
-					// auto &&z = &foo; geçerli olurdu. Veya const &r ile tutulabilirdi.
+			// Sol taraf referansına sağ taraf değeri atanmaya çalışılmış.
+			// auto &&z = &foo; geçerli olurdu. Veya const &r ile tutulabilirdi.
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -254,7 +254,6 @@ template <typename T>
 void func(T&)
 {
 	TypeTeller<T> x;
-
 }
 
 int foo(int);
@@ -315,13 +314,13 @@ public:
 int main()
 {
 	Myclass m(A()); // Burada most vexing parse var.Burada func bildiriminin önceliği var.
-					// Func parametresi func olamaz, dizi olamaz... function pointer olur ama func olamaz.
-					// Burada m parametresi bir func pointer.
+			// Func parametresi func olamaz, dizi olamaz... function pointer olur ama func olamaz.
+			// Burada m'in parametresi bir func pointer.
 
 	std::cout << typeid(m).name() << "\n"; // class Myclass __cdecl(class A (__cdecl*)(void))
-											// int[] func parametreis yazdığımızda bu bir pointer parametresi oluyoırsa
-											// burada da func pointer oluyor.m nin parametresi return değeri A olan parametresi olmayan
-											// bir function. Myclass m(A(*)()) oldu yani.
+					       // int[] func parametresi yazdığımızda bu bir pointer parametresi oluyorsa
+					       // burada da func pointer oluyor.m, return değeri A olan parametresi olmayan
+					       // bir function.Function to pointer conversiondan ötürü Myclass m(A(*)()) oldu yani.
 
 	m.func(); //SENTAKS HATASI
 
@@ -339,7 +338,7 @@ int main()
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 STD::FUNCTIONDAN CTAD DAN ÇOK İYİ FAYDALANIYOR
-Yukarıda github örneği vardı tekjrar yazmıyorum aynı örneği.
+Yukarıda github örneği vardı tekrar yazmıyorum aynı örneği.
 
 void func(int f(int)); // bu funcın parametresi func pointer
 void func(int(*f)(int)); // bununla yukarıdaki arasında fark yok.Şuanda redecleration var :D
@@ -365,7 +364,7 @@ std::vector v3{v1}; // vector<int> //DİKKAT !!!!!!!!!!!! Böyle olmasıda daha 
 COMPLEX SAYILAR İLE İLGİLİ SINIF
 --------------------------------
 
-#include <complex>
+	#include <complex>
 
 TEMPLATE
 --------
@@ -375,10 +374,9 @@ namespace std {
 		constexpr complex(const t& re = t(), const t& im = t());
 		//...
 	}
-};
+}
 
 İki parametresi var. Biri reel diğeri imajinel kısmı için.
-
 
 int main()
 {
@@ -474,7 +472,7 @@ int main()
 {
 	using namespace std;
 	//vector<pair> vec1{ {12, 5.6}, {23, 5.1}, {5, 1.1} }; //Gecersiz.Ctora bakarak çıkarım yapılıyor.Sözkonusu tür
-															// buradaki gibi tür argümanı olarak kullanılıyorsa burada çıkarım yok.
+								// buradaki gibi tür argümanı olarak kullanılıyorsa burada çıkarım yok.
 	
 	vector<pair<int, double>> vec2{ {12, 5.6}, {23, 5.1}, {5, 1.1} }; //Ya böyle yazabiliriz.
 	
