@@ -580,25 +580,25 @@ Küme parantezi içine [] koymuyoruz.bu formatlamaya dahil değil.Ayırmak için
 [type] tür bilgisi
 
 
-ÖRNEKLER - 2:00 BURADAN DEVAM ET.
+ÖRNEKLER 
 
 int main()
 {
 	int x = 47802;
 
-	std::cout << format("{} {} {}\n","Arda","Ozlem","Melih");
+	std::cout << format("{} {} {}\n","Arda","Ozlem","Melih");  // arda özlem melih
 
 	-------------------------------------------------------------------------------
 
-	std::cout << format("{1} {0} {2}\n","Arda","Ozlem","Melih");
+	std::cout << format("{1} {0} {2}\n","Arda","Ozlem","Melih"); // Ozlem Arda Melih 
 
 	-------------------------------------------------------------------------------
 
-	std::cout << format("{2} {1} {0}\n","Arda","Ozlem","Melih");
+	std::cout << format("{2} {1} {0}\n","Arda","Ozlem","Melih"); // Melih Ozlem Arda
 
 	-------------------------------------------------------------------------------
 
-	std::cout << format("{0:b} {0:x} {0:o}\n",x);
+	std::cout << format("{0:b} {0:x} {0:o}\n",x);	// 10101..101 baba 135272 
 	
 	-------------------------------------------------------------------------------
 	
@@ -608,10 +608,10 @@ int main()
 
 	-------------------------------------------------------------------------------
 
-	POZİSYONEL İNDEXLEME İLE MANUEL İNDEXLEME BİRARADA KULLANILAMAZ
+	POZİSYONEL İNDEXLEME İLE MANUEL İNDEXLEME BİRARADA KULLANILAMAZ !!!!
 
-	std::cout << format("{2} { } {0}\n","Arda","Ozlem","Melih"); //Compile timeda bulunan hatalar sentaks hatası
-																// Runtimeda bulunanlar exception throw eder.
+	std::cout << format("{2} { } {0}\n","Arda","Ozlem","Melih"); // Compiletimeda bulunan hatalar sentaks hatası
+					                             // Runtimeda bulunanlar exception throw eder.
 }
 
 
@@ -624,7 +624,7 @@ MOLA
 =======================================================================================================================================
 =======================================================================================================================================
 
-formata constant expression göndermeliyiz.
+Formata constant expression göndermeliyiz.
 vformat fiye bir func var. Buna runtime ifadesi gönderebiliriz.Görülecek
 
 int main()
@@ -635,19 +635,19 @@ int main()
 	
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("|{0:x}|, |{0:X}|\n",x); // birinde E büyük diğerinde küçük e. 6E75.. gibi
+	std::cout << format("|{0:x}|, |{0:X}|\n",x); //  6e7317  6E7317
 
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("|{0:#x}|, |{0:#X}|\n",x); // 0x7e78 .. gibi
+	std::cout << format("|{0:#x}|, |{0:#X}|\n",x); // # sayı sistemi tabanı. 0x6e7317  0x6E7317 
 
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("|{0:#o}|, |{0:#O}|\n",x); // Octal. 0578798...gibi bir sayı
+	std::cout << format("|{0:o}|, |{0:#O}|\n",x); // Octal.   33471427    033471427   
 	
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("|{0:b}|, |{0:#b}|, |{0:#B}|\n",x); // binary modda yazdı
+	std::cout << format("|{0:b}|, |{0:#b}|, |{0:#B}|\n",x); // binary mod. 101101010   0b101101010  0B101101010
 
 	-----------------------------------------------------------------------------------------------
 
@@ -655,7 +655,7 @@ int main()
 	
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("{:s}  {:s}\n",true,false); // true false yazdı yine.
+	std::cout << format("{:s}  {:s}\n",true,false); // true false yazdı yine. s string anlamında
 	
 	-----------------------------------------------------------------------------------------------
 
@@ -663,19 +663,21 @@ int main()
 	
 	-----------------------------------------------------------------------------------------------
 	
-	std::cout << format("{:#b}  {:#B}\n",true,false); // biri büyük diğeri küçük yaz.
+	std::cout << format("{:#b}  {:#b}\n",true,false); // 0b1  0b1
+	std::cout << format("{:#B}  {:#B}\n",true,false); // 0B1  0B1
 	
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("{:c}  {:c}\n",true,false); // yaz ????????
+	std::cout << format("{:c}  {:c}\n",true,false); // bu durumda 1 ve 0 ın karakter değeri çıkacak
 	
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("{:x}  {:x}\n",true,false); // 0x1   0x0
+	std::cout << format("{:x}  {:x}\n",true,false); // hex. 1   0 
 	
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("{:#X}  {:#X}\n",true,false); // 0X1	 0x0
+	std::cout << format("{:#x}  {:#x}\n",true,false); // hex ve tabanı yazdık.   0x1	 0x0
+	std::cout << format("{:#X}  {:#X}\n",true,false); // hex ve tabanı yazdık.   0X1	 0X0
 
 }
 
