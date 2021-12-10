@@ -805,37 +805,25 @@ int main()
 
 	std::cout << format("|{0}| |{0:-}|\n",94); // DİKKAT!!!!! Bu - yazılacak demek eğer sayı - ise.
 						   // sayı pozitif ise - yazmaz
+						   // CEVAP : 94  94
 
 	------------------------------------------------------------------------------------------------
 
+	std::cout << format("|{0}| |{0:-}|\n",-94); // DİKKAT !!!! Sayı negatif olduğundan - zaten her durumda gösterilecek zaten
+						    // CEVAP : -94   -94
+						    
+	------------------------------------------------------------------------------------------------
+	
+	Boşluk karakteri gelirse pozitif sayı gelirse + yı kullanmayacak ama bir boşluk bırakacak.
+	u boşlğun çıkma sebebi boşluk karakteri
+	
+	std::cout << format("|{0}| |{0: }|\n", 94); // CEVAP : |94| | 94|  
+		
+	DİKKAT!!!!
+	std::cout << format("|{0}| |{1: }|\n", 94,-45); // CEVAP : | 94| |-45|
+	
+	Bunlar lat alta yazıldığında sayılar alt alta gelmesini sağlıyor.
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 */
