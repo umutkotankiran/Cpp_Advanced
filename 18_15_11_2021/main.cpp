@@ -718,7 +718,11 @@ int main()
 {
 	Pair p1(12, 45);  //Pair<int, int>
 	Pair p2("ali", "batuhan");  //Pair<const char *, const char *> (deduction guide)
-	//BU DURUMDA FONKSIYON PARAMETRELERI POINTER'A REFERANS OLACAK DIZIYE REFERANS DEĞIL
+	
+	// BU DURUMDA FONKSIYON PARAMETRELERI POINTER'A REFERANS OLACAK DIZIYE REFERANS DEĞIL
+	// burada T1 cosnt char [4], T2 const char [8] türünden.
+	// first {x} adımında ve second{y} adımında, sağ taraf array decay oluyor const char * oluyor.
+	// sol tarafta zaten char. char = const char * SENTAKS HATASI !!!!!!!!!!!!!!!!!1 
 
 	---------------------------------------------------------------------------------------------------------------------
 
