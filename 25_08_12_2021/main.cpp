@@ -566,6 +566,7 @@ AŞAĞIDAKİ SIRAYA UYMAK GEREK AMA ÇOĞU OPSIYONEL
 Genel bir pattern var. Sıralamaya uymak gerekiyor.
 Küme parantezi içine [] koymuyoruz.bu formatlamaya dahil değil.Ayırmak için koyuyoruz şuanda | ta yazılabilir.
 
+{n:fmt} fmt format oluyor burada
 [fill][align][sign][#][0][width][.prec][L][type]
 
 [fill] doldurma karakteri
@@ -627,6 +628,9 @@ MOLA
 Formata constant expression göndermeliyiz.
 vformat fiye bir func var. Buna runtime ifadesi gönderebiliriz.Görülecek
 
+SIRALAMAYA DİKKAT!!!
+[fill][align][sign][#][0][width][.prec][L][type]
+
 int main()
 {
 	int x = 7238423;
@@ -684,25 +688,28 @@ int main()
 ---------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------
 
+SIRALAMAYA DİKKAT
+[fill][align][sign][#][0][width][.prec][L][type]
+
 int main()
 {
 	double dval = 1545687234.5213213214325678912;
 
-	cout << format("{}\n",dval);
+	cout << format("{}\n",dval); //default formatlama. 1545687234.5213213214325678912
 
 	-----------------------------------------------------------------------------------------------
 
-	cout << format("{:f}\n",dval); // fixed notasyon
+	cout << format("{:f}\n",dval); // fixed notasyon. 1545687234.521321
 
 	-----------------------------------------------------------------------------------------------
 	
-	cout << format("{:e}\n",dval); // üstel notasyon. e yazsaydık e de küçük olurdu.
+	cout << format("{:E}\n",dval); // üstel notasyon. e yazsaydık e de küçük olurdu. 1.545E+12 gibir bir sayı 
 
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("{}\n", "necati ergin");
+	std::cout << format("{}\n", "necati ergin"); // String s olduğundan zaten s yi kullanmasakta olur.
 
-	std::cout << format("{:s}\n", "necati ergin");
+	std::cout << format("{:s}\n", "necati ergin"); //  necati ergin
 	
 	std::cout << format("{:s}\n", "10 > 5"); // s stringler ve booleanlar için kullanılıyor.
 
@@ -710,69 +717,81 @@ int main()
 
 	int x = 7894;
 
-	std::cout << format("{:18} {}", x,"ali") << "\n"; // x i 18 karakterlik yazla alanına yazacak.
-													  // fill character boşluk defaultta
+	std::cout << format("{:18} {}", x,"ali") << "\n"; // |              2564 ali|
+							  // x i 18 karakterlik yazla alanına yazacak.
+							  // fill character boşluk defaultta
 
 	-----------------------------------------------------------------------------------------------
 	
-	std::cout << format("|{:<18}| {}",x,"ali"); // x i 18 karakterlik alanda sola dayalı olarak yazdır.
+	std::cout << format("|{:<18}| {}",x,"ali"); // |2564              | ali
+						    // x i 18 karakterlik alanda sola dayalı olarak yazdır.
 
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("|{:>18}| {}",x,"ali"); // x i 18 karakterlik alanda sağa dayalı olarak yazdır.
+	std::cout << format("|{:>18}| {}",x,"ali"); 	// |              2564| ali
+							// x i 18 karakterlik alanda sağa dayalı olarak yazdır.
 
 	-----------------------------------------------------------------------------------------------
 	
-	std::cout << format("|{:^18}| |{}|",x,"ali"); // x i 18 karakterlik alanda ortada yazar.
+	std::cout << format("|{:^18}| |{}|",x,"ali");   // |       2564       | |ali|
+							// x i 18 karakterlik alanda ortada yazar.
 	
 	-----------------------------------------------------------------------------------------------
+	
+	DOLDURMA KARAKTERİ
+	------------------
 	
 	YAZARKEN BUNLARI EN BAŞTAKI ÖNCELIK SIRALAMASINA GÖRE YAPILIYOR
 
-
-	std::cout << format("|{:!<18}| {}",x,"ali"); // doldurma karakteri !
-
-	-----------------------------------------------------------------------------------------------
-
-	std::cout << format("|{:$>18}| {}",x,"ali"); // doldurma karakter dolar
+	std::cout << format("|{:!<18}| {}",x,"ali");    // |2564!!!!!!!!!!!!!!| ali
+							// doldurma karakteri !
 
 	-----------------------------------------------------------------------------------------------
 
-	std::cout << format("|{:.^18}| |{}|",x,"ali"); // doldurma alanı .
+	std::cout << format("|{:$>18}| {}",x,"ali"); // |$$$$$$$$$$$$$$2564| ali
+						     
+	-----------------------------------------------------------------------------------------------
+
+	std::cout << format("|{:.^18}| |{}|",x,"ali");  // |.......2564.......| |ali|
+							// doldurma karakteri .
 	
 	-----------------------------------------------------------------------------------------------
 	
 	NOT : Yazma alanı genişliği yazılacak karakterden küçükse budama yapılmaz.
 
-	std::cout << format("|{:.^6}|","NECATI ERGIN"); // doldurma alanı .NECATI YAZAR
-	?????????????????????????????
-
+	std::cout << format("|{:6}|","NECATI ERGIN"); // |NECATI ERGIN|
+	
 	-----------------------------------------------------------------------------------------------
 	
 	DİKKAT !!!!!!!!!
-
-	int x = 5;
-	std::cout << format("|{:.{}|","NECATI ERGIN",x); // NECAT
-
+	YAZILACAK KARAKTER SAYISINI BELİRLEMEK İÇİN PRECISION KULLANACAĞIZ
+	
+	int x = 6;  
+	std::cout << format("|{:.6|","NECATI ERGIN",x); // NECAT
+							 
+	HATTA BUNU NESTED OLARAK KULLANALIM!!!!!!!!!!!!!!				 
+							 
+	std::cout << format("|{:.{}}|","NECATI ERGIN",x); // NECAT
+							 
 	-----------------------------------------------------------------------------------------------
 
 	int x = 762374;
-	std::cout << format("|{:15x}|",x); // 15 karakterlik alana hex yazacak 
+	std::cout << format("|{:15x}|",x); // 15 karakterlik alana hex yazacak. |          ba206| 
 
-	std::cout << format("|{:#15x}|",x); // 15 karakterlik alana hex yazacak 
+	std::cout << format("|{:15X}|",x); // 15 karakterlik alana hex yazacak ama büyük harflerle. |          BA206|
 
-	BURALARA HEP BAK ?????????????????????
+	std::cout << format("|{:<#15X}|",x); // 15 karakterlik alana sola dayalı hex baseini de beraber. |0XBA206        |
 
-	std::cout << format("|{:<#15x}|",x); // 15 karakterlik alana sola dayalı hex
-
-	std::cout << format("|{:_<#15x}|",x); // 15 karakterlik alana sola dayalı hex doldurma alanı _
+	std::cout << format("|{:_<#15x}|",x); // 15 karakterlik alana sola dayalı hex doldurma alanı. |0xba206________|
 	
 }
 
-
 ------------------------------------------------------------------------------------------------------------------------
 
+[fill][align][sign][#][0][width][.prec][L][type]
+
 İŞARET ÖZELLİĞİ
+---------------
 
 int main()
 {
@@ -784,14 +803,12 @@ int main()
 	
 	------------------------------------------------------------------------------------------------
 
-	std::cout << format("|{0}| |{0:-}|\n",-94); // ?????????????
+	std::cout << format("|{0}| |{0:-}|\n",94); // DİKKAT!!!!! Bu - yazılacak demek eğer sayı - ise.
+						   // sayı pozitif ise - yazmaz
 
 	------------------------------------------------------------------------------------------------
 
-	boşlığu yaz
-
-	22:30 dan sonrasını yaz.
-
+	
 }
 
 
