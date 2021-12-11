@@ -1198,7 +1198,7 @@ int main()
 	A<int> ax;
 	Nec<double> dnec;
 
-	ax.afunc(dnec); // GEÇERLİ. ax in nec funcına Nec in double açılımı türünden nesne gönderdim ve private bölüme eriştim.
+	ax.afunc(dnec); // GEÇERLİ. ax in AFUNC funcına, Nec in double açılımı türünden nesne gönderdim ve private bölüme eriştim.
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
