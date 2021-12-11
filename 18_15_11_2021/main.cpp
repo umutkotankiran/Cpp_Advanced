@@ -911,9 +911,11 @@ CLASSA FRIENDLİK VERMEK
 
 class Myclass{
 public:
-	friend class Nec; // Sınıfa friendlik verilince bu sınıfın daha önceden bildiriminin yapılması veya tanımının görülmesi gerekmiyor
+	friend class Nec; // Sınıfa friendlik verilince bu sınıfın daha önceden bildiriminin yapılması veya tanımının görülmesi gerekmiyor.
+			   // Sınıf şablonlarında bu kural değişiyor. Forward decleration yapmak gerekiyor
 	
 	friend void Nec::foo(); // Burada friend geçerli olması için, Nec sınıfının definitionunun friendliğin verildiği noktada visible olması gerekiyor
+				 // Forward decleration ile yapılabilir yada tanım yukarıda olabilir.
 private:
 };
 
