@@ -555,6 +555,7 @@ BURADA ÇIKARIMIN NASIL YAPILDIĞI DEDUCTION GUIDE İLE İLGİLİ
 
 DEDUCTION GUIDE
 ---------------
+Deduction guide tamamen CTAD ile ilgili. Dolayısıyla sadece sınıf şablonları için var.
 
 ÖRNEK SENTAKS
 -------------
