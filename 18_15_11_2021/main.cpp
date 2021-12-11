@@ -720,6 +720,9 @@ int main()
 	Pair p1(12, 45);  //Pair<int, int>
 	Pair p2("ali", "batuhan");  //Pair<const char *, const char *> (deduction guide)
 	
+	---------------------------------------------------------------------------------------------------------------------
+	
+	// DEDUCTION GUIDE OLMASAYDI !!!!!!!!!!!!
 	// BU DURUMDA FONKSIYON PARAMETRELERI POINTER'A REFERANS OLACAK DIZIYE REFERANS DEĞIL
 	// burada T1 cosnt char [4], T2 const char [8] türünden.
 	// first {x} adımında ve second{y} adımında, sağ taraf array decay oluyor const char * oluyor.
