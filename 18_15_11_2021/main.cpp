@@ -979,7 +979,7 @@ int main()
 	int a[10]{};
 
 	Myclass x(a); // Sentaks hatası.Çünkü a decay oldu Myclass<int *> oldu burada. 
-				  // Bu durumda func parametresi int * a referans oldu ve sentaks hatası oluştu
+		      // Bu durumda func parametresi int * a referans oldu ve sentaks hatası oluştu
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1129,7 +1129,7 @@ int gfunc()
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-VISUAL STUDIO DERLEYİCİSİNDE FORWARD DECLERATİONA GEREK YOK AMA CLION DA ÇALIŞTIRINCA HATA VERDİ.
+VISUAL STUDIO DERLEYİCİSİNDE FORWARD DECLERATİONA GEREK YOK AMA CLION/WANDBOX TA ÇALIŞTIRINCA HATA VERDİ.
 HATA İÇERİĞİ : No candidate function template was found for dependent friend function template specialization
 
 template <class T> // Forward decleration olmasaydı, friendlik bildiriminin kendisi sentaks hatası olacaktı.
@@ -1177,6 +1177,8 @@ template<typename T>
 class Nec {
 	template<typename U> // DİKKAT!!!! template<typename T> olsaydı Birebir friendlik olacaktı.Yani A<int> Nec<int> private kısmına erişebilir.
 	friend class A;		 // Yani aşağıdaki çağrıda bu durumda geçerli olmayacaktı.
+				// DİKKAT !!!!!!!!!!!!!!!!
+				//FORWARD DECLERATION YOK ÇÜNKÜ ZATEN İÇERİDE BİR TEMPLATE SENTAKSI VAR. YANİZATEN BUNU BİR TEMPLATE OLDUĞU BİLİNİYOR !!!!!!!!!!!!
 private:
 	void foo();
 };
