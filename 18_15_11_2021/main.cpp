@@ -826,9 +826,9 @@ public:
 };
 
 Myclass operator+(const Myclass&, const Myclass&); // buda sınıf interface inin bir parçası.Global func ama sonuçta
-													// Bunlar sınıfın private bölüümne erişme yetkisi yok.
-													// Sınıfın implementasyonu sınıfın private bölümüne erişmesi lazım
-													// bunun için friend bildirimi var.
+						   // Bunlar sınıfın private bölüümne erişme yetkisi yok.
+						   // Sınıfın implementasyonu sınıfın private bölümüne erişmesi lazım
+						   // bunun için friend bildirimi var.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -923,6 +923,8 @@ private:
 
 FRIEND TEMPLATE 
 Çok kombinasyon var burada.
+Bir sınıf bir bir sınıfa friendlik verebilir
+Bir sınıf bir bir funca friendlik verebilir
 Bir sınıf bir func şablonuna friendlik verebilir.
 Bir sınıf bir sınıf şablonuna friendlik verebilir.
 Bir sınıf bir func/sınıf şablonunun specializationuna friendlik verebilir.
@@ -1017,7 +1019,7 @@ friend class Nec;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-BIR SINIF ŞABLONUNUN, ŞABLON OLMAYAN BİR FUNCA FRIENDLIK VERILEBILIR.
+BIR SINIF ŞABLONUNU, ŞABLON OLMAYAN BİR FUNCA FRIENDLIK VERILEBILIR.
 
 template<typename T>
 class Myclass{
@@ -1065,9 +1067,11 @@ class Nec
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-BIR SINIF ŞABLONU, BİR FUNC TEMPLATE E FRIENDLIK VEREBİLİR.
+BIR SINIF ŞABLONU, BİR SINIF ŞABLONUNA FRIENDLIK VEREBİLİR.
 
-Dikkat edilmesi gereken yer, derleyicinin bu sınıfın bir sınıf şablonu olduğunu bilmesi gerekiyor.
+DIKKAT EDILMESI GEREKEN YER, DERLEYICININ BU SINIFIN BIR SINIF ŞABLONU OLDUĞUNU BILMESI GEREKIYOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ŞABLON OLMAYAN SINIFLARDA BUNA İHTİYAÇ YOKTU. SADECE BİR SINIFIN MEMBER FUNCINA FRİENDLİK VERİRKEN DECLERATİONA İHTİYAÇ VARDI !!!!!!!!!!!!
+
 
 template<typename T> 
 class Nec; //forward decleration gerekti
