@@ -912,7 +912,8 @@ CLASSA FRIENDLİK VERMEK
 class Myclass{
 public:
 	friend class Nec; // Sınıfa friendlik verilince bu sınıfın daha önceden bildiriminin yapılması veya tanımının görülmesi gerekmiyor.
-			   // Sınıf şablonlarında bu kural değişiyor. Forward decleration yapmak gerekiyor
+			   // Sınıf şablonlarında bu kural değişiyor. Forward decleration yapmak gerekiyor.Hatta class içerisinden function template'e
+			   // friendlik verildiğine yine forward decleration yazmak gerekti.Aşağıda en sonlardaki örneklerden biri. Hatta visual studio farklı davranıyor
 	
 	friend void Nec::foo(); // Burada friend geçerli olması için, Nec sınıfının definitionunun friendliğin verildiği noktada visible olması gerekiyor
 				 // Forward decleration ile yapılabilir yada tanım yukarıda olabilir.
@@ -1127,6 +1128,9 @@ int gfunc()
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+VISUAL STUDIO DERLEYİCİSİNDE FORWARD DECLERATİONA GEREK YOK AMA CLION DA ÇALIŞTIRINCA HATA VERDİ.
+HATA İÇERİĞİ : No candidate function template was found for dependent friend function template specialization
 
 template <class T> // Forward decleration olmasaydı, friendlik bildiriminin kendisi sentaks hatası olacaktı.
 void tfunc(T);		// Çünkü derleyicinin bunun bir func template olduğunu anlaması gerekiyor.
