@@ -176,7 +176,7 @@ int main()
 	}
 
 	std::cout << "how_many_created = "<<Neco::how_many_created() << "\n"; // Burada private kalıtımdan dolayı şuanda hata var.
-																		// Bunu using bildirimi ile aşıyoruz.Modern C++ ta bu Ctor içinde yapabiliyoruz.Hatta adıda inherited Ctor.
+									      // Bunu using bildirimi ile aşıyoruz.Modern C++ ta bu Ctor içinde yapabiliyoruz.Hatta adıda inherited Ctor.
 	
 	std::cout << "how_many_alive = "<<Neco::how_many_alive() << "\n";
 
