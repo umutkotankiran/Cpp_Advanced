@@ -86,7 +86,7 @@ class Base
 {
 public:
 private:
-	Base() { }		  // Hata çözülmek için bu satırlar yazıldı. Artık Deleted functiona yapılan çağrıdan ötürü
+	Base() { }        // Hata çözülmek için bu satırlar yazıldı. Artık Deleted functiona yapılan çağrıdan ötürü
 	friend Derived;	  // Sentaks hatası
 };
 
@@ -96,9 +96,10 @@ public:
 
 };
 
-class Nec : public Base<Der> // DİKKAT !!!!!!!! Base<Nec> yerine yanlışlıkla Base<Der> yazılmış örnek böyle.
-{							 // UB OLUŞTURUYOR NORMALDE BURASI.BASE İÇİNE FRIENDLİK VE CTOR YAZARAK BUNUN 
-							 // HATA OLMASINI SAĞLADIK.DELETED FUNC CALL
+class Nec : public Base<Der> // DİKKAT !!!!!!!! 
+{			     //	Base<Nec> yerine yanlışlıkla Base<Der> yazılmış örnek böyle.
+			     // UB OLUŞTURUYOR NORMALDE BURASI.BASE İÇİNE FRIENDLİK VE CTOR YAZARAK BUNUN 
+			     // HATA OLMASINI SAĞLADIK.DELETED FUNC CALL
 public:
 
 };
