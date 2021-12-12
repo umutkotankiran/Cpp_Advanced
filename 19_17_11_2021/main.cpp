@@ -21,7 +21,7 @@ public:
 		//..
 
 		static_cast<Derived *>(this)->implementation();   // Der in implementation isimli func ı varsa biz herhangibir türemiş sınıf
-									  					  // nesnesiyle bunu çağırırsak, türemiş sınıfın implementation funcı çağrılacak.
+								  // nesnesiyle bunu çağırırsak, türemiş sınıfın implementation funcı çağrılacak.
 
 		//static_cast<Derived &>(*this).implementation(); // buda olabilirdi
 	}
