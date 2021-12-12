@@ -215,7 +215,7 @@ public:
 	
 	friend class Writer<FileWriter>; // bu sayede write, write_impl call yapacak ve private olmasına rağmen çalışacak
 
-	private:
+private:
 	void write_impl(const char *str)const
 	{
 		std::fprintf(mp_file,"%s\n",str);	
