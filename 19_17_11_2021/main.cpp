@@ -544,82 +544,54 @@ Bazı işlemlerde işlemi yapabilmek için func return değerini biryerde saklam
 Burada anlatılan ise şimdi nasıl yapıldığı.
 
 
-class Printer{
-public:
-	Printer(std::ostream &os) : m_os{os} { }
+#include <ostream>
 
-	template<typename T>
+class Printer {
+public:
+	Printer(std::ostream& os) : m_os{ os } {}
+
+	template <typename T>
 	Printer& print(const T& tval)
 	{
 		m_os << tval;
 		return *this;
 	}
 
-	template<typename T>
+	template <typename T>
 	Printer& print_line(const T& tval)
 	{
 		m_os << tval << '\n';
 		return *this;
 	}
-
 private:
-	std::ostream &m_os;
+	std::ostream& m_os;
 };
 
+#include <iostream>
 
+class ConsolePrinter : public Printer {
+public:
+	ConsolePrinter() : Printer{ std::cout } {}
+
+	ConsolePrinter& set_color(int)
+	{
+		return *this;
+	}
+
+};
 
 //GEÇERLİ AMA BİR KALITIM İLİŞKİSİ OLDUĞUNDA ÇALIŞMIYOR
-int main()
-{
-	Printer(std::cout).print("Kaveh Nematipour").print_line(6547.78); 
-}
-
---------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------
-
-class Printer{
-public:
-	Printer(std::ostream &os) : m_os{os} { }
-
-	template<typename T>
-	Printer& print(const T& tval)
-	{
-		m_os << tval;
-		return *this;
-	}
-
-	template<typename T>
-	Printer& print_line(const T& tval)
-	{
-		m_os << tval << '\n';
-		return *this;
-	}
-
-private:
-	std::ostream &m_os;
-};
-
-
-class ConsolePrinter : public Printer
-{
-public:
-	ConsolePrinter() : printer{std::cout} { }
-
-	ConsolePrinter& setColor(int color)
-	{
-		//..
-		return *this;
-	}
-};
 
 int main()
 {
-	ConsolePrinter(std::cout).print("Kaveh Nematipour").setColor(654).print_line(9874); //SENTAKS HATASI.Çünkü print func tan sonra return değeri printer& değil 
-																						// return değeri console printer
+	ConsolePrinter().print("Kaveh Nematipour").set_color(661).print_line(9763.354);  //invalid. Set_color kısmı kırmızı
+                                                   ----------------
 }
+
 
 --------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------
+
 
 POLYMORPHIC CHAIN YAPMAK İÇİN CRTP DEN FAYDALANIYORUZ.
 
@@ -660,9 +632,14 @@ public:
 
 int main()
 {
-	ConsolePrinter(std::cout).print("Kaveh Nematipour").setColor(654).print_line(9874); //SENTAKS HATASI
+	ConsolePrinter().print("Kaveh Nematipour").setColor(654).print_line(9874); //GEÇERLİ
 }
 
+ÇIKTI
+-----
+Kaveh Nematipour9874
+
+--------------------------------------------------------------------------------------------------------------------------
 
 VARIANT RETURN TYPE - COVARIANCE A GİRİLDİ TEMEL C++
 Burada o da kullanılabilirdi.
