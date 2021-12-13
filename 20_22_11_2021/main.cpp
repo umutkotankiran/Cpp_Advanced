@@ -4,71 +4,65 @@ Bir kaç soruya cevap veriliyor.
 crtp base den kalıtımla elde edilecek sınıfın template olması sözkonusu mu ? 
 Genellikle evet.Crtp base tek olması zorunlu değil multiple inheritanceta olabilir.
 
-template <typename Der>
-struct MakeDouble{
-	
-	Der get_double()const
-	{
-		auto &d = static_cast<const Der&>(*this);
+#include <iostream>
+#include <string>
 
-		return d + d; // operator+ nin türemişte olması gerekiyor 
-	}
+template <class Der>
+struct MakeDouble
+{
+    Der get_double()const
+    {
+        auto& me = static_cast<const Der&>(*this);
+        return me + me;
+    }
 };
 
-template <typename Der>
-struct MakeTriple{
-	
-	Der get_triple()const
-	{
-		auto &d = static_cast<const Der&>(*this);
-
-		return d + d + d;
-	}
+template <class Der>
+struct MakeTriple
+{
+    Der get_triple()
+    {
+        auto& me = static_cast<const Der&>(*this);
+        return me + me + me;
+    }
 };
-
 
 template <typename T>
-class Value : public MakeDouble<Value<T>>, public MakeTriple<Value<T>>
-{
+class Value : public MakeDouble <Value<T>>, public MakeTriple<Value<T>> {
 public:
-	Value(const T&val) : mval {val} {}
-	
-	Value operator+(const Value &other)const
-	{
-		return mval + other.mval;
-	}
+    Value(const T& val) : val_{ val } {}
+    Value operator+(const Value& other)const
+    {
+        return val_ + other.val_;
+    }
 
-	void print()const
-	{
-		std::cout << mval << '\n';
-	}
-
-private:
-	T mval;
+    void print()const
+    {
+        std::cout << val_ << "\n";
+    }
+public:
+    T val_;
 };
-
-#include<string>
 
 int main()
 {
-	Value<int> x{12};
+    Value<int> x{ 12 };
 
-	auto val1 = x.get_double();
-	auto val2 = x.get_triple();
+    auto y = x.get_double();
+    auto z = x.get_triple();
+    y.print();
+    z.print();
 
-	val1.print(); //24
-	val2.print(); //36
+    ---------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------
 
-	----------------------------------------------------------------
+    Value<std::string> s{ "necati" };
 
-	Value<std::string> y{"burak"};
-	auto val3 = y.get_double();
-	auto val4 = y.get_triple();
-
-	val3.print(); // burakburak
-	val4.print(); // burakburakburak
+    auto a = s.get_double();
+    auto b = s.get_triple();
+    a.print();
+    b.print();
 }
-
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
