@@ -615,16 +615,16 @@ Eski Tekniklerin Dezavantajları
 requirement -> Gereksinim
 constraint -> Kısıtlama
 
-Template Metaprogramming Avantajları
-------------------------------------
+Concept Avantajları
+-------------------
 1 - Kısıtlamalar ortak bir sentaksla yapılıyor.Artık çok daha kolay
 2 - Hata mesajları çok daha kolay ve kısa hale geldi.
 3 - Overloading konusunda da çok büyük avantajlar getirdi.
 
 Bunu tam olarak anlamak için C++ standartları tarafından belirlenen constraint'in anlamına bakalım.
 CONSTRAINT = Derleme zamanında ele alınan boolean ifadeler.Yani derleme zamanında değeri true/false olacak.	
-			 Bu bu constraint olarak kullanılan koda bağlı olarak derleyici sözkonusu template'ten kod üretilsin mi
-			 üretilmesin mi bunun kararını verecek.
+	     Bu bu constraint olarak kullanılan koda bağlı olarak derleyici sözkonusu template'ten kod üretilsin mi
+             üretilmesin mi bunun kararını verecek.
 
 C++20 ile 2 tane yeni keyword eklendi. Biri concept diğeride requires.
 1 - concept
@@ -679,7 +679,7 @@ void func(std::integral auto x)		// Template <typename> yok !!! C++20 ile gelmi�
 3. KULLANIM
 -----------
 template<typename T>
-void func(std::integral<T> x)
+void func(std::integral<T> x)	// Bu kısımda problem olabilir.İncelenecek
 {
 
 }
@@ -688,8 +688,7 @@ void func(std::integral<T> x)
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
 CONSTAINT OLUŞTURMA YOLLARINDAN BIRIDE REQUIRES KEYWORDÜ ILE OLUŞTURULAN YAPI.
-Requires keywordü ile oluşturulan ifadeyse bir concept oluşturuyoruz.
-Constraint oluşturmanın yollarından biri concept diğeride requires keyword ile 
+Requires keywordü ile oluşturulan ifadeyse bir concept oluşturuyoruz. Constraint oluşturmanın yollarından biri concept diğeride requires keyword ile 
 oluşturulan bir requires close.Argüman olarak 3 farklı sentaks olabiliyor.
 
 
@@ -937,7 +936,7 @@ template <typename T>
 concept Neco = requires(T x){
 	
 	typename T::value_type; // T türü hangi türse onun value type türü olmak zorunda.
-							// value type isimli nested type yoksa doğrudan concept koşulları sağlanmamış olacak
+				// value type isimli nested type yoksa doğrudan concept koşulları sağlanmamış olacak
 
 	x + x; // Sentaks hatası olmamalı.Herhangibir ifade yazdık mesela burada.
 
@@ -964,19 +963,5 @@ struct Data{
 };
 
 static_assert(Neco<Data>); // Data nın foo func ı var. Bir hata olmayacak.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 */
