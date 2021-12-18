@@ -508,7 +508,7 @@ Böyle istediğim kadar işlevsellik ekleyebilirim.
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 
-CRTP İLE MIXIN OLUŞTURMAYI VE YUKARIDAKİ TEKNİKLE MIXIN OLUŞTURMAYI AYNI ÖRNEKTE YAZACAĞIZ
+CRTP İLE MIXIN OLUŞTURMAYI VE YUKARIDAKİ TEKNİKLE MIXIN OLUŞTURMAYI FARKLI ÖRNEKTE YAZACAĞIZ
 
 
 template <typename Printable>
@@ -563,7 +563,7 @@ template <typename Printable>
 struct RepeatPrint : Printable
 {
 	explicit RepeatPrint(const Printable &printable) : Printable(printable) { } // Name gelirse const Name& olacak parametre. 
-																				// O da taban sınıfın ctorunu çağırıyor.
+										    // O da taban sınıfın ctorunu çağırıyor.
 
 	using Printable::Printable; // Inherited Ctor. Taban sınıf ctoru türemişte görülür halde artık.Temel C++
 
