@@ -349,7 +349,7 @@ Singleton kısaca bir sınıf türünden sadece bir nesne oluşturmamızı mümk
 template <typename Derived>
 class Singleton{
 	static std::unique_ptr<Derived>		m_instance;
-	static std::once_flag				m_once;   // bir funcın bir kere kulanılması için once_flag kullanılıyor.
+	static std::once_flag		m_once;   // bir funcın bir kere kulanılması için once_flag kullanılıyor.
 
 protected:
 	Singleton() {}
