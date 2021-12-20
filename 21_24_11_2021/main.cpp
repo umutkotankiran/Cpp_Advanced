@@ -237,7 +237,7 @@ int main()
 
 	optional<Point> x{in_place,1,5,7}; // GEÇERLİ. Bu şekilde oluşturabiliriz. Argümanları alıp bellek alanında point nesnemi oluştur demek.
 
-	optional<complex<double,double>> x{in_place,34.4, 4.5}; //GEÇERLİ
+	optional<complex<double>> x{in_place,34.4, 4.5}; //GEÇERLİ
 
 	optional<vector<int>> x{in_place,{1,4,5,7,9}};
 
