@@ -248,7 +248,7 @@ Union yerine variant neden kullanılır ?
 
 ---------------------------------------------------------------------------------------------------------------
 
-KALITIMA DA ALTERNATİF
+KALITIMADA ALTERNATİF
 
 int main()
 {
@@ -272,7 +272,7 @@ Tamamen value type kullanılıyor.
 
 variant<int,double,long> x; // Bu heapten bir alan kullanmıyor
 
-VARIANTA DIZI TÜRÜ OLAMAZ, REFERANS TÜRÜ(REFERENCE WRAPPER AYRI) OLAMAZ, VOID TÜRÜ OLAMAZ
+VARIANTA DIZI TÜRÜ OLAMAZ, REFERANS TÜRÜ(REFERENCE WRAPPER AYRI) OLAMAZ, VOID TÜRÜ OLAMAZ.
 
 int main()
 {
@@ -318,8 +318,8 @@ DEFAULT INIT EDILEBİLİR
 
 int main()
 {
-	variant<int, double, string> vx; // Default init edilen variant nesnesi 1. alternatif ne ise o türden değer tutuyor.o türden değer tutuyor.
-									  // ilk öğe string olsaydı string türden tutacaktı ve Value init ediyor.
+	variant<int, double, string> vx; // Default init edilen variant nesnesi 1. alternatif ne ise o türden değer tutuyor.
+					 // ilk öğe string olsaydı string türden tutacaktı ve Value init ediyor.
 
 	cout << get<0>(vx) << "\n"; // Value initten ötürü 0.
 	get<int>(vx);
@@ -458,7 +458,7 @@ int main()
 	-----------------------------------------------------------------------------------------
 
 	variant<char,double,float> vx;
-	auto val = get<int>(vx); // SENTAKS HATASI.Burada chardan inte promotion yok.
+	auto val = get<int>(vx); // SENTAKS HATASI.Burada chardan inte promotion yok.Saçma olur zaten promotion olması.
 
 	-----------------------------------------------------------------------------------------
 
