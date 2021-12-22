@@ -901,8 +901,8 @@ int main()
 
 	auto setdef = [](auto &val){
 	val = remove_reference_t<decltype(val)>{}; // İlk önce string& türü için string türünü elde ettik içeride açıkça
-	};											// Bu uzunluğu default değere çekecek
-												// val = string{} gibi bir işlem yapıyor yani
+	};					   // Bu uzunluğu default değere çekecek
+						   // val = string{} gibi bir işlem yapıyor yani
 	
 	visit(setdef, vx);
 
