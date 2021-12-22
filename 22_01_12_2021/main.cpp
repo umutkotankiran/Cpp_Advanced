@@ -110,8 +110,8 @@ template <typename Con, typename Pred>
 auto find_if(Con &&c, Pred &&pred) // Bildiğimiz find_if bir iterator rangei alıyordu ama bizimki bir container alıyor.
 {
 	using std::begin , std::end; // Buda C++ 17 ile geldi virgülerle ayırma olayı
-								 // Neden böyle bir bildirim yaptık? Custom bir begin veya end func varsa onu kullanabilmek için.
-								 // Bu funcları visible hale getirdik.Custom bir begin varsada onun seçilme şansı olacak.
+				     // Neden böyle bir bildirim yaptık? Custom bir begin veya end func varsa onu kullanabilmek için.
+				     // Bu funcları visible hale getirdik.Custom bir begin varsada onun seçilme şansı olacak.
 
 	auto beg_iter = begin(c),end_iter = end(c);
 
@@ -122,7 +122,7 @@ auto find_if(Con &&c, Pred &&pred) // Bildiğimiz find_if bir iterator rangei al
 	if(result == end_iter) // result end_iter ise bu öğe bulunamamıştır
 	{
 		return std::optional<iterator>(); // öğe bulunamadıysa bunu döndürüyoruz.Bu durumda default ctor çağrılacak yani değeri olmayan optional döndürülecek
-	}									  // auto ile tür çıkarımı yapıldığı için nullopt değilde bu şekilde yazdık.
+	}					  // auto ile tür çıkarımı yapıldığı için nullopt değilde bu şekilde yazdık.
 
 	return std::optional<iterator>(result);
 }
@@ -395,7 +395,7 @@ int main()
 	--------------------------------------------------------------------------------------------------------------------
 
 	variant<monostate, Myclass, int, double> vx; // Artık geçerli. Variant monostate tutuyor ama monostate empty class
-												  // Bu variant default init edilebilir her durumda
+						     // Bu variant default init edilebilir her durumda
 
 	--------------------------------------------------------------------------------------------------------------------
 
@@ -498,7 +498,7 @@ Tür argümanı var ama index argümanı alan overloadu yok.
 int main()
 {
 	variant<char, double, float> vx{4.5}; // Alternatif float olsaydı double tutmazdı.
-										  // Promotion olmayacak çünkü doğrudan float alternativ türü var.
+					      // Promotion olmayacak çünkü doğrudan float alternativ türü var.
 
 	if(holds_alternative<double>(cx))
 	{
