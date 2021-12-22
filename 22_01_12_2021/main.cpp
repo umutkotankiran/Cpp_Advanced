@@ -92,7 +92,7 @@ int main()
 	std::optional<Nec> op2(std::move(op1)); // Buda olabilirdi
 
 	std::cout << (op1 ? "not empty" : "empty"); // Tuttuğu değer moved from state olması başka destroy olması başka
-}												 // Not Empty yazar. Halen bir değeri var.Bu değerde moved from statete.
+}						    // Not Empty yazar. Halen bir değeri var.Bu değerde moved from statete.
 
 Tuttuğu nesnesin taşınması başka, nesnenin boş veya dolu olması başka
 
