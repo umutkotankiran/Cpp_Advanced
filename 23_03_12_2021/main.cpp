@@ -520,7 +520,8 @@ int main()
 ANY CAST - DEĞERE ERİŞMEK
 -------------------------
 Any void * kullanılan yerde alternatif oluşturuyor.Bir interface i var çünkü
-any_cast kullanabiliyorum ama o türü tutmazsa exception throw ediyor.
+any_cast kullanabiliyorum ama o türü tutmazsa exception throw ediyor. Eğer verdiğimiz tür argümanı doğruysa any_cast in ürettiği
+değeri kullanabiliriz. 
 
 int main()
 {
@@ -656,8 +657,11 @@ int main()
 	{
 		std::cout << "tutulan deger double turden degil\n";
 	}
-
 }
+
+ÇIKTI
+-----
+Evet double turden deger : 7.9
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -698,10 +702,10 @@ Daha az kod yazarak karşılaştırma kodları yazabiliyoruz.
 
 Custom bir sınıf türü için karşılaştırma operatorlerini nasıl overload ediyorduk?
 Baya bir tekrar ediyordu kodlar. Bunların dezavantajları neydi
-1- Zahmetli
+1 - Zahmetli
 2 - Kod kalabalığı
-3- Yanlış kod yazma risli
-4 - karşılaştırma işlemleri farklı sınıflar türünden nesneleri karşılaştırınca yazılacak funcların sayısı artıyor.
+3 - Yanlış kod yazma risli
+4 - Karşılaştırma işlemleri farklı sınıflar türünden nesneleri karşılaştırınca yazılacak funcların sayısı artıyor.
 
 C++20 ÖNCESINI YAZALIM	
 
@@ -766,7 +770,7 @@ BURADAKİ PROBLEMLER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    DİĞER 4 FUNC İŞİNİ GÖRÜYOR.
 
 	BU KODLARI DERLEYİCİ YAZABİLİR ASLINDA. DERLEYİCİ BUNUN KODUNU BENİM İÇİN YAZ DİYEBİLİYORUZ.
-	DERLEYİCİ BUNU BENİM İÇİN YAZ DİYORUZ YANİ. BİR ÇOK DURUMDA HİÇ KOD YAZMADAN 6 TANE KARŞILAŞTIRMA OPERATÖRÜNÜDE EDİNMİŞ OLUYORUZ
+	BİR ÇOK DURUMDA HİÇ KOD YAZMADAN 6 TANE KARŞILAŞTIRMA OPERATÖRÜNÜDE EDİNMİŞ OLUYORUZ
 	SADECE <=> SPACESHIP OPERATORUNU DEFAULT EDEREK.BİR ÇOK DURUMDA BU TÜR DÖNÜŞÜMÜYLE EXPLICIT OLMAYAN CTORUN KULLANILMASI DURUMUNDA
 	YİNE İLAVE GLOBAL OPERATOR FUNC YAZMAMIZA GEREK KALMIYOR. HATTA YENİ GELEN ARAÇLA GLOBAL OPERATOR FUNC OLMASININ AVANTAJIDA
 	ORTADAN KALMIŞ OLUYOR.
@@ -774,23 +778,23 @@ BURADAKİ PROBLEMLER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	YANİ ARTIK 1. SEÇİMİMİZ SPACESHIP OPERATÖRÜNÜ MEMBER OPERATOR FUNC OLARAK OVERLOAD ETMEK.YENİ GELEN KURALLARLA
 	NORMALDE BİNARY OPERATÖRÜN SOL OPERANDI SINIF TÜRÜNDEN OLMASI GEREKİRDİ AMA ŞİMDİ İLLAHA SNIF OLMASINA GEREKTE YOK.
 
-	5 < a DEDİĞİMİZDE 5.operator< HATA IDI AMA ARTIK a.operator(5) ÇEVIRIP ÇAĞRIYI YAPIYOR.
+2- 5 < a DEDİĞİMİZDE 5.operator< HATA IDI AMA ARTIK a.operator(5) OLARAK ÇEVIRIP ÇAĞRIYI YAPIYOR.
 	DİLİN YENİ KURALLARI ARTIK OPERANDLARIN YERİNİ DEĞİŞTİRİLMESİ VE ÇAĞRILABİLİR FUNC OLUP OLMADIĞININ SINANMASINI BİR 
 	GARANTİ OLARAK DİLE EKLEDİ.
 
-2- BEN EXCEPTION THROW ETMEYECEK GARANTİSİNİ VERİYORSAM(NOTHROW GARANTİSİ) BUNUDA AÇIK OLARAK YAZMALIYIM.
+3- BEN EXCEPTION THROW ETMEYECEK GARANTİSİNİ VERİYORSAM(NOTHROW GARANTİSİ) BUNUDA AÇIK OLARAK YAZMALIYIM.
 	DERLEYİCİ BİR KODU BİZİM İÇİN YAZDIĞINDA KODA BAKARAK HERHANGİBİR ŞEKİLDE EXCEPTION GÖNDERMEME GARANTİSİ VERİYORSA
 	NOTHROW GARANTİSİNİ KENDİSİ SAĞLAYABİLİR.
 
-3- FUNCTIONNUN CONSTEXPR OLUP OLMAMASI. NORMALDE KENDİMİZ TANIMLAMALIYIZ AMA CONSTEXPR OLMASI İÇİNDE CONSTEXPR FUNC
+4- FUNCTIONNUN CONSTEXPR OLUP OLMAMASI. NORMALDE KENDİMİZ TANIMLAMALIYIZ AMA CONSTEXPR OLMASI İÇİNDE CONSTEXPR FUNC
 	OLMA KOŞULLAIRNI SAĞLAMASI GEREKİYOR. DERLEYİCİ BUNUN KODUNU YAZDIĞINDA BU YİNE AVANTAJA DÖNÜŞECEK, DERLEYİCİ BAKACAK
 	CONSTEXPR Yİ ÇİĞNEYEN DURUM YOKSA FUNCTIONU CONSTEXPR OLARAK TANIMLAYACAK.COMPILE TIMEDA YAPACAK TABİ BUNU
 
-4- SINIF TÜRÜNDEN OLMAYAN DEĞERİ KARŞILAŞTIRMA OPERATÖRÜNÜN OPERANDI YAPTIĞIMIZDA TİPİK OLARAK FRIEND FUNC YAZMAMIZ GEREKİYOR
+5- SINIF TÜRÜNDEN OLMAYAN DEĞERİ KARŞILAŞTIRMA OPERATÖRÜNÜN OPERANDI YAPTIĞIMIZDA TİPİK OLARAK FRIEND FUNC YAZMAMIZ GEREKİYOR
 	VE GLOBAL OPERATOR FUNC OLMASI GEREKİYOR.GLOBAL OPERATOR FUNC OLMA ZORUNLULUĞUDA ORTADAN KALKIYOR.BÖYLECE SINIFIN ÜYE FUNCI 
 	OLARAK KENDİMİZDE YAZABİLİRİZ DERLEYİCİYEDE YAZDIRABİLİRİZ.
 
-5- DERLEYİCİNİN BU KODLARI YAZMASI, DERLEYİCİNİN BUNLARI NODİSCARD ATTRİBUTELARIYLA TANIMLAMA İMKANIDA VERİYOR DERLEYİCİYE.
+6- DERLEYİCİNİN BU KODLARI YAZMASI, DERLEYİCİNİN BUNLARI NODİSCARD ATTRİBUTELARIYLA TANIMLAMA İMKANIDA VERİYOR DERLEYİCİYE.
 	BİZ YAZSAYDIK NODISCARDI KENDİMİZ BELİRLEYECEKTİK VEYA CONSTEXPR
 
 Yukarıda yazılanları derleyici kendi saptayabilecek.
@@ -825,7 +829,7 @@ private:
 GELELİM C++20 YE YANİ SPACESHIP OPERATÖRÜNE 
 
 C++ 20 ile sınıfların temel olarak 2 tane karşılaştırma operatörü olabiliyor.Bunlar == ve <=> operatörü.
-Bir sınıfa == funcını eklersek derleyici artık != funcını kendisi yazıyor.Eskidek herşeyi kendimiz yazardık :D
+Bir sınıfa == funcını eklersek derleyici artık != funcını kendisi yazıyor.Eskiden herşeyi kendimiz yazardık :D
 
 1. Biz sınıfa operator== yazarsak operator!= i de kendimiz yazacaktık ama artık operator!= i derleyici bizim için yazıyor.
 
@@ -863,8 +867,8 @@ int main()
 	// n1 == 13 ÇAĞRISINA DÖNÜŞTÜRÜYOR, BURADA CONVERSION CTOR ILE 13, NEC TÜRÜNE DÖNÜŞTÜRÜLECEK
 }
 
-BURADA SPACESHIP İLE KARŞILAŞTIRMA == OPERATÖRÜNÜN BİRBİRİNDEN BAĞIMSIZ İKİ OPERATOR OLMASI VE == İ OVERLOAD ETTİĞİMİZDE
-DERLEYİCİNİN != İDE KENDİSİNİN YAZMASI. BİRİNCİ DEĞİŞİKLİK BU
+1. BURADA SPACESHIP <=> İLE KARŞILAŞTIRMA == OPERATÖRÜNÜN BİRBİRİNDEN BAĞIMSIZ İKİ OPERATOR OLMASI VE == İ OVERLOAD ETTİĞİMİZDE
+	DERLEYİCİNİN != İDE KENDİSİNİN YAZMASI. BİRİNCİ DEĞİŞİKLİK BU
 
 
 2. 5 == n1 İFADESİ NORMALDE SENTAKS HATASIYKEN DERLEYİCİ COMPİLE TİME OPERANDLARI SWAP EDİP ÇAĞRI LEGAL Mİ DEĞİL Mİ DİYE BAKACAK
