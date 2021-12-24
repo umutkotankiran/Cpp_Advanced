@@ -23,8 +23,8 @@ equality operators
 C++20 YE GÖRE DURUM AŞAĞIDAKİ GİBİ
 
 				EQUALİTY			ORDERİNG
-PRIMARY			   ==				  <=>
-SECONDARY		   !=				  <, >, <=, >=
+PRIMARY			  	 ==				  <=>
+SECONDARY		  	 !=				  <, >, <=, >=
 
 Secondary lerin özelliği var.
 1 - Secondaryler primary operator cinsinden derleyici tarafından yazılabiliyor
@@ -33,7 +33,7 @@ Secondary lerin özelliği var.
 a != b    yi primary cinsinden yazıyor   !(a==b)
 
 
-2 - secondary orderinglerde threeway comparasion operatoru cinsinden yazabiliyor.
+2 - Secondary orderinglerde threeway comparasion operatoru cinsinden yazabiliyor.
 Yine < , > , >= , <= te threeway comparision kullanılarak yazılabiliyor.
 
 3 - Birincil operatorlerde swap/reverse edilebiliyor 
@@ -46,13 +46,13 @@ a.operator(b) yerine b.operator(a) olabiliyor
 
 class Mint
 {
-private:
+public:
 	Mint(int x = 0) : mx(x) { }
 	bool operator==(const Mint &other)const{
-		return mx = other.mx;
+		return mx == other.mx;
 	};
 
-public:
+private:
 	int mx;
 };
 
@@ -86,8 +86,8 @@ int main()
 
 	auto b1 = m1 == m2;
 	auto b2 = m1 != m2; // GEÇERLİ. DERLEYİCİ == İ YAZIYOR VE != DE SECONDARY OLDUĞUNDAN PRIMARY CİNSİNDEN YAZILABİLİYOR.
-						// DERLEYICI SINIFIN VERI ELEMANLARINI BILDIRIM SIRASIYLA == ILE KARŞILAŞTIRIYOR
-						// VE BUNLARI LOGIC VE && ILE BAĞLIYOR.
+			    // DERLEYICI SINIFIN VERI ELEMANLARINI BILDIRIM SIRASIYLA == ILE KARŞILAŞTIRIYOR
+			    // VE BUNLARI LOGIC VE && ILE BAĞLIYOR.
 }
 
 DERLEYICI AŞAĞIDAKINI YAZIYOR
@@ -111,9 +111,9 @@ struct Nec{
 ORDERING TARAFINA BAKALIM
 
 KARŞILAŞTIRMANIN KESIN SONUCU : Mesela C deki strcmp ve memcmp karşılaştırmanın kesin sonucunu veriyorlar.C++ ta stringe ait compare func var.
-								Return değeri tamsayı. 1.büyük ise pozitif değer dönecek
-													   2.büyük ise negatif değer dönecek
-													   Eşit ise 0 dönecekti.
+				Return değeri tamsayı. 1.büyük ise pozitif değer dönecek
+				2.büyük ise negatif değer dönecek
+				Eşit ise 0 dönecekti.
 								
 a				b
 a > b
@@ -122,26 +122,26 @@ a == b
 
 
 LEXICOGRAPHICAL COMPARE : 2 varlık karşılaştırılacak ama bunların elemanları var.Bunlar dizi olabilir yada struct olabilir ...
-						  Hatta algorithm de lexicographical_compare funcı var.Bool döndürüyor ve 2 tane range alıyor.		  
-						  1. range > 2. range ise boolean true döndürür.
-						  Bu algoritma rangein karşılıklı öğelerini karşılaştırıyor.Eşit oldukça bir sonraki öğeye bakıyor
-						  Eşit olması için eleman eleman eşit ve sayılarınında aynı olması gerekiyor.Erken biten küçük oluyor.
+			  Hatta algorithm de lexicographical_compare funcı var.Bool döndürüyor ve 2 tane range alıyor.		  
+			  1. range > 2. range ise boolean true döndürür.
+			  Bu algoritma rangein karşılıklı öğelerini karşılaştırıyor.Eşit oldukça bir sonraki öğeye bakıyor
+			  Eşit olması için eleman eleman eşit ve sayılarınında aynı olması gerekiyor.Erken biten küçük oluyor.
 
-						  C++20 öncesinde containerların karşılaştırma operatorleride böyle çalışıyordu.
-						  
-						  vector<int> ivec1(100'000u, 10);
-						  vector<int> ivec2(1, 20);
+			  C++20 öncesinde containerların karşılaştırma operatorleride böyle çalışıyordu.
 
-						  std::cout << ivec1.size() << '\n';
-						  std::cout << ivec2.size() << '\n';
+			  vector<int> ivec1(100'000u, 10);
+			  vector<int> ivec2(1, 20);
 
-						  std::cout << (ivec1 > ivec2); // True
+			  std::cout << ivec1.size() << '\n';
+			  std::cout << ivec2.size() << '\n';
 
-						  <
-						  >
-						  >=
-						  ...
-						  BUnların hepsinin yerine three way comparision operatoru geldi.
+			  std::cout << (ivec1 > ivec2); // True
+
+			  <
+			  >
+			  >=
+			  ...
+			  Bunların hepsinin yerine three way comparision operatoru geldi.
 
 
 SINIF IÇERISINDE LEXICOGRAPHICAL KARŞILAŞTIRMA YAZALIM.
@@ -175,8 +175,6 @@ operator tokenı : <=>
 int main()
 {
 	10 <=> 5  // 10 sol operand, 5 sağ operand
-
-
 }
 
 Bu operatorün ürettiği değer int türden değil.Bu karşılaştırma işleminin sonucu compare headerı içinde
@@ -184,7 +182,7 @@ tanımnlanan türlerden. Yani (10 <=> 5) bu bir sınıf türden ifade ve bu ifad
 (10 <=> 5) > 0; yani burası legal
 
 (10 <=> 5) > 0   ----> 1. büyük ise ifadeden elde edilen değer boolean true döner
-(10 <=> 5) < 0
+(10 <=> 5) < 0   ----> 2. büyük ise ifadeden elde edilen değer boolean false döner
 (10 <=> 5) <= 0
 (10 <=> 5) >= 0
 (10 <=> 5) == 0
@@ -198,16 +196,19 @@ std::strong_ordering
 std::weak_ordering
 std::partial_ordering
 
+NOT : Templatelerde partial ordering rules vardı.Daha spesifik olan templatein seçilmesi durumu. Onuna karıştırma
+NOT2 : Sequence containerlarda strict weak ordering rules vardı. Equivalance denen karşılaştırmalar yapılıyordı. Onunlada bunu karıştırma
+
 
 std::strong_ordering = 2 varlık ya biri büyük ya diğeri büyüK olmalı, ikiside değilse eşit olmalı.Burada strong equality var.
 
 std::weak_ordering = Değerler fiilen eşit olmasada eşit kabul edilebiliyor.Böyle bir değere sahipse weak ordering kabul edilebilir.
-					 ÖR: case insensitive string karşılaştırması
+		     ÖR: case insensitive string karşılaştırması
 					 masa == MASA yı eşit kabul etme durumu.Burada bir equivalance durumu var.
 
 std::partial_ordering = Sonuç büyükte küçükte eşitte olmak zorunda değil. Üçüde olabilir olmayadabilir.
-						Reel sayı karşılaştırmasındaki not a number ile number olan değerin karşılaştırması yapılırsa
-						sonuç 3 ihtimalden biri olmak zorunda değil.
+			Reel sayı karşılaştırmasındaki not a number ile number olan değerin karşılaştırması yapılırsa
+			sonuç 3 ihtimalden biri olmak zorunda değil.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
