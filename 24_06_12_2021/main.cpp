@@ -200,16 +200,17 @@ NOT : Templatelerde partial ordering rules vardı.Daha spesifik olan templatein 
 NOT2 : Sequence containerlarda strict weak ordering rules vardı. Equivalance denen karşılaştırmalar yapılıyordı. Onunlada bunu karıştırma
 
 
-std::strong_ordering = 2 varlık ya biri büyük ya diğeri büyüK olmalı, ikiside değilse eşit olmalı.Burada strong equality var.
+std::strong_ordering = 2 varlıktan ya biri büyük ya diğeri büyüK olmalı, ikiside değilse eşit olmalı.Burada strong equality var.
 
 std::weak_ordering = Değerler fiilen eşit olmasada eşit kabul edilebiliyor.Böyle bir değere sahipse weak ordering kabul edilebilir.
 		     ÖR: case insensitive string karşılaştırması
-					 masa == MASA yı eşit kabul etme durumu.Burada bir equivalance durumu var.
+		     masa == MASA yı eşit kabul etme durumu.Burada bir equivalance durumu var.
 
-std::partial_ordering = Sonuç büyükte küçükte eşitte olmak zorunda değil. Üçüde olabilir olmayadabilir.
+std::partial_ordering = Sonuç büyük, küçük veya eşit olmak zorunda değil. Üçüde olabilir olmayadabilir.
 			Reel sayı karşılaştırmasındaki not a number ile number olan değerin karşılaştırması yapılırsa
 			sonuç 3 ihtimalden biri olmak zorunda değil.
 
+----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 SINIFI NASIL TASARLAMIŞLAR
@@ -227,9 +228,9 @@ SINIF IÇERISINDE CONSTEXPR STATIC VERI ELEMANLARI VAR
 - STRONG ORDERING için std::strong_ordering::equal, std::strong_ordering::less,std::strong_ordering::greater,std::strong_ordering::equivalent
   strong ordering için equal ve equivalent tamamen birbirine eşit.
  
-- PARTIAL ORDERING için std::partial_ordering::less, std::partial_ordering::greater,std::partial_ordering::equavalent, std::partial_ordering::unordered
-
 - WEAK ORDERING için std::weak_ordering::less, std::weak_ordering::greater, std::weak_ordering::equivalent var
+ 
+- PARTIAL ORDERING için std::partial_ordering::less, std::partial_ordering::greater,std::partial_ordering::equavalent, std::partial_ordering::unordered
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -258,21 +259,22 @@ int main()
 
 Tüm karşılaştırmalar bu şekilde yapılabilir.
 
-strong_ordering::less > 0  True olmak zorunda
+strong_ordering::less > 0  false olmak zorunda
 strong_ordering::less == 0  false olmak zorunda
 strong_ordering::less != 0  true olmak zorunda
 strong_ordering::less >= 0  false olmak zorunda
 ... gibi
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
 
 SPACESHIP OPERATÖRÜ PRIMARY COMPARE OPERATÖRÜ.
 PRIMARY OPERATORLER REVERSE EDILEBILIYOR. SECONDARY OPERATÖRLERDE DERLEYICI TARAFINDAN PRIMARY CINSINDEN IFADE EDILEBILIYOR.
 
-a == b        b == a		primary operator ve swap/reverse edebilir.
+a == b       	   b == a	primary operator ve swap/reverse edebilir.
 a != b		  !(a == b)     derleyici yazabilir bunuda.
 
-a <=> b		  0 > (b <=> a)  Primary operator olduğundan yerdeğiştirebilir.
+a < b		  0 > (b <=> a)  Primary operator olduğundan yerdeğiştirebilir.
 
 a < b		  (a <=> b) < 0  < secondary, primary cinsinden yazılabilir    b <=> a > 0 cinsinden yazılabilir.Yani reverse edilir.
 BURADA ILK ÖNCE SECONDARY PRIMARY CINSINDEN YAZILDI, ELDE EDILEN PRIMARY DE REVERSE EDILEBILDIĞINDEN REVERSE EDILDI !!!!!
@@ -325,14 +327,17 @@ Strong_ordering : Bir birinin yerine geçebilirliği temsil ediyor, eğer a b ye
 a veya b ile bu function salt okuma amaçlı eriştiğinde bu nesnelere, bunların ikisi arasında hiçbir farklılık algılamayacak.
 2 değer birbirine denk ise bunların arasında ayırt edici kriter yok.
 
-Week_ordering : Birbirinin yerine geçebilirliği temsil etmiyor, eğer a b ye equivalant ise f(a) ile çağırmak ile f(b) çağırmakla
+Weak_ordering : Birbirinin yerine geçebilirliği temsil etmiyor, eğer a b ye equivalant ise f(a) ile çağırmak ile f(b) çağırmakla
 aynı anlamda olmak zorunda değil. 
 Eşit kabul edilen değerler birbirinden ayrılabilen değerler. MASA ile masa eşit kabul edilebiliyor ama ayırt ediledebilir.
 
 Partial_ordering : Birbirinin yerine geçebilirliği temsil etmiyor, weak ordering ile partial arasındaki farklılık aşağıda
 karşılaştırılamayan değerleri kabul ediyor.
-a < b, a ==b, a > b hepsi yanlış olabilir.
+a < b, a == b, a > b hepsi yanlış olabilir.
 
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -348,7 +353,7 @@ private:
 public:
 	constexpr Wrapper(int i)noexcept : m_id(i) { }
 	auto operator <=>(const Wrapper &other)const = default;	// DİKKAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-															// ARTIK 6 OPERATORUDE KULLANABİLİRİM
+								// ARTIK 6 OPERATORUDE KULLANABİLİRİM
 	
 };
 
@@ -369,8 +374,6 @@ int main()
 }
 
 Değerleri eşit yapıpta bakılabilir.
-
-
 
 
 DERLEYİCİ NE YAPTI ? 
@@ -394,7 +397,7 @@ public:
 	constexpr auto operator <=>(const Wrapper &other)const noexcept
 	{
 		return m_id <=> other.m_id; // bunlar int değerler olduğundan return değeri strong_ordering
-	}								 // derleyicinin yazdığı func return değeride strong ordering oldu.
+	}				    // derleyicinin yazdığı func return değeride strong ordering oldu.
 };
 
 
@@ -418,6 +421,7 @@ int main()
 	std::cout << typeid(x <=> y).name() << '\n';  // struct std::partial_ordering
 }
 
+----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------
 
