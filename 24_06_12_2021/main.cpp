@@ -1,6 +1,6 @@
 ﻿/*
 
-THREE-WAY COMPARASIONDA KALDIK
+THREE-WAY COMPARISON KALDIK
 
 Bir operatör gibi görünsede getirdiği yenilik çok fazla.Karşılaştırma işlemlerine yönelik operator
 funclarının programcı tarafından kolay yazılması için getirildi, tıpkı special member funclarda olduğu gibi.
