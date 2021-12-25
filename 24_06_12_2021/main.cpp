@@ -274,7 +274,7 @@ PRIMARY OPERATORLER REVERSE EDILEBILIYOR. SECONDARY OPERATÖRLERDE DERLEYICI TAR
 a == b       	   b == a	primary operator ve swap/reverse edebilir.
 a != b		  !(a == b)     derleyici yazabilir bunuda.
 
-a < b		  0 > (b <=> a)  Primary operator olduğundan yerdeğiştirebilir.
+a > b		  0 > (b <=> a)  Primary operator olduğundan yerdeğiştirebilir.
 
 a < b		  (a <=> b) < 0  < secondary, primary cinsinden yazılabilir    b <=> a > 0 cinsinden yazılabilir.Yani reverse edilir.
 BURADA ILK ÖNCE SECONDARY PRIMARY CINSINDEN YAZILDI, ELDE EDILEN PRIMARY DE REVERSE EDILEBILDIĞINDEN REVERSE EDILDI !!!!!
@@ -287,7 +287,7 @@ INTELLISENSE <=> OPERATORDE ALTINI ÇİZİYOR AMA HATA YOK
 Öncelik parantezini kullanmak gerekiyor.
 
 int x{}, y{345};
-auto b = (x >> 5) & y;
+auto b = (x <=> 5) & y;
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -412,9 +412,10 @@ int main()
 	--------------------------------------------------------------------------------------------------
 
 	Eleman int değilde double olsaydı bu durumda partial_ordering üretilecekti.
-	Bu durumda func parametreside double olacaktı. constexpr Wrapper(double i)noexcept : m_id(i) { }
-	olacaktı yani.Double non değeri demek, not a number değeri diğer değerlerden büyük yada küçük olmak
-	zorunda değil.Bu sebeple partial oredering
+	Bu durumda func parametreside double olacaktı. 
+	constexpr Wrapper(double i)noexcept : m_id(i) { }  olacaktı yani.
+	Double non değeri demek, not a number değeri diğer değerlerden büyük yada küçük olmak zorunda değil.
+	Bu sebeple partial oredering
 
 	Wrapper x{4.5}, y{6.7};
 
@@ -505,8 +506,7 @@ class Person
 
 Biz mesela bir template kullanıyorsak yani identity bir template ise içerisinde threeway comparison var mı yokmu
 (bunu if constexpr ile yaparız) sorgulaması yapacağız. Bunun için bir template daha yazmamız gerekecek. Bu standart değil.
-C++23 te bu standart olacak
-Bu bu hatayı biz giderelim
+C++23 te bu standart olacak. Bu bu hatayı biz giderelim
 
 template<typename T,typename U>
 auto synth_three_way(const T& lhs, const U& rhs)
