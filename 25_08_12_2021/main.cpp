@@ -344,7 +344,7 @@ C İLE ÖNEMLİ FARKLILIKLAR
 1. C++ ta arrayler için bu sentaks yok,
 2. Sıra önemli, C de sıra önemsiz.
 3. Normal ilkdeğer verme sentaksı ile designated init sentaksı birarada C de var C++ ta beraber kullanılamaz.
-4. Veri elemanının kendiside bir aggregate ise aggregate olan veri elemanının veri elemanına 
+4. Veri elemanının kendiside bir aggregate ise aggregate olan veri elemanının veri elemanına aşağıdaki gibi değer verilebilir.
 
 struct Time
 {
@@ -371,9 +371,11 @@ int main()
 
 	Date x = {3, .year = 1998}; //SENTAKS HATASI. MIX EDİLEMİYOR
 
-	Date .x = {
+	Date x = {
 		.time.min = 25; // SENTAKS HATASI. NESTED MEMBER ACCESS İS NOW ALLOWED.NESTED INIT LIST KULLAN DİYOR.
 	};
+	
+	Date x = {.time = {32, 4} }; // BURASI GEÇERLİ !!!!!!!!!
 }
 
 
