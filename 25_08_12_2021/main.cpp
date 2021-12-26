@@ -166,7 +166,7 @@ Enum türlerinin 3 dezavantajı
 - Bildirimini nerede yaparsak o scope a giriyor isimler.Ya nested type yada namespace içine alınıyor
 - Underlying type.Derleyiciye bağlı bu. Bu modern C++ta değişti.Artık type belirtilebiliyor.
   Böylece forward decleration yapılabiliyor.
-- Aritmetik türlerden aritmetik türlere dönüşüm yok ama enum türlerden aritmetik türlere dönüşüm var
+- Aritmetik türlerden enum türlere dönüşüm yok ama enum türlerden aritmetik türlere dönüşüm var
   Bu olmaması gerekiyor. 3. derste bu var.
 
 ÖR:
