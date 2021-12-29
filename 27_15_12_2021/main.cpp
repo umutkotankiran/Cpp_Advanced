@@ -689,7 +689,7 @@ void func(std::integral<T> x)	// Bu kısımda problem olabilir.İncelenecek
 
 CONSTAINT OLUŞTURMA YOLLARINDAN BIRIDE REQUIRES KEYWORDÜ ILE OLUŞTURULAN YAPI.
 Requires keywordü ile oluşturulan ifadeyse bir concept oluşturuyoruz. Constraint oluşturmanın yollarından biri concept diğeride requires keyword ile 
-oluşturulan bir requires close.Argüman olarak 3 farklı sentaks olabiliyor.
+oluşturulan bir requires clause.Argüman olarak 3 farklı sentaks olabiliyor.
 
 
 SENTAKS - 1
@@ -739,7 +739,7 @@ int main()
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-Requires Close oluşturmanın birden fazla yolu var. Bunlardan biri ad-hoc 
+Requires clause oluşturmanın birden fazla yolu var. Bunlardan biri ad-hoc 
 constant expression oluşturmak.Requires keywordü izlen bir conceptin kendiside olabilir.
 
 
@@ -752,7 +752,7 @@ void foo()
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-REQUIRES CLOSE
+REQUIRES CLAUSE
 --------------
 
 template<typename T>
@@ -791,16 +791,16 @@ requires(sizeof(T) > 10) && requires(std::is_integral_v<T>);
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-Requires Close'a devam
+Requires Clause'a devam
 
 template<typename T>
-requires std::integral<T> || std::floating_point<T>  //bu iki satır sadece requires close
+requires std::integral<T> || std::floating_point<T>  //bu iki satır sadece requires clause
 void func()
 {
 
 }
 
-//Data önce bu requires close'u kullandığımızy erleri yazdık yukarıda. return değeri gibi...
+//Data önce bu requires clause'u kullandığımızy erleri yazdık yukarıda. return değeri gibi...
 
 int main()
 {
@@ -811,7 +811,7 @@ int main()
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-NELER KULLANILABİLİR REQUIES CLOSE'TA?
+NELER KULLANILABİLİR REQUIES CLAUSE'TA?
 --------------------------------------
 template <typename T>
 requires (sizeof(int) > 4) && sizeof(T) > 16)
@@ -946,7 +946,7 @@ concept Neco = requires(T x){
 	
 	x.foo(); // x in foo func ı olmak zorunda.
 
-} && diğer requires close lar birleştirilebilir;
+} && diğer requires clauselar birleştirilebilir;
 
 
 static_assert(Neco<int>); //Sentaks hatası çünkü int türü neco conceptinin koşullarını sağlamadı.
