@@ -912,7 +912,7 @@ CLASSA FRIENDLİK VERMEK
 class Myclass{
 public:
 	friend class Nec; // Sınıfa friendlik verilince bu sınıfın daha önceden bildiriminin yapılması veya tanımının görülmesi gerekmiyor.
-			   // Sınıf şablonlarında bu kural değişiyor. Forward decleration yapmak gerekiyor.Hatta class içerisinden function template'e
+			   // Function şablonlarında bu kural değişiyor. Forward decleration yapmak gerekiyor.Hatta class içerisinden function template'e
 			   // friendlik verildiğine yine forward decleration yazmak gerekti.Aşağıda en sonlardaki örneklerden biri. Hatta visual studio farklı davranıyor
 	
 	friend void Nec::foo(); // Burada friend geçerli olması için, Nec sınıfının definitionunun friendliğin verildiği noktada visible olması gerekiyor
