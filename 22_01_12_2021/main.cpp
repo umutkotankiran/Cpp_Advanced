@@ -579,7 +579,7 @@ int main()
 
 	vx = 5;
 
-	vx = Data{32};
+	vx = Date{};
 
 	vx = 4.5;
 
@@ -621,7 +621,7 @@ int main()
 
 	// get_if<2>(&x) de yazılabilir aşağıda
 
-	if(auto p = get_if<string>(&x))    // Alternatif string ise p nullptr olmuyor. Yani string * oluyor
+	if(auto p = get_if<string>(&vx))    // Alternatif string ise p nullptr olmuyor. Yani string * oluyor
 	{								   // string değilse p nullptr oluyor.
 		std::cout << *p << "\n";
 	}
@@ -651,7 +651,7 @@ int main()
 		return std::abs(a) < std::abs(b);
 	};
 
-	variant<set<int>, set<int, decltype(pred)>> vx{in_place_index<1>, {1,4,6,9,-1>}, pred}; // 2 tane set alternatifi var
+	variant<set<int>, set<int, decltype(pred)>> vx{in_place_index<1>, {1,4,6,9,-1}, pred}; // 2 tane set alternatifi var
 																							// C++17 olduğunda en sondaki pred yazılacak
 }																							// C++20 de gerek yok.
 
@@ -711,7 +711,7 @@ int main()
 {
 	variant<int, double, string> vx{46.7}; // diyelim ki runtimeda ne değer tuttuğunu bilmiyoruz.
 
-	visit(mycallable); // içerideki herhangibir callable
+	//visit(mycallable,vx); // içerideki herhangibir callable
 
 	//VİSİT OLMASAYDI AŞAĞIDAKİ GİBİ YAPARDIK.
 	if(vx.index() == 0)
