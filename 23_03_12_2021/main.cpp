@@ -440,7 +440,7 @@ int main()
 	any a{in_place_type<string>,"necati"};	// Bu yerinde bir tane string nesnesi oluşturulacak.
 											// Const char * da göndersem yerinde oluşturulacak nesne string
 
-	any a{in_place_type<complex<double>>,{4.5, 7.6}};
+	any a{in_place_type<complex<double>>, 4.5, 7.6 };
 
 	any a{in_place_type<Date>,{14,10,2010}}; // Date(14,10,2010) u tutacak
 
