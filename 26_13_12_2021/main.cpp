@@ -254,8 +254,8 @@ int main()
 	string str;
 
 	format_to(back_inserter(str),"|{}{}{:.2f}|",id,name,dval); // stringe insert etti.back_inserter bir back_insert_iterator veriyor.
-																// bu iterator konumuna yazınca, ctoruna verdiğimiz containerın aslında 
-																// push_back functionu çalışıyor.
+								   // bu iterator konumuna yazınca, ctoruna verdiğimiz containerın aslında 
+								   // push_back functionu çalışıyor.
 
 	std::cout << str << '\n';
 
