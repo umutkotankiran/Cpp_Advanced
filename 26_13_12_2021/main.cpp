@@ -232,9 +232,9 @@ int main()
 	
 	for(int i = 0; i < 1000; ++i)
 	{
-		//format_to(ostream_iterator<char>(), "{:>6} {}",i,sqrt(i));
-		//format_to(ostream_iterator<char>(), "{:<6} {}",i,sqrt(i));
-		format_to(ostream_iterator<char>(), "{:<6} {:>12.4f}",i,sqrt(i)); // sağa dayalı, 12 karakterlik alanda noktadan sonra 4 character fixed notasyon
+		//format_to(ostream_iterator<char>(ofs), "{:>6} {}",i,sqrt(i));
+		//format_to(ostream_iterator<char>(ofs), "{:<6} {}",i,sqrt(i));
+		format_to(ostream_iterator<char>(ofs), "{:<6} {:>12.4f}",i,sqrt(i)); // sağa dayalı, 12 karakterlik alanda noktadan sonra 4 character fixed notasyon
 	}
 }
 
