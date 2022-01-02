@@ -769,8 +769,7 @@ int main()
 	YAZILACAK KARAKTER SAYISINI BELİRLEMEK İÇİN PRECISION KULLANACAĞIZ
 	
 	int x = 6;  
-	std::cout << format("|{:.6|","NECATI ERGIN",x); // NECAT
-							 
+	
 	HATTA BUNU NESTED OLARAK KULLANALIM!!!!!!!!!!!!!!				 
 							 
 	std::cout << format("|{:.{}}|","NECATI ERGIN",x); // NECAT
