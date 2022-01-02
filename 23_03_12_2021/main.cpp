@@ -442,7 +442,7 @@ int main()
 
 	any a{in_place_type<complex<double>>, 4.5, 7.6 };
 
-	any a{in_place_type<Date>,{14,10,2010}}; // Date(14,10,2010) u tutacak
+	any a{in_place_type<Date>, 14,10,2010 }; // Date(14,10,2010) u tutacak
 
 }
 
@@ -527,8 +527,8 @@ int main()
 {
 	any x{2.35};
 
-	auto dval = any_cast<double>(x); // gerçekten double değer tutuyorsa, dval e bu değer kopyalanacak
-									 // Aksi halde bad any cast türünden hata gönderecek.
+	//auto dval = any_cast<double>(x); // gerçekten double değer tutuyorsa, dval e bu değer kopyalanacak
+					// Aksi halde bad any cast türünden hata gönderecek.
 
 	try{
 		std::cout << "deger : " << any_cast<double>(x) << '\n';
@@ -602,9 +602,9 @@ int main(){
 
 	a.emplace<string>(100,'A');
 
-	auto pred = [](int a, int b){ return std::abs(a) < std::abs(b)};
+	auto pred = [](int a, int b){ return std::abs(a) < std::abs(b); };
 
-	a.emplace<set<int, decltype(pred)>({1, 4, 7 ,9},pred); // C++17 yide desteklesin diye predi yine verdik
+	a.emplace<set<int, decltype(pred)>>({1, 4, 7 ,9},pred); // C++17 yide desteklesin diye predi yine verdik
 
 }
 
