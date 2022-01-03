@@ -695,6 +695,7 @@ Concept Avantajları
 3 - Overloading konusunda da çok büyük avantajlar getirdi.
 
 Bunu tam olarak anlamak için C++ standartları tarafından belirlenen constraint'in anlamına bakalım.
+
 CONSTRAINT = Derleme zamanında ele alınan boolean ifadeler.Yani derleme zamanında değeri true/false olacak.	
 	     Bu bu constraint olarak kullanılan koda bağlı olarak derleyici sözkonusu template'ten kod üretilsin mi
              üretilmesin mi bunun kararını verecek.
