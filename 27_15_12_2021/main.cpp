@@ -26,28 +26,38 @@ BİR ÖNCEKİ DERSTE BU MADDE YAZILDI AŞAĞIYA EKLEDİM
 struct Nec{
 	int i{7};
 	Nec() = delete;  //Eskiden ctor delete/defalt edilirse(user declared) bu durumda aggregate olma özelliği bozulmuyordu
-};					  // User provided Ctorda bozmuyordu hatta
+};			 // User provided Ctorda bozmuyordu hatta
+
 Aggreagte olduğunda aggregate init yapılabiliyor.Olmazsa eğer sentaks hatası
+
 int main()
 {
 	Nec x; //SENTAKS HATASI
 	Nec y{}; // C++17 de GEÇERLİ !!!! BU REZALET :D:D:D LEGAL OLMAMALI
 }
+
+--------------------
+
 Agregate olma koşullarını C++20 de değiştirdiler. Normalde yapılan eklemeler geçmişte yazılan kodların çalışmasını sağlayacak
 şekilde ekleniyor.Artık C++20 de user declared olmamak zorunda yoksa aggregate olmaz.
+
 struct A{
 	A() = delete;
 };
+
 struct B{
 	int x{1};
 	B(int) = delete;
 };
+
 struct C
 {
 	int x;
 	C();
 };
+
 C::C() = default;
+
 int main()
 {
 	A a; // HATA
@@ -76,6 +86,7 @@ YİNE BİR ÖNCEKİ DERSTE YAZILANLAR AŞAĞIYA EKLENDİ
 struct Nec{
 	int x,y;
 };
+
 int main()
 {
 	Nec nec1{10,20}; // LEGAL
