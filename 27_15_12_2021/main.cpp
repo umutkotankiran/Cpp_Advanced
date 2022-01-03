@@ -435,8 +435,8 @@ int main()
 {
 	int a[]{1,2,3}; // Derleyici boyutu anlıyor burada
 	
-	int *p = new p[]{1,2,3}; // C++17 Sentaks hatası. Size explicit olarak bildirilmeli
-							 // C++20 ile deduction yapılma garantsi var.Geçerli
+	int *p = new int[]{1,2,3}; // C++17 Sentaks hatası. Size explicit olarak bildirilmeli
+				 // C++20 ile deduction yapılma garantsi var.Geçerli
 							 
 							 
 	char *p = new char[]{"necati"}; // C++20 Geçerli
