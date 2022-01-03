@@ -383,15 +383,15 @@ concept nec = requires(T x) {
 template<typename T>
 concept nec = requires(T c){
 	{*c.begin()} -> std::convertible_to<typename T::value_type>;  // c yi dereference edip begin funcını çağırınca 
-																 // buradan elde edilen tür sağ taraftaki concepti satisfied
-																 // etmek zorunda.Yani T nin value_type ına dönüştürülebilir olmalı.
-																 //Burada da *c.beginin türü convertible_to ya ilk argüman olarak veriliyor
-																 // 2. argüman zaten var.
-																 // std::convertible_to<decltype(x == x),bool>
+								      // buradan elde edilen tür sağ taraftaki concepti satisfied
+								      // etmek zorunda.Yani T nin value_type ına dönüştürülebilir olmalı.
+								      //Burada da *c.beginin türü convertible_to ya ilk argüman olarak veriliyor
+								      // 2. argüman zaten var.
+								      // std::convertible_to<decltype(x == x),bool>
 
 	{c + 5} -> std::integral; // c + 5 ifadesi integral conceptini satisfied etmek zorunda.Yani c+5 in türü 
-							  // std::integral conceptinin tür argümanı oluyor.
-							  //std::integral<decltype(c + 5)> gibi bir ifadeye dönüşüyor aslında
+				  // std::integral conceptinin tür argümanı oluyor.
+				  //std::integral<decltype(c + 5)> gibi bir ifadeye dönüşüyor aslında
 
 };
 
@@ -408,7 +408,7 @@ concept Nec = requires{
 template <typename T, typename U>
 concept nec = requires(T x, U y){
 	{x + y } -> Nec<double>;  // x + x ifadesinin türü Nec conceptini satisfied etmeli. 
-							  // Nec<int,double> gibi bir ifade gönderirsek bunların int::xtype double::type valid olmalı gibi...
+				  // Nec<int,double> gibi bir ifade gönderirsek bunların int::xtype double::type valid olmalı gibi...
 }; 
 
 -------------------------------------------------------------------------------------------------------------------
