@@ -271,7 +271,7 @@ Bunu aşağıdaki gibi yazabiliriz.
 
 int main()
 {
-	for(auto necx = get_nec(); auto item : necx.get_value())
+	for(auto necx = get_nec(); auto item : necx.get_values())
 	{
 		//..
 		
