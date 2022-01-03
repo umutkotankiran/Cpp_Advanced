@@ -21,6 +21,43 @@ int main()
 	Nec n1{1,2}; // HATA C++20 
 }
 
+BİR ÖNCEKİ DERSTE BU MADDE YAZILDI AŞAĞIYA EKLEDİM
+
+struct Nec{
+	int i{7};
+	Nec() = delete;  //Eskiden ctor delete/defalt edilirse(user declared) bu durumda aggregate olma özelliği bozulmuyordu
+};					  // User provided Ctorda bozmuyordu hatta
+Aggreagte olduğunda aggregate init yapılabiliyor.Olmazsa eğer sentaks hatası
+int main()
+{
+	Nec x; //SENTAKS HATASI
+	Nec y{}; // C++17 de GEÇERLİ !!!! BU REZALET :D:D:D LEGAL OLMAMALI
+}
+Agregate olma koşullarını C++20 de değiştirdiler. Normalde yapılan eklemeler geçmişte yazılan kodların çalışmasını sağlayacak
+şekilde ekleniyor.Artık C++20 de user declared olmamak zorunda yoksa aggregate olmaz.
+struct A{
+	A() = delete;
+};
+struct B{
+	int x{1};
+	B(int) = delete;
+};
+struct C
+{
+	int x;
+	C();
+};
+C::C() = default;
+int main()
+{
+	A a; // HATA
+	B b{12}; //HATA. C++17 de geçerliydi
+	
+	//HİÇBİRİ GEÇERLİ DEĞİL
+}
+
+Özetle aggregate olma koşulları daha sık hale getirildi.
+
 -----------------------------------------------------------------------------------------------------
 
 
@@ -33,6 +70,31 @@ NEDEN EKLENDİ ?  2 tane temel problem vardı.
 1- Önişlemci programla uyumsuzluğu. Macroda {} kullanılınca içerideki virgül ayrı kurallara tabi kılınıyor
 2- Perfect Forwarding ile ilgili. Küme parantezi ilk init edince perfect forwardingte 
 arka taraftaki kodda problem oluşuyır ama () kullanınca problem yok.
+
+YİNE BİR ÖNCEKİ DERSTE YAZILANLAR AŞAĞIYA EKLENDİ
+
+struct Nec{
+	int x,y;
+};
+int main()
+{
+	Nec nec1{10,20}; // LEGAL
+	Nec nec2(10,20);  // C++20 İLE BUDA LEGAL
+}
+- Öyle yerer varki {} kullanınca sentaks hatası oluyor mesela perfect forwarding. Bir yapı türünü perfect forwarding
+  edince sentaks hatası oluşuyordu. 
+- Birde Macrolarda hatalar oluşuyor.
+#include<cassert>
+int main()
+{
+	using namespace std;
+	assert(Nec{1,5}); // Macroda virgül kullanımı macro açılımını bozacak.Parantez olsaydı sentaks bozulmayacaktı
+	assert(Nec(1,5)); // Bu Macro açılımını bozmuyor.
+}
+NOT : Aşağıdakilerde geçerli
+int a[]{1,2,3};
+int a[](1,2,3);
+
 
 -----------------------------------------------------------------------------------------------------
 
