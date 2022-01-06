@@ -735,10 +735,13 @@ int main()
 
 1. DERECEDE BİZİ İLGİLENDİREN VİEWLARI İNCELEYELİM
 
-FILTER_VIEW
------------
+1. FILTER_VIEW
+--------------
 filter veren range araptörü views::filter, 
-Sınıfı kullanırken ranges::filter_view şeklinde kullanılacak
+Sınıfı kullanırken ranges::filter_view şeklinde kullanılacak.
+
+Filter diyorki bana bir unary predicate ve range vereceksin. Ben o rangedeki öğelerden
+dolaşıldığında sadece predicate'ı sağlayanları dolaşacaksın.
 
 Bu bizden bir range birde unary predicate isteyecek. Oluşturulaan rangede underlying rangedeki o predicate'ı sağlayan öğelerin rangeini
 oluşturmuş oluyoruz.
@@ -749,54 +752,145 @@ int main()
 	rfill(svec,30,rname);
 	
 	print(svec);
+	
+	for(const auto &s : views::filter(svec, [](const auto &s){ return s.length() % 2 == 0;}))
+			std::cout << s << '\n'; // Uzunluğu çift olanlar yazılacak
+	
 }
 
-2:19
+---------------------------------------------------------------------------------------------------------------------------------
+
+int main()
+{
+	vector<string> svec;
+	rfill(svec,30,rname);
+	
+	print(svec);
+	
+	char c;
+	
+	std::cout << "icinde hangi karkaterler olanlar : ";
+	std::cin>> c;
+	
+	for(const auto &s : views::filter(svec, [](const auto &s){ return s.find(c) != string::npos;}))
+			std::cout << s << '\n'; // İçerisinde belirli bir karakter olanları yazdırdık
+	
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+İSİMLENDİRELİM
+
+int main()
+{
+	vector<string> svec;
+	rfill(svec,30,rname);
+	
+	print(svec);
+	
+	char c;
+	
+	std::cout << "icinde hangi karkaterler olanlar : ";
+	std::cin>> c;
+	
+	auto &s : views::filter(svec, [](const auto &s){ return s.find(c) != string::npos;});
+	
+	
+	std::cout << v.size() << '\n'; //SENTAKS HATASI SIZE FUNC YOK
+	
+	v.begin()
+	v.end() bunlar var
+	
+	veya global funclara argüman olarakta göndeebiliriz.
+	ranges::begin(v);
+	ranges::end(v); // bunlarda olabilir.
+	
+	std::cout << v[3]; // Buda sentaks hatası operator[] yok
+	
+	v.front() var
+	
+	
+}
 
 
 
+---------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------
+
+2. TRANSFORM_VIEW
+-----------------
+Öyle bir range oluşturuyorki o range te underlying range te olanları bir işleme sokuluyor
+o işlemden elde ettiğimiz return değerleri range'imizi oluşturuyor.
 
 
+int main()
+{
+	vector<string> svec;
+	rfill(svec,30,rname);
+	print(svec);
+	
+	char c;
+	
+	std::cout << "icinde hangi karkaterler olanlar : ";
+	std::cin>> c;
+	
+	for ( const auto &s : views::transform(svec, [](const auto &s){ return s + "can";}))
+			std::cout << s << '\n'; // kelimelerin sonuna can eklendi.
+			
+}
 
+-----------------------------------------------------------------------------
 
+int main()
+{
+	auto ivec = getvec(20,-20,50);
+	
+	print(ivec);
+	
+	auto v = views::transform(ivec,[](int x){ return std::abs(x);});
+	
+	for(auto i : v)
+		std::cout << i << ' ';
+	
+}
 
+-----------------------------------------------------------------------------
 
+Yanlış anlaşılan bir konu var.
 
+int main()
+{
+	vector<string> svec;
+	rfill(svec,30,rname);
+	print(svec);
+	
+	auto v = views::transform(svec,[](const auto &s){ return s.length(); });
+	
+	std::cout << typeid(*v.begin()).name() << '\n'; // DİKKAT!!!
+													// Öğeler artık string değil, unsigned int
+													// çünkü length return etti.
+														
+	for(auto len : v)
+		std::cout << len << ' ';
+}
 
+-----------------------------------------------------------------------------
 
+TRANSFORM İLE FİLTER BİRLİKTE ÇOK KULLANILIYORLAR
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+	vector<string> svec;
+	rfill(svec,300,rname);
+	print(svec);
+	
+	auto pred = [](const std::string &s){ return s.front() == s.back()};
+	
+	for(const auto &s : svec | views::filter(pred) |  views::take(10)  // take ilk 10 taneyi alıyor
+	{
+		std::cout << s << '\n';
+	}
+}
 
 
 */
