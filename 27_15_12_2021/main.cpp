@@ -99,7 +99,7 @@ int main()
 int main()
 {
 	using namespace std;
-	assert(Nec{1,5}); // Macroda süslü parantez kullanımı macro açılımını bozacak.Parantez olsaydı sentaks bozulmayacaktı
+	assert(Nec{1,5}); // Macroda virgül kullanımı macro açılımını bozacak.Parantez olsaydı sentaks bozulmayacaktı
 	assert(Nec(1,5)); // Bu Macro açılımını bozmuyor.
 }
 NOT : Aşağıdakilerde geçerli
