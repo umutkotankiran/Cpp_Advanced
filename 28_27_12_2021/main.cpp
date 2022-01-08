@@ -364,6 +364,8 @@ COMPOUND REQUIREMENTS
 Küme parantezi içerisine bir ifade yazıyoruz ve -> yazıp sağ tarafa yazdığımız concepti( concept olmak zorunda sağ taraf)satisfied etmek zorunda
 
 {x == x} -> std::convertible_to<bool>; // x == x den elde edilen ifade türü bool türüne dönüştürülebilecek tür olmalı demek.
+					// Yani x==x ten gelen ifadenin türü template'te 1. argüman olarak yazılıyor.
+					// std::convertible_to<decltype(x == x),bool> Gibi birşey oldu
 
 {x == x} -> bool; //SENTAKS HATASI CONCEPT OLMAK ZORUNDA SAĞ TARAF
 
