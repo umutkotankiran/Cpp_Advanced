@@ -274,7 +274,7 @@ int main()
 	vector<Employee> evec(100);
 	vector<Payslip> pvec(100);
 
-	ranges::sort(evec,[](const Employee &e1, const Employee &e2){ return e1.id < e2.id; });
+	ranges::sort(evec,[](const Employee &e1, const Employee &e2){ return e1.id < e2.id; }); // LAMBDA İFADESİ BURADA KARŞILAŞTIRMA İŞİNİ YAPAN CALLABLE
 	
 	ranges::sort(pvec,[](const Payslip &e1, const Payslip &e2){ return e1.id < e2.id; });
 
@@ -289,9 +289,9 @@ int main()
 	vector<Employee> evec(100);
 	vector<Payslip> pvec(100);
 
-	ranges::sort(evec,ranges::less{}, [](const Employee &e){ return e.id; });
+	ranges::sort(evec,ranges::less{}, [](const Employee &e){ return e.id; }); // KARŞILAŞTIRMA İŞİNİ ARTIK LESS YAPIYOR. PROJECTION ISE LAMBDA OLDU ARTIK.
 	
-	ranges::sort(pvec,[](const Payslip &e){ return e.id; });
+	ranges::sort(pvec,ranges::less{}, [](const Payslip &e){ return e.id; });
 
 	auto b = ranges::equal(evec,pvec, std::ranges::equal_to{}, [](const Employee &e){ return e.id; }, [](const Payslip &p){ return p.id; }); 
 
