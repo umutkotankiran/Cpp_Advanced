@@ -15,7 +15,7 @@ struct EndValue  // sentinel olarak kullanılacak sınıf template
 	constexpr bool operator==(auto pos)const // C++20 de operator!= derleyici tarafından yazılmış oldu artık
 	{
 		return *pos == EndVal; // Ne zaman endval bir başka ifade ile karşılaştırıldığında aslında karşılaştırma
-								// *pos ifadesi ile template nontype argüman ile(Endval) ile karşılaştırılacak
+				       // *pos ifadesi ile template nontype argüman ile(Endval) ile karşılaştırılacak
 	}
 };
 
@@ -144,10 +144,10 @@ int main()
 	
 	ranges::sort(ivec, {}, 
 	[](int x){ return std::abs(x); }); // {} demek burada default construct edilmiş std::less{} demek	
-									   // Ne zaman iteratör konumundaki nesne kullanılmak istense o zaman(invoke'u hatırla yukarıdan)
-									   // o iteratör konumundaki nesnenin mutlak değer funcına gönderilmesinden
-									   // elde edilen değer. Dolayısıyla karşılaştırma işlemleri nesnenin kendi
-									   // üstünden değil mutlak değerleri üzerinden yapılacak
+					   // Ne zaman iteratör konumundaki nesne kullanılmak istense o zaman(invoke'u hatırla yukarıdan)
+					   // o iteratör konumundaki nesnenin mutlak değer funcına gönderilmesinden
+					   // elde edilen değer. Dolayısıyla karşılaştırma işlemleri nesnenin kendi
+					   // üstünden değil mutlak değerleri üzerinden yapılacak
 
 	
 	print(ivec); // küçükten büyüğe sıralandı.
@@ -165,7 +165,7 @@ int main()
 	rfill(svec,100,rname);
 
 	ranges::sort(svec, {}, [](const string &s){ return s[1]};); // algoritma iteratördeki nesneyi değil 
-																// onun 1 indisli elemanını kullanacak.Minimum 2 char olmalı :D
+								    // onun 1 indisli elemanını kullanacak.Minimum 2 char olmalı :D
 }
 
 ---------------------------------------------------------------------------------------------------------
@@ -213,7 +213,7 @@ int main()
 	vector<string> svec;
 
 	ranges::find(svec,7u,[](const string &s){ return s.length(); }); // karşılaştırılan stringin kendisi değil,
-																	// stringin uzunluğu. uzunluğu 7 olan ilkini bulmuş olacak
+									// stringin uzunluğu. uzunluğu 7 olan ilkini bulmuş olacak
 
 }
 
