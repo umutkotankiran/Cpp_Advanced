@@ -2,51 +2,43 @@
 
 SPAN LIBRARY
 ------------
-Bu konudan sonra ranges library görülecek. Ranges ten sonraki haline
-stl 2.0 diyorlar. Neden spani görüyoruz çünkü ranges tede görülüyor.
+Bu konudan sonra ranges library görülecek. Ranges ten sonraki haline stl 2.0 diyorlar. Neden spani görüyoruz çünkü ranges'tede görülüyor.
 
 Bu stringview ı bilenler için yeni bir fikir değil.
 
-Burada bellekte ardışık contigues olan öğeler üzerinde işlemler yapmak için kopyalama
-olmaksızın, aslında bunu bir pointer ve tipik olarak tamsayı değişkeni bir tür olarak
-paketlemek yada sarmalamak ve buna bir interface sağlamak amaçlı geliştirilmiş.
+Burada bellekte ardışık contigues olan öğeler üzerinde işlemler yapmak için kopyalama olmaksızın, 
+aslında bunu bir pointer ve tipik olarak tamsayı değişkeni bir tür olarak paketlemek yada sarmalamak ve 
+buna bir interface sağlamak amaçlı geliştirilmiş.
 
 Böylece containerın kendisini kopyalamak yerine, aslında bir pointer ve tamsayıyı
 içeren bir sınıf nesnesini kopyaladığımızda copy maaliyeti düşük olacak.
 
-Bu fikrin avantajlarıda var ama tehlikeli durumlarda oluşturabilir.
-Arka planda nesneler söz konusu fakat bunlar ona erişen sınıf nesnesine ait değil.
-Non owning reference diyorlar. Riski ise, nesnemizin hayatı devam ediyor, içindeki
-pinterın göstriği nesne öldüğü zaman bizim nesnemizin içindeki ptr ise dangling hale gelecek
+Bu fikrin avantajlarıda var ama tehlikeli durumlarda oluşturabilir. Arka planda nesneler söz konusu fakat 
+bunlar ona erişen sınıf nesnesine ait değil.Non owning reference diyorlar. Riski ise, nesnemizin hayatı devam ediyor, 
+içindeki pointerın göstriği nesne öldüğü zaman bizim nesnemizin içindeki ptr ise dangling hale gelecek
 Bunu compile timeda sınama şansımız yok. Runtimeda oluyor bunlar.
 
-String view read only erişim sağlıyor. Span ise write amaçlıda erişebilir.
-Bunu kendimiz belirliyoruz.Okuma veya yazma amaçlı erişim olarak.
+String view read only erişim sağlıyor. Span ise write amaçlıda erişebilir. Bunu kendimiz belirliyoruz. Okuma veya yazma amaçlı erişim olarak.
 
-stringview ın faydası, func parametresi string olsaydı, oraya gönderilen argümanın
-stringe dönüşebilecek türden olması gerekiyor. Strigng view diyori, ben bu ardışık karakterlerin
-nerede tutulduğu ile ilgili değilim. Bu bir std::Array<char,20> içinde de olabilir
+Stringview ın faydası, func parametresi string olsaydı, oraya gönderilen argümanın stringe dönüşebilecek türden olması gerekiyor.
+Stringview view diyori, ben bu ardışık karakterlerin nerede tutulduğu ile ilgili değilim. Bu bir std::Array<char,20> içinde de olabilir
 vector<char> da olabilir, stringview bununla ilgilenmiyor.
 
-Bu tür sınıflar tasarlanırken herkesi memnun etmek zor.
-span veya string view dan şikayetçi olan çok. Tasarımla ilgili seçimler
-yapmak gerekiyor, her karar noktasında karşımıza trade off lar çıkıyor.
+Bu tür sınıflar tasarlanırken herkesi memnun etmek zor. Span veya string view dan şikayetçi olan çok. Tasarımla ilgili seçimler yapmak gerekiyor,
+her karar noktasında karşımıza trade off lar çıkıyor.
 
 Burada performans mı odak noktası olacak yoksa güvenlik mi?
 Const correctness ne olacak?
 
-Const correctness C++ ta baştan yanlış tasarlanmış, ileride görülecek.
-Sentaks öğeleri çok iyi oluşturulmamış. Yeni araçlar eklendğinde ilk problem
-const correctness ile uyumsuz olduğu görülüyor.Const correctness konusunda
-dikkatli olunmalı.
+Const correctness C++ ta baştan yanlış tasarlanmış, ileride görülecek. Sentaks öğeleri çok iyi oluşturulmamış. 
+Yeni araçlar eklendğinde ilk problem const correctness ile uyumsuz olduğu görülüyor.Const correctness konusunda dikkatli olunmalı.
 
 Span madem ardışık öğelere read yada write etmek için kullanacak,
 Array vector carray den span e dönüşümler olsun mu? bunlar karar noktaları
 ...
 
-En önemli noktalardan biri şu, sınıf nesnes,nin kendisinin const olması başka
-ama sınıf nesnesi vasıtasıyla eriştirğimiz nesnelerin compile time da const olarak alınması
-başka.
+En önemli noktalardan biri şu, sınıf nesnesinin kendisinin const olması başka
+ama sınıf nesnesi vasıtasıyla eriştiğimiz nesnelerin compile time da const olarak alınması başka.
 
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
