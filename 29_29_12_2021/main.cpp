@@ -91,8 +91,8 @@ int main()
 
 
 	span<int> sp(ar); // BU ŞEKILDE YAZARSAK BU DURUMDA BU DYNAMIC EXTENTLY BIR SPAN OLDU.
-			  // BU IÇINDE BIR POINTERT TUTMAKLA DEĞIL BIR TAMSAYI DEĞIŞKENDE TUTUYOR VE BU DEĞIŞEBILIR.
-			  // 3 NESNELIK ALANI GÖZLEME STATEINDEN 7 NESNELIK ALANI GÖZLEMLEME STATE INE GEÇEBILIR.
+			  // BU IÇINDE BIR POINTER TUTMAKLA DEĞIL BIR TAMSAYI DEĞIŞKENDE TUTUYOR VE BU DEĞIŞEBILIR.
+			  // 3 NESNELIK ALANI GÖZLEME STATE INDEN 7 NESNELIK ALANI GÖZLEMLEME STATE INE GEÇEBILIR.
 			  // BIR SPANIN DYNAMIC MI STATIC EXTENTLY MI OLDUĞUNU NASIL ANLARIZ? BUNUN IÇIN 2. TEMPLATE
 			  // ARGÜMANI ILE DEĞERINI ALMIŞ BIR STATIC CONSTEXPR VERI ELEMANI VAR.
 
@@ -106,8 +106,8 @@ int main()
 {
 	int ar[5]{};
 	span<int, 5> sp_f(ar);   // 1 adresten başlayıp 5 nesne tutacak demek bu.
-							 // Uygun olmayan atama ve ilk değer vermede sentaks hatası yoksa UB olacak
-							 // Böyle spanlere static/fixed span deniyor
+				 // Uygun olmayan atama ve ilk değer vermede sentaks hatası yoksa UB olacak
+				 // Böyle spanlere static/fixed span deniyor
 
 
 	span<int>sp_d(ar); // Bu dynamic span.
@@ -121,10 +121,11 @@ int main()
 
 İkisininde avatajı ve zavatantajı var
 Biri dinamik olarak runtime da değişebiliyor.
-Diğeri ise compile timeda bazı yanlışlıklar doğruda nderleyici tarafından saptanabilir.
+Diğeri ise compile timeda bazı yanlışlıklar doğrudan derleyici tarafından saptanabilir.
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CONSTRUCTORS
 
@@ -143,11 +144,10 @@ int main()
 
 }
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
-PARAMETRELI CTORDA DYNAMIC EXTENT ISE HERHANGIBIR ŞEKILDE KOŞULLARI SAĞLAYAN NESNELER DIZI
-ILE ILK DEĞER VEREBILIRIZ.
+PARAMETRELI CTORDA DYNAMIC EXTENT ISE HERHANGIBIR ŞEKILDE KOŞULLARI SAĞLAYAN NESNELER DIZI ILE ILK DEĞER VEREBILIRIZ.
 
 
 int main()
@@ -157,34 +157,37 @@ int main()
 	span<int,8> spx{ivec};  // GEÇERLİ. ELEMAN SAYILARI TUTUYOR
 	span<int,5> spx{ivec};  // UB
 	span<int,20> spx{ivec}; // UB 
-	span<int> spx{ivec}; // GEÇERLİ
+	span<int> spx{ivec}; // GEÇERLİ.DYNAMIC EXTENT
 
-	Static extent kullanıyorsak compile time sentaks hatası veya runtime da UB durumuna düşmemesi
+	Static extent kullanıyorsak compile time sentaks hatası veya runtime da UB durumuna düşmemesi,
 	ne ile ilk değer verildiğine bağlı.
 
-	------------------------------------------------
+	--------------------------------------------------------------------------------
 
 	vector<int> ivec{2,5,7,9,1,8,3,4};
 	array<int,5> ar;
 
 	span<int,5> spx{ar}; // Tamsayı değeri tutarsa problem yok.
 	span<int,10> spx{ar}; // Tamsayı değeri tutmazsa compile timeda anlaşılırsa compile time hatası.
-							// burada anlaşılıyor.Compile time da saptıyor ve sentaks hatası verecek
+			      // burada anlaşılıyor.Compile time da saptıyor ve sentaks hatası verecek
 
 }
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 İKİNCİ BİR OLANAK BİR KONUM BİLGİSİ VE BİR TAMSAYI DEĞERİ VERMEK.
 
 int main()
 {
 	vector<int> ivec{2,5,7,9,1,8,3,4};
-	array<int,5> ar;
-	span<int,5> spx{ar.data()}; // Böyle bir ctor yok. bir konum bilgisi varsa mutlaka bir tamsayı değişkenide olacak
-	span<int,5> spx{ar.data(), 5}; // GEÇERLİ
+	array<int,5> ar{11,22,33,44,55};
+	int arr[5] = { 32, 45, 12, 74, 71 };
 
+	span<int,5> spx{ar.data()}; // Böyle bir ctor yok. bir konum bilgisi varsa mutlaka bir tamsayı değişkenide olacak
+	span<int, 5> spx{ arr }; // GEÇERLİ. RAW ARRAY OLUNCA GEÇERLİ.
+	span<int,5> spx{ar.data(), 5}; // GEÇERLİ
+	
 	------------------------------------------------
 
 	int a[20];
@@ -208,9 +211,8 @@ int main()
 
 }
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 SPANİN BİR İNTERFACEİ VAR
 
@@ -225,10 +227,11 @@ int main()
 	vector<int> ivec{2,3,5,8,12};
 	span<int> sx{ivec};
 
-	sx.front() = 9; // son öğeyi değiştirdik
+	sx.front() = 9; // son öğeyi değiştirdik.İlk öğeye referans
 	
 	sx[3] = -1; // 3 indisli elemana eriştirir ve değiştirdik
-
+	
+	// DİKKAT !!!!!!!!!!!!!!!!!!!!!
 	// BURADA EĞER VECTORÜ DEĞIŞTIRIRSEK YANI ELEMEAN EKLERSEK VE VECTOR REALLOCATION YAPARSAK SPAN IÇINDEKI POINTER
 	// DANGLING HALE GELEBILIR !!!!!!!!!!!!!!
 
@@ -238,7 +241,8 @@ int main()
 	}
 }
 
------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #include <span>
 #include <vector>
@@ -266,7 +270,7 @@ int main()
 
 }
 
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CTAD BURADA ÇALIŞIYOR
 
@@ -277,10 +281,10 @@ int main()
 	vector<int> ivec{ 2,3,5,8,12 };
 	array ar{ 2,3,5,8,12 };
 
-	span x{ ivec }; // DİKKAT!!! span<int> değil CTAD VAR.Dynamic extent
+	span x{ ivec }; // DİKKAT!!! span<int> değil CTAD VAR.Dynamic extent.Arrayda aşağıda ise fixed olacak
 	std::cout << x.extent << '\n';
 
-	span y{ ar }; // türü span<int,5U> açılımı. Ctad kurallar buna göre düzenlenmiş.Fixed
+	span y{ ar }; // türü span<int,5U> açılımı. Ctad kurallar buna göre düzenlenmiş.Fixed.Vectorde Dynamicti
 
 
 	int ar2[]{ 2,3,5 };
@@ -290,24 +294,24 @@ int main()
 
 }
 
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int main()
 {
 	
 	vector<int> ivec(100);
 
-	span x{ivec.data(), 4}; // span<int>
+	span x{ivec.data(), 4}; // span<int>. Dynamic extent
 
 	--------------------------------------------------------------------------
 
 	array<int,5> ar;
 
-	span x{ar.data(),4}; // Burası dynamic extent ????
+	span x{ar.data(),4}; // Burası dynamic extent. Size bilgisi compile timeda elde edilemezse dynamic extent
 
 }
 
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CONSTLUK DURUMU
 
@@ -318,11 +322,11 @@ int main()
 	std::array a{1,3,5,7,9,11,13};
 	std::array b{1,3,5,7,9,11,13};
 
-	const span<int> x = a; // türü spab<int,7U>
+	const span<int> x = a; // türü span<int,7U>
 
 	x[5] = 12; // Geçerli. Constluk nesnenin kendisinindi.
 
-	x = b; //Sentaks hatası constluk var çünkü
+	x = b; // Sentaks hatası constluk var çünkü
 
 	--------------------------------------------------------
 
@@ -331,7 +335,7 @@ int main()
 	x[5] = 12; // şimdi sentaks hatası oldu burası.
 }
 
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 template <typename C>
 void func(const C& x) // buradaki const spanin constluğu, spanin gözlemcisi olduğu dizinin değiştirilmesini engellemiyor
@@ -347,12 +351,12 @@ int main()
 	func(x); // Geçerli
 }
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 SPANIN GÖSTERDIĞI ARALIĞI YAZAN FUNCTION TEMPLATE
 
-NOT : Spani referans ile geçmenin bir anlamı yok.
+NOT : Span'i referans ile geçmenin bir anlamı yok !!!
 
 template<typename T, std::size_t size>
 void span_print(std::span<T,size>sp)
@@ -391,9 +395,11 @@ int main()
 
 }
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 NELER YOK ? 
 -----------
@@ -405,7 +411,7 @@ tuple dan gelen get interface yok
 
 front var
 back var
-first var ve return değeri span
+first var ve return değeri span. .first(3) ilk 3 değeri tutacak
 last var
 
 ENTERESAN BİR FUNC VAR 
@@ -428,7 +434,8 @@ int main()
 
 	----------------------------------------------------------------------------------
 
-	auto val1 = sx.first(3); // first in return değeri span.Dynamic span
+	auto val1 = sx.first(3); // first in return değeri span.Dynamic span.
+	// span<int, 3> sp3{ spx.first(3) };  //Böylede yapapbiliriz.
 
 	for(auto d : val1)
 	{
@@ -445,6 +452,8 @@ int main()
 	}
 }
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
 SORU:
 HANGİSİ GEÇERLİ?
 
@@ -459,6 +468,7 @@ int main()
 	span_print(ca);   // Sentaks hatası. 
 }
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DANGLING REFERANS 
 
@@ -478,6 +488,8 @@ int main()
 		std::cout << i << ' '; // burada görülebilir Ub durumu
 
 }
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2. DANGLING REFERANS ÖR
 
