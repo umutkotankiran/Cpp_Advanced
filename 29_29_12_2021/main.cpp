@@ -782,7 +782,7 @@ struct ursen
 };
 
 Derleyici bu kodu görüyor ve karşılaştırma unreachable_sentinel_t türü ile iterator türü arasında.
-Buna derleyici ursen sınıfı func calluna bakıyor, bunun hiçbir şekilde false olmalı mümkün değil.
+Buna derleyici ursen sınıfı func calluna bakıyor, bunun hiçbir şekilde false olması mümkün değil.
 çünkü while(beg!=end) diyor. == her zaman true dönerse, != de hep false döner :D:D:D
 
 Aşağıdakine dönüşür
@@ -824,10 +824,11 @@ int main()
 	for(auto ptr{ p }; ptr != nullchar_t{}; ++ptr)
 		std::cout << *ptr << ' '; 
 
-	-------------------------------------------------------------------------------
 
-	// Burada p, nullchar_t ye eşit mi ditye kontrol ediyor foreach.karşılaştırmayı da nullchar_t içindeki
+	// Burada p, nullchar_t ye eşit mi ditye kontrol ediyor foreach. Karşılaştırmayı da nullchar_t içindeki
 	// operator== yapacak. C++20 ile a.b --> b.a ya dönüşebiliyordu.
+
+	-------------------------------------------------------------------------------
 
 	std::ranges::for_each(p,nullchar_t{}, [](char c){ std::cout.put(c); });
 
