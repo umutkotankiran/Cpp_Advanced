@@ -40,31 +40,30 @@ Array vector carray den span e dönüşümler olsun mu? bunlar karar noktaları
 En önemli noktalardan biri şu, sınıf nesnesinin kendisinin const olması başka
 ama sınıf nesnesi vasıtasıyla eriştiğimiz nesnelerin compile time da const olarak alınması başka.
 
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #include <span>
 
 template <typename T, std::size_t Extent = dynamic_extent>
 
-inline constexpr std::size_t dynamic_extent = std::numetic_limits<std::size_t>::max();
+inline constexpr std::size_t dynamic_extent = std::numeric_limits<std::size_t>::max();
 
 burada max yerine -1 desekte olur.
 
 inline constexpr std::size_t dynamic_extent = -1;
 
---------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 BURASI ÇOK ÖNEMLİ !!!!!!!!!!!!
 
-Arka plandaki template teknikleriyle eğer 2. template parameteresine template
-argüman vermezsek bu durumda n in değeri türün bir parçası zaten en büyük değer olacak.
+Arka plandaki template teknikleriyle eğer 2. template parameteresine template argüman vermezsek 
+bu durumda n in değeri türün bir parçası zaten en büyük değer olacak.
 
-Dynamic extent olduğunda ptr bir adres tutarken val de ne kadarık alanın gözlemlendiği
-değerini tutacak.Ve val dinamik olarak değişecek.Eğer 2. template argümanı default olarak alındıysa
-/ dynamic extent olarak alındıysa tipil derleyici implementasyonunda sınıfın 2 tane veri
-elemanı olacak.
+Dynamic extent olduğunda ptr bir adres tutarken val de ne kadarlık alanın gözlemlendiği değerini tutacak 
+ve val dinamik olarak değişecek.Eğer 2. template argümanı default olarak alındıysa, dynamic extent olarak alındıysa 
+tipik derleyici implementasyonunda sınıfın 2 tane veri elemanı olacak.
 
 template<typename T, std::size n = std::numetic_limits<std::size_t>::max()>
 class Span{
@@ -73,32 +72,33 @@ class Span{
 };
 
 
+DİKKAT !!!!!!!!!!!!!
 Fakat o default argüman kullanılmamışsa
 
 int main()
 {
 	int ar[5]{};
 	span<int,5> sp(ar); // BU ŞEKILDE NESNE OLUŞTURUSAK MUHTELEMEN IMPLEMENTASYON TARAFINDA
-						// SIZEOF(SP) 4 BYTE OLACAK. BIR POINTER TUTULUYOR. SPAN ARALIĞI DEĞIŞMIYOR.
-						// TÜRÜN BIR PARÇASI OLDU. SP DIYORKI BEN HER ZAMAN INT NESNELER DIZISINDE INT
-						// NESNELER DIZISINDE 1 ADRESTEN BAŞLAYARAK 5 TANE NESNELIK BIR ARALIĞI IŞARETLEYECEĞIM
-						// BU DINAMIK OLARAK RUNTIMEDA 4 VEYA 7 OLAMAZ HEP 5 OLARAK KALACAKÇ
-						// UYGUN OLMAYAN ATAMA YAPILDIĞINDA SENTAKS HATASIDA OLMAZSA UNDEFINED BEHAVIOR OLACAK
-						// BÖYLE SPANLERE STATIC/FIXED EXTEND DENIYOR.
+			    // SIZEOF(SP) 4 BYTE OLACAK. BIR POINTER TUTULUYOR. SPAN ARALIĞI DEĞIŞMIYOR.
+			    // TÜRÜN BIR PARÇASI OLDU. SP DIYORKI BEN HER ZAMAN INT NESNELER DIZISINDE 
+			    // 1 ADRESTEN BAŞLAYARAK 5 TANE NESNELIK BIR ARALIĞI IŞARETLEYECEĞIM
+			    // BU DINAMIK OLARAK RUNTIMEDA 4 VEYA 7 OLAMAZ HEP 5 OLARAK KALACAK
+			    // UYGUN OLMAYAN ATAMA YAPILDIĞINDA SENTAKS HATASIDA OLMAZSA UNDEFINED BEHAVIOR OLACAK
+			    // BÖYLE SPANLERE STATIC/FIXED EXTEND DENIYOR.
 
 
 	std::cout << sizeof(sp); // 4
 
 
 	span<int> sp(ar); // BU ŞEKILDE YAZARSAK BU DURUMDA BU DYNAMIC EXTENTLY BIR SPAN OLDU.
-					  // BU IÇINDE BIR POINTERT TUTMAKLA DEĞIL BIR TAMSAYI DEĞIŞKENDE TUTUYOR VE BU DEĞIŞEBILIR.
-					  // 3 NESNELIK ALANI GÖZLEME STATEINDEN 7 NESNELIK ALANI GÖZLEMLEME STATE INE GEÇEBILIR.
-					  // BIR SPANIN DYNAMIC MI STATIC EXTENTLY MI OLDUĞUNU NASIL ANLARIZ? BUNUN IÇIN 2. TEMPLATE
-					  // ARGÜMANI ILE DEĞERINI ALMIŞ BIR STATIC CONSTEXPR VERI ELEMANI VAR.
+			  // BU IÇINDE BIR POINTERT TUTMAKLA DEĞIL BIR TAMSAYI DEĞIŞKENDE TUTUYOR VE BU DEĞIŞEBILIR.
+			  // 3 NESNELIK ALANI GÖZLEME STATEINDEN 7 NESNELIK ALANI GÖZLEMLEME STATE INE GEÇEBILIR.
+			  // BIR SPANIN DYNAMIC MI STATIC EXTENTLY MI OLDUĞUNU NASIL ANLARIZ? BUNUN IÇIN 2. TEMPLATE
+			  // ARGÜMANI ILE DEĞERINI ALMIŞ BIR STATIC CONSTEXPR VERI ELEMANI VAR.
 
 }
 
---------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ÖR:
 
