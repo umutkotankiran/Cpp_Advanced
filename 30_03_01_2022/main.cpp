@@ -3,7 +3,7 @@
 Sentinel Kavramını inceliyorduk.
 Daha önceden STL de range'i 2 iterator olarak gönderiyorduk algoritmaya.
 Daha önceden algoritmaların range parametreleri aynı türdendi. begin ve end aynı iterator türünden olmalıydı.
-Rangeste en büyük değişikliklerden biri artık yeni algoritmalar conmstraint ile kalmıyor ve sentinel kavramını
+Rangeste en büyük değişikliklerden biri artık yeni algoritmalar constraint ile kalmıyor ve sentinel kavramını
 desteklemek için range in başı olan iterator farklı sonu belirleyen iteratör farklı olabilir.
 Aynı türden olmak zorunda değil.
 
