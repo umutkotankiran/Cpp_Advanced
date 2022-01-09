@@ -638,7 +638,7 @@ namespace rng = std::ranges; // Artık bu şekilde de yazıyorlar.
 
 
 DİKKAT!!! 
-Aşağıdaki yapılırsa algoritmalardaki klasik algoritmalar ile çalışma olur aşağıdaki yazılırsa
+Aşağıdaki yapılırsa algoritmalardaki klasik algoritmalar ile çakışma olur
 
 using namespace std::ranges; // yapılmamalı
 
