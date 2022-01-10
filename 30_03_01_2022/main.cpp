@@ -794,35 +794,39 @@ int main()
 
 int main()
 {
+	
 	vector<string> svec;
-	rfill(svec,30,rname);
-	
-	print(svec);
-	
-	char c;
-	
-	std::cout << "icinde hangi karkaterler olanlar : ";
-	std::cin>> c;
-	
-	auto &s : views::filter(svec, [](const auto &s){ return s.find(c) != string::npos;});
-	
-	
-	std::cout << v.size() << '\n'; //SENTAKS HATASI SIZE FUNC YOK
-	
-	v.begin()
-	v.end() bunlar var
-	
-	veya global funclara argüman olarakta göndeebiliriz.
-	ranges::begin(v);
-	ranges::end(v); // bunlarda olabilir.
-	
-	std::cout << v[3]; // Buda sentaks hatası operator[] yok
-	
-	v.front() var
-	
-	
-}
+	rfill(svec, 30, rname);
 
+	print(svec);
+
+	char c;
+
+	std::cout << "icinde hangi karkaterler olanlar : ";
+	std::cin >> c;
+
+	for (auto& s : views::filter(svec, [c](const auto& s) { return s.find(c) != string::npos; }))
+		std::cout << s << '\n';
+
+	//---------------------------------------------------------------------------------------------------------
+
+	//std::cout << v.size() << '\n'; //SENTAKS HATASI SIZE FUNC YOK
+
+	auto v = views::filter(svec, [c](const auto& s) { return s.find(c) != string::npos; };
+	
+	
+	v.begin(); // GEÇERLİ
+	v.end(); // GEÇERLİ
+
+	// VEYA GLOBAL FUNCLARA ARGÜMAN OLARAKTA GÖNDEEBILIRIZ.
+	ranges::begin(v); // GEÇERLİ
+	ranges::end(v); // GEÇERLİ
+
+	std::cout << v[3]; // BUDA SENTAKS HATASI OPERATOR[] YOK
+
+	v.front(); //GEÇERLİ
+
+}
 
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -878,8 +882,8 @@ int main()
 	auto v = views::transform(svec,[](const auto &s){ return s.length(); });
 	
 	std::cout << typeid(*v.begin()).name() << '\n'; // DİKKAT!!!
-													// Öğeler artık string değil, unsigned int
-													// çünkü length return etti.
+							// Öğeler artık string değil, unsigned int
+							// çünkü length return etti.
 														
 	for(auto len : v)
 		std::cout << len << ' ';
