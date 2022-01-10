@@ -89,8 +89,7 @@ int main()
 	ALGORITMAYA RVALUE EXPR GEÇERSEK !!!!!!!!!!!!!
 	BU ESKİDEN OLMAYAN BİR PROBLEM !!!!!!!!!!!
 
-	auto iter = ranges::min_element(getvec(10,0,100000)); // Sentaks hatası. getvec(10,0,100000) bu bir prvalue expr. ifadenin çalıştıktan sonra
-							      // Dolayısı ile buradaki iterator dangling iterator olacak.
+	auto iter = ranges::min_element(getvec(10,0,100000)); // Sentaks hatası. getvec(10,0,100000) bu bir prvalue expr. getvec ifadesi çalıştıktan sonra
 							      // Vectorun ömrü bitiyor. Dolayısı ile buradaki iterator bir dangling iterator olacak.
 
 }
@@ -119,7 +118,7 @@ int main()
 
 	auto iter = ranges::min_element(span(vec)); // span(vec)'te bir rvalue expr.iter burada dangling iterator değil.
 
-	std:cout << "min = " << *iter; // yukarıdaki iterator dangling değil. dangling iteratorü indirection yapınca sentaks hatası oluyor
+	std:cout << "min = " << *iter; // GEÇERLİ.yukarıdaki iterator dangling değil. Dangling iterator olunca indirection yapınca sentaks hatası oluyor
 }
 
 BURADA NASIL KOD ÜRETILDI ?
@@ -128,7 +127,7 @@ araçları kullanarak anladı.
 
 BARROWED RANGE IÇIN 2 IHTIMAL VAR
 1- Lvalue range olacak
-2- Variable template var. İsmi enable barrow range. O tür için explicit specialization yapılmış std library'de.
+2- Variable template var. İsmi enable_barrow_range. O tür için explicit specialization yapılmış std library'de.
    Ve inline variable'ın değerini true yapacağız.
 
 
@@ -151,7 +150,7 @@ OLMASI İÇİN AZ ÖNCEKİ GİBİ DEĞİŞKENİN DEĞERİNİN TRUE OLMASI GEREK�
 FARKLAR NELER?
 
 1 - Function return değeri duruma göre compile timeda iterator yada ranges dangling türü olabiliyor.
-Böylece dangling türünden değeri dereference ettiğimizde yada işlemlere soktuğumuzda sentaks hataso oluşuyor.
+Böylece dangling türünden değeri dereference ettiğimizde yada işlemlere soktuğumuzda sentaks hatası oluşuyor.
 Böylece algoritmalara eğer uygunsa rvalue expr olan bir rangei geçebiliyoruz.Uygun değilse aldığımız iteratörü
 dereference edince compile timeda hata oluşuyor
 
@@ -187,8 +186,8 @@ int main()
 	print(ivec);
 
 	auto val = accumulate(ivec.begin(), ivec.end(),0);  // üretilen 100 sayıyı topladı. initial value da 0.
-														// rangedeki öğeler toplanmasın ama şu işlem olsun dersek onuda algoritmanın diğer overloaduna
-														// 4. parametre olarak geçebiliriz. Defaultta toplama işlemi.
+							    // rangedeki öğeler toplanmasın ama şu işlem olsun dersek onuda algoritmanın diğer overloaduna
+							    // 4. parametre olarak geçebiliriz. Defaultta toplama işlemi.
 	std::cout << "val = " << val << '\n';
 }
 
