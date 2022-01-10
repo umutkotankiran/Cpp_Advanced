@@ -365,7 +365,7 @@ int main()
 
 	// KARŞILAŞTIRMA KRITERI KIŞININ ADI VE SOYADININ TOPLAMI OLAN YAZI ÜSTÜNDEN YAPILDI.
 
-	ranges::sort(evec,{}, [](const Employee &e){ return e.mname() + e.msurname();});
+	ranges::sort(evec,{}, [](const Employee &e){ return e.mname + e.msurname;});
 
 	------------------------------------------------------------------------------------------------------
 	
