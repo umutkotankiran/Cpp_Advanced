@@ -473,8 +473,8 @@ int main()
 	print(ivec);
 	
 	std::ranges::take_view v{vec,5}; // Normalde bunlar sınıf template.Ctad dan faydalalnıyoruz burada
-									 // oluşturulan nesnenin türü std::ranges::take_view değil. bu sınıf template in ismi
-									 // Burada Ctad dan faydalanıldı.
+					 // oluşturulan nesnenin türü std::ranges::take_view değil. bu sınıf template in ismi
+					 // Burada Ctad dan faydalanıldı.
 	
 	std::cout << typeid(v).name() << '\n'; // uzun bir açılımı var.
 
@@ -486,12 +486,15 @@ int main()
 
 }
 
-----------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------
+==============================================================================================================================================================
+==============================================================================================================================================================
+==============================================================================================================================================================
+==============================================================================================================================================================
+
 
 VIEW SINIFI TÜRÜNDEN BIR NESNE ELDE ETMENIN BIR YOLU DAHA VAR.ÇOĞU ZAMANDA BU YOL KULLANILIYOR.
 DOĞRUDAN SINIFIN CTORU KULLANMAK YERINE, RANGES NAMESPACE IÇINDEKI VIEWS NAMESPACEI IÇINDE FUNCTION OBJECTLER VAR
-BU FUNC OBJECTLERE ÇAĞRI YAPINCA BUNLAR BIZE DOĞRUDAN REUTRN DEĞERLERIYLE BIR VIEW NESNESI VERIYORLAR.
+BU FUNC OBJECTLERE ÇAĞRI YAPINCA BUNLAR BIZE DOĞRUDAN RETURN DEĞERLERIYLE BIR VIEW NESNESI VERIYORLAR.
 
 int main()
 {
@@ -508,7 +511,7 @@ int main()
 	
 }
 
-BURADAKI FUNCTION OBJECT SINIFLARINA RANGE ADAPTERS DENIYOR.YANI VIEWLAR ASLINDA HEMEN HEPSI SINIF ŞABLONU AMA RANGE ADAPTÖRLERI
+BURADAKI FUNCTION OBJECT SINIFLARINA RANGE ADAPTORS DENIYOR.YANI VIEWLAR ASLINDA HEMEN HEPSI SINIF ŞABLONU AMA RANGE ADAPTÖRLERI
 BIR FUNCTION OBJECT. BİR RANGE ADAPTERÖNE ÇAĞRI YAPINCA O RETURN DEĞERİ OLARAK VIEW VERİYOR.DOLAYISI İLE VIEW KULLANMAM GEREKEN
 YERDE VIEW SINIF TURDEN ESNNEYI KENDİM OLUŞTURABİLİRİM. BUNU YAPARSAM CTADDAN DA FAYDALANMAK GEREKECEK AMA DAHA İYİSİ O VIEWI VEREN
 RANGE ADAPTER VARSA ONA ÇAĞRI YAPIYORUZ.
@@ -531,25 +534,27 @@ int main()
 	print(ivec);
 
 	ranges::filter_view v(ivec,[](int x){ return x % 5 == 0;}); // 1. parametre range veya viewın kendisini gönderyotruz.
-																// Range aldıkları için ve view da range olduğu için
-																// viewın ctoruna yine view geçilebilir.
-																// 2. parametre predicate
+								    // Range aldıkları için ve view da range olduğu için viewın ctoruna yine view geçilebilir.
+								    // 2. parametre predicate
 
 
-	// Yukarudakini yazmanın daha rahat yolu
+	// Yukarıdakini yazmanın daha rahat yolu
 	// İsimlendirme şöyle, view sınıfının isimlerinin sonunda view var. mesela ranges::filter_view
 	// range adapter olan func objectlerin isminde sondaki viewı atıyoruz. views::filter oldu
-	// ÖR:   ranges::take_view		views::take
+	// ÖR: 
+	// 		 VIEWS CLASS			RANGE ADAPTERS
+	//		 ---------------------------------------------
+	//  		 ranges::take_view		views::take
 	//		 ranges::iota_view		views::iota
 	//		 ranges::drop_view		views::drop
 
+
 	auto v = views::filter(ivec,[](int x){ 
 	std::cout << "called\n";
-	return x % 5 == 0; });						// YUKARIDAKİ GİBİDE OLUR BU ŞEKİLDE DE OLUR
-												// ŞUANDA BİR FUNC ÇAĞRISI YOK AMA NE ZAMANKİ VIEW IN OLUŞTURDUĞPU RANGEİ
-												// DOLAŞACAĞIZ BUNU BİL ALGORİTMAYA GÖNMDEREREJ YAPABİLİRİM YADA RANGE BASE FOR LOOP
-												// İLE YAPABİLİRİZ, O ZAMAN VIEW NESNESİ BANA 5 E TAM BÖLÜNMEN NESNELERİ VERECEK
-
+	return x % 5 == 0; });				// YUKARIDAKİ GİBİDE OLUR BU ŞEKİLDE DE OLUR
+							// ŞUANDA BİR FUNC ÇAĞRISI YOK AMA NE ZAMANKİ VIEW IN OLUŞTURDUĞU RANGEİ
+							// DOLAŞACAĞIZ BUNU BİR ALGORİTMAYA GÖNMDEREREK YAPABİLİRİM YADA RANGE BASE FOR LOOP
+							// İLE YAPABİLİRİZ, O ZAMAN VIEW NESNESİ BANA 5 E TAM BÖLÜNMEN NESNELERİ VERECEK
 
 
 	for(auto i : ivec)
@@ -562,6 +567,8 @@ int main()
 
 
 -------------------------------------------------------------------------------------------------------------------------------
+
+1. ÖZELLİK LAZY EVALUATION
 
 HERHANGİBİR ALGORİTMADA BU RANGEİ KULLANABİLİRİZ
 
@@ -584,7 +591,7 @@ int main()
 
 2. ÖZELLİK, COMPOSE EDEBİLİRİZ.
 
-views::filter func çağrısı bize bir view verir.O zaman range adaptörü bizden range istiyor. viewda bir range olduğuna göre filterın
+views::filter func çağrısı bize bir view verir. O zaman range adaptörü bizden range istiyor. Viewda bir range olduğuna göre filterın
 döndürdüğü range i başka bir range adaptörüne operand olarak gönderebiliriz.
 
 int main()
@@ -593,11 +600,13 @@ int main()
 	print(ivec);
 
 	auto v = views::take(views::filter(ivec,[](int x){ return x % 5 == 0;}), 5); // Bu rangei dolaşınca önce 5 e bölünenlere bakacak,
-																				 // bunlardan da ilk 5 tanesini alacak.
+										     // bunlardan da ilk 5 tanesini alacak.
 
 }
 
 -------------------------------------------------------------------------------------------------------------------------------
+
+ÖRNEK
 
 Öyle bir range oluşturuyorum ki bu range oluşturulduğunda 5 e tam bölünenler dolaşılmış olacak ama onların karesini alacağız
 Onların içinden de ilk 10 tanesini dolaşacağız. Tüm bunlar için tek bir view oluşturabiliriz. Bunun için farklı yollar var.
@@ -611,7 +620,7 @@ int main()
 
 
 	//ranges::filter_view(ivec, [](int x){return x % 5 == 0;}); // Temporary filter view object.Bu ifade bir sınıf.Rvalue expr.
-																// aşağıdakine argüman olarak gitti.transform da take e argüman olarak gitti.
+								    // aşağıdakine argüman olarak gitti.transform da take e argüman olarak gitti.
 	
 	ranges::take_view v { 
 	ranges::transform_view{ranges::filter_view(ivec, [](int x){return x % 5 == 0;}}, [](int x){ return x * x; }
@@ -646,7 +655,7 @@ int main()
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-DAHA KOLAYIDA VAR
+DAHADA KOLAYIDA VAR :D:D
 
 int main()
 {
