@@ -17,8 +17,8 @@ auto Find(Iter beg, S end, const T& val, Proj proj = {})	// S ile iter aynı tü
 	while(beg != end)
 	{
 		if(std::invoke(proj, *beg) == val) // invoke proj çağırıyor ve *beg'i argüman olarak gönderiyor.
-		{								   // Data member ptr de gönderildiğidne yine çağrı yapsın diye invoke var.
-										   // default argüman kullanırsak identity olacak proj. İdentity de *beg değerini verir
+		{				   // Data member ptr de gönderildiğidne yine çağrı yapsın diye invoke var.
+						   // default argüman kullanırsak identity olacak proj. İdentity de *beg değerini verir
 
 			return beg;
 		}
@@ -92,8 +92,8 @@ int main()
 	BU ESKİDEN OLMAYAN BİR PROBLEM !!!!!!!!!!!
 
 	auto iter = ranges::min_element(getvec(10,0,100000)); // Sentaks hatası. getvec(10,0,100000) bu bir prvalue expr. ifadenin çalıştıktan sonra
-														  // Dolayısı ile buradaki iterator dangling iterator olacak.
-														  // Vectorun ömrü bitiyor. Dolayısı ile buradaki iterator bir dangling iterator olacak.
+							      // Dolayısı ile buradaki iterator dangling iterator olacak.
+							      // Vectorun ömrü bitiyor. Dolayısı ile buradaki iterator bir dangling iterator olacak.
 
 }
 
