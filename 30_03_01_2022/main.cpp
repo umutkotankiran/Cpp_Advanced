@@ -61,7 +61,7 @@ int main()
 
 	vector ivec{12,5,218,9,3,24,-1,9,41,6}; //
 
-	auto iter = ranges::find(ivec.begin(), EndVal<-1>{},9);
+	auto iter = ranges::find(ivec.begin(), EndValue<-1>{},9);
 
 	std::cout << distance(ivec.begin(), iter) << '\n'; // indexi verir. 3 
 
@@ -278,7 +278,7 @@ int main()
 	
 	ranges::sort(pvec,[](const Payslip &e1, const Payslip &e2){ return e1.id < e2.id; });
 
-	auto b = ranges::equal(evec,pvec.begin(), pvec.end(), [](const Employee &e,const Payslip &p){
+	auto b = ranges::equal(evec,pvec, [](const Employee &e,const Payslip &p){
 		return e.id == p.id;
 	}); 
 
@@ -322,7 +322,7 @@ int main()
 	
 	ranges::sort(pvec,{}, &Payslip::id);
 
-	auto b = ranges::equal(evec,pvec, {}, &Employee:id, &Payslip::id); 
+	auto b = ranges::equal(evec,pvec, {}, &Employee::id, &Payslip::id); 
 
 }
 
