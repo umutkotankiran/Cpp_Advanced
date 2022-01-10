@@ -662,8 +662,7 @@ int main()
 	auto ivec = getvec(200,0,1000);
 	print(ivec);
 
-	auto v = ivec | views::filter(ivec, [](int x){return x % 5 == 0;}) | views::transform([](int x){ return x * x;})
-				  | view::take(10);
+	auto v = views::filter(ivec, [](int x){return x % 5 == 0;}) | views::transform([](int x){ return x * x;}) | views::take(10);
 
 	for(auto i : v)
 	{
@@ -702,7 +701,7 @@ MOLA
 =================================================================================================================================
 =================================================================================================================================
 
-Hew view sınıfı için range adaptörü var mı ?  Hayır.Aynı range adaptörü aynı view sınıfını döndürmüyor.Aldıkları argümana bağlı 
+Hew view sınıfı için range adaptörü var mı ?  Hayır. Aynı range adaptörü aynı view sınıfını döndürmüyor.Aldıkları argümana bağlı 
 olarak farklı view sınıfları döndürüyorlar.
 
 Range adaptörleri her zaman aynı view sınıfı türünden nesne mi döndürüyor?
@@ -755,7 +754,7 @@ Sınıfı kullanırken ranges::filter_view şeklinde kullanılacak.
 Filter diyorki bana bir unary predicate ve range vereceksin. Ben o rangedeki öğelerden
 dolaşıldığında sadece predicate'ı sağlayanları dolaşacaksın.
 
-Bu bizden bir range birde unary predicate isteyecek. Oluşturulaan rangede underlying rangedeki o predicate'ı sağlayan öğelerin rangeini
+Yani bizden bir range birde unary predicate isteyecek. Oluşturulan rangede underlying rangedeki o predicate'ı sağlayan öğelerin rangeini
 oluşturmuş oluyoruz.
 
 int main()
@@ -784,8 +783,8 @@ int main()
 	std::cout << "icinde hangi karkaterler olanlar : ";
 	std::cin>> c;
 	
-	for(const auto &s : views::filter(svec, [](const auto &s){ return s.find(c) != string::npos;}))
-			std::cout << s << '\n'; // İçerisinde belirli bir karakter olanları yazdırdık
+	for(const auto &s : views::filter(svec, [c](const auto &s){ return s.find(c) != string::npos;}))
+		std::cout << s << '\n'; // İçerisinde belirli bir karakter olanları yazdırdık
 	
 }
 
