@@ -80,8 +80,6 @@ int main()
 	auto vec = getvec(100,0,1000);
 	print(vec);
 
-	// ranges::sort(vec); // algoritma iteratör dündürüyor ama range parametresine biz lvalue expr yerine rvalue expr gönderiyoruz.
-
 	auto iter = ranges::min_element(vec);
 
 	std::cout << "min = " << *iter << " iter = " << iter - vec.begin() << '\n';
