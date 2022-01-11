@@ -227,6 +227,9 @@ Init Accumulate2(Iter beg, SenType end, Init init, Op op = {})
 
 CONCEPTLER İLE CONSTRAINT EDELİM
 
+std::sentinel_for ifadesi bir range olabilip olamayacağını belirtiyor. 
+beg != end ifadesi karşılaştırılabilir bir ifademi bunada bakıyor. Aynı zamanda bir concept.
+
 template<typename Iter,typename SenType, typename Init, typename Op = std::plus<>>
 requires std::input_iterator<Iter> && std::sentinel_for<Iter,SenType>
 Init Accumulate3(Iter beg, SenType end, Init init, Op op = {})
