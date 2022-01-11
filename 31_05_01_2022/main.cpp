@@ -473,7 +473,7 @@ int main()
 
 	ranges::filter_view vw{ivec, [](int x){ return x % 5 == 0;}}; // sınıf bu
 
-	auto vw = views::filter{ivec, [](int x){ return x % 5 == 0;}}; // range adapter
+	auto vw = views::filter(ivec, [](int x){ return x % 5 == 0;}); // range adapter
 
 	auto vw = ivec | views::filter([](int x){ return x % 5 == 0;}); // buda geçerli.
 	// Burada herhangibir lambda ifadesi çağrılıyor dğeil. Bu ancak range dolaşıldığında
@@ -632,7 +632,8 @@ int main()
 ----------------------------------------------------------------------------------------------------------
 
 DROP_WHILE 
-Predicatetaki koşulu sağlayanlları sonuna kadar drop ediyor.
+Predicatetaki koşulu sağlayanları ilk başta ard arda skip ediyor. Daha sonra predicate uymayan olanları yazarken
+tekrar sağlayanlar çıkarsa bu sefer onlara müdahale etmiyor.
 
 int main()
 {
@@ -673,6 +674,8 @@ int main()
 	{
 		std::cout << x << ' ';
 	}
+	
+	//auto vw = ivec | views::reverse;  // böylede yazılabilirdi. Sonra () yok dikkat.Yukarıdakinde vardı
 
 }
 
