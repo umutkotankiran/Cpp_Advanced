@@ -475,7 +475,7 @@ int main()
 
 	auto vw = views::filter{ivec, [](int x){ return x % 5 == 0;}}; // range adapter
 
-	auto vw = ivec | views::filter{[](int x){ return x % 5 == 0;}}; // buda geçerli.
+	auto vw = ivec | views::filter([](int x){ return x % 5 == 0;}); // buda geçerli.
 	// Burada herhangibir lambda ifadesi çağrılıyor dğeil. Bu ancak range dolaşıldığında
 	// çağrılacak. Bu yüzden lazy evaluation deniyor.
 
