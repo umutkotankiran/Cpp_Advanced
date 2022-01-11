@@ -243,6 +243,10 @@ Init Accumulate3(Iter beg, SenType end, Init init, Op op = {})
 	return init;
 }
 
+DİKKAT!!!!!!!!!!!!!!!!!!
+requires clause içerisindeki sentinel_for cepcentine bak. 2 tür parametresi var.
+Bir sonraki örnekte template tür parametresi içerisinde olduğundaki durumu göreceğiz.
+
 -------------------------------------------------------------------------------------------------
 
 CONSTRAINT TEMPLATE PARAMETRESİ YAPALIM
@@ -258,6 +262,12 @@ Init Accumulate4(Iter beg, SenType end, Init init, Op op = {})
 
 	return init;
 }
+
+DİKKAT!!!!!!!!!!!!!!!
+Burada sentinel_for conceptinin 2 parametresi var.
+Burada şu olacak 
+sentinel_for<Iter> Sentype ----> sentinel_for<Iter, Decltype<Sentype>> olacak !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 -------------------------------------------------------------------------------------------------
 
