@@ -612,9 +612,9 @@ int main()
 	auto vec = getvec(20,0,30);
 
 	
-	auto v = vec | views::filter(odd) | views::transform(cube); // filter(odd) 2 ye bölünenler geldikçe çalışacak
-																// tek bir sayı gelince mesela 3, cube a 3 gönderilmiş
-																// ilk değer 27 oldu mesela
+	auto v = vec | views::filter(odd) | views::transform(cube); // filter(odd) 2 ye bölünmeyenler geldikçe çalışacak
+								    // tek bir sayı gelince mesela 3, cube a 3 gönderilmiş
+								    // ilk değer 27 oldu mesela
 	
 	// şu ana kadar ekrana birşey çıkmaz. Çünkü rangei dolaşmadık.
 	// ne zaman range dolaşılırsa o zaman bu işlemler yapılır.
@@ -632,10 +632,7 @@ int main()
 ----------------------------------------------------------------------------------------------------------
 
 DROP_WHILE 
-Predicateın sağladıklarını drop ediyor.
-
-Buda take while ın tersi.
-
+Predicatetaki koşulu sağlayanlları sonuna kadar drop ediyor.
 
 int main()
 {
@@ -650,7 +647,7 @@ int main()
 
 	cin >> len;
 
-	auto v = views::drop_while(slist,[](const string &s){return s.size() > len; })
+	auto v = views::drop_while(slist,[len](const string &s){return s.size() > len; })
 
 	ranges::for_each(v,[](const auto &s){ std::cout << quoted(s) << " "; });
 
@@ -692,9 +689,9 @@ view::iota	range adapter buda
 
 int main()
 {
-	auto v = views::iota(10); // Bu rangein dışarı bağımlığı yok değeri kendisi tutuyor. İlk defa bu range dolaştırğımda
-								// bana ilk öğe olarak 10 değeri verilecek. Sonrasında ++ operatorü kullanılıp birsonraki değer
-								// verilecek. Range şaunda infinite durumda. Sonlandırılmamış.
+	auto v = views::iota(10); // Bu rangein dışarı bağımlığı yok değeri kendisi tutuyor. İlk defa bu range i dolaştırğımda
+				  // bana ilk öğe olarak 10 değeri verilecek. Sonrasında ++ operatorü kullanılıp birsonraki değer
+				  // verilecek. Range şaunda infinite durumda. Sonlandırılmamış.
 
 
 	//İstersek Ctora ikincibir argüman gönderebiliriz.
@@ -721,15 +718,15 @@ int main()
  
 ----------------------------------------------------------------------------------------------------------
 
-// ___________murat_____________
+// (			murat			)
 // trimden sonra
-// murat
+// (murat)
 std::string trim(std::string s)
 {
 	auto v = s | views::drop_while(std::isspace)		// boşluk karakterlerini range dahil etmeyuecek
-               | views::reverse							// ters çevirdik ki sonradki boşluklarıda silebilelim 
-			   | views::drop_while(std::isspace)		// yine başa hgelen boşluklar silindi. Şuanda yazıda ters
-			   | views::reverse;						// ters olan yazıyı düzelttik.
+                   | views::reverse				// ters çevirdik ki sonradki boşluklarıda silebilelim 
+		   | views::drop_while(std::isspace)		// yine başa hgelen boşluklar silindi. Şuanda yazıda ters
+		   | views::reverse;				// ters olan yazıyı düzelttik.
 
 
 	return std::string(v.begin(), v.end());	
@@ -800,8 +797,8 @@ int main()
 	list mylist{1,2,3,4,5,6,7,8,9};
 
 	auto v = views::take(mylist, 5); // v de range mylistte range.mylist doğrudan bir container. v aynı zamanda bir view
-									 // bütün viewlarda range idi zaten. Bir derste yazmıştık.
-									 // mylist common range conceptini satisfied edecek çünkü onun begin ve endi aynı türden
+					 // bütün viewlarda range idi zaten. Bir derste yazmıştık.
+					 // mylist common range conceptini satisfied edecek çünkü onun begin ve endi aynı türden
 
 	constexpr auto b = ranges::common_range<decltype(mylist)>; // compile timeda b true.
 	same_as<decltype(mylist.begin()), decltype(mylist.end())>; // True verecek.
