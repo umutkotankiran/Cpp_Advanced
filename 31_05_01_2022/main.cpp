@@ -290,7 +290,7 @@ Init Accumulate5(Iter beg, SenType end, Init init, Op op = {})
 
 INITTE DEFAULT ARGÜMAN ALACAK
 
-template<std::input_iterator Iter, std::sentinel_for<Iter> SenType, typename Init = std::iter_value_t<iter>, typename Op = std::plus<>>
+template<std::input_iterator Iter, std::sentinel_for<Iter> SenType, typename Init = std::iter_value_t<Iter>, typename Op = std::plus<>>
 Init Accumulate6(Iter beg, SenType end, Init init = Init{}, Op op = {})
 {
 	while(beg != end)
