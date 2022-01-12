@@ -900,7 +900,7 @@ int main()
 	
 	auto pred = [](const std::string &s){ return s.front() == s.back()};
 	
-	for(const auto &s : svec | views::filter(pred) |  views::take(10)  // take ilk 10 taneyi alıyor
+	for(const auto &s : svec | views::filter(pred) |  views::take(10))  // take ilk 10 taneyi alıyor
 	{
 		std::cout << s << '\n';
 	}
