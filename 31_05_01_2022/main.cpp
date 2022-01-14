@@ -597,7 +597,7 @@ LAZY EVALUATION
 
 int main()
 {
-	auto odd = [](int){
+	auto odd = [](int x){
 
 		std::cout << "odd => x = " << x << '\n';
 		return x % 2 != 0;
