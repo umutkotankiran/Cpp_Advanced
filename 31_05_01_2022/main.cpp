@@ -714,7 +714,7 @@ int main()
 
 	----------------------------------------------------------------------------------------------------
 
-	for(auto x : views::iota(10) | views::transform([](int x){ return x + 10;}) | views::take(20)
+	for(auto x : views::iota(10) | views::transform([](int x){ return x + 10;}) | views::take(20))
 		std::cout << x << ' '; // 20 21 22 .... 39 40
 
 }
