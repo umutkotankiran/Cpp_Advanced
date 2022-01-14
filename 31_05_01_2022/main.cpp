@@ -316,7 +316,7 @@ Init Accumulate7(Iter beg, SenType end, Init init = Init{}, Op op = {}, Proj pro
 {
 	while(beg != end)
 	{
-		init = std::invoke(op, std::move(init), std::invoke(proj,beg)); // Burasıda değişti !!!!!
+		init = std::invoke(op, std::move(init), std::invoke(proj,*beg)); // Burasıda değişti !!!!!
 		++beg;
 	}
 
