@@ -311,7 +311,7 @@ Init init = Init{} primitive türler için değer 0, sınıf türleri için defa
 
 PROJECTION PARAMETRESI EKLİYORUZ EN SONDA
 
-template<std::input_iterator Iter, std::sentinel_for<Iter> SenType, typename Init = std::iter_value_t<iter>, typename Op = std::plus<>,typename Proj = std::identity>
+template<std::input_iterator Iter, std::sentinel_for<Iter> SenType, typename Init = std::iter_value_t<Iter>, typename Op = std::plus<>,typename Proj = std::identity>
 Init Accumulate7(Iter beg, SenType end, Init init = Init{}, Op op = {}, Proj proj = {})
 {
 	while(beg != end)
