@@ -501,7 +501,7 @@ int main()
 	---------------------------------------------------------------------------------------------
 
 	//Yada adaptörden aldığım değeri diğer adaptöre argüman olaran geçebiliyorum.
-	views::transform(view::filter(ivec,[](int x){return x % 5 == 0}), [](int x){ return x * x  - 1;});
+	views::transform(views::filter(ivec,[](int x){return x % 5 == 0;}), [](int x){ return x * x  - 1;});
 }
 
 ----------------------------------------------------------------------------------------------------------
