@@ -687,6 +687,12 @@ RANGE FACTORIES (VIEW FACTORIES)
 
 Kendileri range oluşturuyorlar. En sık kullanılanı iota.Iota aynı zamanda modern c++ ile gelen algoritmanında ismi
 
+iota_view
+single_view
+empty_view
+basic_istream_view
+
+
 ranges::iota_view  sınıf
 view::iota	range adapter buda
 
