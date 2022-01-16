@@ -857,7 +857,8 @@ ADAPTOR ADI : views::common
 COUNTED VIEW
 ------------
 Elimizde bir iterator var ve range olarak o iterator konumundan başlayarak belirli sayıda öğenin olduğu range/view 
-kullanmak istiyoruz. Bu işi yapıyor.
+kullanmak istiyoruz. Bu işi yapıyor. views::take te ise ilk parametre doğrudan container nesnesinin kendisiydi.
+Burada ise o nesnenin begin konumunu vereceğiz genel olarak.
 
 int main()
 {
