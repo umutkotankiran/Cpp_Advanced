@@ -385,13 +385,15 @@ void call_algo(TBeg beg, TEnd end)
 	else
 	{	
 		using iter_type = std::common_iterator<decltype(beg), decltype(end)>>; // common iterator türler aynı değilse onları aynı türden yapmak için 
-																				// common iterator türünden değer döndürecek.Kod tekrarını engellemk için using bildirimi yapıldı.
+											// common iterator türünden değer döndürecek.Kod tekrarını engellemk için using bildirimi yapıldı.
 		algo(iter_type{beg}, iter_type{end});
 
 		std::cout << '\n';
 
-		// 
-		auto v = std::views::common(std::ranges::subrange(beg,end));
+		//-----------------------------------------------------------------------------------
+
+		// 2. yol
+		auto v = std::views::common(std::ranges::subrange(beg,end)); //Common burada bize sentinel türü ile iterator türü aynı olan view döndürecek.
 		
 		algo(v.begin(), v.end()); //Buda geçerli.
 	}
@@ -431,6 +433,9 @@ int main()
 	}
 }
 
+ÇIKTI
+-----
+[6 87 5 ] [32 43 456 45 ] [657 768 324 ] [] [9 ]
 
 SEPERATOR/DELIMITER OLARAK KULLANILAN ÖĞE BİR RANGE OLSUN
 
@@ -453,6 +458,10 @@ int main()
 	}
 }
 
+ÇIKTI
+-----
+[] [6 87 5 32 43 456 ] [45 657 768 ] [324 9 ]
+
 --------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
 
@@ -468,9 +477,9 @@ int main()
 
 	istringstream iss{"akif murat kadir harun erkan sercan"};
 
-	ranges::istream_view<string>(iss);
+	//ranges::istream_view<string>(iss);
 
-	for(const auto &s : range::istream_view<string>(iss))
+	for(const auto &s : ranges::istream_view<string>(iss))
 	{
 		std::cout << s << ' ';
 	}
