@@ -223,14 +223,14 @@ Data hiding ilkesi ihlal edilmiş oluyor. Kötü bir durum.Yada başkabir modül
 
 Common Coupling
 ---------------
-Birden fazla modüle aynı global dataya okuma ve yazma amaçlı erişiyorlar.
+Birden fazla modül aynı global dataya okuma ve yazma amaçlı erişiyorlar.
 En tehlikeli şey global veride değişiklik. Fragility nin en tipik nedenlerinden biri.
 Bu tamamen antipattern olarak görülüyor. Ortada bir data var ama sorumluluğu kimde belli değil.
 Veriye kimin eriştiğini kontrol etmekte zor.
 
 Control Coupling 
 ----------------
-Bir modüle başka bir modülün akış biçimini belirleyebiliyor yani kontrol edebiliyor.
+Bir modül başka bir modülün akış biçimini belirleyebiliyor yani kontrol edebiliyor.
 Bu her zaman kötü olmak zorunda değil. Zaten yapı buna dayanıyorsa ve birbirlerinni iç yapılarını bilmeleri
 sözkonusu değilse ama akışını kontrol etme onun implementasyonuylada ilgiliyse bu çok çok kötü.
 yani factoringe izin veriliyorsa, iç işleyişle ilgili temas yoksa o kadar kötü olmayabilir.
@@ -238,7 +238,7 @@ yani factoringe izin veriliyorsa, iç işleyişle ilgili temas yoksa o kadar kö
 Data Structure Coupling
 -----------------------
 2 modül arasında bir veri yapısının kullanımı açısından bağlantı var.
-Ör: Modülümüzde veri yapısı var. Bu veri yapısının belli bir kısmını normalde bu veri yapıs9ına erişimi olmayan modüle geçiyoruz.
+Ör: Modülümüzde veri yapısı var. Bu veri yapısının belli bir kısmını normalde bu veri yapısına erişimi olmayan modüle geçiyoruz.
 Eğer diğer bileşen veri yapısının bu işi yapabilmek için veri yapısını nasıl manipüle edileceği bilgisine sahipse bu kötü.
 Kötü ama çok sık uygulanıyor. C++ genellemelere uymuyor :D:D
 Amaç efficienty ise o zaman bazı ilkelerden feragat edebiliyoruz.
