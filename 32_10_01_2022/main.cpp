@@ -194,7 +194,9 @@ int main()
 	auto f{[](int x){ return x * 10; }};
 
 	//views::iota(1,30);   buda olurdu
-	//constexpr auto v = ranges::transform_view{ranges::reverse_view {ranges::iota_view{1,30}},f}; böyle yazmak yerine aşağıdaki gibi yazılıyor.
+	//constexpr auto v = ranges::transform_view{ranges::reverse_view {ranges::iota_view{1,30}},f}; //böyle yazmak yerine aşağıdaki gibi yazılıyor.
+	
+	//ranges::transform_view a{ ranges::reverse_view {ranges::iota_view{1,30}},f }; //Aynı zamanda böylede yazılabilir.
 
 	constexpr auto v = views::iota(1,30) | views::transform(f);
 
