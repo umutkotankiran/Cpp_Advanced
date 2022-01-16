@@ -133,11 +133,15 @@ kullanıyorsa bu daha cohesive bir yapıdır.
 COHESION KATEGORILERI
 ---------------------
 
-Coincidental Cohesion : Olabilecek en kötü durum.Bunlar birarada olsun diye biraraya getirmişler. 
+Coincidental Cohesion
+---------------------
+Olabilecek en kötü durum.Bunlar birarada olsun diye biraraya getirmişler. 
 Çok ilgilide değiller. Parçalar rasgele biraraya gelmiş. Birden fazla sorumluluk var.
 Farklı işler yapan bileşenler var. Bu bizim istediğimiz cohesion değil.
 
-Logical Cohesion : Sınıfın öğeleri input işlemlerini yapıyor.Okuma işlemleri de olabilir.
+Logical Cohesion
+----------------
+Sınıfın öğeleri input işlemlerini yapıyor.Okuma işlemleri de olabilir.
 Mantıksal açıdan birbiriyle alakalı ama kod açısından tamamen farklı.Buda istenen değil.
 
 ör:
@@ -149,7 +153,9 @@ class Classxyz{
 };
 
 
-Temporal Cohesion : Zamana bağlı birliktelik var. Modülün öğeleri runtime da benzer zaman diliminde kullanıldıkları
+Temporal Cohesion
+-----------------
+Zamana bağlı birliktelik var. Modülün öğeleri runtime da benzer zaman diliminde kullanıldıkları
 için biraraya getirilmişler. Değişiklik yapmak önemli. Birden fazla değişiklik gerektiriyor. Kötü
 
 ör:
@@ -160,7 +166,9 @@ class Init{
 };
 
 
-Procedural Cohesion : Diğerleri kadar kötü değil. Modülün elemanları taskın farklı aşamalarını içeren
+Procedural Cohesion
+-------------------
+Diğerleri kadar kötü değil. Modülün elemanları taskın farklı aşamalarını içeren
 functionları biraraya getirmiş. Burada eylemler arası bağlantı zayıf. Tekrar kullanmaya yatkınlığı düşük.
 
 ör:
@@ -169,13 +177,20 @@ sonra sorgu yap
 sonra display et. yine kötü ama diğerleri kadar kötü değil.
 
 
-Comminucational/Informational Cohesion : Öğelerin biraraya gelmesi aynı data üzerinde işlem yapmaları.İşlemler birbirinden farklı
-ama kullanılan veri ortak
+Comminucational/Informational Cohesion
+--------------------------------------
+Öğelerin biraraya gelmesi aynı data üzerinde işlem yapmaları.İşlemler birbirinden farklı ama kullanılan veri ortak
 
-Sequential Cohesion : Modülün elemanlarından birinin çıktısı diğerinin girdisini oluşturuyor.Bu iyi bir cohesion.
+
+Sequential Cohesion
+-------------------
+Modülün elemanlarından birinin çıktısı diğerinin girdisini oluşturuyor.Bu iyi bir cohesion.
 Dosyadan oku, bunları veri yapısında tut onun çıktısını başkasına ver gibi.Fabrika üretim hattı gibi.
 
-Functional Cohesion : İdeal durum yani olabilecek en iyisi.Modülün elemanları aynı görevi yerine getirmek için
+
+Functional Cohesion
+-------------------
+İdeal durum yani olabilecek en iyisi.Modülün elemanları aynı görevi yerine getirmek için
 biraradalar ve burada hepsi gerekli.Diğerlerinde birini çıkartıp ayırabiliriz ama bunda elemanlardan biri olmasa iş yapılamayacak.
 
 
