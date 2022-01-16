@@ -431,9 +431,9 @@ lazy evaluation ile bir bunları dolaşırken önce range deki öğe birtakım i
 
 View Class
 ----------
-std::ranges::filter_view    sınıf
-std::ranges::view::filter   range adaptör
-std::views::filter    views aynı zamanda namespace alias olduğundan buda geçerli
+std::ranges::filter_view     sınıf
+std::ranges::views::filter   range adaptör
+std::views::filter   	     views aynı zamanda namespace alias olduğundan buda geçerli
 
 transform_view
 take_view
