@@ -363,7 +363,7 @@ int main()
 
 	//RANGES::SORT KULLANALIM
 
-	ranges::sort(evec, {}, &Employee::m_name); // Sıralama iste göre yapılır.Surname yazsaydık surname e göre yapılırdı.
+	ranges::sort(evec, {}, &Employee::m_name); // Sıralama isme göre yapılır.Surname yazsaydık surname e göre yapılırdı.
 
 	------------------------------------------------------------------------------------------------------
 
@@ -409,7 +409,7 @@ struct Employee{
 
 //Func şablonu yazacağız.Projectionu kendisi kullanacak. Sözde bir range'i yazdıracak
 
-template<std:ranges::input_range R, typename Projection = std::idnetity>	// std:ranges::input_range bu bir concept
+template<std:ranges::input_range R, typename Projection = std::identity>	// std:ranges::input_range bu bir concept
 void Print(R &&r, Projection proj = {})		// default init edilmiş projection nesnesi 2. param
 {
 	std::ranges::for_each(r, [](const auto &e){std:: << e << '\n';), proj);
