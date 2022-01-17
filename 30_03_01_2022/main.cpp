@@ -282,8 +282,8 @@ int main()
 	
 	ranges::sort(pvec,[](const Payslip &e1, const Payslip &e2){ return e1.id < e2.id; });
 
-	auto b = ranges::equal(evec,pvec, [](const Employee &e,const Payslip &p){
-		return e.id == p.id;
+	auto b = ranges::equal(evec,pvec, [](const Employee &e,const Payslip &p){  //Burada karşılaştırmak için doğrudan callable yazdık. Bu Projection değil.
+		return e.id == p.id;													// projection bir sonraki örnek.
 	}); 
 
 	---------------------------------------------------------------------------------------------------------
