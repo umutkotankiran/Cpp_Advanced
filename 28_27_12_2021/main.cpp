@@ -9,12 +9,12 @@ Derleyici implementasyonuda giderek tamamlanıyor.
 
 Templatelerde parametreler üzerine kısıtlama getirebiliyorduk. Derleyicinin kod üretebilmesi için
 instantiate edebilmesi için öncelikle dilin sentaksına uygun şekilde konulmuş kısıtlamalar varsa
-o kısıtlamalara uyulmak zorunda.Aslında containt burada template parametrelerinin uyması gereken
+o kısıtlamalara uyulmak zorunda.Aslında constraint burada template parametrelerinin uyması gereken
 koşullar anlamında kullanılıyor.
 
 Daha önce kullanılan çok karmaşık tekniklerin kullanımını gereksiz kılıyor.
 mesela sfinae.Artık bu tip teknikler yerine constaint ler oluşturuyoruz.
-Kodlar artık daha çık ve okunabilir. Birçok yan faydası var.Kodlar daha açık ve okunabilir.
+Kodlar artık daha şık ve okunabilir. Birçok yan faydası var.Kodlar daha açık ve okunabilir.
 Artık constaintler doğrudan template interfaceinin bir parçası.Templateler overload edilebiliyor.
 Sınıf şablonlarında partial specializetion oluşturabiliyoruz. Hata mesajlarının daha iyi hale geliyor.
 
@@ -51,7 +51,7 @@ struct A
 };
 
 template <typename T>
-requires nec<T>  // requires clause diyorki nec<T> true olacak.T türünün nec conceptine satisfied etmesi demek bu
+requires nec<T> 	 // requires clause diyorki nec<T> true olacak.T türünün nec conceptine satisfied etmesi demek bu
 class Myclass{
 	//
 };
@@ -171,7 +171,7 @@ concept nec = requires{
 -------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------
 
-Bir çok durumda constaint i en iyi ifade etmenin yolu, ifadenin geçerli olması.
+BIR ÇOK DURUMDA CONSTAINT I EN IYI IFADE ETMENIN YOLU, IFADENIN GEÇERLI OLMASI !!!!!!!!!!!!!!!!
 
 x + y; x int y double ise geçerli
 x + y; x int y string ise geçersiz. sting ile int i toplayacak func yok.
