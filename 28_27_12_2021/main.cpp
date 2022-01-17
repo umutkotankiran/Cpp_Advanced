@@ -276,7 +276,7 @@ Yada
 template<typename T>
 requires (sizeof(T) > 4) &&			// Bu bir requires clause 
 		  std::integral<T> &&		// bu bir concept
-		  requires{					// requires expression
+		  requires{			// requires expression
 				typename T::value_type;
 		  }
 
@@ -288,10 +288,7 @@ void func(T x); // Burada T tüm constaintleri sağlamak zorunda
 
 template <typename T>
 requires requires(T x)		// 2 requries kullanınca hata yok burada. 1. requires, requires clause un requiresı.
-{
-	x + x;
-}
-
+{ x + x; }
 void foo(T x)
 {
 	
@@ -326,7 +323,7 @@ Burada T integral bir tür mü kontrolü yapılmıyor.T ne olrsa olsun bu ifade 
 int main()
 {
 	static_assert(nec<double>); //Fail değil.Çünkü burada kontrol edilen ifadenin doğruluğu değil
-								// sentaks hatası veriyor mu vermiyor mu konusu
+				    // sentaks hatası veriyor mu vermiyor mu konusu
 }
 
 MOLA
@@ -387,7 +384,7 @@ concept nec = requires(T c){
 	{*c.begin()} -> std::convertible_to<typename T::value_type>;  // c yi dereference edip begin funcını çağırınca 
 								      // buradan elde edilen tür sağ taraftaki concepti satisfied
 								      // etmek zorunda.Yani T nin value_type ına dönüştürülebilir olmalı.
-								      //Burada da *c.beginin türü convertible_to ya ilk argüman olarak veriliyor
+								      // Burada da *c.beginin türü convertible_to ya ilk argüman olarak veriliyor
 								      // 2. argüman zaten var.
 								      // std::convertible_to<decltype(x == x),bool>
 
@@ -500,13 +497,13 @@ int main()
 ---------------------------------------------------------------------------------------------------
 
 template<typename T, std::convertible_to<T> auto x> // dikkat nontype olarak kullanılacak türün convertible_to<T> türünü satisfied etmesi gerekiyor
-class Myclass{										// Burasıda biraz tuhaf zaten.
+class Myclass{					
 	
 };
 
 int main()
 {
-	Myclass<int, 5> x; // Geçerli
+	Myclass<int, 5> x; // Geçerli. VİSUAL STUDIO BURADA HATA VERİYOR AMA HATA YOK !!!!!!!!!!!!!!!!!!!!!
 	Myclass<std::string, 5> y; // string türü int e dönüşemediği için sentaks hatası
 }
 
@@ -678,6 +675,7 @@ int main()
 	vector<int> ivec(100);
 
 	auto iter = ivec.begin();
+	
 	advance(iter,5); // kod seçimi burada compile time da yapılıyor. Bunun içinde concept kullanalım
 }
 
