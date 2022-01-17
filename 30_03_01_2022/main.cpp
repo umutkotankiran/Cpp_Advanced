@@ -35,7 +35,9 @@ int main()
 Burada amaç daha çok performans değil range i bir değere bağlamak. Sentinel değerine bağlamak yani.
 Duruma göre performans açısından fayda sağlayabilir.
 
-Çıktıyı yaz
+ÇIKTI
+-----
+12 5 218 9 3 24
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -45,13 +47,15 @@ int main()
 
 	vector ivec{12,5,218,9,3,24,-1,9,41,6}; //
 
-	ranges::sort(ivec.begin(), EndVal<-1>{}); // default pred std::less. -1 e kadar yapacak sıralamayı
+	ranges::sort(ivec.begin(), EndValue<-1>{}); // default pred std::less. -1 e kadar yapacak sıralamayı
 
 	print(ivec);
 
 }
 
-Çıktıyı yaz
+ÇIKTI
+-----
+3 5 9 12 24 218 -1 9 41 6
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -75,7 +79,7 @@ int main()
 ALGORITMALARDA OLAN YENILIKLER
 
 1- Algoritmalara 2 iteratör yerine, container nesnesinin kendisini geçebiliyoruz. Contraint ler kontrol
-ediliyor compile timeda.Dolaısıyla yanlış kod yazmanın sentaks hatası oluşturması riski çok fazla
+ediliyor compile timeda.Dolayısıyla yanlış kod yazmanın sentaks hatası oluşturması riski çok fazla
 Hata olunca hata mesajları çok daha açık ve net
 
 2- İteratorler aynı türden olmak zorunda değil.
