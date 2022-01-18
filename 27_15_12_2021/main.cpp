@@ -171,8 +171,8 @@ int main()
 	struct Data mydata = {1,2,3,4}; // Brace konulmazsada sentaks hatası değil.
 	
 	struct Data mydata = (1,2,3,4); // SENTAKS HATASI.Burada Geçerli değil.
-									// Bazı drleyiciler burada sentaks hatası olmasın diye
-}									// extension olarak bunu verebilirler.
+					// Bazı drleyiciler burada sentaks hatası olmasın diye
+}					// extension olarak bunu verebilirler.
 
 
 -----------------------------------------------------------------------------------------------------
@@ -220,8 +220,8 @@ int main()
 	using namespace std;
 	
 	auto p = make_unique<Nec>(1,2,Nec::Nested{3}); // make unique perfect forwarding yapıyor
-													// C++20 de hata yok. C++17 de hata var
-													// Parantezle ilk değer verme sentaksı gelince hata da kalktı C++20 de
+						       // C++20 de hata yok. Parantezle ilk değer verme sentaksı gelince hata da kalktı C++20 de
+						       // C++17 de hata var
 
 	vector<Nec> nvec;
 	nvec.emplace_back(1,2,Nec::Nested{3}); //C++20 de geçerli. C++17 Sentaks hatası
@@ -243,7 +243,7 @@ Nec foo();
 void func()
 {
 	auto [x,y] = foo(); // C++17 ile Sentaks hatası. C++20 Geçerli.
-						// Yani friend bildirimi C++20 devreye girecek.
+			    // friend bildirimi C++20 devreye girecek.
 	
 }
 
@@ -291,7 +291,7 @@ int main()
 	
 	for(std::size_t i{}; auto val : ivec) // indexi döngünün gövdesinde kullanabiliriz.
 	{
-		std::cout << "{" << i++ << ", " << val << "}\n"; 		
+		std::cout << "{" << i++ << ", " << val << "}\n"; 
 	}
 	
 }
@@ -357,7 +357,7 @@ struct PointerTrait{
 template<typename T>
 struct Nec{
 	using Ptr = PointerTrait<T>::Ptr; //C++17 Burada da typename zorunlu.
-									  // C++20 de Geçerli.typename e gerek yok.
+					 // C++20 de Geçerli.typename e gerek yok.
 	
 	T::Neco foo(T::Ali x); // Burada class scopeta isim kullanıldığı için typename kullanmıyor olmama rağmen
 	{						// herhangibir problem yok.
@@ -537,7 +537,7 @@ private:
 int main()
 {
 	static_assert(std::is_nothrow_move_constructible_v<Myclass>); // HATA VAR. Kırmızı oldu. Elemanlarda data var ve Data olan elemanın
-																	// Move Ctoru noexcept değil.
+									// Move Ctoru noexcept değil.
 }
 
 
@@ -558,7 +558,7 @@ class Myclass{
 public:
 	Myclass();
 	explicit Myclass(int); // Explicit ctor burada int türünden myclass türüne olan dönüşümleri otomatik yapmıyor.
-};							// type cast ile yapılabilir.
+};				
 
 int main()
 {
@@ -753,7 +753,7 @@ void func(std::integral auto x)		// Template <typename> yok !!! C++20 ile gelmi�
 3. KULLANIM
 -----------
 template<typename T>
-void func(std::integral<T> x)	// Bu kısımda problem olabilir.İncelenecek
+void func(std::integral<T> x)
 {
 
 }
@@ -832,7 +832,7 @@ REQUIRES CLAUSE
 template<typename T>
 requires(sizeof(T) > 8) && 
 	requires {
-		typename T::value_type;  // böyle bir nesnted type olmazsa constraint sağlanmayacak.
+		typename T::value_type;  // böyle bir nested type olmazsa constraint sağlanmayacak.
 		*p; 	 // bu ifade de legal olmak zorunda. ; ler ile ayırarak birden fazla require expression ekleyebiliriz.
 		p[0];    // bununda geçerli olması gerekiyor
 	} 
