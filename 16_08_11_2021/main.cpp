@@ -69,7 +69,6 @@ int main()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
  , DE HİÇ ELEMAN YOKSA SONUÇ VOID. 
- HOCA + DA DEMİŞTİ AMA OLMADI BAKACAĞIM ONA 
 
 template <typename ...TS>
 auto leftfunc(TS ...args)
@@ -141,7 +140,7 @@ int main()
 
 	std::cout << "sx = " << sx << "\n";
 	//auto sy = sum_right("ali"s, "can", " usta", "oglu"); // SENTAKS HATASI ÇÜNKÜ BU RİGHT FOLD. SAĞDAN BAŞLAYACAK TOPLAMAYA
-														   // İKİ TANE CSTRING TOPLANIYOR.
+								// İKİ TANE CSTRING TOPLANIYOR.
 	
 	//Aşağıdaki gibi olsaydı hata yoktu
 	auto sy = sum_right("ali"s, "can", " usta"s, "oglu"); //GEÇERLİ
