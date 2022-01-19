@@ -68,12 +68,13 @@ int main()
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-+ ve , İFADESİNDE HİÇ ELEMAN YOKSA SONUÇ VOID
+ , DE HİÇ ELEMAN YOKSA SONUÇ VOID. 
+ HOCA + DA DEMİŞTİ AMA OLMADI BAKACAĞIM ONA 
 
 template <typename ...TS>
 auto leftfunc(TS ...args)
 {
-	return (... + args);  // artı yerine virgül de olsaydı aynıydı
+	return (... , args); 
 }
 
 Problemlerden biri, belirli operatorler dışında pakedin boş olması durumu sentaks hatası.
