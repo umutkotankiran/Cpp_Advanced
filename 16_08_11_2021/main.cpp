@@ -629,6 +629,7 @@ int main()
 
 template<typename ...TS>
 class Var {
+public:
 	Var()
 	{
 		std::cout << typeid(Var).name() << "\n";
