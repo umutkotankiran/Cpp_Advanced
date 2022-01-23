@@ -879,7 +879,7 @@ int main()
 	class Nec{
 	public:
 		bool operator==(const Nec&)const = default; 	//ŞİMDİ == VE != OPERATOR FUNCLARINI DERLEYİCİYE YAZDIRDIK !!!!
-			
+								//Sonraki const önemli derleyici böyle yazıyor çünkü.O yazılmazsa Sentaks hatası 
 	};
 
 	KODLARI KENDİMİZ YAZSAYDIK AŞAĞIDAKİ GİBİ OLURDU.
