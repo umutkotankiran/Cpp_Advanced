@@ -756,11 +756,11 @@ int main()
 {
 	Nec mynec(12);
 
-	mynec == 5; // Derleyici int türden ifadeyi Nec sınıfına dönüştürür.
+	mynec == 5; // Derleyici int türden ifadeyi Nec sınıfına dönüştürür.C++17 GEÇERLİ
 
-	5 == mynec; // yapılamaz şuanda ??Sol operand sınıf türünden olmalıydı.Bu member operator func olduğundan 
-				// sol operand sınıf türünden olmalıydı bu yüzden global operator func / free olarak overload etmeliydik
-				// o zaman  bu dönüşümler otomatik olarak yapılacak.
+	5 == mynec; // C++17 SENTAKS HATASI. Sol operand sınıf türünden olmalıydı.Bu member operator func olduğundan 
+		    // sol operand sınıf türünden olmalıydı bu yüzden global operator func / free olarak overload etmeliydik
+		    // o zaman  bu dönüşümler otomatik olarak yapılacak.
 }
 
 
