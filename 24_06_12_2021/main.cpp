@@ -666,8 +666,11 @@ struct Myint{
 
 int main()
 {
-	auto result = Myint{12} <=> Myint{4}; // True olacak yani partial_ordering::greater
-
+	auto result = Myint{12} <=> Myint{4}; // True olacak yani partial_ordering::greater.
+						// Yazdırılamıyor çünkü partial_ordering::greaterı nasıl yazdıracak bu overload yok
+						// Aşağıdakilerin ise return değeri derleyici tarafından default edildi ve 
+						// return değeri constexpr bool oldu.Yazdırılabilir
+						
 	-------------------------------------------------------------------------------------
 
 	std::cout << boolalpha <<(Myint{123} < Myint{}) << '\n'; // False
