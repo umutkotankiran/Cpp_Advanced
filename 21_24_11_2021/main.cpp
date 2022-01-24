@@ -304,7 +304,7 @@ int main()
 
 	-------------------------------------------------
 	
-	optional<string> x = "Mustafa"; // x optional<const char *> türü
+	optional x = "Mustafa"; // x optional<const char *> türü
 
 	optional x = "Mustafa"s; // x optional<string> türü
 
