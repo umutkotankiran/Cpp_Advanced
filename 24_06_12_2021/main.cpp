@@ -537,7 +537,7 @@ class Person
 	{
 		if(auto result = m_no <=> other.m_no; result != 0) // resultı 0 ile eşitlemek zorundayız.
 			return result;
-		return synth_three_way(m_id, other.m_id);	// Eşit değilse threeway comparatable mı diye bakılıyor
+		return synth_three_way(m_id, other.m_id);	// Eşit değilse compare edilmeye gönderiliyor
 	}
 };
 
