@@ -632,8 +632,8 @@ hayata gelmiş kullanılabilir durumda olduğundan emin olabilir miyim ? Ya da a
 extern Nec nec;
 
 A x = nec.foo(); // x bir global değişken. ya bu global değişken hayata geldiğinde nec construct edilmediyse sorun olur
-				 // yukarıdaki örnekte de neco ctoru static ömürlü global bir neco için çağrıldıysa fakat o init edildiğinde
-				 // halen cout init edilmediyse problem.
+		 // yukarıdaki örnekte de neco ctoru static ömürlü global bir neco için çağrıldıysa fakat o init edildiğinde
+		 // halen cout init edilmediyse problem.
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -701,10 +701,10 @@ birinci aşamada (static initializationda) bellek bloğu sıfırlanıyor.
 
 ÖR:
 
-Myclass x = expr; // global değişken olsun. Global değişken olduğundan static storagea sahip.
-					// önce static initialization yapılacak. x nesnesi için ayrılan storage sıfılanacak..
-					// primitive tür için 0, ptr için nullptr, sınıf için sadece sıfırlama.
-					// Dynamic init aşasında x in ctoru çağrılacak.
+Myclass x = expr; // global değişken olsun. Global değişken olduğundan static storage'a sahip.
+		  // önce static initialization yapılacak. x nesnesi için ayrılan storage sıfılanacak..
+		  // primitive tür için 0, ptr için nullptr, sınıf için sadece sıfırlama.
+		  // Dynamic init aşamasında x in ctoru çağrılacak.
 
 
 Farklı kaynak dosyalardaki static storage a sahip nesnelerin dynamic initializationu dil tarafından garanti edilen bir sırada değil.
@@ -714,7 +714,7 @@ Dynamic initialization sırası yukarıdan aşağıya bildiğimiz gibi sırayla 
 
 
 a.cpp										b.cpp
-std::ofstream ofs("ali.txt");				extern Myclass m;
+std::ofstream ofs("ali.txt");						extern Myclass m;
 Myclass m(ofs);								string name = m.foo();	// Sorun burada.
 
 
