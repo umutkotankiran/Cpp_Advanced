@@ -12,7 +12,7 @@ BU NEYI GETIRIYOR?
 Birden fazla değişken farklı modüllerde farklı cpp dosyalarındaysa ve bunlar static ömürlüyse
 ve her ikiside staticten initten sonraki dynamic initte ilk değerini alıyorsa, bu durumda hangisinin ilk değerini
 daha önce alacağı unspecified behavior.Buda Runtime başında programın çökmesi sonucunu doğurabilir.
-Burada initialize edilmeden bir nesnenin kullanılmama riski var.
+Burada initialize edilmeden bir nesnenin kullanılma riski var.
 
 NASIL OLABİLİR BU?
 Global bir nesnenin ctoru içinde global(static storaga sahip) başka bir nesneyi kullanmak.
