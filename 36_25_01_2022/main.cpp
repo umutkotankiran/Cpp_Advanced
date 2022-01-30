@@ -265,9 +265,9 @@ public:
 	Neco()
 	{
 		std::cout << "ali"; // Burada da static init order fiasco olmalı.Neco türünden bir global değişen hayata
-							// geldiğinde ve bu değişken dynamic init edildiğinde Ctor çağrılacak.
-							// Normalde cout nesneside global bir nesne olduğuna göre bunun dynamic initi tamamlanmış
-							// olması gerekiyor. Bu durumda nasıl bu durum static initialization order fiasco oluyor.
+				    // geldiğinde ve bu değişken dynamic init edildiğinde Ctor çağrılacak.
+				    // Normalde cout nesneside global bir nesne olduğuna göre bunun dynamic initi tamamlanmış
+				    // olması gerekiyor. Tamamlanmazsa static initialization order fiasco oluyor.
 	}	
 
 };
@@ -349,7 +349,7 @@ Nec nec;
 
 //other.cpp
 A ga = nec.foo(); // nec init edilmemiş olabilir burada.Static order init fiasco
-					// bunu engellemk için 2-3 tane teknik var.
+		  // bunu engellemk için 2-3 tane teknik var.
 
 
 ------------------------------------------------------------------------------------------------------------------------------
@@ -361,7 +361,7 @@ BURADA STATIC INIT ORDER FIASCODAN KURTULMAK İÇİN TEKNİKLER
 
 1. TEKNİK
 LEVERAGE CONSTANT INITIALIZATION
-Burada maç şu. Loger sınıfının ctorunun çağrıldığından emin olacağız.
+Burada amaç şu. Loger sınıfının ctorunun çağrıldığından emin olacağız.
 Yani global bir değişkeni kullanırken loger nesnesinin hayata geldiğinden emin olacağız.
 
 Bu kod gcc de derleniyor. Visual studioda derlenmiyor olabilir.
@@ -370,17 +370,19 @@ Bu kod gcc de derleniyor. Visual studioda derlenmiyor olabilir.
 class Logger{
 public:
 	constexpr Logger() = default;  // Default ctor constexpr. Global olarak default init edilmiş loger nesnesi 
-									// Constant init edilecek demek bu.Static init order ifasco yok yani.
+				       // Constant init edilecek demek bu.Static init order fiasco yok yani.
 
 	void log(std::string_view msg);
 private:
 	std::optional<std::ofstream> m_ofs;
 };
 
-extern Logger;
+extern Logger; //decleration
 
 
 //Logger.cpp
+#include "logger.h"
+
 CONSTINIT Logger Logger;  // Bu değişken static initialize edilmesinde bir problem yok. Ctor constexpr çünkü.
 
 void Logger::log(std::string_view msg)
@@ -389,7 +391,7 @@ void Logger::log(std::string_view msg)
 		m_ofs.emplace("log.txt"); // optional içindeki ofstream nesnesini construct etmiş olduk.
 
 	*m_ofs << msg << '\n';
-	std::cout << msag << '\n';
+	std::cout << msg << '\n';
 }
 
 ------------------------------------------------------------------------------------------------------------------------------
@@ -409,7 +411,7 @@ Lazy initin en kolay yolu aşağıda.
 Myclass& gx()
 {
 	static Myclass m; // Static yerel değişkenlerin dynamic initi, programın akışı onun tanımlandığı yere gelince yapılıyor.
-					  // static initi daha önce yapılıyor yine
+			  // static initi daha önce yapılıyor yine
 	return m;
 }
 
@@ -450,7 +452,7 @@ Myclass& gx()
 BURADA DINAMIK ÖMÜRLÜ NESNE OLDUĞUNA GÖRE DTORU DELETE EDILDIĞINDE ÇAĞRILACAK.AMA BURADA ŞUANDA
 DELETE EDILME IHTIMALI YOK.BIZ ETMEDIK DELETE. HER NESNE IÇIN BU UYGULANAMAZ AMA BU BIR MEMORY LEAK DEĞIL.
 NEDEN DEĞIL ? PROGRAM BITENE KADAR HAYATTA KALACAKSA ZATEN MEMORY LEAK DIYE BIRŞEY YOK :D:D:D
-PROGRAMIN SONUNA KADAR KALAN BIR NESNENIN KAYNAKLARINI GERI VERMEMESI ÖNEMLI DEĞIL.
+PROGRAMIN SONUNA KADAR KALAN BIR NESNENIN KAYNAKLARINI GERI VERMEMESI ÖNEMLI DEĞIL !!!!!!!!!!!!!!!!!!!!!!!!!!
 AMA HER NESNE İÇİN BUNU SÖYLEYEMEYİZ. MESELA SEMAFORLAR... DTORUNUN ÇAĞRILMASINI İSTEYEBİLİRİZ.
 NESNELERİN %98 İ BU KALIBA UYUYOR. BURADAKİ GARANTİ P NİN DTORUNUN HİÇ ÇAĞRILMAYACAĞINA GÖRE
 BAŞKA GLOBAL DEĞİŞKENLERİN DTORUNDA BUNU KULLANSAK DAHİ BİR PROBLEM OLMAYACAK.
@@ -498,7 +500,7 @@ public:
 
 //lazy_init<struct MyclassTag, Myclass>gm; // Bu farklı bir tür
 //lazy_init<struct NecTag, Nec>gm; // Bu ise farklı bir tür. Bu sebeple 1. template tür parametresi yazıldı.
-									// farklı nesneler yaratma şansı verdi.
+					// farklı nesneler yaratma şansı verdi.
 
 
 Burada halen static yerel nesnemiz ctor içinde myclass nesnesinin kullanılmasına engel değil ama dtor problemini çözmüyor.
@@ -530,8 +532,8 @@ public:
 extern Stream& gstream; // global stream object
 
 static struct StreamInitializer{  // gstreamInitializer türünden nesne yaratılmış. Internal linkagea ait bu.static var çünkü
-								  // herhangibir kod dosyası bu header file ı include ettiğinde her kaynak dosya bir tane
-								  // internal linkageda bir tane struct streamInitializer türünden değişken tanımlayacak.
+				  // herhangibir kod dosyası bu header file ı include ettiğinde her kaynak dosya bir tane
+				  // internal linkageda bir tane struct streamInitializer türünden değişken tanımlayacak.
 	StreamInitializer();
 	~StreamInitializer();
 
@@ -548,8 +550,7 @@ static int g_nifty_counter;   // dışarı kapalı bir değişken.Zero init olac
 
 static std::aligned_storage_t<sizeof(Stream),alignof(Stream)> g_stream_buffer;  
 // Bu bize bir sizeof(Stream) kadar bellek alanı sağlıyor
-// bunun yerine static char buffer; kulanılabilirdi ama alignment
-// burada bazı avantajlara sahip.
+// bunun yerine static char buffer; kulanılabilirdi ama alignment burada bazı avantajlara sahip.
 // static unsigned char buffer[sizeof(Stream)]  buda yazılabilirdi.ama diğeri daha avantajlı
 // elimde olan bir bellek alanında doğrudan nesneyi construct etmek için placement new kullanılıyor.
 // placement new heapten alan harcamıyor.Verdiğimiz adresi bize geri veriyor.Derleyici cosntructor çağırdığında
@@ -570,8 +571,12 @@ Stream::~Stream()
 
 StreamInitializer::StreamInitializer()
 {
-	if(g_nifty_counter++ == 0)  // global değişken 0 ise içeri girdi ve değeri 1 artırıldı. 5 tane cpp dosyası include edilse bu değer artacak sürekli
+	if(g_nifty_counter++ == 0)  // Ctorda, global değişken 0 ise içeri girdi ve değeri 1 artırıldı. 2-3. çağırmada içeri girmeyecek
 		new(&stream)Stream(); // Placement new. streamin adresinde nesneyi oluşturuyor.
+		
+		//Hangi kaynak dosyada include edildiğinde ilk olarak derlenirse g_nifty_counter değeri 0 olacak. Bu durumda placement new ile
+		// buradaki bellek alanında nesne hayata gelecek. 5 tane kaynak dosyada hayata bile gelse bu değişken internal linkage da olduğundan
+		// her seferinde bu değişlen 1,2,3,4,5 diye gidecek.
 }
 
 StreamInitializer::~StreamInitializer()
