@@ -625,8 +625,8 @@ private:
 
 //csingleton.cpp
 CSingleton* CSingleton::p_instance; // bu sınıf içinde inline olmasaydı bnu şekilde cpp de tanımlayacaktık.
-									// Header içinde yapılamaz bu.Header içinde yapsaydık ODR bozulurdu.
-									// header içinde yapılması için yine inline olması lazımdı :D:D:D:D
+				    // Header içinde yapılamaz bu.Header içinde yapsaydık ODR bozulurdu.
+				    // header içinde yapılması için yine inline olması lazımdı :D:D:D:D
 
 
 //main.cpp
