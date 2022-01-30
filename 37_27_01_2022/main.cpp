@@ -302,9 +302,9 @@ void PrinterProvider::register_creator(const std::string &key, CreatorFunc func)
 {
 	if(!mprinter_map.contains(key))
 	{
-		mprinter_map[key].m_creator = func;  // [] key yoksa ekliyor varsada değerini get ediyor.
+	    mprinter_map[key].m_creator = func;  // [] key yoksa ekliyor varsada değerini get ediyor.
 	    std::cout << key << " singletonu kayit edildi\n";
-    }
+    	}
 	else    //varsa buraya girer
 	{
 		std::cout << "daha önce kayit edilmis durumda\n";
