@@ -40,12 +40,12 @@ Bu durumda sadece static initialize yapılıyor.Dynamic initialize yapılmıyor.
 
 
 int x = 5; // Durum değişti.Bunun için dynamic init yapılmayacak.Sadece static init order fiasco problemi yok
-			// Static init order fiasco açısından sabit değer vermek daha güvenli.
+	   // Static init order fiasco açısından sabit değer vermek daha güvenli.
 
 
 constexpr int x = 5; // Sabit ifadesiyle ilk değer alacak ve her zaman static init edilecek.
-					 // Dynamic init edilme şansı yok.Constexpr değişkenler immutable.
-					 // sınıf türündense mesela readonly kullanırız.
+	  	     // Dynamic init edilme şansı yok.Constexpr değişkenler immutable.
+		     // sınıf türündense mesela readonly kullanırız.
 
 Eğer constexpr olmasaydı ve mutable bir değişken olsaydı yine dynamic init yapılmayacaktı.Bir önceki örnek işte.
 
