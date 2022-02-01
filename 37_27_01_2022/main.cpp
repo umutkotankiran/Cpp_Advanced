@@ -451,11 +451,27 @@ Creator sınıfı person olsun.
 //person.h
 class Person{
 public:
-	void travel();						//operation bu
 
-	virtual CarPtr create_car() = 0;	//travel bir nesne oluşturacak ama o nesne factory method tarafından oluşturlacak
-										//burası factory method
+	virtual ~Person() = default;
+
+	void travel();				//operation bu
+
+	virtual CarPtr create_car() = 0;	// travel bir nesne oluşturacak ama o nesne factory method tarafından oluşturlacak
+						// burası factory method
 };
+
+
+//person.cpp
+#include "person.h"
+#include "car.h"
+
+void Person::travel()
+{
+	CarPtr ptr = create_car();
+	ptr->start();
+	ptr->run();
+	ptr->stop();
+}
 
 
 //car.h
@@ -470,19 +486,6 @@ public:
 };
 
 using CarPtr = std::unique_ptr<Car>;
-
-
-//person.cpp
-#include "person.h"
-#include "car.h"
-
-void Person::travel()
-{
-	CarPtr ptr = create_car();
-	ptr->start();
-	ptr->run();
-	ptr->stop();
-}
 
 
 //CONCRETE CREATORLERİ YAZIYORUZ
@@ -516,8 +519,6 @@ CONCRETE PRODUCTLARIDA YAZALIM
 
 class Mercedes : public Car{
 public:
-	Mercedes();
-	~Mercedes();
 	virtual void start()override;
 	virtual void run()override;
 	virtual void stop()override;
