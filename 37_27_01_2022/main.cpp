@@ -279,6 +279,7 @@ BÖYLECE PRİNTERLARI İSTEYEN ASLINDA ASLINDA BİR STRİNG İLE PRİNTERI İSTE
 #include "printerbase.h"
 
 using CreatorFunc = std::function<PrinterPtr()>; // PrinterPtr() bu bir func türü. 
+// using PrinterPtr = std::shared_ptr<PrinterBase>;  // header filedan include edildi zaten
 
 class PrinterProvider{
 	struct InstanceData{
