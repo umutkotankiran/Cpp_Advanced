@@ -71,7 +71,7 @@ public:
 class B : public A
 {
 public:
-	virtual std::unique_ptr<Der> func()override;	 // Sentaks Error. Covariance değil.
+	virtual std::unique_ptr<Der> func()override;	 // Sentaks Hatası. Covariance değil.
 }
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
