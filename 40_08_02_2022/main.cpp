@@ -1,10 +1,87 @@
 ﻿/*
 
-Kalıtımla ilgili bazı hatırlatmalar yapıldı.
+Clone ve Create functionlarının unique ptr ile implementasyonu.
 
-Kısaca covariance tekrarı
+Polimorfik kopyalama için kullanılan idiyomun ismi clone.
+Bİr nesnenin dinamik türünü koruyarak doğrudan copy mümkün değil.
 
-Clone ile create arasındaki fark.
+Polimorfik kopyalamayı unique ptr üzerinden yapınca dikkat edilen bir iki nokta olacak.
+Sınıfın sanal functionları private olabilir. Hiçbir problem yok hatat non virtual interface
+idiyomu sanal sınıfları private yapmak ile ilgili.
+
+Covariant return type. Nromalde bir funcı return ederken taban sınıfın sanal funcıyla
+aynı return türüne sahip olmalı. Bunun istisnası covariance.
+
+DİKKAT!!!!
+Covariance 'ın unique ptr de olması söz konusu değil.
+Yani taban sınıfın taban funcı unique_ptr<A> ise override eden func unique_ptr<B>
+dönemez.Smart Ptr larda bu yok.
+
+Covariance hatırlatması Temel C++
+---------------------------------
+class Base
+{
+public:
+	virtual ~Base();
+};
+
+class Der : public Base
+{
+public:
+	
+};
+
+
+class A
+{
+public:
+	virtual Base* func();
+	//virtual Base& func();
+};
+
+class B : public A
+{
+public:
+	Der* func()override;	 // covariance
+	//Der& func()override;	 // covariance
+}
+
+Return türü, referans yada pointer olmak zorunda.
+
+
+
+Unique_Ptr ile yapılamayan örnek
+--------------------------------
+
+class Base
+{
+public:
+	virtual ~Base();
+};
+
+class Der : public Base
+{
+public:
+
+};
+
+
+class A
+{
+public:
+	virtual std::unique_ptr<Base> func();
+};
+
+class B : public A
+{
+public:
+	virtual std::unique_ptr<Der> func()override;	 // Sentaks Error. Covariance değil.
+}
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+UNIQUE PTR İLE CLONE İDİYOMU REPOYA YÜKLEDİM.
+CLONE1
 
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
