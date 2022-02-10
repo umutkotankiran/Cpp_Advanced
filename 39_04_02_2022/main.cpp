@@ -366,16 +366,13 @@ Biri klasik olan o anlatılmayacak, sınıfa eleman olarak raw ptr konuluyor ve 
 class Student
 {
 public:
-	Student(std::string name, std::string surname) : m_name{std::move(name)}, m_surname{std::move(surname)}
-	{
-
-	}
-
+	Student(std::string name, std::string surname);
 	Student(const Student&);
 	Student& operator=(const Student&);
-	
+
 	Student(Student&&);
 	Student& operator=(Student&&);
+
 
 	//Bunu yazmaksak aşağıda yazdığım hatayı alırız.O yüzden eklendi.Ama inline tanımlamadık.cpp dosyasında tanımlandı
 	~Student(); 
@@ -395,31 +392,24 @@ private:
 };
 
 //student.cpp
-#include "student.h"
-#include <iostream>
-
 class Student::pimpl {
 public:
-	pimpl(std::string name, std::string surname) : m_name{std::move(name)}, m_surname{std::move(surname)} 
+	pimpl(std::string name, std::string surname) : m_name{ std::move(name) }, m_surname{ std::move(surname) }
 	{
-	
-	}
 
+	}
 	void add_grade(int grade)
 	{
-		m_grade.emplace_back(grade);
+		m_grades.emplace_back(grade);
 	}
-
-	void Student::print() const
+	void print()const
 	{
 		std::cout << "name : " << m_name << " surname : " << m_surname << '\n';
 		std::cout << "grades : ";
-		for(auto g : m_grades)
+		for (auto g : m_grades)
 			std::cout << g << ' ';
-
 		std::cout << "\n";
 	}
-
 private:
 	std::string m_name;
 	std::string m_surname;
@@ -440,7 +430,8 @@ Student::Student(const Student& other) : p{ new pimp{*other.p} } {  }  // Kopyam
 
 Student& Student::operator=(const Student& other)
 {
-	p.reset(new pimpl{*other.p})
+	p.reset(new pimpl{ *other.p });
+	return *this;
 }
 
 Student::Student(Student&&) = default;
@@ -486,11 +477,11 @@ pimpl delete edilmeye çalışılacaktı bu da sentaks hatası olacaktı. Yani b
 default edilirken tanım yapılacak yada default edilecek.
 
 Constluk Problemi : Çözümü var ama standart değil. propagate_const.cons member func içinde pimlp ptr kullanarak
-					cosnt olmayan member funca çağrı sentaks hatası değil. hata olması için propagate_const kulalnacağız.
-					bu class konusunda detaylı görülen bir konuydu. Const func içinden doğrudan nonconst
-					bir funca call yapılamıyordu. Gizli pointer nesnesinden ötürü.
-					Ama const olmayan bir değişken tanımlayarak obj.func() gibi bir çağrı const func içinden
-					yapılabilir.
+		    const olmayan member funca çağrı sentaks hatası değil. hata olması için propagate_const kulalnacağız.
+		    bu class konusunda detaylı görülen bir konuydu. Const func içinden doğrudan nonconst
+ 		    bir funca call yapılamıyordu. Gizli pointer nesnesinden ötürü.
+		    Ama const olmayan bir değişken tanımlayarak obj.func() gibi bir çağrı const func içinden
+		    yapılabilir.
 
 
 -----------------------------------------------------------------------------------------------------
