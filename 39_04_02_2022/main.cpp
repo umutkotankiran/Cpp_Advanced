@@ -317,7 +317,7 @@ void Student::print() const
 
 
 //factory.h
-#include "Istudent.h"
+#include "istudent.h"
 
 IStudent* create_student(std::string name, std::string surname);  // Olay burada. new student nesnesi Istudent ile tutulmuş
  
