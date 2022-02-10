@@ -2,20 +2,16 @@
 
 Clone ve Create functionlarının unique ptr ile implementasyonu.
 
-Polimorfik kopyalama için kullanılan idiyomun ismi clone.
-Bİr nesnenin dinamik türünü koruyarak doğrudan copy mümkün değil.
+Polimorfik kopyalama için kullanılan idiyomun ismi clone.Bir nesnenin dinamik türünü koruyarak doğrudan copy mümkün değil.
 
 Polimorfik kopyalamayı unique ptr üzerinden yapınca dikkat edilen bir iki nokta olacak.
-Sınıfın sanal functionları private olabilir. Hiçbir problem yok hatat non virtual interface
-idiyomu sanal sınıfları private yapmak ile ilgili.
+Sınıfın sanal functionları private olabilir. Hiçbir problem yok hatat non virtual interface idiyomu sanal sınıfları private yapmak ile ilgili.
 
-Covariant return type. Nromalde bir funcı return ederken taban sınıfın sanal funcıyla
-aynı return türüne sahip olmalı. Bunun istisnası covariance.
+Covariant return type. Nromalde bir funcı return ederken taban sınıfın sanal funcıyla aynı return türüne sahip olmalı. Bunun istisnası covariance.
 
 DİKKAT!!!!
-Covariance 'ın unique ptr de olması söz konusu değil.
-Yani taban sınıfın taban funcı unique_ptr<A> ise override eden func unique_ptr<B>
-dönemez.Smart Ptr larda bu yok.
+Covariance 'ın unique ptr de olması söz konusu değil. Yani taban sınıfın taban funcı unique_ptr<A> ise override eden func unique_ptr<B> dönemez.
+Smart Ptr larda bu yok.
 
 Covariance hatırlatması Temel C++
 ---------------------------------
