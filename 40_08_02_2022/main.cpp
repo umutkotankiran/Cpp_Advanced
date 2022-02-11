@@ -834,7 +834,67 @@ int main()
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-template<typename T, typename P>
+class Empty{
+
+};
+
+class Myclass{
+public:
+	int mx;
+	Empty e;
+};
+
+int main()
+{
+	std::cout << "sizeof(Myclass) = " << sizeof(Myclass) << '\n'; // 8 byte çıktı.Alignment nedeniyle.
+}
+
+Yukarıdaki durum bir çok uygulama için lkabul edilebilir. Sizeofu gereksiz yere 4 byte artırdık.
+Burada Empty Base Optimization ile halledilebilir.EBO
+
+Eleman olarak almak yerine kalıtım kullanılırsa derleyiciler burada EBO denen tekniği kullanıp empty için yer ayırmıyorlar.
+Burada da tipik olarak amacımız her Myclass nesnesi bir empty nesnesi olmadığı için amaçta is a relationship olmadığı için
+public kalıtım değil private kalıtım kullanılıyor.
+
+class Empty
+{
+};
+
+class Myclass : private Empty
+{
+public:
+	int mx;
+};
+
+int main()
+{
+	std::cout << "sizeof(Myclass) = " << sizeof(Myclass) << '\n'; // 4 byte çıktı.
+}
+
+
+
+Belirli bir noktadan sonrası derleyiciye bağlı. Aşağıdaki standart bir durum değil.
+
+class Empty1
+{};
+
+class Empty2
+{};
+
+class Myclass : Empty1, Empty2
+{
+public:
+	int mx;
+};
+
+int main()
+{
+	std::cout << "sizeof(Myclass) = " << sizeof(Myclass) << '\n'; // GCC de 4 çıktı. Visual studioda 8 çıktı(release modda).
+}
+
+
+
+
 
 
 
