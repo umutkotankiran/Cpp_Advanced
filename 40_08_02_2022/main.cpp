@@ -892,16 +892,28 @@ int main()
 	std::cout << "sizeof(Myclass) = " << sizeof(Myclass) << '\n'; // GCC de 4 çıktı. Visual studioda 8 çıktı(release modda).
 }
 
+---------------------------------------------------------------------------------------------------------------------------
 
+C++20 ile bir attribute geldi. Bu empty member optimization yapması için derleyiciye ipucu veriyor.
+Visual C++ ta halen implemente edilmiş değil.İmplemente edilmek zorunda da değil ama gcc ediyorsa bunlarda eder.
 
+[[no_unique_address]]
 
+class Empty
+{
 
+};
 
+class Myclass{
+private:
+	int mx;
+	[[no_unique_address]] Empty ex;
+};
 
-
-
-
-
+int main()
+{
+	std::cout << "sizeof(Myclass) = " << sizeof(Myclass) << '\n'; // Visual C++ ta 8 byte. Gcc de 4 byte.
+}
 
 
 
