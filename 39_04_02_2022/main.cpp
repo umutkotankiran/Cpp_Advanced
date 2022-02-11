@@ -258,6 +258,7 @@ int main()
 -----------
 Buradaki olay taban sınıf abstract bir sınıf ve türemiş sınıf nesnesini, base class olan abstract sınıf
 ile tutuyoruz.Böylece Private bölüm gizlenmiş oluyor.Çok iyi bir çözüm olmayabilir.
+Buradaki olay base sınıfın abstract olması ve private bölümünün olmaması.
 
 //istudent.h
 #include<string>
