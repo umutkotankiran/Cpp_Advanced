@@ -585,12 +585,12 @@ public:
 		assert(tracker == SECOND);
 		// ... constructor body ...
 	}
-	catch (const std::exception& e)			// mx yada my hata verirse bu bloğa girecek.2 side hata vermezse catch bloğuna girmeyecek akış.
+	catch (const std::exception& e)		// mx yada my hata verirse bu bloğa girecek.2 side hata vermezse catch bloğuna girmeyecek akış.
 	{
-		if (tracker == FIRST) {				// buraya girerse X exception throw etmiş
+		if (tracker == FIRST) {		// buraya girerse X exception throw etmiş
 			std::cout << "X threw: " << e.what() << '\n';
 		}
-		else if (tracker == SECOND) {		// buraya girerse Y exception throw etmiş
+		else if (tracker == SECOND) {	// buraya girerse Y exception throw etmiş
 			std::cout << "Y threw: " << e.what() << '\n';
 		}
 		throw;
@@ -609,7 +609,9 @@ int main()
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-BURADA ORTAK KODUN BİR YERDE TOPLANMASI TEMASI VAR.
+EXCEPTION DISPATCHER
+
+BURADA ORTAK KODUN BİR YERDE TOPLANMASI TEMASI VAR.TEMEL C++ TA BENZER BİR KOD YAZILMIŞTI
 
 #include <iostream>
 
@@ -688,28 +690,150 @@ int main()
 	std::cout << "[3] main is running\n";
 }
 
+---------------------------------------------------------------------------------------------------------------------------
+
+POLYMORPHIC EXCEPTION
+
+Bazen aşağıdaki gibi bir ihtiyaç doğuyor
+
+#include <iostream>
+
+class ExBase {
+	virtual ~Exbase() = default;
+};
+
+class ExDer1 : public ExBase { };
+class ExDer2 : public ExBase { };
+//...
+
+Bir func var ve parametresi taban sınıfı referansı.Bu funca hang sınıf türünden exception gelirse throw edeceğiz.
+
+void f(ExBase& ex)
+{
+    // other code
+    throw ex;
+}
+
+int main()
+{
+    ExDer1 ed;
+
+    try {
+        f(ed); 						//exception nesnesi gönderildi
+    }
+    catch (ExDer1&) {  					// burada da hatayı yakalamaya çalışıyoruz
+        std::cout << "ExDer1 exception caught\n";
+    }
+    catch (ExDer2&) {
+        std::cout << "ExDer2 exception caught\n";
+    }
+    catch (...) {
+        std::cout << "other exception caught\n";
+    }
+}
+
+Burada f içerisinde kopyalama var. Yani object slicing var. Dolayısı ile ExDer1 de yakalanmaz. Catch All da yakalanır.
+Static türü catch eder. Dinamik yür yok.
+
+Burada istenilen bunun polymorphic olarak çalışması.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+KODU DÜZENLİYORUZ
+
+#include <iostream>
+#include <exception>
+
+class ExBase {
+public:
+    virtual ~ExBase() = default;
+    
+    virtual void raise()  // Ekledik
+    {
+        throw *this;
+    }
+
+    virtual void raise()const  // const overload eklendi.
+    {
+        throw* this;
+    }
+};
+
+class ExDer1 : public ExBase { 
+public:
+    void raise()override
+    {
+        throw *this;
+    }
+
+    void raise()const override
+    {
+        throw* this;
+    }
+};
+
+class ExDer2 : public ExBase {
+public:
+    void raise()override
+    {
+        throw* this;
+    }
+
+    void raise()const override
+    {
+        throw* this;
+    }
+};
+
+void f(const ExBase& ex)
+{
+    // other code
+    ex.raise();
+}
 
 
+//Alternative
+void f2(std::exception_ptr ex)
+{
+    // other code
+    std::rethrow_exception(ex);
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+    ExDer1 ed;
+    try {
+        f(ed);
+    }
+    catch (ExDer1&) {
+        std::cout << "ExDer1 exception caught\n";
+    }
+    catch (ExDer2&) {
+        std::cout << "ExDer2 exception caught\n";
+    }
+    catch (...) {
+        std::cout << "other exception caught\n";
+    }
+    
+    
+    //for alternative
+    try {
+        f2(std::make_exception_ptr(ed));
+    }
+    catch (ExDer1&) {
+        std::cout << "ExDer1 exception caught\n";
+    }
+    catch (ExDer2&) {
+        std::cout << "ExDer2 exception caught\n";
+    }
+    catch (...) {
+        std::cout << "other exception caught\n";
+    }
+    
+    
+    
+}
 
 
 
