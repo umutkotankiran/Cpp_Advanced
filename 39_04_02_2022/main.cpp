@@ -191,8 +191,8 @@ Member func ekliyorsak static/nonstatic, birde global func eklersek problem yok 
 3 AYRI TEKNIKLE SINIFIN PRIVATE KISMI GIZLENECEK
 
 1 - Kalıtım
-2 - Pimple
-3 - ...
+2 - Pimpl Idıyom
+3 - Fast Pimpl Idıyom
 
 //student.h
 #include<string>
