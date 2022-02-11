@@ -493,17 +493,19 @@ Private bölümde implementasyon nesnemizin bellek alanını bir veri elemanı o
 Not : Aligned storage ayrı bir derste anlatılacak.
 
 //logger.h
+#pragma once
 #include <string>
 #include <type_traits>
 
-class Logger{
+class Logger {
 public:
 	Logger();
 	~Logger();
 	void log(const std::string& str);
+	//other functions
 private:
-	constexpr static std::size_t size = 4096;
-	std::aligned_storage<size, std::alignment_of_v<std::max_align_t>> impl{};
+	constexpr static std::size_t size = 1024;
+	std::aligned_storage_t<size, std::alignment_of_v<std::max_align_t>> impl{};
 };
 
 
@@ -511,49 +513,78 @@ private:
 #include "logger.h"
 #include "placement.h"
 #include <fstream>
+#include <iostream>
 
-class LoggerImpl{
+class LoggerImpl {
 public:
-	void log(const std::string &str)
+	void log(const std::string& str)
 	{
-		m_ofs << str << '\n';
+		std::cout << "message : " << str << std::endl;
+		ofs << str << std::endl;
 	}
 private:
-	std::ofstream m_ofs;
+	std::ofstream ofs;
 };
 
 Logger::Logger()
 {
-	static_assert(sizeof(impl) >= sizeof(impl)); // Burada bir hata var buna bakacak hoca
-
-	new(&impl)LoggerImpl;  // placement new
+	static_assert(sizeof(impl) >= sizeof(LoggerImpl));
+	//new(&impl)LoggerImpl;
+	placement_new<LoggerImpl>(&impl, sizeof LoggerImpl);
 }
 
 Logger::~Logger()
 {
-	reintepret_cast<LoggerImpl*>(&impl)->~LoggerImpl();
+	// reinterpret_cast<LoggerImpl*>(&impl)->~LoggerImpl();
+	//placement_cast<LoggerImpl>(&impl)->~LoggerImpl();
+	placement_delete<LoggerImpl>(&impl);
 }
 
-NOT : Herhangibir nesne türünden adresi char * a dönüştürüp sonra tekrar o nesne türüne dönüştürmek geçerli. UB değil.
-
-void Logger::log(const std::string& str)
+void Logger::log(const std::string &str)
 {
+	//reinterpret_cast<LoggerImpl*>(&impl)->log(str);
 	placement_cast<LoggerImpl>(&impl)->log(str);
 }
 
 
+NOT : Herhangibir nesne türünden adresi char * a dönüştürüp sonra tekrar o nesne türüne dönüştürmek geçerli. UB değil.
+
+
 //placement.h		// daha sade olsun diye yapıldı yoksa ~Loggerdaki gibide yapılabilirdi.
-template <typename T>
-T* placement_cast(void *buffer)
+#pragma once
+
+#include <cstddef>
+
+template<typename T>
+void placement_new(void* buffer, std::size_t buffer_size) 
+{
+	new(buffer) T();
+}
+
+///casts a given address to a pointer to type T
+
+template<typename T>
+T* placement_cast(void* buffer) 
 {
 	return reinterpret_cast<T*>(buffer);
 }
 
+///call the destructor of type T at a given address
+template<typename T>
+void placement_delete(void* buffer) 
+{
+	placement_cast<T>(buffer)->~T();
+}
+
+
 //main.cpp
 
+#include "logger.h"
 int main()
 {
-	//BU ÖRNEK YARIM KALDI. DOSYA OLUŞTURMA KISMINI YAZMADIK VE STATIC ASSERT KISMINDA PROBLEM VAR.
+	Logger mylogger{};
+
+	mylogger.log("necati ergin");
 }
 
 */
