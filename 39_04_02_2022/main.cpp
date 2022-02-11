@@ -384,10 +384,10 @@ private:
 	class pimpl; // şuanda incomplete type durumunda.Bir nested type için forward decleration. Globalda değil.
 
 	std::unique_ptr<pimpl>p;  // bu haliyle bir student nesnesi oluşturmak istediğimde sentaks hatası olur.
-							  // Bu sınııfn dtoru derletyici tarafından default edilecek.Derleyicinin yazdığı dtor
-								// nonstatic public inline func. Böyle olduğunda dtor elemanların dtorunu çağırıyor
-								// unique_ptr nin dtoru çağrıldığında default delete buradaki pimple nesnesini delete 
-								// etmeye çalışıyor ve incomplete type olduğundan sentaks hatası oluyor.
+				  // Bu sınııfn dtoru derletyici tarafından default edilecek.Derleyicinin yazdığı dtor
+				  // nonstatic public inline func. Böyle olduğunda dtor elemanların dtorunu çağırıyor
+				  // unique_ptr nin dtoru çağrıldığında default delete buradaki pimple nesnesini delete 
+				  // etmeye çalışıyor ve incomplete type olduğundan sentaks hatası oluyor.
 								
 };
 
