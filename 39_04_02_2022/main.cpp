@@ -421,8 +421,8 @@ Student::~Student()
 {
 	std::cout << "dtor\n";
 }
+//DESTRUCTOR BURADA YAZILDIĞINDA PIMPLE GÖRÜNÜR DURUMDA. BU SEBEPLE GEÇERLİ. INLINE YAZILDIĞINDA HATA.
 
-HOCAYA SOR : NEDEN INLINE OLARAK YAZMADIĞIMDA HATA ALMIYORUM?
 
 Student::Student(std::string name, std::string surname) : 
 	p{std::make_unique<pimpl>(std::move(name),std::move(surname ))} { }
