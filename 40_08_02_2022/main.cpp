@@ -95,7 +95,7 @@ CLONE1
 ADVANCED EXCEPTION HANDLING
 ---------------------------
 C++11 de dile bazı araçlar eklendi. Bunlar çok önemli araçlar. Birbiriyle mantıksal ilişki içerisindeki öğeler exception
-header fle içerisinde tanımlanan exception_ptr denen tür. Pointer like bir sınıf. Bazı noktalarda implementasyonu nerleyiciye
+header file içerisinde tanımlanan exception_ptr denen tür. Pointer like bir sınıf. Bazı noktalarda implementasyonu derleyiciye
 bağlı. Bu nullable bir type.Yani pointer olmasada nullptr semantiği var. ÖR: Logic bağlamda logic kontrol yapınca değeri
 nullptr ise false, değilse true olarak yorumlanır.unique_ptr, shared_ptr bunlar nullable type.Optionalde böyle.
 
@@ -125,15 +125,15 @@ Rethrow_exception
 -----------------
 [[noreturn]] void rethrow_exception(std::exception_ptr p);
 
+Noreturn olarak tanımlanmış.Bu bir attribute.
+BIR EXCEPTION NESNESINI YAKALAYIP O EXCEPTIONU BAŞKA BIR SCOPEA AKTARIP ORADAN TEKRAR GÖNDERMEK IÇIN BU ARACI KULLANIYORUZ.
+
 Öncesinde yakalanmış bir hata nesnesi ama onun bir kopyasıda olabilir.Bir kopyalama yapılıp yapılmadığı derleyiciye bağlı.
 
 Bir current_exception çağırınca exception_ptr elde ediyoruz, bu exception ptr kopyalanabilir ama eğer herhangibir copy sırasında
 dinamik bellek alanı kullanılıyorsa ve orada eğer operator new fail olursa bad_alloc sınıfı türünden exception throw ediyor.
 Ama copy nedeniyle bir exception throw ederse o zamanda hangi türden exception throw ederse o türden.Ama copy olayı tamamen
 Implementation Defined.
-
-Noreturn olarak tanımlanmış.Bu bir attribute.
-BIR EXCEPTION NESNESINI YAKALAYIP O EXCEPTIONU BAŞKA BIR SCOPEA AKTARIP ORADAN TEKRAR GÖNDERMEK IÇIN BU ARACI KULLANIYORUZ.
 
 
 Current_exception
@@ -168,13 +168,13 @@ edebiliriz.
 #include <exception>
 #include <iostream>
 #include <vector>
-void func(std::exception_ptr ptr) // Burada exception_ptr ile olsa referans semantiğimi yoksa copy semantiği mi olduğu derleyiciye bağlı.
-{								// Belirli nedenlerden ötürü yapmışlar bunu
+void func(std::exception_ptr ptr)  // Burada exception_ptr ile olsa referans semantiğimi yoksa copy semantiği mi olduğu derleyiciye bağlı.
+{				   // Belirli nedenlerden ötürü yapmışlar bunu
 
 	try
 	{
 		std::rethrow_exception(ptr);  // Exception_ptr nin tuttuğu exceptionun rethrow edilmesi için bu funcı çağırmalıyız.
-									  // Eğer ptr boş ise Undefined Behavior.
+					      // Eğer ptr boş ise Undefined Behavior.
 	}
 	catch(const std::out_of_range& ex)
 	{
@@ -196,18 +196,18 @@ int main()
 		std::cout << "exception caught: " << ex.what() << '\n';
 		
 		//current_exception();    // bir try veya catch bloğu içinde çağırırsak return değeri az önceki exception_ptr türünden
-								// hata yakalanmışsa bize o hata nesnesini gösteren bir exception_ptr veriyor
+					  // hata yakalanmışsa bize o hata nesnesini gösteren bir exception_ptr veriyor
 		
 		auto eptr = current_exception(); // yakalanan exception nesnesi yoksa current exceptionun return ettiği
-										// exception ptr boş olacak. Şimdi biz bunu başka bir functa throw edeceğiz.
-										// bunu funca göndererek yapacağız.
+						 // exception ptr boş olacak. Şimdi biz bunu başka bir functa throw edeceğiz.
+						 // bunu funca göndererek yapacağız.
 		
 		func(eptr); // Funca gönderildi
 
 	}
 }
 
-Burada bir exceptionun bir scopetan başka bir scopea aktarılması ve dinamik türünün korunarak oradan tekrar rethrow edilebilmesi.
+Burada bir exceptionun bir scopetan başka bir scopea aktarılması ve dinamik türünün korunarak oradan tekrar rethrow edilebilmesi var.
 Üstelik bu diğer funca aktarılan exception başka bir thread tarafındanda çalıştırılmış olabilir.Threadlerden exception
 gönderilmesi için kullanılan mekanizmanında özünü oluşturuyor.
 
@@ -222,7 +222,7 @@ exception_ptr, herhangibir exception sınıfı türünden değil.
 ---------------------------------------------------------------------------------------------------------------------------
 
 
-EXCEPTION PTR ELDE ETMEK IÇIN CURRENT_EXCEPTION ÇAĞIRMAMIZ GEREKIYOR AMA CURRENT EXCEPTION ÇAĞIRMADAN DA MAKE_EXCEPTIN_PTR
+EXCEPTION PTR ELDE ETMEK IÇIN CURRENT_EXCEPTION ÇAĞIRMAMIZ GEREKIYOR AMA CURRENT EXCEPTION ÇAĞIRMADANDA MAKE_EXCEPTIN_PTR
 FABRIKA FUNC ILE BIR EXCEPTION_PTR ELDE EDEBILIRIZ.
 
 Bildirim
@@ -291,10 +291,10 @@ void func()
 		std::cout << "hata func icinde yakalandi : " << ex.what() << '\n';
 
 		throw ex; // Burada kopyalama olur ve dinamik tür kaybedilir.Bu sebeple en tepedeki exception nesnesi gönderilir.
-				  // Aşağıda std::exception yakalandıya girer.Burada bir object slicing oluyor.
+			  // Aşağıda std::exception yakalandıya girer.Burada bir object slicing oluyor.
 		
 		throw;   // Burada nesnenin kendisi throw edilir ve dinamik tür korunur.
-				 // Bu durumda out of range hatasına girer.
+			 // Bu durumda out of range hatasına girer.
 	}
 }
 
@@ -849,7 +849,7 @@ int main()
 	std::cout << "sizeof(Myclass) = " << sizeof(Myclass) << '\n'; // 8 byte çıktı.Alignment nedeniyle.
 }
 
-Yukarıdaki durum bir çok uygulama için lkabul edilebilir. Sizeofu gereksiz yere 4 byte artırdık.
+Yukarıdaki durum bir çok uygulama için kabul edilebilir. Sizeofu gereksiz yere 4 byte artırdık.
 Burada Empty Base Optimization ile halledilebilir.EBO
 
 Eleman olarak almak yerine kalıtım kullanılırsa derleyiciler burada EBO denen tekniği kullanıp empty için yer ayırmıyorlar.
