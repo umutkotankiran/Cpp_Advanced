@@ -534,7 +534,7 @@ public:
 		
 		//// ... // Burada hiçbirşey yapılmazsa exception rethrow eder.
 
-		rethrow;  // Burada da yukarıdaki gibi exception rethrow eder. Kullansakta kullanmasakta rethrow eder
+		throw;  // Burada da yukarıdaki gibi exception rethrow eder. Kullansakta kullanmasakta rethrow eder
 				  // dilin kuralı bu.
 
 		throw std::runtime_error{"member exception"}; // Burada istediğimiz başka bir eceptionda gönderebiliriz
