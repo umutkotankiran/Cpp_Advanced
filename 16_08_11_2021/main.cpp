@@ -100,7 +100,7 @@ int main()
 {
 	std::cout << std::boolalpha;
 
-	std::cout << leftfunc(); // SENTAKS HATASI YOK. PAKET BOŞ OLSA BİLE YOK
+	std::cout << leftfunc(); // SENTAKS HATASI VAR. + DA PAKET BOŞ OLAMIYOR
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
