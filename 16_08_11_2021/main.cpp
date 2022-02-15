@@ -18,7 +18,7 @@ unary left fold		( ... + pack )		 (((p1 + p2) + p3) + p4)
 unary right fold	( pack + ... )		 (p1 + (p2 + (p3 + p4)))
 
 binary left fold	(+ ... +)			 (value + ... + pack) // elipsis pakedin solunca left fold oldu 
-binary right fold	(+ ... +)			 (pack + ...+ value)  // elipsis pakedin sağında right fold oldu.
+binary right fold	(+ ... +)			 (pack + ... + value)  // elipsis pakedin sağında right fold oldu.
 
 Yani binary olunca işin içine value da girdi. O kadar fark var.Binary fold expressionda iki operatorde aynı olmalı !!!!!!!!!!!
 Yani + ise (+ ... +),  / ise (/ ... /) şeklinde olmalı !!!!!!!!!!!!!!!!!!!!!!
