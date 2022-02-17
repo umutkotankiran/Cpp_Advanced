@@ -298,7 +298,7 @@ void Advance_impl(Iter& pos, Dist n, std::bidirectional_iterator_tag)
 			++pos;
 	}
 	else {
-		while (n--)
+		while (n++)
 			--pos;
 	}
 }
