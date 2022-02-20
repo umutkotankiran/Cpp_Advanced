@@ -27,7 +27,7 @@ Diğeri ÖR
 //struct Data;
 
 struct Data foo(struct Data);  // yukarıdaki bildirim olmadanda struct keywördü ile birlikte kullanınca 
-								// bu yine incomplete type olarak görev yapıyor. C ve C++ ta böyle
+				// bu yine incomplete type olarak görev yapıyor. C ve C++ ta böyle
 
 ========================================================================================================================================
 ========================================================================================================================================
