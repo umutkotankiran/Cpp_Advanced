@@ -159,9 +159,9 @@ int main()
 	std::vector x{10,20,30};
 
 	std::cout << x; // Burada hata var.Vector için yazılmış bir inserter yok.
-					// std namespace içinde adl ile uygun func aranıyor.
-					// Derleyici bu funclara bakmak zorunda. Bu compile time ı uzatıyor.
-					// Hemde karışık hataları ortaya çıkartıyor.Bu iyi birşey değil.
+			// std namespace içinde adl ile uygun func aranıyor.
+			// Derleyici bu funclara bakmak zorunda. Bu compile time ı uzatıyor.
+			// Hemde karışık hataları ortaya çıkartıyor.Bu iyi birşey değil.
 }
 
 std::cout << "merhaba dunya\n"; // Burada da adl var
