@@ -35,7 +35,7 @@ struct Data foo(struct Data);  // yukarıdaki bildirim olmadanda struct keywörd
 ========================================================================================================================================
 
 
-Biz her ne kadar uygun kullansakta data hidingi biraz bozuyor olabilir. Java C# tan gelenler pek beğenmiyor bunu.
+Biz her ne kadar uygun kullansakta friendlik data hidingi biraz bozuyor olabilir. Java C# tan gelenler pek beğenmiyor bunu.
 Bir burada client kodlara friendlik vermiyoruz, kendi interfaceimizdeki sınıflara friendlik veriyoruz.
 Nested classlara yada header fileda olan free/global funclara. Bunlar interfacein bir parçası.
 Dolayısı ile data hiding bozuluyor demek çokta doğru değil.
