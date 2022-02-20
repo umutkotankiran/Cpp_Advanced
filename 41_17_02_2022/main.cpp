@@ -368,7 +368,7 @@ public:
 	friend void swap(Darray &lhs, Darray &rhs)noexcept
 	{
 		using std::swap;		// 
-		std::swap(lhs.pa, rhs.pa);
+		std::swap(lhs.m_pa, rhs.m_pa);
 		std::swap(lhs.m_size, rhs.m_size);
 	}
 
