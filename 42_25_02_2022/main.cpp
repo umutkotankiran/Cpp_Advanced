@@ -161,7 +161,7 @@ Bir algoritma var taban sınıf tarafından kullanılacak, algoritmayı saptayan
 Algoritmanın hangi basamaklardan oluştuğu, bu basamakların neler olduğu taban sınıf tarafından
 biliniyor.
 
-a - Bu basamakların ne şelilde implemente edileceği konusunda gerekli bilgi yok, 
+a - Bu basamakların ne şelilde implemente edileceği konusunda gerekli bilgi yok,
 	yada aşağıdaki sınıflar tarafından belirleniyor.Algoritmanın genel iskeletini hazırlıyor ama bir veya daha fazla
 	basamağının kodunu implementasyonunu türemiş sınıflara bırakıyor.
 
@@ -244,7 +244,7 @@ int main()
 
 	//std::tie(x,y); // tuple<int&,int&> return değeri bu türden.Referans tuple döndürdü yani.
 
-	tie(x,y) = pair{y,x}; 
+	tie(x,y) = pair{y,x};
 
 	std::cout << "x = " << x << " y = " << y << '\n'; //Elemanlar yer değiştirdi.
 }
@@ -461,9 +461,9 @@ int main()
 	Context c{new NecStrategy};
 	c.do_something();
 	std::cout << '\n';
-	
+
 	//------------------------------------------
-	
+
 	c.set_strategy(new ErgStrategy);
 	c.do_something();
 
@@ -477,7 +477,7 @@ int main()
 ===================================================================================================================
 
 
-POLICY BASE DESIGNED
+POLICY BASED DESIGNED
 --------------------
 En çok kullanılan C++ patern/idiyomlarından biri.Strateji kalıbının derleme zamanı / static versiyonu.
 Policy tabanlı tasarım templatelerle gerçekleştiriliyor static olarak. Kodda policy yi bir template in tür
@@ -507,26 +507,200 @@ Dezavantajlarından biri, bunların ayrı sınıflar olması. herhangibir araç 
 Mesela farklı allocator türüne ait vectorler birbirine atanabilir olmayacaklar.
 Mesela uniqueptr nin farklı deleter sınıfları birbirine atanabilir değil.
 
-template<typename T>
-class Myclass{
-	
+Policy based designed idiyomunun merkezinde 1 veya daha fazla tür parametresine sahip
+sınıf şablonu var. Böyle sınıflara host class deniyor.
+
+template<typename T, typename AllocationPolicy, typename DeletePolicy> // Bu hostclass
+class Container{
+
 };
 
-2:05
+AllocationPolicy burada allocation prensibi diye geçiyor.
+Fiilen belirli bir interfacei sağlayan template argümanı olarak kullanılan sınıfada policy class deniyor.
+
+Bizim host classımız olacak client kodlar hostclass şablonunu kendi seçtikleri template 
+argümanı ile instantiate edecek, oluşan her specialization ayrı davranışsal özellikler
+sağlayan yeni bir sınıf olarak kullanılacak.
+
+NOT !!
+Herhangibir temolate için bir instantiation sonucu derleyici tarafından oluşturulan kod o şablonun
+bir specializationı.
+
+specialization --> Açılım
+
+vector<int> --> vectörün int specializationu.Derleyici vector sınıf şablonundan 1. template
+parametresi için int tür argümanı kullanılınca bir sınnıf oluşturuluyor ve buna specialization
+deniyor.
+
+Explicit Specialization --> Derleyici belli bir tür için primary template ten instantiation yoluyla
+							mesela int specializationu oluşturma, ben int specializationının kodunu veriyorum demek.
+							Primary templateten oluşturmak yerine benim verdiğimi kullan demek
+
+Partial Specialization --> Belirli bir tür kümesinin specializationu için alternatif veriyoruz.
+
+Specialization -> Açılım
+
+Bir interface e uygun olarak oluşturmuş sınıflara policy sınıfları deniyor.
+İnterface in kendisinede policy deniyor.
+
+Mesela her policy sınıfının create funcı olacak. Hostlar buna güvenecek mesela.
+Her policy sınıfın value_type isimli type memberı olabilir.
+
+------------------------------------------------------------------------------------------------------------------
+
+ÖR: HELLO WORLD POLICY BASED DESIGN
+
+Policy based design da temel iki araç var.
+
+- Bir tanesi kalıtım. Farklı farklı policy leri biz kalıtım yoluyla kullanabiliriz.
+Amaç interface i kendi interfaceine katamak değil, yani is a değilde has a ilişkisi için
+kullanacağımız için public yerine private kalıtım kullanacağız çoğunlukla. Bazı durumlarda
+ise taban sınıf olarak kullanılan sınıflar türemiş sınıfın public interfaceine belirli func veta
+türleri enjekte etmek isterse public kalıtım kullanacağız.
+
+Diğeri ise kalıtım yerine oluşturulacak sınıfın PolicyClasslar türünden elemanlara sahip olması
+yani direk composition yapmak.
+
+2 yöntemde composition. Biri containment yoluyla composition diğeri ilse kalıtım ile composition.
+C++ 20 ye kadar composition yerine kalıtım kullanılıyordu. Nedeni policy classların yani 
+template argümanı olarak kulanılacak sınıfların çoğu zaman empty class olması ve kalıtım
+kullandığımızda bu durumda empty classtan private kalıtımı yapınca Empty base optimization
+yapılıyor ama C++20 ile [[no_unique_address]] attribute	ile artık empty classlar türündne
+elemanlar sözkonusu olduğunda derleyicinin bellek alanı kullanımı açısından bir optimizasyon yapıyor.
+
+//					print				get_message
+template <typename OutputPolicy, typename LanguagePolicy>
+class HelloWorld : private eOutputPolicy, private LanguagePolicy
+{
+public:
+	//behavior method
+	void run()const
+	{
+		print(get_message()); // Böyle yazamayız.Taban sınıfta bile olsa aramaz	
+								// sınıf şablonu olmasaydı bu ismi önce local alanda arayacaktı
+								// bulamazsa helloworldte arayacaktı orada da bulamazsa taban sınıfta
+								// aranacaktı. Template olunca aramaz.
+		
+		// TABAN SINIFLARDA ARANMASI İÇİN NELER YAPILABİLİR.
+		// 1 - Using bildirimi. Private bölümde de yapılabilir.
+			   using LanguagePolicy::get_message;
+			   using LanguagePolicy::print;
+		
+		// 2 - Qualified name kullanarak.This ile
+			   this -> print(this->get_message());
+		
+		// 3 - Qualified name kullanarak.Sınıf ismi ile 
+			   OutputPolicy::print(LanguagePolicy::get_message());
+	}
+private:
+	using LanguagePolicy::get_message;
+	using LanguagePolicy::print;
+};
 
 
+//BU POLICY CLASS.YUKARIDA ARGUMAN OLARAK KULLANILABİLİR
+class CoutOutputPolicy{
+protected:
+
+};
+
+--------------------------------------------------------------
+
+//POLICY CLASS.TEMPLATE OLABİLİR
+template<typename T>
+class CoutOutputPolicy{
+protected:
+	void print(T &&)
+	{
+	}
+};
+
+--------------------------------------------------------------
+
+//POLICY CLASS. BURADADA FUNC TA EMPLATE OLABİLİR
+class CoutOutputPolicy{
+protected:
+	template<typename T>
+	void print(T &&x)
+	{
+		std::cout << x << '\n';
+	}
+};
+
+------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+
+template <typename OutputPolicy, typename LanguagePolicy>
+class HelloWorld : private OutputPolicy, private LanguagePolicy
+{
+public:
+	//behavior method
+	void run()const
+	{
+		OutPutPolicy::print(languagePolicy::get_message());
+	}
+private:
+};
 
 
+class CoutOutputPolicy{
+protected:
+	template<typename T>
+	void print(T &&x)const
+	{
+		std::cout << x << '\n';
+	}
+};
+
+class EnglishLanguagePolicy
+{
+public:
+	std::string get_message()const
+	{
+		return "Hello World!";
+	}
+};
 
 
+class EnglishLanguagePolicy
+{
+public:
+	std::string get_message()const
+	{
+		return "Merhaba Dunya!";
+	}
+};
 
 
+class GermanLanguagePolicy
+{
+public:
+	std::string get_message()const
+	{
+		return "Halo Welt!";
+	}
+};
 
 
+using English = HelloWorld<CoutOutputPolicy, EnglishLanguagePolicy>;
+using Turkish = HelloWorld<CoutOutputPolicy, TurkishLanguagePolicy>;
+using German = HelloWorld<CoutOutputPolicy, GermanLanguagePolicy>;
 
 
+int main()
+{
+	English e;
+	German g;
+	Turkish t;
 
-
+	e.run();
+	g.run();
+	t.run();
+}
 
 
 
