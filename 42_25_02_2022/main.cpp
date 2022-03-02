@@ -569,7 +569,7 @@ elemanlar sözkonusu olduğunda derleyicinin bellek alanı kullanımı açısın
 
 //		print			get_message
 template <typename OutputPolicy, typename LanguagePolicy>
-class HelloWorld : private eOutputPolicy, private LanguagePolicy
+class HelloWorld : private OutputPolicy, private LanguagePolicy
 {
 public:
 	//behavior method
