@@ -665,7 +665,7 @@ public:
 };
 
 
-class EnglishLanguagePolicy
+class TurkishLanguagePolicy
 {
 public:
 	std::string get_message()const
