@@ -552,22 +552,22 @@ Her policy sınıfın value_type isimli type memberı olabilir.
 Policy based design da temel iki araç var.
 
 - Bir tanesi kalıtım. Farklı farklı policy leri biz kalıtım yoluyla kullanabiliriz.
-Amaç interface i kendi interfaceine katamak değil, yani is a değilde has a ilişkisi için
+Amaç interface i kendi interfaceine katmak değil, yani is a değilde has a ilişkisi için
 kullanacağımız için public yerine private kalıtım kullanacağız çoğunlukla. Bazı durumlarda
-ise taban sınıf olarak kullanılan sınıflar türemiş sınıfın public interfaceine belirli func veta
+ise taban sınıf olarak kullanılan sınıflar türemiş sınıfın public interface ine belirli func veya
 türleri enjekte etmek isterse public kalıtım kullanacağız.
 
-Diğeri ise kalıtım yerine oluşturulacak sınıfın PolicyClasslar türünden elemanlara sahip olması
+- Diğeri ise kalıtım yerine oluşturulacak sınıfın PolicyClasslar türünden elemanlara sahip olması
 yani direk composition yapmak.
 
-2 yöntemde composition. Biri containment yoluyla composition diğeri ilse kalıtım ile composition.
+2 yöntemde composition. Biri containment yoluyla composition diğeri ise kalıtım ile composition.
 C++ 20 ye kadar composition yerine kalıtım kullanılıyordu. Nedeni policy classların yani 
 template argümanı olarak kulanılacak sınıfların çoğu zaman empty class olması ve kalıtım
 kullandığımızda bu durumda empty classtan private kalıtımı yapınca Empty base optimization
-yapılıyor ama C++20 ile [[no_unique_address]] attribute	ile artık empty classlar türündne
+yapılıyor ama C++20 ile [[no_unique_address]] attribute	ile artık empty classlar türünden
 elemanlar sözkonusu olduğunda derleyicinin bellek alanı kullanımı açısından bir optimizasyon yapıyor.
 
-//					print				get_message
+//		print			get_message
 template <typename OutputPolicy, typename LanguagePolicy>
 class HelloWorld : private eOutputPolicy, private LanguagePolicy
 {
