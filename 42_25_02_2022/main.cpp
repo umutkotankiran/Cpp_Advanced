@@ -523,18 +523,17 @@ argümanı ile instantiate edecek, oluşan her specialization ayrı davranışsa
 sağlayan yeni bir sınıf olarak kullanılacak.
 
 NOT !!
-Herhangibir temolate için bir instantiation sonucu derleyici tarafından oluşturulan kod o şablonun
+Herhangibir template için bir instantiation sonucu derleyici tarafından oluşturulan kod o şablonun
 bir specializationı.
 
 specialization --> Açılım
 
 vector<int> --> vectörün int specializationu.Derleyici vector sınıf şablonundan 1. template
-parametresi için int tür argümanı kullanılınca bir sınnıf oluşturuluyor ve buna specialization
-deniyor.
+		parametresi için int tür argümanı kullanılınca bir sınıf oluşturuluyor ve buna specialization deniyor.
 
 Explicit Specialization --> Derleyici belli bir tür için primary template ten instantiation yoluyla
-							mesela int specializationu oluşturma, ben int specializationının kodunu veriyorum demek.
-							Primary templateten oluşturmak yerine benim verdiğimi kullan demek
+			    mesela int specializationu oluşturma, ben int specializationının kodunu veriyorum demek.
+ 			    Primary templateten oluşturmak yerine benim verdiğimi kullan demek
 
 Partial Specialization --> Belirli bir tür kümesinin specializationu için alternatif veriyoruz.
 
