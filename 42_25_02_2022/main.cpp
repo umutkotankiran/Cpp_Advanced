@@ -576,9 +576,9 @@ public:
 	void run()const
 	{
 		print(get_message()); // Böyle yazamayız.Taban sınıfta bile olsa aramaz	
-								// sınıf şablonu olmasaydı bu ismi önce local alanda arayacaktı
-								// bulamazsa helloworldte arayacaktı orada da bulamazsa taban sınıfta
-								// aranacaktı. Template olunca aramaz.
+				      // sınıf şablonu olmasaydı bu ismi önce local alanda arayacaktı
+				      // bulamazsa helloworldte arayacaktı orada da bulamazsa taban sınıfta
+				      // aranacaktı. Template olunca aramaz.
 		
 		// TABAN SINIFLARDA ARANMASI İÇİN NELER YAPILABİLİR.
 		// 1 - Using bildirimi. Private bölümde de yapılabilir.
