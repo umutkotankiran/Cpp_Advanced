@@ -295,7 +295,7 @@ class C{
 };
 
 //Geçerli burasıda ama her parametreyi tek tek yazmak gerekiyor.
-//template<typename<typename> typename C1,typename<typename> typename C2>
+//template<template<typename> typename C1,typename<typename> typename C2>
 //class Myclass{
 //
 //};
@@ -337,7 +337,7 @@ class C{
 
 };
 
-template<typename T, typename<typename> typename ...Ts>
+template<typename T, template<typename> typename ...Ts>
 class Myclass{
 public:
 	Myclass()
