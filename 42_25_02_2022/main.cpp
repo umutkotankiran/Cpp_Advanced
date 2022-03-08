@@ -427,7 +427,7 @@ public:
 };
 
 
-necstrategy.cpp
+ergstrategy.cpp
 ---------------
 #include "ergstrategy.h"
 #include <iostream>
