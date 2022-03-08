@@ -140,13 +140,13 @@ TEMPLATE METHOD
 NVI, template metodun bir alt kümesi.GOF taki behavioral tasarımlardan biri.
 Kalıtımda en çok kullanılan yapı zaten. Pek çok insan tasarım kalıbı olduğunu bilmeden kullanıyor.
 
-1 - Taban sınıfa bir kontrol noktası vermiş oluyoruz.Taban sınıfın sanal funcı public olsaydı bu durumda
+1 - Taban sınıfa bir kontrol noktası vermiş oluyoruz.
+Taban sınıfın sanal funcı public olsaydı bu durumda
 doğrudan clientlar taban sınıfın sanal funcını çağırdığında türemiş sınıfın overrideı çalışacaktı.
 Şimdi türemişin sınıfın override çalışmasından önce taban sınıfın sanal olmayan funcı bir takım kontroller yapabiliyor.
 Yani türemiş sınıfın overrideının bazı koşulları sağladığında çalışmasını sağlıyor.
 
 2 - Ortak kod bir yere toplanmış oluyor.
-
 Taban sınıfın dtoru virtual olmazsa, taban sınıf poğinterı ile türemiş sınıf nesnesini delete edersek tanımsız davranış
 olacak. Dolayısı ile taban sınıf ptr ile türemiş sınıf nesnesi delete edilecekse taban sınıfın destructoru public virtual
 olması gerekiyor.
