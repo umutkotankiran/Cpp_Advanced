@@ -300,7 +300,7 @@ class C{
 //
 //};
 
-template<typename<typename> typename ...Ts>
+template<template<typename> typename ...Ts>
 class Myclass{
 public:
 	Myclass()
