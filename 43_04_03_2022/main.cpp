@@ -543,18 +543,18 @@ public:
 
 int main()
 {
-	Myclass<A> x; // class Myclass<A>. interfaceine sadece func enjekte edildi
-	// tuple<class A<class Myclass<class A>> > 
+	Myclass<A> x;   // class Myclass<A>. interfaceine sadece func enjekte edildi
+			// tuple<class A<class Myclass<class A>> > 
 	x.func();
 
 	Myclass<A,B> y; // class Myclass<class A,class B>. İnterface e func ve foo enjekte edildi.
-	// tuple<class A<class Myclass<class A, class B> >, class B<class Myclass<class A, class B>> > 
+			// tuple<class A<class Myclass<class A, class B> >, class B<class Myclass<class A, class B>> > 
 	y.func();
 	y.foo();
 	
 
 	Myclass<A,B,C> z; // class Myclass<class A,class B,class C>. İnterface e func,foo ve bar enjekte edildi.
-							//1. taban sınıf								//2. taban sınıf										//3. taban sınıf		
+		//1. taban sınıf						//2. taban sınıf				//3. taban sınıf		
 	// tuple<class A<class Myclass<class A, class B, class C> >, class B<class Myclass<class A, class B, class C>>, class C<class Myclass<class A, class B,class C>> > 
 	z.func();
 	z.foo();
