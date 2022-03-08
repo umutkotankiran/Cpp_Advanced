@@ -67,6 +67,7 @@ class Nec{
 
 template<typename T, typename U = Nec<T>>
 class Myclass{
+public:
 	Myclass(T x, const U& = U());
 };
 
