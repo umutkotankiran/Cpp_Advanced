@@ -92,7 +92,7 @@ class Myclass{
 
 int main()
 {
-	Myclass x(12); // CTAD Yok burada.
+	Myclass x(12); // Invalid.CTAD devreye girmedi doğrudan
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
