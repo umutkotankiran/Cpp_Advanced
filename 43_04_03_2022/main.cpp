@@ -547,6 +547,7 @@ int main()
 			// tuple<class A<class Myclass<class A>> > 
 	x.func();
 
+
 	Myclass<A,B> y; // class Myclass<class A,class B>. İnterface e func ve foo enjekte edildi.
 			// tuple<class A<class Myclass<class A, class B> >, class B<class Myclass<class A, class B>> > 
 	y.func();
