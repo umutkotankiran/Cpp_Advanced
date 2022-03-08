@@ -285,7 +285,7 @@ class Myclass{
 public:
 	friend bool operator<(const Myclass &m1, const Myclass &m2)
 	{
-		std::tuple{m1.mx, m1.mname, m1.msurname, m1.mbdate} < std::tuple{m1.mx, m2.mname, m2.msurname, m2.mbdate};
+		std::tuple{m1.mx, m1.mname, m1.msurname, m1.mbdate} < std::tuple{m2.mx, m2.mname, m2.msurname, m2.mbdate};
 	}
 private:
 	int mx{};
