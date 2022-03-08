@@ -193,10 +193,10 @@ public:
 int main()
 {
 	Myclass<Nec> m;  // C nin türü yukarıda class Nec. 
-					 // i nin türü Nec<int>
-					 // d nin türü Nec<double>
-					 // *this in türü Myclass<Nec>
-					 // Myclass ın türü Myclass<Nec>
+			 // i nin türü Nec<int>
+			 // d nin türü Nec<double>
+			 // *this in türü Myclass<Nec>
+			 // Myclass ın türü Myclass<Nec>
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
