@@ -203,7 +203,7 @@ int main()
 
 En çok kullanılan yapılardan biri
 
-template<typename T,typename U>
+template<typename T>
 class Nec{
 
 };
