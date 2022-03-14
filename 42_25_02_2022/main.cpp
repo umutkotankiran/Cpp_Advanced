@@ -211,6 +211,7 @@ public:
 private:
 	virtual void add_toppings()override;   // implementasyonları yapmıyoruz
 protected:
+	using pizza:pizza;
 };
 
 
