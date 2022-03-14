@@ -21,7 +21,7 @@ struct DefaultDelete
 template <typename T, typename DelPolicy = DefaultDelete<T>>  //Template tür parametresi default argüman almış.
 class ScopedPtr {
 public:
-    explicit ScopedPtr(T* p = nullptr, const DelPolicy& del_policy = DelPolicy()) : m_p(p), m_del_policy(del_policy) // Varsayılan argüman kullanıldı.del_policy referans olmamalı
+    explicit ScopedPtr(T* p = nullptr, const DelPolicy& del_policy = DelPolicy()) : m_p(p), m_del_policy(del_policy) // Varsayılan argüman kullanıldı.m_del_policy referans olmamalı
     {}                                                                                                               // çünkü dangling referans olur.Geçici nesnenin hayatı devam ediyor referans olarakta aktardık
                                                                                                                      // diyemiyoruz tabiki.
     
