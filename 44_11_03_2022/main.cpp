@@ -14,6 +14,7 @@ POLICY_6
 POLICY_7
 
 OBSERVER
+WEATHERDATA
 Bir nesne var ve bu nesnede drum değişikliği olduğunda bazı başka sınıflar türündne nesnelerin
 bu durumdan haberdar olması gerekiyor ve haberdar oldukları gibi kendi durumlarınıda
 o nesnedeki durum değişikliğine göre ayarlamaları gerekiyor.
