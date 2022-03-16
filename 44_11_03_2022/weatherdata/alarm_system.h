@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include "observer.h"
 
 class AlarmSystem : public IObserver {
