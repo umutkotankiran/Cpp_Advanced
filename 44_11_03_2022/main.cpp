@@ -16,8 +16,25 @@ ARANMIYOR.TABAN SINIFTA ARANMASI İÇİN(DAHA ÖNCEDE YAZMIŞTIM)
 -POLICY_7 ÖRNEĞİ
 
 -OBSERVER ÖRNEĞİ
-
--WEATHERDATA ÖRNEĞİ
+ Bir nesne var, bu nesnede durum değişikliği olduğunda bazı başka sınıflar türünden nesnelerin bu durumdan haberdar olması gerekiyor.
+ Haberdar oldukları gibi kendi durumlarınıda o nesnedeki durum değişikliğine göre ayarlamaları gerekiyor.
+ Ortada bir nesne var ve bu nesneyle ilgili durum değişikliğine ihtiyaç duyabilecek başka nesneler var.
+ 
+ Durum değişikliği olduğunda statei değişen nesnenin bu değişiklikle ilgili olan nesleri bu durumdan haberdar etmeli.
+ Bu iyi bir yöntem.Yüksek düzeyde bir coupling olmadan bunu sağlamak amaç.
+ 
+ Observer kalıbı aşağıdaki durumlarda kullanılıyor.
+ Bir soyutlamanın 2 niteliği varsa, 1 bağlı olan nesne biride diğeri. Bunları ayrı nesneler halinde encapsule edilecek ve
+ ve bunlar birbirinden bağımsız değişebilsin.
+ 
+ Terminoloji:
+ Subject : Durumu değiştiğinde kendi gözlemcilerine bunu haber verek olan sınıf
+ Observer : Bunlar gözlemciler
+ Concrete Subject : Observera gönderilecek durumu saklar ve oberverlara yollar.
+ Concrete observer : Observer interfaceini implemente eder.
+ 
+ 
+ -WEATHERDATA ÖRNEĞİ
 Bir nesne var ve bu nesnede drum değişikliği olduğunda bazı başka sınıflar türündne nesnelerin
 bu durumdan haberdar olması gerekiyor ve haberdar oldukları gibi kendi durumlarınıda
 o nesnedeki durum değişikliğine göre ayarlamaları gerekiyor.
