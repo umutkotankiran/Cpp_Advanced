@@ -9,14 +9,15 @@ ARANMIYOR.TABAN SINIFTA ARANMASI İÇİN(DAHA ÖNCEDE YAZMIŞTIM)
 2 - THIS POİNTERINI KULLANMAK
 3 - USING BİLDİRİMİ
 
-POLICY_5 İ BEN YAZMADIM ÇÜNKÜ POLICY_6 AYNISI AMA DAHA KAPSAMLI.
+-POLICY_5 İ BEN YAZMADIM ÇÜNKÜ POLICY_6 AYNISI AMA DAHA KAPSAMLI.
 
-POLICY_6
+-POLICY_6 ÖRNEĞİ
 
-POLICY_7
+-POLICY_7 ÖRNEĞİ
 
-OBSERVER
-WEATHERDATA
+-OBSERVER ÖRNEĞİ
+
+-WEATHERDATA ÖRNEĞİ
 Bir nesne var ve bu nesnede drum değişikliği olduğunda bazı başka sınıflar türündne nesnelerin
 bu durumdan haberdar olması gerekiyor ve haberdar oldukları gibi kendi durumlarınıda
 o nesnedeki durum değişikliğine göre ayarlamaları gerekiyor.
@@ -37,10 +38,10 @@ Mesela sınıfın hangi üye funcı çağrılacak gibi bir yapı olabilir.
 Bunun dışında birden fazla subjectin gözlenmesi.
 
 VISITOR VE DOUBLE DISPATCH
-DOUBLE DISPATCH
+-DOUBLE DISPATCH ÖRNEĞİ
 Double dispatch bir nesnenin türüne değilde birden fazla nesnenin dinamik türüne göre seçilmesi.
 
-VİSİTOR
+-VİSİTOR ÖRNEĞİ
 İstediğimiz zaman yeni bir operasyon eklemek istiyoruz.
 
 */
