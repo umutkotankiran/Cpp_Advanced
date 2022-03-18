@@ -2,6 +2,9 @@
 
 class IObserver;
 
+// Burası subject interface
+// Durumu değiştiğinde kendi gözlemcilerine bunu haber verek olan sınıf demiştik.
+// Bunlar pure virtual olmayabilirdi doğrudan burayada implementasyonda yapabilirdik.
 class ISubject {
 public:
     virtual ~ISubject() = default;
