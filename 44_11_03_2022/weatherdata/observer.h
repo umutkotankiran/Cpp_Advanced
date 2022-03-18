@@ -1,5 +1,6 @@
 #pragma once
 
+// Observer yani gözlemci interfacei de burada.
 class IObserver {
 public:
     virtual ~IObserver() = default;
