@@ -3,6 +3,8 @@
 #include "subject.h"
 #include <vector>
 
+// İmplementasyonları burada yapılacak. En azından override bildirimleri burada.
+// Halen daha observerda değiliz.
 class WeatherData : public ISubject {
 public:
     void register_observer(IObserver* observer) override;
