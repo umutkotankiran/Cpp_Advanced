@@ -1,5 +1,4 @@
 #pragma once
-
 #include <utility>
 
 template <typename T>
@@ -11,8 +10,11 @@ struct DefaultDelete
     }
 };
 
-
-template <typename P> 
+//Daha önceki kodlarda release interfacei vardı. Release sarmaladığı pointerı release ediyordu.Mülkiyeti bırakıyordu.
+//Bu koddaki release diğer pointer sınıflarındaki release kodundan farklı olabilir.Pointerı nullptr yapmış. Bu bizim bildiğimiz release değil.
+//AMAÇ :  Burada release edilebilen ve edilemeyen smart pointer sınıflarını aynı host classtan policy based designed ile elde etmek.
+//Bunun yolu CRTP kullanmak. 
+template <typename P>   
 class Releasable {
 public:
     void release() 
