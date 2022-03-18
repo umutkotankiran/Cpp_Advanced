@@ -12,13 +12,10 @@ ARANMIYOR.TABAN SINIFTA ARANMASI İÇİN(DAHA ÖNCEDE YAZMIŞTIM)
 -POLICY_5 İ BEN YAZMADIM ÇÜNKÜ POLICY_6 AYNISI AMA DAHA KAPSAMLI.
 
 -POLICY_6 ÖRNEĞİ
- NOTLAR İLGİLİ KLASÖRDE
 
 -POLICY_7 ÖRNEĞİ
- NOTLAR İLGİLİ KLASÖRDE
 
 -OBSERVER ÖRNEĞİ
- NOTLAR İLGİLİ KLASÖRDE
 
 -WEATHERDATA ÖRNEĞİ
 Bir nesne var ve bu nesnede drum değişikliği olduğunda bazı başka sınıflar türündne nesnelerin
