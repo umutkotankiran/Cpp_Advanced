@@ -54,6 +54,9 @@ Mesela sınıfın hangi üye funcı çağrılacak gibi bir yapı olabilir.
 
 Bunun dışında birden fazla subjectin gözlenmesi.
 
+1:55 OBSERVER
+
+
 VISITOR VE DOUBLE DISPATCH
 -DOUBLE DISPATCH ÖRNEĞİ
 Double dispatch bir nesnenin türüne değilde birden fazla nesnenin dinamik türüne göre seçilmesi.
