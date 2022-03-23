@@ -701,34 +701,4 @@ Yani çok sayıda sınıfın oluşması. her ilave özellik için kalıtımda ye
 Her ilave davranışı sınıflara yüklersek ortada birsürü sınıf oluşur.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 */
