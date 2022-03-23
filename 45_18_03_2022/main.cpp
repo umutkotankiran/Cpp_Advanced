@@ -307,11 +307,12 @@ main.cpp
 #include "triangle.h"
 #include <vector>
 #include <iostream>
+#include <random>
 #include "height_visitor.h"
 
 Shape* create_random_shape()
 {
-	static std::mt19937 end{std::random_device{}()};
+	static std::mt19937 eng{std::random_device{}()};
 	static std::uniform_int_distribution idist{0, 3};
 	static std::uniform_int_distribution rdist{0., 9.};
 
