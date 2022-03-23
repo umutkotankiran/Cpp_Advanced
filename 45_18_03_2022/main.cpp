@@ -321,7 +321,7 @@ Shape* create_random_shape()
 		case 0: return new Circle{rdist(eng)};
 		case 1: return new Square{rdist(eng)};
 		case 2: return new Rectangle{rdist(eng),rdist(eng)};
-		case 3: return new Triangle{rdist(eng),rdist(eng)}; // Geçerli üçgen olmayabilir.Sorun değil bizim için.
+		case 3: return new Triangle{rdist(eng),rdist(eng),rdist(eng)}; // Geçerli üçgen olmayabilir.Sorun değil bizim için.
 	}
 
 	return nullptr;
