@@ -133,11 +133,11 @@ void ClientCode(Component* pcomp)
 void ClientCode2(Component* component1, Component* component2)
 {
 	 //..
-	 if(component->is_composite())
+	 if(component1->is_composite())
 	 {
-		component->add(component2);
+		component1->add(component2);
 	 }
-	 std::cout << "RESULT: " << component->operation();
+	 std::cout << "RESULT: " << component1->operation();
 	 //..
 }
 
