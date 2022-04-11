@@ -109,10 +109,9 @@ Threadler noncopyable but movable sınıflar.
 Thread bir akış zinciri içerisinde yürütülen komut zinciri demek. 
 
 std::thread t; yazıldığında bu sınıf türünden bir nesneden
-bahsediliyor ve bu OS teki threadi temsil edebilecek bir değişken.
-t nesnesi henüz bür thread ile ilişkilendirilmemiş olabilir.
+bahsediliyor ve bu OS teki threadi temsil edebilecek bir değişken.t nesnesi henüz bir thread ile ilişkilendirilmemiş olabilir.
 
-thread header fileda eğer biz bir taski thrqad halinde çalıştırmak istersek 
+thread header fileda eğer biz bir taski thread halinde çalıştırmak istersek 
 thread nesnesi türünden bir nesneye ihtiyaç var. Bu nesneyi default init edebilir.
 Buradaki terim işyükü/workload. workload derken bu thread bir kodu çalıştırmak için oluşturuldu.
 Standart library de de çalıştırılacak kodun birimi bir function. Bu function herhangibir callable ile 
@@ -120,12 +119,12 @@ ilişkilendirilmiş function olabilir.
 
 Bu threading çalıştıracağı işyükü olan kod global func olabilir, sınıfın static veya nonstatic func olabilir,
 functor sınıfının operator funcı olabilir, lambda ifadesinden elde edilen bir closure type func olabilir.
-Yeterki çalıştırılacak bir callable olsun. 
+Yeterki çalıştırılacak bir callable olsun.
 
-Biz bir thread nesnesine bir functionu verdiğimizde o thread nesnesi hayata başladığında (Eğer ctoruna o callble argüman geçilirse)
+Biz bir thread nesnesine bir functionu verdiğimizde o thread nesnesi hayata başladığında (Eğer ctoruna o callable argüman geçilirse)
 arka planda OS in bazı funcları çalışacak ve maliyeti var bunların. En çok yapılan hatalardan biride
 iş yapılsın diye belirli sayıda thread oluşturup iş hızlansın diye beklemek. Bu threadlerinde
-bir maliyeti var ve bunu kurtarmatyabilir.
+bir maliyeti var ve bunu kurtarmayabilir.
 
 Bir thread bir işyüküne(workload) bağlı olabilir veya olmayabilir.
 Default init edilmiş bir thread nesnesinin bir workloadu yok.
@@ -136,7 +135,7 @@ int main()
 }
 
 BU DERS BİRAZ KARIŞIK GİDİLECEK !!!
-HEPSİ DETAYLI GÖRÜLECEK FUNCLARIN.!!!
+HEPSİ DETAYLI GÖRÜLECEK FUNCLARIN !!!
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
