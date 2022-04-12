@@ -468,10 +468,11 @@ int main()
 	std::vector<int> ivec{1,2,3,4,5};
 	
 	//thread tx{foo,ivec};	// Burada thread sınıfı bizim nesnemizi alıp funca gönderirken sağ taraf değeri olarak gönderiyor !!!!!!!!
-							// Dolayısıyla burada funca gelen nesnenin kendisi değil !!!!!!
-							// Burada bir kopyalama semantiği var !!!!!!!!
+				// Dolayısıyla burada funca gelen nesnenin kendisi değil !!!!!!
+				// Burada bir kopyalama semantiği var !!!!!!!!
+				// const parametre olduğu içinde lvalue referans rvalue expr a bağlandı
 	
-	thread tx{foo,ref(ivec)};	// Nesnenin kendisini gönderdik. Bunu reference wrapper ile yaptık.
+	thread tx{foo,ref(ivec)};	// Burada ise nesnenin kendisini gönderdik. Bunu reference wrapper ile yaptık.
 
 	tx.join();
 }
@@ -498,9 +499,9 @@ int main()
 	std::vector<int> ivec{1,2,3,4,5};
 
 	thread tx{foo,ivec}; // YUKARIDAKİ FUNC PARAMETRESİ CONST DEĞİL. IVEC TE SAĞ TARAF DEĞERİ OLARAK GÖNDERİLİYOR
-						 // YUKARIDA SAĞ TARAF DEĞERİ OLARAK GÖNDERİLDİĞİNİ YAZMIŞTIM. BU DURUMDA SOL TARAF REFERANSI
-						 // SAĞ TARAF DEĞERİNE BAĞLANAMAZ VE SENTAKS HATASI OLUŞUR.SENTAKS HATASI OLMAMASI İÇİN
-						 // FUNC PARAMETRESİ CONST REFERANS OLMALI.
+			     // YUKARIDA SAĞ TARAF DEĞERİ OLARAK GÖNDERİLDİĞİNİ YAZMIŞTIM. BU DURUMDA SOL TARAF REFERANSI
+			     // SAĞ TARAF DEĞERİNE BAĞLANAMAZ VE SENTAKS HATASI OLUŞUR.SENTAKS HATASI OLMAMASI İÇİN
+			     // FUNC PARAMETRESİ CONST REFERANS OLMALI.
 	tx.join();
 }
 
@@ -601,7 +602,7 @@ DİKKAT !!!
 
 class Functor{
 public:
-	void operator()(int x)const
+	void operator()()const
 	{
 		std::cout << "operator()()\n";
 	}
@@ -666,7 +667,7 @@ int main()
 
 	thread tx{func,m}; // Copy Ctor çağrıldı
 	
-	thread ty{func,m}; // Copy veya Move Ctor çağrılmadı
+	thread ty{func,ref(m)}; // Copy veya Move Ctor çağrılmadı
 
 	thread tz{foo,std::move(m)}; // Move Ctor çağrıldı
 
