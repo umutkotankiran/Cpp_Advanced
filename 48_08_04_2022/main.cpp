@@ -1030,17 +1030,6 @@ void func()
 	std:this_thread::sleep_for(100ms); // std::chrono::milliseconds{1000} gibi bitşeyde yazılabilirdi.
 }
 
-int main()
-{
-	g_id = this_thread::get_id();
-
-	func(); // bu anathread tarafından çalıştırılıyor yazar
-
-	thread tx{func};
-
-	tx.join(); // func child thread tarafından çalıştırılıyor.
-}
-
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 CPPREFERENCE ÖRNEĞİ
