@@ -853,7 +853,7 @@ using namespace std;
 void func(std::thread&& t)
 {
 	auto tx = std::move(t); // t burada bir isim ve lvalue expr
-							// tkerar rvalue expr ye çevirdik.
+				// tkerar rvalue expr ye çevirdik ve taşımayı yaptırdık.
 }
 
 int main()
