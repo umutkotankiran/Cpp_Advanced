@@ -117,7 +117,7 @@ Buradaki terim işyükü/workload. workload derken bu thread bir kodu çalışt�
 Standart library de de çalıştırılacak kodun birimi bir function. Bu function herhangibir callable ile 
 ilişkilendirilmiş function olabilir. 
 
-Bu threading çalıştıracağı işyükü olan kod global func olabilir, sınıfın static veya nonstatic func olabilir,
+Bu threadin çalıştıracağı işyükü olan kod global func olabilir, sınıfın static veya nonstatic func olabilir,
 functor sınıfının operator funcı olabilir, lambda ifadesinden elde edilen bir closure type func olabilir.
 Yeterki çalıştırılacak bir callable olsun.
 
