@@ -356,7 +356,7 @@ bir thread join edilirse std::terminate çağrılır.
 C++20 de bu eksik kapatıldı. İlerleyen derslerde görülecek.
 Thread sınıfını raii ile sarmalayan jthread var. Neden başta böyle yapmadılar?
 Bunun farklı sebepleri var. Mesela thread join edilmek zorunda değil, detach te edilebilir.
-Bu arka planda çalışsın benim bununla alakam yok demek. Yani bitmesini bekleyip bit threadi bloke 
+Bu arka planda çalışsın benim bununla alakam yok demek. Yani bitmesini bekleyip bir threadi bloke 
 etmiyoruz. Arka planda o çalışıyor. Farklı farklı problemler kaygılar olabilir burada.
 
 C++ concurrency ile ilgili en önemli uzmanlardan biri Anthony Williams.Concurrency in Action kitabı çok iyi.
