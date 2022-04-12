@@ -205,15 +205,15 @@ int main()
 	using namespace std;
 
 	thread t{func}; // t nin hayata gelmesinden itibaren func execute edilmeye başlanıyor.Yani Os in thread için bazı kodlarının 
-		 			// çalışması gerekiyor.Tamamen başladı diyemeyiz.Kavramsal olarak çalışıyor diyoruz.
-					// Burada 2 thread birden çalışıyor, main thread bizim yarattığımız thread
-					// Tabi yarattığımız bitmişte olabilir bunu bilemeyiz.
+		 	// çalışması gerekiyor.Tamamen başladı diyemeyiz.Kavramsal olarak çalışıyor diyoruz.
+			// Burada 2 thread birden çalışıyor, main thread bizim yarattığımız thread
+			// Tabi yarattığımız bitmişte olabilir bunu bilemeyiz.
 
 
 	t.join(); // joinden sonra artık bu funcın kodu çalıştı ve bitti bundan eminiz !!!!!!!!
-			  // Bu noktaya kadar kodun çalışması devam ediyor olabilir ama bu noktadan sonra 
-			  // artık beklemez zorunda bunu oluşturan thread
-			  // bu kodun çalışması bitecek ve ancak ondan sonra bizim threadimiz çalışmaya devam edecek
+		  // Bu noktaya kadar kodun çalışması devam ediyor olabilir ama bu noktadan sonra 
+		  // artık beklemez zorunda bunu oluşturan thread
+		  // bu kodun çalışması bitecek ve ancak ondan sonra bizim threadimiz çalışmaya devam edecek
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------
