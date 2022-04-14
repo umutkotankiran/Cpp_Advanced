@@ -767,7 +767,7 @@ int main()
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 THREAD NESNELERİNİN KOPYALANMASI DURUMU
-Bu durum mantıklı değil bu sebeple kopyalamaya kapalı taşımaya açık. Bir thread joinable durumdaysa ve başka
+Bu durum mantıklı değil bu sebeple kopyalamaya kapalı ama taşımaya açık. Bir thread joinable durumdaysa ve başka
 threade taşınırsa unjoinable duruma geçecek, diğer thread joinable duruma geçecek.Örnek var aşağıda.
 
 void func()
