@@ -139,6 +139,8 @@ HEPSİ DETAYLI GÖRÜLECEK FUNCLARIN !!!
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
+JOINABLE
+
 Joinable isimli bir func var ve bu function bool döndürüyor.
 Eğer bir threadin workloadu varsa, henüz o iş gerçekleştirilmemiş ise yada gerçekleştirilme garantisi
 henüz yoksa o thread joinable denilen bir state te.
