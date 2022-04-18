@@ -426,7 +426,7 @@ int main()
 {
 	//std:thread ta[10]; dizide olabilirdi
 
-	std::vector<std::thread> ta[26];
+	std::vector<std::thread> ta;
 
 	for(int i{}; auto &t : ta) // range      base for loop içinde değişken tanımlamakta yeni geldi.
 	{
