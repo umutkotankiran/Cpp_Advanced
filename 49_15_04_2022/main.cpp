@@ -674,11 +674,11 @@ void func(int id)
 	int x = 0;	// automatic ömürlü yerel değişken
 
 	static int y = 0;   // static ömürlü yerel değişken. Bunlar shared resource.Birden fazla thread
-						// bunlara erişirse aynı varlığa erişir. Bu durumda data race olmaması için
-						// senkronizasyon işin içine girecek.Ortak resource
+			    // bunlara erişirse aynı varlığa erişir. Bu durumda data race olmaması için
+			    // senkronizasyon işin içine girecek.Ortak resource
 	
 	thread_local int z = 0;    // Her thread başına tek.
-							   // static koysakta koymasakta sentaks hatası yok. İkiside anlam olarak aynı
+				   // static koysakta koymasakta sentaks hatası yok. İkiside anlam olarak aynı
 								
 
 	++x;
