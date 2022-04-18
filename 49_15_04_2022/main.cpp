@@ -1095,8 +1095,8 @@ Async kullanalım
 int main()
 {
 	auto ft1 = std::async(foo,10); // bunu bu şekilde çağırmak ile aşağıdaki ayını anlamda
-									// return değeri std::feature callable ın return değeri türü
-									// foo nun return değeri int oldupundan, feature<int> olacak eturn değeri türü
+				       // return değeri std::feature callable ın return değeri türü
+				       //  foo nun return değeri int oldupundan, feature<int> olacak eturn değeri türü
 
 	// Auto type deduction olmasaydı aşağıdaki gibi yazardık
 	// std::future<int> ft2 = std::async(foo,10);
@@ -1109,8 +1109,8 @@ int main()
 	
 
 	auto val = ft.get(); // bu noktaya kadar func çalışıp bittiyse func return değerini alıyoruz
-						 // eğer func çalışması başlamış ama devam ediyorsa joindeki gibi geti çağıran thread bloke oluyor 
-						 // ve geti çağıran funcın kodunun bitmesi bekleniyor.
+			     // eğer func çalışması başlamış ama devam ediyorsa joindeki gibi geti çağıran thread bloke oluyor 
+			     // ve geti çağıran funcın kodunun bitmesi bekleniyor.
 
 }
 
