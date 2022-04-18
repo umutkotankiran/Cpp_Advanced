@@ -232,6 +232,9 @@ int main()
 
 ÖR:
 
+Exceptionlar nullptr değilse rethrow ediliyor ve yakalanıp vectore push_back ile ekleniyor.
+Daha sonrasında main içerisinden bu hatalar yazdırılıyor.
+
 std::vector<std::exception_ptr> g_ex_vec;
 
 std::mutex g_mutex;
@@ -292,7 +295,10 @@ int main()
 	}
 }
 
-Exceptionlar nullptr değilse rethrow ediliyor ve yakalanıp yazdırılıyor.
+Output
+------
+Error from f1
+Error from f2
 
 -----------------------------------------------------------------------------------------------------
 
