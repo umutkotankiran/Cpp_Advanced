@@ -466,9 +466,9 @@ int main()
 		//svec.push_back(sline); // burada parametresi const string& olan çağrılır
 
 		svec.push_back(std::move(sline)); // Burada da parametresi rvalue ref olan push back çağrılır.
-										  // Moved from state teki nesne geçersiz değil.Sadece moved fromda
-										  // tekrar atama yaparak kullanabilirim.Moved from state unspecified behavior
-										  // string boş olabilir yani moved from stateteki nesne.
+						  // Moved from state teki nesne geçersiz değil.Sadece moved fromda
+						  // tekrar atama yaparak kullanabilirim.Moved from state unspecified behavior
+						  // string boş olabilir yani moved from stateteki nesne.
 	}
 	
 }
