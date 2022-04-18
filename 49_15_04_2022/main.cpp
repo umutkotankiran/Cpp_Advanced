@@ -31,8 +31,8 @@ int main()
 	std::thread t{foo};
 
 	func();  // Joini çağırmadan buradadaki kodda bir exception gönderilirse programın akışı
-			// alttaki joine gelmeyecek. Joine gelmediği için join çağrılmayacak. Bu durumda thread
-			// nesnesinin dtoru çağrıldığında joinable durumda olduğu için terminate func çağrılacak.
+		// alttaki joine gelmeyecek. Joine gelmediği için join çağrılmayacak. Bu durumda thread
+		// nesnesinin dtoru çağrıldığında joinable durumda olduğu için terminate func çağrılacak.
 
 	t.join();
 }
@@ -82,8 +82,8 @@ int main()
 	set_terminate(my_terminate);
 	try{
 		std::thread t{func}; // Buradan exception gönderiliyor ama yakalanmıyor.
-							 // Doğrudan terminate çağrılıyor. Workload olarak verilen functa hata olunca
-							 // hata yakalanmıyor. Yani exception gönderildiğinde doğrudan terminate çağrıldı.
+				     // Doğrudan terminate çağrılıyor. Workload olarak verilen functa hata olunca
+				     // hata yakalanmıyor. Yani exception gönderildiğinde doğrudan terminate çağrıldı.
 		t.join();
 	}
 	catch(const std::exception &ex)
