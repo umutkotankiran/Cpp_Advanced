@@ -1139,7 +1139,7 @@ int main()
 	auto ft = std::async(foo,5); async return değeri tutuldu
 	// std::future<Myclass> ft = std::async(foo,5); // buda yazılabilir
 
-	// FUNCTIONUN RETURN DEĞERİNİ GET İLE ALIRIZ
+	// FUNCTIONUN RETURN DEĞERİNİ GET İLE ALIRIZ.AŞAĞIDA GET İLE İLGİLİ AÇIKLAMA VAR !!
 	ft.get();
 	
 	std::cout << "val = " << val << '\n';
@@ -1148,17 +1148,17 @@ int main()
 
 GETİN ÇAĞRILDIĞI NOKTA İLE İLGİLİ ÇOK ÖNEMLİ AÇIKLAMA !!!!!!
 1 - Geti çağırınca zaten bu funcın kodu çalışıp bitmişse burada hiçbir şekilde bloke olmuyor
-	Funcın doğrudan return değerini alıyoruz.
+    Funcın doğrudan return değerini alıyoruz.
 
-2 - Eğer bu func çalışmaya başlamamışsa(yani deferred olarak çalışacaksa) karar derleyicide
-	Kendi deferred olarak seçmişte olabilir. Yada biz deferred ilk argüman olarak yazabilirdik.
+2 - Eğer bu func çalışmaya başlamamışsa(yani deferred olarak çalışacaksa) karar derleyicide.
+    Kendi deferred olarak seçmişte olabilir. Yada biz deferred ilk argüman olarak yazabilirdik.
     Bu durumda geti çağırana kadar bu func çağrılmayacaktı ama geti çağırınca bu task olan func çağrılacaktı.
-	std::async(std::launch::deferred,foo,5); şeklinde çağrılabilir
+    std::async(std::launch::deferred,foo,5); şeklinde çağrılabilir
 
 3 - Geti çağırdığımızda func kodu çalışmaya başlamış ama bitmemiş halen devam ediyor.
-	Bu durumda threadde join çalıştırır gibi geti çağıran threadde bloke oluyor bu funcın kodunun
-	çalışmasının bitmesi gerekiyor.
-
+    Bu durumda threadde join çalıştırır gibi geti çağıran threadde bloke oluyor bu funcın kodunun
+    çalışmasının bitmesi gerekiyor.
+	
 Özellikle funca async enumeratoru geçilirse(std::async(std::launch::async,foo,5);) bunu asenkron çalıştırıyoruz.
 Eğer bunu asenkron çalıştıracak kaynak yoksa o zaman system error türünden exception throw ediyor. 
 Dolayısı ile burada ya async ya asenkron çalışacak ya da exception throw edecek.
@@ -1188,9 +1188,9 @@ int main()
 	auto ft = std::async(std::launch::async,foo,5);
 	
 	func(); // programın akışı bu noktadan sonra her iki threadde paralel çalışıyor.
-			// hem foo hemde func kodu çalışıyor.
+		// hem foo hemde func kodu çalışıyor.
 
-	std::cout << "val = " << val << '\n';
+	std::cout << "val = " << ft.get() << '\n';
 
 }
 
@@ -1257,16 +1257,19 @@ int func()
 int main()
 {
 	try{
-		auto ftp = async(std::launch::async, func); // ftr nin türü std::feature<int>
-		auto val = ftr.get(); // ftr nin değeri funcın return değeri. Exception gönderseydi yakalayacağız zaten
+		auto ftr = async(std::launch::async, func); 	// ftr nin türü std::feature<int>
+		auto val = ftr.get(); 		// ftr nin değeri funcın return değeri. Exception göderirse yakalayacağız zaten
 		std::cout << "return value is : " << val << '\n';
 	}
 	catch(const std::exception& ex)
 	{
-		std:cout << "exception caught : " << ex.what() << '\n';
+		std::cout << "exception caught : " << ex.what() << '\n';
 	}
 }
 
+Output
+------
+exception caught : error from func
 
 -------------------------------------------------------------------------------------------------------
 
@@ -1288,7 +1291,7 @@ int main()
 	auto func_val = func(); // buda main threadden çalışıyor.
 
 	auto x = func_val + ft_foo.get(); // get çağrıldığında işlem bitmemişse bloke olacak.
-									  // Bitmişse zaten değeri alacağız.Bunlar paralel çalışmış olacak.
+					 // Bitmişse zaten değeri alacağız.Bunlar paralel çalışmış olacak.
 }
 
 -------------------------------------------------------------------------------------------------------
@@ -1356,7 +1359,7 @@ int main()
 	auto ftr2 = async(std::launch::deferred, get_str_digits,20);
 
 	auto s1 = ftr1.get(); // Buraya kadar çalıştırılan bir func yok.get funcı çalıştığı anda func kodu çalıştırılacak
-						  // return değeri olan future<std::string> nesnesini alacağız.
+			      // return değeri olan future<std::string> nesnesini alacağız.
 	
 	auto s1 = ftr2.get(); // Burada da diğeri çalışacak
 
@@ -1380,7 +1383,7 @@ int main()
 }
 
 BU DURUMDA HIÇBIR KAZANÇ YOK. FUNC GERI DÖNÜŞ DEĞERI OLAN NESNENIN ASENKRON ÇALIŞTIRDIĞIMIZDA
-HAYATI BITTIĞINDE OTOMATIK OLARAK GET FUNCI ÇAĞRILIYOR. YANI FEATURE NESNESI DESTRUCT OLDUPUNDA
+HAYATI BITTIĞINDE OTOMATIK OLARAK GET FUNCI ÇAĞRILIYOR. YANI FEATURE NESNESI DESTRUCT OLDUĞUNDA
 GETI FIILEN ÇAĞIRMASAKTA GET ÇAĞRILIYOR. 1. FUNC ÇAĞRILDIĞINDA RETURN DEĞERINI KULLANMADIĞIMIZ IÇIN
 ORADAKI GEÇICI NESNENIN HAYATI BITECEK VE BU DURUMDA GET FUNCI ÇAĞRIACAK. GET FUNCI ÇAĞRILDIĞI IÇIN 1. BLOKE OLACAK
 1. BITTIKTEN SONRA 2. BAŞLAYACAK. YANI TOPLAM SÜRE 3 DEĞIL 6 SANIYE OLACAK. FUNC RETURN DEĞERI OLMASADA 
