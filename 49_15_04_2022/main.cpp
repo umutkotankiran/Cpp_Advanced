@@ -1038,7 +1038,7 @@ Aşağıdaki gibi kullanılıyor.Tabi birsürü template var.
 async(Function&&f, Args&&...args );
 
 Funcın return değeri int ise async return değeri std::feature<int>
-ağer double i se return değeri std::feature<double>
+Eğer double i se return değeri std::feature<double>
 
 Async kullanarak 3 farklı olanaktan yararlanabiliriz.
 1 - Ben bu callable ın asenkron çalışmasını istiyorum yani ayrı bir thread olarak çalışmasını istiyorum.
@@ -1049,19 +1049,19 @@ Eğer biz aşağıdaki parametreyi kullanırsak(std::launch policy) seçimimizi 
 async(std::launch policy, Function &&f, Args&&... args);
 
 std::launch bir enum class. Bu enum class türünün enumeratorleriyle belirlenmiş.
-Eğer std::lauch::async argüman olarak gönderirsek asenkron çalıştır diyoruz.
-Eğer std::lauch::deferred argüman olarak gönderirsek lazy evaluation olsun diyoruz.
+Eğer std::launch::async argüman olarak gönderirsek asenkron çalıştır diyoruz.
+Eğer std::launch::deferred argüman olarak gönderirsek lazy evaluation olsun diyoruz.
 Lazy evaluation demek, biz bu görevi verdik ama bir funcı çağırıncaya kadar fiilen kod çalıştırılmayacak.
 Ne zamanki outcome a(çalıştırılacak callable dan gelecek return değerine) ihtiyaç duyduk o zaman
 func kodu çağrılacak. 
 
 Bunlar bitwise operationsa açık bir enum türü. Bu sebeple bunları bitsel veya ile birleştirirsek
-(std::lanuch::async | std::lauch::deferred) bu durumda kararı derleyiciye bırakmış oluyoruz.
+(std::lanuch::async | std::launch::deferred) bu durumda kararı derleyiciye bırakmış oluyoruz.
 std::launch parametresinin hiç olmadığı overloadda böyle çalışıyor.
 
 Yani 
 async(Function&&f, Args&&...args );		bu aslında aşağıdaki gibi
-async(std::lanuch::async | std::lauch::deferred, Function&&f, Args&&...args );
+async(std::launch::async | std::launch::deferred, Function&&f, Args&&...args );
 
 -------------------------------------------------------------------------------------------------------
 
