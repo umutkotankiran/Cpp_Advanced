@@ -1007,8 +1007,7 @@ int main()
 -------------------------------------------------------------------------------------------------------
 
 
-THREAD TARAFINDAN ÇALIŞTIRILACAK FUNCTIONLARIN RETURN DEĞERLERİNİN ALINMASI VE THREADLERİN
-PARALEL ÇALIŞTIRILMASI
+THREAD TARAFINDAN ÇALIŞTIRILACAK FUNCTIONLARIN RETURN DEĞERLERİNİN ALINMASI VE THREADLERİN PARALEL ÇALIŞTIRILMASI
 
 Minimal olarak paralel pgoramlama yapacak programcıların ihtiyacını en yüksek seviyede karşılamak için
 threadlerin paralel çalıştırılmasını sağlayan üstelik çalıştırılan funcın return değerini o threadi
