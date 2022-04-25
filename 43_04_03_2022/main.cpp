@@ -474,7 +474,7 @@ public:
 	{
 		std::cout << typeid(std::tuple<Myclass<Ts...>>).name() << '\n';  // tuple<class Myclass<class A, class B, class C>>
 		
-		std::cout << typeid(std::tuple<Myclass<Ts...>>...>).name() << '\n';  // Açılımı bir alt satırda yazdım uzun biraz
+		std::cout << typeid(std::tuple<Ts<Myclass<Ts...>>... > ).name() << '\n';  // Açılımı bir alt satırda yazdım uzun biraz
 		// tuple<class A<class Myclass<class A, class B, class C> >, class B<class Myclass<class A, class B, class C>>, class C<class Myclass<class A, class B,class C>> > 
 	}
 };
