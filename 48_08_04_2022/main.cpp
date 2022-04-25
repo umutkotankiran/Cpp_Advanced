@@ -179,7 +179,7 @@ int main()
 
 	std::cout << t.joinable() << '\n'; // TRUE. WORKLOAD VERİLMİŞ ÇÜNKÜ
 
-	t.join();	// ??? İŞİN YAPILMIŞ OLMA GARANTİSİNİ SAĞLIYOR ????
+	t.join();	// İŞİN YAPILMIŞ OLMA GARANTİSİNİ SAĞLIYOR
 
 	std::cout << t.joinable() << '\n'; //  FALSE. ÜZERİNDE BİR WORKLOAD YOK. İŞ YÜRÜTÜLDÜ ÇÜNKÜ.
 }
