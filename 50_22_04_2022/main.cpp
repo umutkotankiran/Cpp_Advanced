@@ -437,7 +437,7 @@ std::promise<int> foo(int x, int y) // func promise döndürecek. Buda olabilir
 EXCEPTION NASIL ILETILIYOR
 
 struct Div{
-	void operator()(std::promise<int>&& prom, int x, int y)const
+	void operator()(std::promise<int>&& prom, int a, int b)const
 	{
 		try{
 			if(b == 0)
@@ -563,7 +563,7 @@ int main()
 	else
 	{
 		std::cout << "future is invalid, get function cannot be called\n!"; // artık değer alındı. yani get çağrıldı. valid değil.
-	}																		// bu bloğa girer	
+	}									    // bu bloğa girer	
 
 	try{
 		auto i = ftr.get(); // get çağırmaya çalışırsak exception throw eder.
@@ -580,7 +580,7 @@ int main()
 
 EĞER BİRDEN FAZLA KEZ GET FUNCI ÇAĞIRMAK İSTERSEK O ZAMAN SHARED_FUTURE SINIFINI KULLANACAĞIZ
 
-shared future ın get funcını birden fazla kez çağırabiliriz. Tek fark bu.
+Shared future ın get funcını birden fazla kez çağırabiliriz. Tek fark bu.
 Yani biz shared_future nesnesini ayrı ayrı threadlere gönderip orada herbirinin get funcını çağırabilirim.
 Bu future olsaydı 2. kez get funcını çağrıınca exception throw edecekti.
 
@@ -608,7 +608,7 @@ void func(std::shared_future<int> sftr)
 	std::osyncstream os{std::cout};
 	os << "threadId(" << std::this_thread::get_id() << "): ";
 	os << "result = " << sftr.get() << std::endl;  // hangi thread çalıştırırsa çalıştırsın, 
-													// aynı promise in set ettiği değeri alacağız.
+							// aynı promise in set ettiği değeri alacağız.
 }
 
 int main()
@@ -616,7 +616,7 @@ int main()
 	std:promise<int> prom;
 
 	std:shared_future<int> sftr = prom.get_future(); // DİKKAT!!! shared_future<int> olarak tutuyoruz.
-													 // Shared future için auto imkanı yok burada
+							// Shared future için auto imkanı yok burada
 
 	std::thread th(SumSquare{}, std::move(prom),5,9); // aldığı promise i set etti.
 	// NOT : Shared future kopyalanabilir !!!!!! future kopyalanamaz !!!!!!!!!
