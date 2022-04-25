@@ -450,8 +450,8 @@ struct Div{
 		catch(...)
 		{
 			prom.set_exception(std::current_exception()); // Eğer bölen yukarıda 0 ise buraya girer
-														  // promise in set_exception funcı ile current_exceptionun return değeri verildi
-		}												  // Böylece shared state bir exception tutmuş oluyor. Value tutmuyor.
+						                      // promise in set_exception funcı ile current_exceptionun return değeri verildi
+		}						      // Böylece shared state bir exception tutmuş oluyor. Value tutmuyor.
 	}
 };
 
