@@ -235,7 +235,7 @@ int main()  // tek thread kullanacağız bu örnekte
 	//-----------------------------------------------------------------------------------
 	
 	// 3
-	// Şuanda bir değer hazır değil. Promise nesnesi shared state i set etmedi daha
+	// Valid durumda ama değer hazır değil. Promise nesnesi shared state i set etmedi daha
 	if(ftr.valid())
 	{
 		std::cout << "future nesnesi valid durumda\n"; // Yani bunun get funcı çağrılabilir
