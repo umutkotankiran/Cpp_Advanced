@@ -223,14 +223,14 @@ int main()  // tek thread kullanacağız bu örnekte
 {
 	// 1
 	std::promise<int> prom; // Bu nesneye sahip olan kod gelecekte bir int alacak diyor bu kod.
-							// int almazsa exceptionda alabilir.
+				// int almazsa exceptionda alabilir.
 	
 	//-----------------------------------------------------------------------------------
 	
 	// 2
 	// Bu promiseten bir future almamız lazım. Promise ve future bir data paylaşımı yapıyor.
 	std::future<int> ftr = prom.get_future();  // promise<string> olsaydı bu future<string> verecekti
-												// auto da kullnılabilirdi.
+						   // auto da kullnılabilirdi.
 
 	//-----------------------------------------------------------------------------------
 	
@@ -239,7 +239,7 @@ int main()  // tek thread kullanacağız bu örnekte
 	if(ftr.valid())
 	{
 		std::cout << "future nesnesi valid durumda\n"; // Yani bunun get funcı çağrılabilir
-	}													// 1 kere get funcı çağırınca artık invalid duruma gelir.
+	}						       // 1 kere get funcı çağırınca artık invalid duruma gelir.
 	else
 	{
 		std::cout << "future nesnesi invalid\n"; 
