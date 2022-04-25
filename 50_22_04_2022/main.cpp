@@ -407,7 +407,7 @@ int main()
 	std::cout << x << " * " << x << " + " 
 			  <<  y  << " * " << y << " = " 
 			  << fp_sumsquare.get() << std::endl; // Sonuç hazırsa get ile alacak
-												  // değilse bloke edecek.
+							      // değilse bloke edecek.
 	
 	std::cout << x << " / " << y << " = " << fp_div.get() << std::endl;
 
