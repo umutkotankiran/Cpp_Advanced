@@ -156,24 +156,24 @@ FUTURE VE PROMISE
 -----------------
 Bize future veren 3 tane yapı var.
 1 - Promise bize bir future veriyor. Bir promise nesnesi oluşturduğumuzda ve
-	onun get_future funcını çağırdığımızda bize o promise, shared state'i
-	paylaşacak bir future nesnesi veriyor.Bu en alt seviyede olan
+    onun get_future funcını çağırdığımızda bize o promise, shared state'i
+    paylaşacak bir future nesnesi veriyor.Bu en alt seviyede olan
 
 2 - async funcı bize bir future veriyor(arka planda yine promise kullanıyor ama 
-	promise i bizden gizliyor)
+    promise i bizden gizliyor)
 
 3 - Package task'te future veriyor. get_future funcı ile elde ediliyor.
 
 NOT : BIR FUTURE'IN OLMASI IÇIN ONUN ILIŞLKILENDIRILDIĞI BIR PROMISE NESNESI OLMALI.
-	  BU PROMISE I KENDIMIZ OLUŞTURACAĞIMIZ GIBI YUKARIDAKI YÖNTEMLERI UYGULAYARAK
-	  TA BUNU ELDE EDEBILIRIZ !!!!
+      BU PROMISE I KENDIMIZ OLUŞTURACAĞIMIZ GIBI YUKARIDAKI YÖNTEMLERI UYGULAYARAK
+      TA BUNU ELDE EDEBILIRIZ !!!!
 
 BIR RESIM EKLEDIM REPOYA.
 
-PROMISE : SENDER						  FUTURE : RECEIVER
-		|										 |
-		|										 |
-		|										 |
+	PROMISE : SENDER			  FUTURE : RECEIVER
+		|					 |
+		|					 |
+		|					 |
 		|-------------->  CHANNEL -------------->|
 
 Bu bir kereliğine kullanılacak bir iletişim/data kanalı. Ortada bir gönderen birde alan var.
