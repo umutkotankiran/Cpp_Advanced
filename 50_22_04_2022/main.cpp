@@ -693,7 +693,7 @@ int main()
 
 	std::cout << "ftr is " << (ftr.valid() ? "valid" : "invalid") << '\n'; //valid
 
-	std::shared_future<int> s_ftr = ftr.share();
+	std::shared_future<int> s_ftr = ftr.share(); // share çağrıldıktan sonra ftr artık valid değil.
 	// auto sftr = ftr.share(); artık burası auto ile de yazılabilir çünkü ftr bir future nesnesi
 
 	std::cout << "ftr is " << (ftr.valid() ? "valid" : "invalid") << '\n'; // invalid
