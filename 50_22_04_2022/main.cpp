@@ -930,8 +930,7 @@ int main()
 	
 	std::packaged_task<ftype> pt_x;
 	
-	std::packaged_task<ftype> pt_y([](int x, int y)
-									{return x * x + y * y; });
+	std::packaged_task<ftype> pt_y([](int x, int y){return x * x + y * y; });
 	
 
 	// pt_x = pt_y; // Bu sentaks hatası olurdu. Kopyalanamaz ama taşınabilir.
@@ -941,8 +940,8 @@ int main()
 	std::future<int> ret = pt_x.get_future(); // future nesnesi pt_x ten alındı
 	
 	std::thread(std::move(pt_x), 5, 15).detach(); // threade ptx argüman olarak gönderildi 
-												  // package task bir callable, threadde callable alıyor zaten
-												  // std::move burada da kullanmak zorundayız.
+						      // package task bir callable, threadde callable alıyor zaten
+						      // std::move burada da kullanmak zorundayız.
 												  
 	auto result = ret.get(); // çağrılan callable ın return değerini aldık.
 	
