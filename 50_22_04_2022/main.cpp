@@ -781,17 +781,17 @@ int main()
 	// status = ft.wait_for(halfsec{12.5});		Böylede olabilirdi.
 
 	status = ft.wait_for(200ms); // Func içerisinden 5saniye yani 5000ms bloke edecek.
-									// Döngünün her turunda wait_for funcının return değerini statusa atadık ve 200ms bekletiyoruz.
-									// (Aslında döngüyü de bekletiyor 200ms, aynı zamanda değeri alıp kontrol ediyor hikayesi bu)
-									// Bu beklerken ana thread ise çalışmaya devam ediyor.Func çalışması 5000mslerde sürdüğü için,
-									// wait_for funcı çağırdık ve return değeri statusa aktarıldı.wait_for burada timeout dönecek.
-									// wait_for un return değeri ready olduğunda döngüden çıkacak. Bu sırada bu döngü içinde diğer işlerde
-									// yapılmaya devam edecek. Burada future ın get funcı çağrılsaydı, burada funcın çalışması
-									// devam edecektik biz bunu bekleyecektik ve başka bir iş yapmayacaktık.
-									// Burada ise her 200ms de bir işin tamamlanıp tamamlanmadığına bakıyoruz.
-									// tamamlanmamışsa diğer işler yapılmaya devam ediyor.
-									// wait_for return değeri future_status::ready olduğunda döngüden çıkacak ve get funcı çağırınca değer
-									// hazır olacak.
+				     // Döngünün her turunda wait_for funcının return değerini statusa atadık ve 200ms bekletiyoruz.
+				     // (Aslında döngüyü de bekletiyor 200ms, aynı zamanda değeri alıp kontrol ediyor hikayesi bu)
+				     // Bu beklerken ana thread ise çalışmaya devam ediyor.Func çalışması 5000mslerde sürdüğü için,
+				     // wait_for funcı çağırdık ve return değeri statusa aktarıldı.wait_for burada timeout dönecek.
+				     // wait_for un return değeri ready olduğunda döngüden çıkacak. Bu sırada bu döngü içinde diğer işlerde
+				     // yapılmaya devam edecek. Burada future ın get funcı çağrılsaydı, burada funcın çalışması
+				     // devam edecektik biz bunu bekleyecektik ve başka bir iş yapmayacaktık.
+				     // Burada ise her 200ms de bir işin tamamlanıp tamamlanmadığına bakıyoruz.
+				     // tamamlanmamışsa diğer işler yapılmaya devam ediyor.
+				     // wait_for return değeri future_status::ready olduğunda döngüden çıkacak ve get funcı çağırınca değer
+				     // hazır olacak.
 
 
 	std::cout << "... doing some work here\n" << std::flush;
