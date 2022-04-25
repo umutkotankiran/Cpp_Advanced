@@ -346,10 +346,10 @@ Async işimizi görürse async çağrılırsa daha iyi olur.Her zaman async işi
 Bir funcın shared statei set etmesi için onun promise nesnesine ihtiyacı var.
 Promise nesnesi
 1 - Global olabilir. Biri global nesneyi set eder, diğeride o promise nesnesine erişip
-	ondan future alır.
+    ondan future alır.
 
-2 -	Değeri elde etmek isteyen kod, promise nesnesini kendisi gönderir. Bu copy semantics ile
-	olamayacağı için ya rvalue reference parametre olmalı yada move semantics devreye girecek
+2 - Değeri elde etmek isteyen kod, promise nesnesini kendisi gönderir. Bu copy semantics ile
+    olamayacağı için ya rvalue reference parametre olmalı yada move semantics devreye girecek
 
 
 ÖR:
