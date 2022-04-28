@@ -893,7 +893,7 @@ int main()
 	//Funcın fiilen çağrılması için ptaskin func call operator funcını kullanmamız gerekiyor.
 
 	ptask(12,45);
-
+	std::cout << "result : " << ftr.get() << '\n';
 }
 
 --------------------------------------------------------------------------------------------------------------
