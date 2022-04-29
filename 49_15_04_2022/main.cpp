@@ -257,7 +257,7 @@ void th_func1()
 	catch(...)
 	{
 		std::lock_guard<std::mutex> guard{g_mutex};
-		g_ex_vec.push_back{std::current_exception()};
+		g_ex_vec.push_back(std::current_exception());
 	}
 }
 void th_func2()
@@ -268,7 +268,7 @@ void th_func2()
 	catch(...)
 	{
 		std::lock_guard<std::mutex> guard{g_mutex};
-		g_ex_vec.push_back{std::current_exception()};
+		g_ex_vec.push_back(std::current_exception());
 	}
 }
 
