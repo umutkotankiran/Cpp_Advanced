@@ -247,8 +247,8 @@ int main()
 	}
 
 	t1.join(); // Joinden sonra artık bu thread altındaki kodları çalıştırmadan önce 
-		  	   // bloke olacak ana thread ve burada diğer threadin bitmesi beklenecek.Bu dil garantisi.
-			   // for satırında 2 ayrı thread eşzamanlı olarak çalışıyor.
+		   // bloke olacak ana thread ve burada diğer threadin bitmesi beklenecek.Bu dil garantisi.
+		   // for satırında 2 ayrı thread eşzamanlı olarak çalışıyor.
 
 	//...
 }
@@ -261,6 +261,11 @@ int main()
 ..**.....**..***
 
 Çıktı karışık. Deterministik bir durum değil. Hangisinin yazdırılacağı öngörülemez.
+
+NOT !!!!!!!!!!!!!!!!!!!
+BURADA BEKLEYEN THREAD BLOKE OLUYOR. BEKLETEN DEĞİL.
+MESELA FUNC İÇERİSİNDE T2 THREDİ YARATILSAYDI VE BU THREADİN ÇALIŞMASI BEKLENSEYDİ
+T1 THREADİ BUNU BEKLEDİĞİ İÇİN T1 BLOKE OLDU DİYECEKTİK. T2 DEĞİL.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
