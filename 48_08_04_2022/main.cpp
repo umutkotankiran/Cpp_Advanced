@@ -347,7 +347,7 @@ int main()
 	set_terminate(my_terminate); // myerminate nutility de var
 
 	thread t{func}; // join edilmemiş bir thread nesnesi yani joinable durumdaki 
-					// thread nesnesinin destructoru çağrılırsa terminate çağrılır.
+			// thread nesnesinin destructoru çağrılırsa terminate çağrılır.
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------
@@ -357,14 +357,13 @@ int main()
 Thread sınıfı RAII ile sarmalanmamış. jthread var.
 
 thread nesnesi mutlaka join edilmeli
-detach edilmeli. Yani bu benden ayrı çalışsın demek. Eğer joinable olmayan
-bir thread join edilirse std::terminate çağrılır.
+detach edilmeli. Yani bu benden ayrı çalışsın demek. Eğer joinable olmayan bir thread join edilirse std::terminate çağrılır.
 
 C++20 de bu eksik kapatıldı. İlerleyen derslerde görülecek.
 Thread sınıfını raii ile sarmalayan jthread var. Neden başta böyle yapmadılar?
 Bunun farklı sebepleri var. Mesela thread join edilmek zorunda değil, detach te edilebilir.
-Bu arka planda çalışsın benim bununla alakam yok demek. Yani bitmesini bekleyip bir threadi bloke 
-etmiyoruz. Arka planda o çalışıyor. Farklı farklı problemler kaygılar olabilir burada.
+Bu arka planda çalışsın benim bununla alakam yok demek. Yani bitmesini bekleyip bir threadi bloke etmiyoruz.
+Arka planda o çalışıyor. Farklı farklı problemler kaygılar olabilir burada.
 
 C++ concurrency ile ilgili en önemli uzmanlardan biri Anthony Williams.Concurrency in Action kitabı çok iyi.
 JThread yokken kitabında basit bir implementasyonuda vermiş.
@@ -406,7 +405,7 @@ int main()
 	
 	try{
 		tx.join();  // Yukarıda join çağrıldıktan sonra artık joinable durumda değil.
-					// Exception throw eder.
+			    // Exception throw eder.
 	}
 	catch(const std::exception& ex)
 	{
@@ -426,7 +425,7 @@ Arkada variadic bir yapı var.  Threading kendisi template değil ama ctoru temp
 aldığı argümanları perfect forward ediliyor. Hem callable ın kendisi içn hemde nihai olarak
 çağrılacak functionun parametrelerine aktarılması için argümanlar perfect forward ediliyor.
 
-Detach tede sorun oluşabilir. Arka planda sürekli çalışacak, eğer öçalışırken kullandığı değişkenin
+Detach tede sorun oluşabilir. Arka planda sürekli çalışacak, eğer çalışırken kullandığı değişkenin
 ömrü biterse undefined behavior oluşur.
 
 void foo(int x)
@@ -477,7 +476,7 @@ int main()
 	//thread tx{foo,ivec};	// Burada thread sınıfı bizim nesnemizi alıp funca gönderirken sağ taraf değeri olarak gönderiyor !!!!!!!!
 				// Dolayısıyla burada funca gelen nesnenin kendisi değil !!!!!!
 				// Burada bir kopyalama semantiği var !!!!!!!!
-				// const parametre olduğu içinde lvalue referans rvalue expr a bağlandı
+				// const parametre olduğu içinde lvalue referans rvalue expr a bağlandı.Const olmasaydı paramtere sentaks hatası olurdu.
 	
 	thread tx{foo,ref(ivec)};	// Burada ise nesnenin kendisini gönderdik. Bunu reference wrapper ile yaptık.
 
@@ -574,7 +573,7 @@ int main()
 
 	auto fs = foo;
 
-	thread tx{fp,21}; // geçerli
+	thread tx{fp,21}; // Geçerli
 
 	tx.join();
 }
@@ -761,7 +760,7 @@ int main()
 {
 	using namespace std;
 
-	thread t(func,std::cout); // Sentaks hatası
+	thread t(func,std::cout); // Sentaks Hatası
 	thread t(func,ref(std::cout)); // Geçerli
 }
 
@@ -940,7 +939,7 @@ private:
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 GET_ID
-
+------
 Buda bir üye function. Return değeri özel bir tür.Doğrudan tamsayı türü değil.Inserterıda var ama
 func return türü get_id isimli bir tür. operator== var ayrıca.
 
