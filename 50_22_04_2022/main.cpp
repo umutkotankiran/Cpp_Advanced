@@ -9,11 +9,11 @@ onun get funcını çağırdığımızda return değerini elde ediyoruz.
 
 Asynci 3 farklı şekilde çalıştırabiliyorduk.
 1 - Birinci parametreye launch policy geçmiyoruz. Bu launch policy yi compilera bırakıyoruz demek.
-	Kararı runtime verecek.
+    Kararı runtime verecek.
 2 - İllaha asenkron çalıştıracaksam launch::async verilecek yada deferred çalıştırılacaksa
-	launch::deferred geçilir.
+    launch::deferred geçilir.
 3 - Birinci parametreye launch::deferred | launch::async geçmek ile argüman göndermemek aynı.
-	1. adım gibi çalışır.
+    1. adım gibi çalışır.
 
 ----------------------------------------------------------------------------------------------------
 
@@ -333,7 +333,7 @@ Burada program bekliyor. Set edilene kadar böyle kalacak.
 VALUE NUN SET EDİLDİĞİ NASIL ANLAŞILIYOR
 
 SET EDILIP EDILMEDIĞINI ANLAMAK IÇIN AYRICA WAITFOR VE WAITUNTILL FUNCLARI KULLANILIR.
-BU IKI FUNC ARASINDA TEK FARK BIRININ DURATION ALMASI, DIĞERININ ISE BIR TIMEPOINT ALMASI
+BU IKI FUNC ARASINDA TEK FARK BIRININ DURATION ALMASI, DIĞERININ ISE BIR TIMEPOINT ALMASI.
 BU FUNCLARIN RETURN DEĞERLERI ÖZEL BIR TÜR. STATUS TÜRÜ. BU BIR ENUMERATOR TÜRÜ.
 BU READY,EXPIRED YADA DEFERRED OLABILIR. BU DEĞERLERE BAKARAK DURUM HAKKINDA BILGI ALIYORUZ.
 READY ISE DEĞER HAZIR, EXPIRED İSE SÜRE GEÇMİŞ AMA DEĞER HAZIR DEĞİL, DEFERRED İSE ZATEN
@@ -395,7 +395,7 @@ int main()
 
 
 	// DİKKAT !!!!!!!!!!!!
-	// Threade iş yükü olarak sumsquare funcı verildi. Funcınn 1. parametresi bir promise nesnesi
+	// Threade iş yükü olarak sumsquare funcı verildi. Funcın 1. parametresi bir promise nesnesi
 	// sağ taraf değerine dönüştürüp promise i gönderdik ve diğer argümanları gönderdik.
 	std::thread tss(sum_square,std::move(sum_square_prom),x,y);  
 	
@@ -482,7 +482,7 @@ int main()
 
 
 
-NOT : Bu bir kereliğine kullanılacak iletişim kanalı. Biz 2 threadin 
+NOT : Bu bir kereliğine kullanılacak iletişim kanalı. Biz 2 threadin
 sürekli iletişim halinde olmasını sitersek başka araçlar kullanacağız.
 
 ----------------------------------------------------------------------------------------------
