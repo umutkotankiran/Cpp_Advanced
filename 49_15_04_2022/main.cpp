@@ -1123,28 +1123,30 @@ GET
 Örnek daha derli toplu halde
 Asenkron çalıştıracağız
 
+#include <iostream>
+#include <future>
+
+
 int foo(int x)
 {
 	std::cout << "foo cagrildi x = " << x << "\n";
-
 	return x * x;
 }
 
-class Myclass{};
+class Myclass {};
 
 Myclass bar();
 
 int main()
 {
-	auto ft = std::async(foo,5); async return değeri tutuldu
-	// std::future<Myclass> ft = std::async(foo,5); // buda yazılabilir
-
+	auto ft = std::async(foo, 5); 
+	// std::future<int> ft = std::async(foo,5); // buda yazılabilir
 	// FUNCTIONUN RETURN DEĞERİNİ GET İLE ALIRIZ.AŞAĞIDA GET İLE İLGİLİ AÇIKLAMA VAR !!
-	ft.get();
-	
-	std::cout << "val = " << val << '\n';
+	int val = ft.get();
 
+	std::cout << "val = " << val << '\n';
 }
+
 
 GETİN ÇAĞRILDIĞI NOKTA İLE İLGİLİ ÇOK ÖNEMLİ AÇIKLAMA !!!!!!
 1 - Geti çağırınca zaten bu funcın kodu çalışıp bitmişse burada hiçbir şekilde bloke olmuyor
