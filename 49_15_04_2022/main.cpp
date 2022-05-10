@@ -1282,7 +1282,7 @@ exception caught : error from func
 int func()
 {}
 
-int func()
+int foo()
 {}
 
 int main()
