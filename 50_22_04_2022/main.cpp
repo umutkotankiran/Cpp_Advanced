@@ -777,7 +777,6 @@ int main()
 
 	//DİKKAT!!!!!!
 	do {
-	
 	// status = ft.wait_for(halfsec{12.5});		Böylede olabilirdi.
 
 	status = ft.wait_for(200ms); // Func içerisinden 5saniye yani 5000ms bloke edecek.
