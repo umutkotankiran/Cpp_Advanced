@@ -972,6 +972,16 @@ Kod problemli.
 
 UNIQUE LOCK
 -----------
+std::unique_lock<std::mutex> ulock(mtx); // Kilidi edinene kadar bloke olacak
+
+std::unique_lock<std::mutex> ulock(mtx, std::try_to_lock); // Kilidi edinmeye çalışacak edinirse operator bool true döner, edinemezse false döner
+							   // operator bool yerine owns_lock() funcıda kilidi edinip edinemediğini sorgular.
+
+
+std::unique_lock<std::mutex> ulock(mtx, std::defer_lock);  // kilidi elde etmek istemezsek daha sonra istersek diye kullanıyırouz
+
+std::unique_lock<std::mutex> ulock(mtx, std::adopt_lock); // Sadece sarmala anlamında çünkü zaten mutex acquire edilmiştir. Yani yukarıda mtx.lock() zaten var 
+
 
 #include <iostream>
 #include <mutex>
@@ -989,10 +999,10 @@ void func()
 void func()
 {
 	std::unique_lock<std::mutex> ulock(mtx,std::defer_lock); // kitlemeye çalışma anlamında std::defer_lock
-															// kilidi edinmek için lock funcını çağırmalıyız
+								// kilidi edinmek için lock funcını çağırmalıyız
 
 	// ulock.try_lock ... funclarını çağırabiliriz.try_lock for veya untili çağırabilmek için edinilen mutexin
-							 std::timed_mutex olması gerekiyor.
+	// std::timed_mutex olması gerekiyor.
 	
 	ulock.lock();
 }
@@ -1010,16 +1020,6 @@ std::adopt_lock
 std::defer_lock
 std::try_to_lock
 
-Tekrar yazalım
-std::unique_lock<std::mutex> ulock(mtx); // Kilidi edinene kadar bloke olacak
-
-std::unique_lock<std::mutex> ulock(mtx, std::try_to_lock); // Kilidi edinmeye çalışacak edinirse operator bool true döner, edinemezse false döner
-														   // operator bool yerine owns_lock() funcıda kilidi edinip edinemediğini sorgular.
-
-
-std::unique_lock<std::mutex> ulock(mtx, std::defer_lock);  // kilidi elde etmek istemezsek daha sonra istersek diye kullanıyırouz
-
-std::unique_lock<std::mutex> ulock(mtx, std::adopt_lock); // Sadece sarmala anlamında çünkü zaten mutex acquire edilmiştir. Yani yukarıda mtx.lock() zaten var 
 
 ------------------------------------------------------------------------------------------------------
 
