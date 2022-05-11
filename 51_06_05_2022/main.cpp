@@ -369,20 +369,20 @@ int main()
 	using namespace std::literals;
 
 	m1.lock();   // Ya kilidi edinir yada bloke olur.Bu mutex başka bir thread tarafından tutuluyorsa,
-				 // başka thread bu koda geldiğinde, diğer thread o mutexi bırakana kadar lock ı çağıran thread
-				 // bloke olacak.Ya alacak yada alamaz. Alırsa yoluna devam eder alamazsa bloke olur.
+		     // diğer thread bu koda geldiğinde, ilk thread o mutexi bırakana kadar lock ı çağıran thread
+		     // bloke olacak.Ya alacak yada alamaz. Alırsa yoluna devam eder alamazsa bloke olur.
 
-	m1.try_lock()  // Boolean döndürüyor.Kilidi elde etmeye çalışıyoruz. Kilit boştaysa kilidi elde ederiz ve true döndürüyor.
-				   // Kilit boşta değilse bloke olmuyor ve false döndürüyor.
+	m1.try_lock();  // Boolean döndürüyor.Kilidi elde etmeye çalışıyoruz. Kilit boştaysa kilidi elde ederiz ve true döndürüyor.
+		       // Kilit boşta değilse bloke olmuyor ve false döndürüyor.
 
-	m1.unlock()  // Kilidi bırakıyor
+	m1.unlock();  // Kilidi bırakıyor
 
 	------------------------------------------------------------------------------------------
 
 	m2.lock();
 
 	m2.try_lock_for(1000ms); // duration ister. 1000ms boyunca kilidi edinmeye çalışır.Boolean döndürür.
-							 // 1000ms boyunca kilidi elde etmeye çalışır ederse true dönder, elde edemezse false döner.
+				 // 1000ms boyunca kilidi elde etmeye çalışır ederse true dönder, elde edemezse false döner.
 	
  	m2.try_lock_until(std::steady_clock::now() + 1000ms); // timepoint ister. O time pointe kadar dener. Gerisi yukarısı ile aynı.
 	 
@@ -390,7 +390,7 @@ int main()
 
 	------------------------------------------------------------------------------------------
 
-	m3 ve m4 te daha önce bahsedildi yukarıda
+	m3 ve m4 te daha önce bahsedildi yukarıda. Örnekleri yapılacak
 
 }
 
@@ -464,7 +464,7 @@ Live lockta bloke olmadan diğerlerinin kaynağını bekliyorlar. Bloke yok.
 
 ------------------------------------------------------------------------------------------------------
 
-Biz yukarıdaki örneklte RAII sınıflarından birini kullanabiliriz.
+Biz yukarıdaki örnekte RAII sınıflarından birini kullanabiliriz.
 lock_guard kullanalım
 
 #include <thread>
@@ -477,9 +477,9 @@ std::mutex mtx;
 void func()
 {
 	std::lock_guard<std::mutex> guard(mtx); // DİKKAT !!! 
-										    // mutexi edinecek.Tabi edinene kadar bloke olacak.
-										    // Scope u bittiğinde lock_guard dtoru sarmaladığı mutexin
-										    // unlock funcını çağıracak.
+						// mutexi edinecek.Tabi edinene kadar bloke olacak.
+						// Scope u bittiğinde lock_guard dtoru sarmaladığı mutexin
+						// unlock funcını çağıracak.
 
 	for (unsigned long long i = 0; i < 1'000'000ull; ++i) {
 		++counter;
@@ -545,7 +545,7 @@ int main()
 
 DAHA KABİLİYETLİ SINIF UNİQUE LOCK
 
-Lock guarddan farkı kilidi edinmekonusunda farklı stratejileri var.
+Lock guarddan farkı kilidi edinme konusunda farklı stratejileri var.
 Zaten edinilmiş kilidi sarmalayabilir, yada kilidi daha sonra edinmek üzerine sarmalayabilir.
 Olabilecek en kabiliyetlisi.
 
