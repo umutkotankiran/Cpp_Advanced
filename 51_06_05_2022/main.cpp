@@ -1,17 +1,23 @@
 ﻿/*
  
 GİTHUB NOTLAR
-RACE CONDITION: Öyle bir davranış ki bu davranıştan çıkan sonuç iki ya da ikiden fazla thread'in yürütülmesindeki görece sıraya göre değişebiliyor. race condition bir sorun oluşturmak zorunda değil. (benign olabilir). Ancak bu terim daha çok problemli durumlar için kullanılıyor. (invariant'lar bozuluyor ya da tanımsız davranış oluşuyor.)
+RACE CONDITION: Öyle bir davranış ki bu davranıştan çıkan sonuç iki ya da ikiden fazla thread'in yürütülmesindeki görece sıraya göre değişebiliyor.
+Race condition bir sorun oluşturmak zorunda değil. (benign olabilir). Ancak bu terim daha çok problemli durumlar için kullanılıyor. 
+(invariant'lar bozuluyor ya da tanımsız davranış oluşuyor.)
 
 DATA RACE: kötü (benign olmayan) bir race condition. data race tanımsız davranış oluşturuyor.
-Bir veriyi (data) değiştirmeye (modify) yönelik bir operasyon verinin iki ayrı parçasına erişmek zorunda. Bu iki parça ayrı komutlar (instructions) ile değiştiriliyor. Bir thread sadece parçalardan birini değiştirdiğinde (henüz ikinciyi değiştirmeden) bir başka thread aynı veriye erişiyor. Bu tür hataları bulmak ya da duplike etmek çok zor olabilir, çünkü çok dar bir zaman aralığında gerçekleşiyor olabilir.
+Bir veriyi (data) değiştirmeye (modify) yönelik bir operasyon verinin iki ayrı parçasına erişmek zorunda. 
+Bu iki parça ayrı komutlar (instructions) ile değiştiriliyor. Bir thread sadece parçalardan birini değiştirdiğinde (henüz ikinciyi değiştirmeden) 
+bir başka thread aynı veriye erişiyor. Bu tür hataları bulmak ya da duplike etmek çok zor olabilir, çünkü çok dar bir zaman aralığında gerçekleşiyor olabilir.
 Yazılım geliştirmede "data race" den kaçınmak zorunluluğu karmaşıklığı bir hayli arttırıyor.
 
 DEADLOCK: iki ya da daha fazla sayıda thread ilerleme kaydedemiyor. Her ikisi de diğerinin tuttuğu kaynağı bekleyecek şekilde bloke oluyorlar.
 
 LIVELOCK: iki ya da daha fazla thread (bloke olmadan) birbirlerinin tuttuğu kaynakları beklediklerinden ilerleme kaydedemiyorlar.
 
-CRITICAL SECTION: Birden fazla thread tarafından eş zamanlı olarak erişilmemesi gereken bir kaynak içeren bir kod parçası. critical_section girişinden çıkışına kadar, birden fazla thread'in aynı zamanda bu kodları yürütmesini engelleyecek şekilde bir senkronizasyon mekanizması oluşturmak gerekiyor.
+CRITICAL SECTION: Birden fazla thread tarafından eş zamanlı olarak erişilmemesi gereken bir kaynak içeren bir kod parçası. 
+critical_section girişinden çıkışına kadar, birden fazla thread'in aynı zamanda bu kodları yürütmesini 
+engelleyecek şekilde bir senkronizasyon mekanizması oluşturmak gerekiyor.
 
 --------------------------------------------------------------------------------------------------------------------------
 
