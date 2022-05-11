@@ -721,6 +721,12 @@ int main()
 	std::cout << "gcounter = " << gcounter << "\n";
 }
 
+OUTPUT
+------
+thread : 1 kritik bolgeye girdi
+thread : 2 kritik bolgeye girdi
+gcounter = 2
+
 ------------------------------------------------------------------------------------------------------
 
 Standart outputa yazmak sözkonusu olduğunda stdio ile senkronize edilmişse şu garanti var.
@@ -739,10 +745,11 @@ public:								// bir şekilde kullanmasını sağlıyoruz.
 	~pcout()
 	{
 		std::lock_guard locker{ cmutex }; //CTAD
+		
 		std::cout << rdbuf(); // rdbuf, streambuf * döndürüyordu.Temel C++. ostream inde streambuf * parametreli bir inserterı var.
-							  // Bu inserter bufferdaki tüm karakterleri akıma veriyor.Hatta bir dosyayı yazdırmanın en kısa yolu demiştik Temel C++ta.
-							  // Burada nesne destruct olduğunda rdbuf funcı çağrılacak bufferdakileri çıkış akımına verecek.
-							  // lock guard kullandıkki birden fazla thread giremesin buraya.
+				      // Bu inserter bufferdaki tüm karakterleri akıma veriyor.Hatta bir dosyayı yazdırmanın en kısa yolu demiştik Temel C++ta.
+				      // Burada nesne destruct olduğunda rdbuf funcı çağrılacak bufferdakileri çıkış akımına verecek.
+				      // lock guard kullandıkki birden fazla thread giremesin buraya.
 		std::cout.flush();
 	}
 	static inline std::mutex cmutex;
