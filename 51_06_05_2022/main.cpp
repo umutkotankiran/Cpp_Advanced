@@ -703,12 +703,12 @@ void increment(int i)
 
 		std::this_thread::sleep_for(10ms);  // gecikme verdi 
 		
-		std::syncstream{std::cout}  << "thread : " << i << " kritik bolgeye girdi\n";
+		std::osyncstream{std::cout}  << "thread : " << i << " kritik bolgeye girdi\n";
 		
 		mtx.unlock(); // unlock edildi.
 	}
 	else
-		std::syncstream{std::cout} << "thread  " << i << " kritik bolgeye giremedi\n";  // kilidi 50ms içinde elde edemezse bnuraya girer.
+		std::osyncstream{std::cout} << "thread  " << i << " kritik bolgeye giremedi\n";  // kilidi 50ms içinde elde edemezse bnuraya girer.
 }
 
 int main()
@@ -739,7 +739,7 @@ Karakter bazında herhangibir problem yok ama karanterler arasında problem olab
 #include <vector>
 
 
-struct pcout : std::stringstream {  // DİKKAT!!!  Amaç pcout kullanınca yazma işleminin senkronize edilmiş
+struct pcout : std::ostringstream {  // DİKKAT!!!  Amaç pcout kullanınca yazma işleminin senkronize edilmiş
 public:								// bir şekilde kullanmasını sağlıyoruz.
 
 	~pcout()
