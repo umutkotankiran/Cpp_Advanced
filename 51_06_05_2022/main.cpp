@@ -394,7 +394,8 @@ bir exception throw edebilir yada undefined behavior oluşur.
 Mesela bir func için bir critical sectionu bir mutex ile koruma altına almak için mutexin lock funcını çağırdık
 çıkıştada unlock çağırdık fakat o arada da sınıfın başka bir member funcını çağırdık. Aynı mutex
 ile orayıda korumak istiyoruz, birdaha lock edersek exception veya UB oluşur.
-Yani std::mutex birden çok kere lock edilemiyor.
+Yani std::mutex birden çok kere lock edilemiyor.Burada thread ile işlem yapsakdık, thread kilidi bekleyecekti.
+Diğeri release ettiğinde bu sefer bekleyen thread kilidi acquire edecek.
 
 Recursive mutex ise n kere lock edilebilir. n değeri derleyiciye bağlı.
 Recursive ile timed arasındaki fark bu.
