@@ -255,29 +255,6 @@ ama dtoru ile wrap ettiği mutexi unlock eden sınıflar kullanılıyor. Bunlar 
 Bu sınıflarla mutex sınıflarını karıştırmamak gerekiyor.
 Bir tanesi lock guard sınıfı.
 
-Lock Guard
-----------
-En temel raii sınıfı bu. Kısıtlı olanaklar sağlıyor. Daha geniş olanaklar sağlayan raii sınıfları da var
-
-Unique Lock
------------
-Bu daha geniş olanak sağlayan bir sınıf şablonu. Bu sınıfların hepsi sınıf şablonu.
-
-
-ÖR:
-
-int main()
-{
-	using namespace std;
-
-	std::lock_guard<std::mutex> myguard(m1); // sınıfın isminin içinde lock var. std::lock diye bir functa var.
-						 // kafa karıştırabiliyor
-
-	unique_lock
-	scoped_lock 
-	shared_lock  // bunlar var ve raii sınıfları
-
-}
 
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
@@ -300,40 +277,37 @@ scoped_lock<mutex> ... gibi
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
+LOCK GUARD
+----------
 std::lock_guard
-sınıfın kurcu işlevi mutex'i kilitliyor. Sınıfın sonlandırıcı işlevi kilidi açıyor.
+En temel raii sınıfı bu. Kısıtlı olanaklar sağlıyor. Daha geniş olanaklar sağlayan raii sınıfları da var.
+Sınıfın kurcu işlevi mutex'i kilitliyor. Sınıfın sonlandırıcı işlevi kilidi açıyor.
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
-std::scoped_lock
-std::lock_guard sınıfına benziyor. Ancak sınıfın kurucu işlevi birden fazla mutex nesnesini alabiliyor. 
-Kurucu işlev aldığı sırayla mutex nesnelerini kilitliyor. Sonlandırıcı işlev ters sırada kilitleri açıyor.
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-std::unique_lock
+UNIQUE LOCK
+-----------
+Bu daha geniş olanak sağlayan bir sınıf şablonu. Bu sınıfların hepsi sınıf şablonu.
 Locks a mutex in exclusive mode. The constructor also accepts arguments that instruct it to timeout instead of blocking forever on the lock call. 
 It is also possible to not lock the mutex at all, or to assume that it is locked already, or to only try locking the mutex. 
 Additional methods allow to lock and unlock the mutex during the unique_lock lock’s lifetime.
-
-GITHUB NOTLARI
-std::unique_lock başlık dosyasında tanımlanan bir sınıf şablonu.
 
 template <class Mutex>
 class unique_lock;
 std::unique_lock genel amaçlı bir mutex sarmalayıcısı. mutex'in edinilmesi için farklı stratejiler sunuyor:
 
-deferred locking (sınıfın kurucu işlevi ile kilidi edinebildiğimiz gibi daha sonra nesnenin lock işlevini de çağırabiliyoruz.)
-belirli süreyle sınırlandırılmış kilitleme girişimi olanağı
-birden fazla kez kilitleme
-kilit mülkiyetinin transferi
-condition variables ile kullanılma olanağı
-Ayrıca
+Özellikler
+- Deferred locking (sınıfın kurucu işlevi ile kilidi edinebildiğimiz gibi daha sonra nesnenin lock işlevini de çağırabiliyoruz.)
+- Belirli süreyle sınırlandırılmış kilitleme girişimi olanağı,
+- Birden fazla kez kilitleme
+- Kilit mülkiyetinin transferi
+- Condition variables ile kullanılma olanağı
 
-std::unique_lock nesneleri kopyalanamıyor ancak taşınabiliyor. std::lock_guard sınıf nesnelerinin taşınamadığını hatırlayalım.
+Ayrıca,
+- std::unique_lock nesneleri kopyalanamıyor ancak taşınabiliyor. std::lock_guard sınıf nesnelerinin taşınamadığını hatırlayalım.
+- std::lock_guard ile aynı arayüze sahip ama daha fazla olanak sağlıyor. Kilitlemenin ne zaman ve nasıl olacağını belirleyebiliyoruz.
 
-std::lock_guard ile aynı arayüze sahip ama daha fazla olanak sağlıyor. Kilitlemenin ne zaman ve nasıl olacağını belirleyebiliyoruz.
-
+Avantajı,
 Bu sınıfın temel avantajı şu: std::unique_lock nesnesinin destructor'ı çağrıldığında kilit edinilmiş durumda ise kilidi serbest bırakır,
 kilit edinilmiş durumda değil ise destructor bir şey yapmaz.
 
@@ -366,15 +340,27 @@ std::unique_lock<std::timed_mutex> lock(mutex, std::chrono::seconds(1));
 sınıfın kurucu işlevine argüman olarak std::defer_lock geçilirse mutex'i edinmez. daha sonra sınıfın lock fonksiyonlarından birini çağırmamız gerekiyor.
 sınıfın kurucu işlevine std::adopt_lock geçilirse ilgili thread'in zaten bu mutex'i edindiği varsayılır.
 edinilen mutex'in sahipliğini başka bir nesneye aktarabiliyoruz.
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-std::shared_lock.
-Same as unique_lock, but all operations are applied on the mutex in shared mode.
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+SCOPED LOCK
+-----------
+std::scoped_lock
+scoped_lock birden fazla mutex'in deadlock olmadan edinilmesini sağlıyor.
+std::lock_guard sınıfına benziyor. Ancak sınıfın kurucu işlevi birden fazla mutex nesnesini alabiliyor. 
+Kurucu işlev aldığı sırayla mutex nesnelerini kilitliyor. Sonlandırıcı işlev ters sırada kilitleri açıyor.
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+SHARED LOCK
+-----------
+Okuma amaçlı erişim tarafından birden fazla thread okuma amaçlı erişim sağlayabiliyor
+Yani, bir thread paylaşılan kaynağa yazma amaçlı erişirken birden fazla thread okuma maçlı erişebiliyor
+shared_lock reader/writer lock
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 
 Aşağıdakiler ise mutex sınıfları zaten yukarıda yazmıştık.
 1 - std::mutex
@@ -382,6 +368,9 @@ Aşağıdakiler ise mutex sınıfları zaten yukarıda yazmıştık.
 3 - std::recursive_mutex
 4 - std::recursive_timed_mutex
 
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 
 C++17 ye kadar en minimal raii sınıfı lock_guard idi.
 unique lock ihtiyacı yoksa yada birden fazla threadin okuma amaçlı aynı kilidi edinmesi gibi tema yoksa
@@ -391,7 +380,7 @@ C++17 ile eleştirenler olsada lock_guard yerine scoped_lock standart hale geldi
 fazlası var ve eksiği yok. Analizlere göre maliyet açısından dezavantajı yok. C++17 öncesi RAII hepler
 olarak lock_guard varken artık scoped_lock var.
 
-Neden birden fazla mutex sınıfı var ? 
+Neden birden fazla mutex sınıfı var ?
 Çünkü birden fazla mutex sınıfı farklı interfacelere sahip.
 
 std::mutex in lock, unlock ve try_lock funcını çağırıyoruz. ama kilidi 200ms boyunca edinmeye çalış.
