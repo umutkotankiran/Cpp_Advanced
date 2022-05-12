@@ -210,7 +210,9 @@ Beklemek derken kastedilen bloke olmak.Ancak o kilit serbest bırakıldığında
 öbürü kilidi edinebilir. Kilit sadece 1 thread tarafından edinilebilir. Diğeri kilidi unlock ettiğinde
 diğeri edinebilir. Mutex öyle bir değişkenki 2 state den birinde olabilir. Ya edinilmiştir bu durumda
 onu edinmek için orada bloke olacağız yada edinilmemiş onu edinebiliriz. Mutexi acquire eden/ edinen
-belirli bir noktada onu serbest bırakıyor.
+belirli bir noktada onu serbest bırakıyor. 
+
+NOT : Bir mutexin lock 2 kere çağırmak ya undefined behavior yada UB oluşturur.
 
 mtx.lock();
 
