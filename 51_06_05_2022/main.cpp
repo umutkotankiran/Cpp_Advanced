@@ -299,16 +299,73 @@ scoped_lock<mutex> ... gibi
 ------------------------------------------------------------------------------------------------------
 std::lock_guard
 sınıfın kurcu işlevi mutex'i kilitliyor. Sınıfın sonlandırıcı işlevi kilidi açıyor.
-
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 std::scoped_lock
 std::lock_guard sınıfına benziyor. Ancak sınıfın kurucu işlevi birden fazla mutex nesnesini alabiliyor. 
 Kurucu işlev aldığı sırayla mutex nesnelerini kilitliyor. Sonlandırıcı işlev ters sırada kilitleri açıyor.
-
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 std::unique_lock
 Locks a mutex in exclusive mode. The constructor also accepts arguments that instruct it to timeout instead of blocking forever on the lock call. 
 It is also possible to not lock the mutex at all, or to assume that it is locked already, or to only try locking the mutex. 
 Additional methods allow to lock and unlock the mutex during the unique_lock lock’s lifetime.
 
+GITHUB NOTLARI
+std::unique_lock başlık dosyasında tanımlanan bir sınıf şablonu.
+
+template <class Mutex>
+class unique_lock;
+std::unique_lock genel amaçlı bir mutex sarmalayıcısı. mutex'in edinilmesi için farklı stratejiler sunuyor:
+
+deferred locking (sınıfın kurucu işlevi ile kilidi edinebildiğimiz gibi daha sonra nesnenin lock işlevini de çağırabiliyoruz.)
+belirli süreyle sınırlandırılmış kilitleme girişimi olanağı
+birden fazla kez kilitleme
+kilit mülkiyetinin transferi
+condition variables ile kullanılma olanağı
+Ayrıca
+
+std::unique_lock nesneleri kopyalanamıyor ancak taşınabiliyor. std::lock_guard sınıf nesnelerinin taşınamadığını hatırlayalım.
+
+std::lock_guard ile aynı arayüze sahip ama daha fazla olanak sağlıyor. Kilitlemenin ne zaman ve nasıl olacağını belirleyebiliyoruz.
+
+Bu sınıfın temel avantajı şu: std::unique_lock nesnesinin destructor'ı çağrıldığında kilit edinilmiş durumda ise kilidi serbest bırakır,
+kilit edinilmiş durumda değil ise destructor bir şey yapmaz.
+
+sınıfın kurucu işlevine argüman olarak try_to_lock geçersek kurucu işlev kilidi edinmeye çalışır ama thread'i bloke etmez.
+
+std::mutex mtx;
+
+void func()
+{
+    std::unique_lock<std::mutex> guard(mutex, std::try_to_lock);
+    if (guard) { //kilit edinilmis ise
+
+    }
+}
+
+mutex türü olarak std::time_mutex kullanarak belirli süre bir kilidi edinmeye çalışmasını sağlayabiliyoruz:
+
+std::mutex mtx;
+
+void func()
+{
+    std::unique_lock<std::mutex> guard(mtx, std::try_to_lock);
+    if (guard) { //kilit edinilmis ise
+
+    }
+}
+std::time_mutex kullanarak kurucu işleve bir std::duration geçebiliriz:
+
+std::unique_lock<std::timed_mutex> lock(mutex, std::chrono::seconds(1));
+sınıfın kurucu işlevine argüman olarak std::defer_lock geçilirse mutex'i edinmez. daha sonra sınıfın lock fonksiyonlarından birini çağırmamız gerekiyor.
+sınıfın kurucu işlevine std::adopt_lock geçilirse ilgili thread'in zaten bu mutex'i edindiği varsayılır.
+edinilen mutex'in sahipliğini başka bir nesneye aktarabiliyoruz.
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 std::shared_lock.
 Same as unique_lock, but all operations are applied on the mutex in shared mode.
 ------------------------------------------------------------------------------------------------------
@@ -1054,74 +1111,13 @@ unique lock sınıfı non copyable but movable
 2:13
 Burada unique_lock isimli github notlarına baktık.
 
-
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------
-
-GITHUB NOTLARI
-
-std::unique_lock başlık dosyasında tanımlanan bir sınıf şablonu.
-
-template <class Mutex>
-class unique_lock;
-std::unique_lock genel amaçlı bir mutex sarmalayıcısı. mutex'in edinilmesi için farklı stratejiler sunuyor:
-
-deferred locking (sınıfın kurucu işlevi ile kilidi edinebildiğimiz gibi daha sonra nesnenin lock işlevini de çağırabiliyoruz.)
-belirli süreyle sınırlandırılmış kilitleme girişimi olanağı
-birden fazla kez kilitleme
-kilit mülkiyetinin transferi
-condition variables ile kullanılma olanağı
-Ayrıca
-
-std::unique_lock nesneleri kopyalanamıyor ancak taşınabiliyor. std::lock_guard sınıf nesnelerinin taşınamadığını hatırlayalım.
-
-std::lock_guard ile aynı arayüze sahip ama daha fazla olanak sağlıyor. Kilitlemenin ne zaman ve nasıl olacağını belirleyebiliyoruz.
-
-Bu sınıfın temel avantajı şu: std::unique_lock nesnesinin destructor'ı çağrıldığında kilit edinilmiş durumda ise kilidi serbest bırakır,
-kilit edinilmiş durumda değil ise destructor bir şey yapmaz.
-
-sınıfın kurucu işlevine argüman olarak try_to_lock geçersek kurucu işlev kilidi edinmeye çalışır ama thread'i bloke etmez.
-
-std::mutex mtx;
-
-void func()
-{
-    std::unique_lock<std::mutex> guard(mutex, std::try_to_lock);
-    if (guard) { //kilit edinilmis ise
-
-    }
-}
-
-mutex türü olarak std::time_mutex kullanarak belirli süre bir kilidi edinmeye çalışmasını sağlayabiliyoruz:
-
-std::mutex mtx;
-
-void func()
-{
-    std::unique_lock<std::mutex> guard(mtx, std::try_to_lock);
-    if (guard) { //kilit edinilmis ise
-
-    }
-}
-std::time_mutex kullanarak kurucu işleve bir std::duration geçebiliriz:
-
-std::unique_lock<std::timed_mutex> lock(mutex, std::chrono::seconds(1));
-sınıfın kurucu işlevine argüman olarak std::defer_lock geçilirse mutex'i edinmez. daha sonra sınıfın lock fonksiyonlarından birini çağırmamız gerekiyor.
-sınıfın kurucu işlevine std::adopt_lock geçilirse ilgili thread'in zaten bu mutex'i edindiği varsayılır.
-edinilen mutex'in sahipliğini başka bir nesneye aktarabiliyoruz.
-
-
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------
-
 
 STD::LOCK
 ---------
-
 Bu global bir function. Bazı durumlarda bizim birden fazla mutexi elde etmemiz gerekiyor.
 Ör, 2 tane shared variable var. Bu shared variable ları farklı mutexler ile senkron etmek gerekiyor.
 Dolayısı ile aynı kod içinde 2 ayrı nesne kullanıldığı için biz 2 tane mutexi birden edinmek zorunda kalıyoruz.
