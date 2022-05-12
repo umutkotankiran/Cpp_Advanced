@@ -290,9 +290,14 @@ Sınıfın kurcu işlevi mutex'i kilitliyor. Sınıfın sonlandırıcı işlevi 
 UNIQUE LOCK
 -----------
 Bu daha geniş olanak sağlayan bir sınıf şablonu. Bu sınıfların hepsi sınıf şablonu.
+Lock guarddan farkı kilidi edinme konusunda farklı stratejileri var.
+Zaten edinilmiş kilidi sarmalayabilir, yada kilidi daha sonra edinmek üzerine sarmalayabilir.
+Olabilecek en kabiliyetlisi.
+
 Locks a mutex in exclusive mode. The constructor also accepts arguments that instruct it to timeout instead of blocking forever on the lock call. 
 It is also possible to not lock the mutex at all, or to assume that it is locked already, or to only try locking the mutex. 
 Additional methods allow to lock and unlock the mutex during the unique_lock lock’s lifetime.
+
 
 template <class Mutex>
 class unique_lock;
