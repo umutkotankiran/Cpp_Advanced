@@ -599,7 +599,7 @@ DAHA KABİLİYETLİ SINIF UNİQUE LOCK
 
 Lock guarddan farkı kilidi edinme konusunda farklı stratejileri var.
 Zaten edinilmiş kilidi sarmalayabilir, yada kilidi daha sonra edinmek üzerine sarmalayabilir.
-Olabilecek en kabiliyetlisi.
+Olabilecek en kabiliyetlisi. Zaten yukarıda açıklamalarını yazmıştım.
 
 ------------------------------------------------------------------------------------------------------
 
