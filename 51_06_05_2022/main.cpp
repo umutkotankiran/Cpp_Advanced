@@ -1246,6 +1246,11 @@ SCOPED LOCK (C++17)
 Buda bir raii wrapper. Farkı var, bir variadic template ve birden fazla mutexi ctora argüman olarak
 olarak geçiyoruz. Kendi içinde deadlock avoidance algoritmasını kullanıyor.
 
+scoped_lock birden fazla mutex'in deadlock olmadan edinilmesini sağlıyor
+shared_lock reader/writer lock, yani okuma amaçlı erişim tarafından birden fazla thread okuma amaçlı erişim sağlayabiliyor
+Yani bir thread paylaşılan kaynağa yazma amaçlı erişirken birden fazla thread okuma maçlı erişebiliyor
+
+
 Deadlocktan kaçınmanmın birden fazla yolu var.
 1 - Global lock funcını çağırmak. Buda variadic func şablonu. Birden fazla mutex veriyoruz.
 	Bir deadlock avoidance garantisi veriyor.
