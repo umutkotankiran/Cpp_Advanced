@@ -1,6 +1,6 @@
 ﻿/*
  
-GİTHUB NOTLAR
+GITHUB NOTLAR
 RACE CONDITION: Öyle bir davranış ki bu davranıştan çıkan sonuç iki ya da ikiden fazla thread'in yürütülmesindeki görece sıraya göre değişebiliyor.
 Race condition bir sorun oluşturmak zorunda değil. (benign olabilir). Ancak bu terim daha çok problemli durumlar için kullanılıyor. 
 (invariant'lar bozuluyor ya da tanımsız davranış oluşuyor.)
@@ -252,7 +252,7 @@ bir exception throw edilirse unlock yapılmadan programın akışı hander koda 
 RAII sınıfları devreye giriyor. Mutex sarmalayan sınıflar. Mutexi doğrudan kullanmak yerine ctoru ile mutexi edinen
 ama dtoru ile wrap ettiği mutexi unlock eden sınıflar kullanılıyor. Bunlar işmizi kolaylaştırıyor.
 
-Bu sınıflarla mutex sınıflarını birbirinden karıştırmamak gerekiyor.
+Bu sınıflarla mutex sınıflarını karıştırmamak gerekiyor.
 Bir tanesi lock guard sınıfı.
 
 Lock Guard
