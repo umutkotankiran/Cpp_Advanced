@@ -1255,7 +1255,7 @@ Deadlocktan kaçınmanmın birden fazla yolu var.
 1 - Global lock funcını çağırmak. Buda variadic func şablonu. Birden fazla mutex veriyoruz.
 	Bir deadlock avoidance garantisi veriyor.
 
-2 - 
+2 - Scoped Lock
 
 #include<mutex>
 #include <iostream>
