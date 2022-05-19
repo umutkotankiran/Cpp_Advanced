@@ -80,6 +80,8 @@ Call once ı aynı once flag için birden fazla kez çağırabiliriz.
 Birden fazla çağırıp birden fazla callable verirsek bunların ikisi üçü birden çağrılacak gibi
 bir anlam çıkmıyor.
 
+Yani bir once_flag farklı funclar için call_once çağrısı içerisine yazılsa dahi 1 kere çağrılıyor.
+
 
 ÖR:
 
