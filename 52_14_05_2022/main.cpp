@@ -17,7 +17,7 @@ Yani 1 den fazla threadin bir değişkeni 2 kere initialize yada 2 kere assingme
 gerekiyor.
 
 Ör: dinamik ömürlü değişkenin 1 kere hayata gelmesini istiyoruz ama multithread çalışan bir kodda 
-1 den fazla thread o koda gelirse 2 kere nesne yaratmaya çalışabilir. Program mantığı gereği 11 nesne
+1 den fazla thread o koda gelirse 2 kere nesne yaratmaya çalışabilir. Program mantığı gereği 1 nesne
 gerekiyor olabilir.
 
 Burada standart library nin once_flag isimli türü var
