@@ -274,8 +274,6 @@ Task tamamlanana kadar tamamen bloke olsaydı işlemci zamanını boşa harcamay
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------
 
-CONDITION VARIABLE
-------------------
 Task tamamlandığında condition variable uyandırma işini yapacak.
 Biz bekleme süreci içinde diğer threadin işi yapması sürecinde beklemede kalacağız ne zaman o iş tamamlanınca
 bizim thread o zaman uyanıp işini yapacak. Burada kullanılan bir condition olması gerekiyor.
