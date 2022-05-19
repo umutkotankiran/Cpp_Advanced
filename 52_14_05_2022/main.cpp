@@ -196,7 +196,7 @@ int main()
 CONDITION VARIABLE
 ------------------
 Multithread programlamada en sık ihtiyaç duyulan kod yapılarından biri, bir threadin diğer thread tarafından
-ürettiği veriyi kullanması. İllaha bir veri olmasıda gerekmiyor.Veri tipik bir durum.
+üretilen veriyi kullanması. İllaha bir veri olmasıda gerekmiyor.Veri tipik bir durum.
 Bu thredin bazı işlemleri yapıp diğereinin işini yapcak duruma getirmeside olabilir.
 Sonuçta bir threadin çalışması için başka bir threadin başka işlemleri gerçekleştirmiş olması 
 gerekiyor. 
