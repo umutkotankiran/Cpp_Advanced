@@ -351,17 +351,17 @@ CONDITION VARIABLE BURADA SENKRONIZASYON PRIMITIVE GÖREVINDE
 TIPIK IŞLEM AKIŞI ŞÖYLE GERÇEKLEŞTIRILIR
 ----------------------------------------
 Evet'i gerçekleştirecek ve diğer thread'e bildirimde bulunacak thread,
-- Tipik olarak std::lock_guard ya da std::lock_guard kullanarak bir mutex'i edinir. Burada producer tarafı için raii olarak unique guard ve scope guardda kullanılabilir.
+- Tipik olarak std::lock_guard kullanarak bir mutex'i edinir. Burada producer tarafı için raii olarak unique guard ve scope guardda kullanılabilir.
   Producer için raii ler fark etmiyor ama consumerlar için fark ediyor.
 
-- Koşul değişkenini(paylaşılmış) kilit edinilmiş durumdayken set eder.Kilit mekanizması gerekiyor.
-  Hem consumer hemde producerın aynı mutexi kullnaması gerkiyor. Kilidi edindim görevi tamamladım ve conditionu set ettim.
+- Koşul değişkenini(paylaşılmış) kilit edinilmiş durumdayken set eder. Kilit mekanizması gerekiyor.
+  Hem consumer hemde producerın aynı mutexi kullanması gerekiyor. Kilidi edindim görevi tamamladım ve conditionu set ettim.
   Yapılan değişikliğin bekleyen thread(ler)e doğru bir şekilde bildirilebilmesi için, 
   paylaşılan değişken atomik olsa dahi değişikliğin kilit edinilmiş durumda yapılması gerekir.
 
 - Bu amaçla tanımlanmış olan std::condition_variable nesnesinin notify_one ya da notify_all fonksiyonlarından birini çağırır. 
   Bu fonksiyonlar çağrıldığında kilitin edinilmiş durumda olması gerekmez. 
-  Bu funclardan birini çağırınmca kilit altında bu çağrının yapılma mecburiyeti yok. Condition set edilirken kiliti edinmiş olması gerekiyor
+  Bu funclardan birini çağırınca kilit altında bu çağrının yapılma mecburiyeti yok. Condition set edilirken kiliti edinmiş olması gerekiyor
   consumer tarafın ama notify işlemi yapılırken kilit altında yapılması gerekli değil hatta kilit altında yapılmaması daha iyi.
   
 - Eğer bu fonksiyonlar kilit edinilmiş durumda çağrılırsa bildirim alan thread'ler kilidi edinemezler ve tekrar bloke olurlar.
@@ -390,7 +390,9 @@ Daha sonra aşağıdaki iki seçenekten birini uygular:
         
 
 - Uyanan ve kilidi edinen thread'in koşulun gerçekleşip gerçekleşmediğini kontrol etmesi ve eğer bir spurious wakeup söz konusu ise tekrar bekleme durumuna geçmesi gerekir.
-  Yani aslında 1. değişiklik yapılmış mı, 2. wait funclarından birini çağırırız, 
+  Yani aslında,
+  1. değişiklik yapılmış mı, 
+  2. wait funclarından birini çağırırız, 
   3. condition_variable nesnesinin notify funcı çağrıldığında spurious wakeup var mı yok mu diye bakılıyor
   spurious wakeup ise tekrar thread uyanıyor ve mutex yeniden elde ediliyor.
 
@@ -400,10 +402,10 @@ Daha sonra aşağıdaki iki seçenekten birini uygular:
 	   3 aşamayı birlikte yapıyor.
 	   Kilidi ediniyoruz ama wait funclarının predicate isteyen overloadları var.wait, wait_for wait_untill hepsinin var.
 	   Tüketici taraf olarak unique_lock ile kilidi edindik, wait funcını çağırdık.
-	   Bu function 3 aşamöayı beraber yapıyor.
+	   Bu function 3 aşamayı beraber yapıyor.
 
 
-std::condition_variable sınıfı yalnızca std::unique_lockstd::mutex ile kullanılabilir. Bu şekilde kullanım zorunluluğu bazı platformlarda en yüksek verimle çalışmasını sağlar. 
+std::condition_variable sınıfı yalnızca std::unique_lock std::mutex ile kullanılabilir. Bu şekilde kullanım zorunluluğu bazı platformlarda en yüksek verimle çalışmasını sağlar. 
 std::condition_variable_any sınıfı ise BasicLockable niteliğini sağlayan herhangi bir nesneyle (örneğin std::shared_lock) çalışabilmesini sağlar.
 std::condition_variable sınıfının wait, wait_for, wait_until, notify_one ve notify_all üye fonksiyonları birden fazla thread tarafından eş zamanlı çağrılabilir.
 
@@ -415,9 +417,9 @@ void wait(std::unique_lock<std::mutex>& lk, Predicate pred)
 {
 	while(!pred()) {
 		lk.unlock(); // Burada mutex serbest bırakıldı ve waiti çağıran threadin çalışması durduruldu
-					 // Burada kilit serbest bırakıldıki diğer taraf çalışsın
+			     // Burada kilit serbest bırakıldıki diğer taraf çalışsın
 
-		lk.lock();   //  
+		lk.lock();    
 	}
 }
 
