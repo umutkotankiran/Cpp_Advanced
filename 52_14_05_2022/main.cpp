@@ -588,8 +588,8 @@ void worker_thread()
 	// Wait until main() sends data
 	std::unique_lock lk(m);	// 2. burada kilit alındı
 	cv.wait(lk, [] {return ready; }); // 3.  beklemeye girdi. ready değişkeni true olana kadar bekleyecek
-									  // ready nin true olması için diğer tarafın işini yapıp ready yi true hale getirmesi lazım
-									  // wait funcı unlock ve lock funclarını çağırıyordu. Yukarıda basit kodu vardı
+					  // ready nin true olması için diğer tarafın işini yapıp ready yi true hale getirmesi lazım
+					  // wait funcı unlock ve lock funclarını çağırıyordu. Yukarıda basit kodu vardı
 
 	// after the wait, we own the lock.
 	std::cout << "Worker thread is processing data\n"; // 9. notify one çağrılınca 8 adımda buraya geçtik.
@@ -614,7 +614,7 @@ int main()
 	{
 		std::lock_guard lk(m); // 5.
 		ready = true; // 6. Threadde beklenen o ready değerinin true olması işi yapıldı
-						// burada main funcı producer gibi çalışıyor.
+			      // burada main funcı producer gibi çalışıyor.
 
 		std::cout << "main() signals data ready for processing\n"; // 7.
 	
