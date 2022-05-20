@@ -443,7 +443,7 @@ std::mutex mtx;
 std::condition_variable cv; // BUDA CONDİTİONAL VARİABLE
 
 
-void procuder()
+void producer()
 {
 	std::cout << "Producer is producing the data\n";
 	
@@ -465,7 +465,7 @@ void procuder()
 
 }
 
-//Consumer procuderın işini yapmasını bekliyor.
+//Consumer producerın işini yapmasını bekliyor.
 void consumer()
 {
 	{
@@ -494,7 +494,7 @@ void consumer()
 
 int main()
 {
-	std::thread t1{procuder};
+	std::thread t1{producer};
 	std::thread t2{consumer};
 
 	t1.join();
