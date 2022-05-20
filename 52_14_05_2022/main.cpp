@@ -592,7 +592,7 @@ void worker_thread()
 					  // wait funcı unlock ve lock funclarını çağırıyordu. Yukarıda basit kodu vardı
 
 	// after the wait, we own the lock.
-	std::cout << "Worker thread is processing data\n"; // 9. notify one çağrılınca 8 adımda buraya geçtik.
+	std::cout << "Worker thread is processing data\n"; // 9. notify one çağrılınca 8 adımdan buraya geçtik.
 	data += " after processing"; // 10. dataya bu yazı eklendi.
 
 	// Send data back to main()
