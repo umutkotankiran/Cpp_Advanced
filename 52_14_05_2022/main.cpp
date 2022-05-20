@@ -580,7 +580,7 @@ cppreference örneği
 std::mutex m;	// mutex
 std::condition_variable cv;  // conditional variable
 std::string data;   // data
-bool ready = false; //  bu ve anttaki conditionlarımız
+bool ready = false; //  bu ve alttaki conditionlarımız. 2 adet condition var.
 bool processed = false;
 
 void worker_thread()
