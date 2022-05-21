@@ -441,7 +441,7 @@ int main()
 	m2.try_lock_for(1000ms); // duration ister. 1000ms boyunca kilidi edinmeye çalışır.Boolean döndürür.
 				 // 1000ms boyunca kilidi elde etmeye çalışır ederse true dönder, elde edemezse false döner.
 	
- 	m2.try_lock_until(std::steady_clock::now() + 1000ms); // timepoint ister. O time pointe kadar dener. Gerisi yukarısı ile aynı.
+ 	m2.try_lock_until(std::chrono::steady_clock::now() + 1000ms); // timepoint ister. O time pointe kadar dener. Gerisi yukarısı ile aynı.
 	 
 	m2.unlock();
 
