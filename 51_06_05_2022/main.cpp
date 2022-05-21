@@ -674,7 +674,7 @@ void increment(int i)
 	using namespace std::literals;
 
 
-	if (mtx.try_lock_for(50ms)) {  // try lock true veya false döner ve bloke etmez.
+	if (mtx.try_lock_for(50ms)) {  // 50ms boyunca kilidi elde ederse true döner, edemezse false
 		++gcounter;
 		std::this_thread::sleep_for(10ms);
 		std::cout << "thread : " << i << " kritik bolgeye girdi\n";
