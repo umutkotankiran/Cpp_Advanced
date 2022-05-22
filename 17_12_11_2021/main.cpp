@@ -103,8 +103,30 @@ Operatorlerin tam listesine bakalım.
 Burada 14. yada 12. maddelerde önemli bunları bi okumak gerekir.
 https://en.cppreference.com/w/cpp/language/eval_order
 
-CPPREFERENCE C++17 ILE GELENLER
--------------------------------
+CPPREFERENCE KURALLAR
+---------------------
+1) Each value computation and side effect of a full expression is sequenced before each value computation and side effect of the next full expression,
+   where a full expression is
+ - an unevaluated operand
+ - a constant expression
+ - an immediate invocation(since C++20)
+ - an entire initializer, including any comma-separated constituent expressions
+ - the destructor call generated at the end of the lifetime of a non-temporary object
+ - an expression that is not part of another full-expression (such as the entire expression statement, controlling expression of a for/while loop, conditional expression of if/switch, the expression in a return statement, etc),
+   including implicit conversions applied to the result of the expression, destructor calls to the temporaries, default member initializers (when initializing aggregates), and every other language construct that involves a function call.
+2) The value computations (but not the side-effects) of the operands to any operator are sequenced before the value computation of the result of the operator (but not its side-effects).
+3) When calling a function (whether or not the function is inline, and whether or not explicit function call syntax is used), every value computation and side effect associated with any argument expression, or with the postfix expression designating the called function, is sequenced before execution of every expression or statement in the body of the called function.
+4) The value computation of the built-in post-increment and post-decrement operators is sequenced before its side-effect.
+5) The side effect of the built-in pre-increment and pre-decrement operators is sequenced before its value computation (implicit rule due to definition as compound assignment)
+6) Every value computation and side effect of the first (left) argument of the built-in logical AND operator && and the built-in logical OR operator || is sequenced before every value computation and side effect of the second (right) argument.
+7) Every value computation and side effect associated with the first expression in the conditional operator ?: is sequenced before every value computation and side effect associated with the second or third expression.
+8) The side effect (modification of the left argument) of the built-in assignment operator and of all built-in compound assignment operators is sequenced after the value computation (but not the side effects) of both left and right arguments, and is sequenced before the value computation of the assignment expression (that is, before returning the reference to the modified object)
+9) Every value computation and side effect of the first (left) argument of the built-in comma operator , is sequenced before every value computation and side effect of the second (right) argument.
+10) In list-initialization, every value computation and side effect of a given initializer clause is sequenced before every value computation and side effect associated with any initializer clause that follows it in the brace-enclosed comma-separated list of initalizers.
+11) A function call that is not sequenced before or sequenced after another expression evaluation outside of the function (possibly another function call) is indeterminately sequenced with respect to that evaluation (the program must behave as if the CPU instructions that constitute a function call were not interleaved with instructions constituting evaluations of other expressions, including other function calls, even if the function was inlined).
+The rule 11 has one exception: function calls made by a standard library algorithm executing under std::execution::par_unseq execution policy are unsequenced and may be arbitrarily interleaved with each other.	(since C++17)
+12) The call to the allocation function (operator new) is indeterminately sequenced with respect to (until C++17)sequenced before (since C++17) the evaluation of the constructor arguments in a new-expression
+13) When returning from a function, copy-initialization of the temporary that is the result of evaluating the function call is sequenced-before the destruction of all temporaries at the end of the operand of the return statement, which, in turn, is sequenced-before the destruction of local variables of the block enclosing the return statement.
 In a function-call expression, the expression that names the function is sequenced before every argument expression and every default argument.
 15) In a function call, value computations and side effects of the initialization of every parameter are indeterminately sequenced with respect to value computations and side effects of any other parameter.
 16) Every overloaded operator obeys the sequencing rules of the built-in operator it overloads when called using operator notation.
