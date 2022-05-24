@@ -47,7 +47,7 @@ bunların artırmalarının hepsi gerçekleşecek anlamında.
 
 İşlemlerin atomik olup olmaması işlemciye bağlı daha çok.Dolayısı ile işlemin atomik olması garantisi 
 ile lock kullanma garantisi aynı şey değil. Belli bir tür için belli bir işlem atomik olabilir.
-Fakat geriplanda bu üretilen kodda cpu nun bir instructionu ile yapılabilir yada bunu implemente eden kod
+Fakat geri planda bu üretilen kodda cpu nun bir instructionu ile yapılabilir yada bunu implemente eden kod
 arka planda bir kilit sistemi kullanıyor olabilir.
 
 Yani atomik bir tür üstünde yapılan atomik bir işlem lock free olmak zorunda değil.İşlemin kendisini
@@ -515,181 +515,713 @@ unlock ile y = x noktası arasında synchronizes with ilişkisi var.
 Yani B threadi x değerini 1 olarak görmek zorunda.
 Yani A happens before B olmak zorunda.
 
-1:27
 
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
 
+ATOMIC / ATOMİK
+---------------
+Header file atomic.h
 
+Genel olarak C++ ta önce sınıfa member functionlar koyuyorlar.
+Sonra bunlara global function alternatifleride veriyorlar. remove erase idiyomunda olduğu gibi.
 
+Atomik türlerin birincil özelliği şu,
+atomic isimli bir sınıf şablonu var. Bunun partial specializationlarını yada explicit specializationlarını kulanıyoruz.
+Bazı durumlarda primary template ten user defined type lar için kendi atomic sınıflarımızı oluşturuyoruz.
+Belirli koşullaır sağlayan custom typelar için primary template i, template argümanı olarak kendi sınıfımızı
+argüman olarak veriyoruz.
 
+Bir int i atomik olarak kullanmak için atomik sınıfının int açılımını
+Bir unsigned longu atomik olarak kullanmak için atomik sınıfının unsigned long açılımını kullanıyoruz
+Bunlar specializationlar. 
 
+Diğer taraftan class data isimli sınıf var. Template argümanı koşullarını sağlıyor.
+Bunun içinde trivialy copy able olmalı, bitwise comparable olmalı.
+o zaman atomic in data açılımını kendi atomik türümüz için oluşturabiliriz.
 
+Bir atomik tür haricinde hiçbir atomik açılımınun lock free olma garantisi yok.
+garantisi olmaması başka lock free olmaması başka.
 
+#include <iostream>
+#include <atomic>
 
+int main()
+{
+	using namespace std;
+
+	std::cout.setf(std::ios::boolalpha);
+	std::atomic<int> x; 
+
+	std::cout << x.is_lock_free() << '\n'; // true ama lock free olmak zorunda değil.
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+ATOMIC FLAG
+-----------
+Bu öyle bir sınıfki minimal olarak heryerde lock free olma garantisinde
+Ayrı bir interface e sahip.
+
+Her platformda lock free olmak zorunda ama atomik flag lock free olması implementasyon tarafında
+lock mekanizması mutex mekanizması kullanılmıyor anlamında. Yani işlemler gerçekten bir mutex kullanmadan
+doğrudan instructionlar yoluyla atomik.
+
+
+int main()
+{
+	using namespace std;
+
+	std::cout.setf(std::ios::boolalpha);
+	std::atomic<long long> x;
+
+	std::cout << x.is_lock_free() << '\n'; // true ama lock free olmak zorunda değil.
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+BUNU COMPILE TIMEDA ÖĞRENME ŞANSI VAR.
+Neden bu compile timeda öğrenilmiyor ? Bazı türler alignmeneta bağlı olarak sometimes lock free
+olabiliyor bazı durumlarda da olmayabiliyor. Compile timeda is always lock free isimli constexpr static
+veri elemanı var. always lock free isimli static veri elemanı true değerdeyse bu herzaman lock free demek.
+
+
+#include <iostream>
+#include <atomic>
+
+int main()
+{
+	// Bu kodu visual studio implemente etmemiş olabilir, wandboxta test ettik. !!!!
+	constexpr auto b = std::atomic<long long int>::is_always_lock_free;
+
+	std::cout << x << '\n'; // long long türü always lock free. Eğer lock free değilse yada sometimes lock free ise false değeri
+							// Aksi halde değeri true
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR:
+
+#include <iostream>
+#include <atomic>
+
+int main()
+{
+	std:atomic_flag f;  // Çok sınırlı interface i var. C++20 olmadan önce 2 funcı vardı.
+						// C++20 ile genişlettiler.
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR:
+
+#include <atomic>
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+
+	cout << boolalpha;
+
+	// atomic_flag flag_x{ false }; //gecersiz
+	
+	// atomic_flag flag_y{ true };  //gecersiz
+	
+	atomic_flag flag_z; //default init ile C++ 17'de belirsiz deger C++20'de false değeri
+	
+	cout << "flag_z = " << flag_z.test() << "\n"; //C++20. Flagin değerini get eder.
+	
+	atomic_flag flag = ATOMIC_FLAG_INIT;  //gecerli. C++20 değilse bu şekilde initialize edilmek zorundaydık
+											// ATOMIC FLAG INIG değeri implementation defined.
+											// Burada atomic flag değişkenimiz false değerine geliyor !!!!!
+	
+	cout << "flag = " << flag.test() << "\n"; //C++20.Flagin değerini get eder.
+	
+	auto b = flag.test_and_set();  // flagi true değere çekip eski değerini get ediyor
+	
+	cout << "b = " << b << "\n";
+	
+	cout << "flag = " << flag.test() << "\n";
+	
+	flag.clear(); // atomic flagin değerini false yapar
+	
+	cout << "flag = " << flag.test() << "\n";
+	
+	b = flag.test_and_set(); 
+	
+	cout << "b = " << b << "\n";
+	
+	cout << "flag = " << flag.test() << "\n";
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR: Açıklamalardan değilde main den itibaren ne yapıldığına bak. Daha kolay anlaşılıyor.
+
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <mutex>
+#include <vector>
+#include <iostream>
+
+class SpinLockMutex {
+public:
+	SpinLockMutex()
+	{
+		m_f.clear();
+	}
+
+	void lock()
+	{
+		while (m_f.test_and_set()) // lock funcını return etmesi için bu funcın false dönmesi gerekir
+		{							// set edilen değerde true olur
+									// bu funcı çağırdığımızda zaten false dönerse demekki eski değeri false
+									// set edip döngüden çıkacak.
+									// mutexi başkası edinmişse o zaman zaten set edilmiş durumda
+									// set edilmiş durumda olduğundan bu func çağrıldığında true dönecek
+									// ne zaman mutex bırakıldığında atomic flag false ve olacak bu döngüden
+									// çıkacak.
+
+
+			; //null statement      
+		}
+	}
+
+	void unlock() // atomic flagi false değerine çekecek
+	{
+		m_f.clear();
+	}
+
+ private:
+	std::atomic_flag m_f; // default construct ettiğimde bu false değerini alacak
+};
+
+SpinLockMutex mtx;
+unsigned long long counter{};
+
+void func()
+{
+	for (int i{ 0 }; i < 100'000; ++i) {
+		mtx.lock();
+		++counter;
+		mtx.unlock();
+	}
+}
+
+int main()
+{
+	std::vector<std::thread> tvec;
+
+	for (int i = 0; i < 10; ++i) {
+		tvec.emplace_back(func);
+	}
+
+	for (auto &th : tvec) {
+		th.join();
+	}
+
+	std::cout << "counter = " << counter << "\n"; // 1'000'000 değerini verdi.
+}
+
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+
+AŞAĞIDAKILER KARIŞTIRILMAMALI
+
+atomic_flag başka bir tür ama atomic<bool> ayrı bir tür.
+Ama atomic in diğer tamsayı türleri açılımı aynı interface e sahip.
+Reel sayı açılımlarından belirli operasyon yok.
+Bool açılımında artırma eksiltme yok
+Birde pointer açılımları var.
+
+ÖR:
+
+#include <atomic>
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+
+	cout << boolalpha;
+	atomic<bool> flag_1;
+	atomic<bool> flag_2; //indetermined value before before C++20. false value since C++20
+						 // atomik türlerin tamsayı ve bool açılımlarını default construct
+						 // ettiğimizde C++20 öncesi indetermined value idi. C++20 ile
+						 // value initialize edilmesi söz konusu.
+
+	// atomic flag1 = false; // CTAD ile geçerli.
+
+	cout << flag_1 << '\n'; // burada operator T gibi bir func var. tür dönüşt. operator func.
+							// değeri doğrudan get ediyor. Bunun yerine load funcıda çağrılabilir.
+							// fark şu, isimlendirilmiş funclar memory order parametresi alıyor
+							// bu atomik işlemin hangi güvenceleri verdiğini belirliyor
+							// Eğer bir func operator funcı olduğu için ilave argüman alamıyor
+							// bu durumda consistency model doğrudan sequencial consistency
+	cout << flag_2 << '\n';
+	 
+	// ------------------------------------------------------------------------------------------------------
+
+	///atomic<bool> flag_3{flag_2}; //gecersiz
+	//flag_1 = flag_2; //geçersiz
+
+	// ------------------------------------------------------------------------------------------------------
+
+	flag_1 = true; 
+	flag_2 = false;
+	flag_1.store(false); // store funcına değeri geçiyoruz.false yada true
+	flag_2.store(true);
+
+	// ------------------------------------------------------------------------------------------------------
+
+	cout << "flag_1 = " << flag_1 << '\n';  // operator T den ötürü yine yazdırabiliyoruz.
+	cout << "flag_2 = " << flag_2 << '\n';  // operator T
+
+	// ------------------------------------------------------------------------------------------------------
+
+	auto b = flag_1.exchange(true); // Verdiğimiz değerle set ediyor.Eski değeri get ediyor.
+
+	cout << "b = " << b << '\n';
+	cout << "flag_1 = " << flag_1 << '\n';  // operator T
+	
+	// ------------------------------------------------------------------------------------------------------
+
+	cout << "flag_1.load() = " << flag_1.load() << "\n"; // load un return değeri atomik değişkenin değeri
+	cout << "flag_2.load() = " << flag_2.load() << "\n";
+}
+
+
+a.store(true) --> değer veriyoruz
+a.store(load) --> memory order argümanı geçebiliriz
+a.exchange(true) -->  değeri set edip eski değeri return değeri ile alıyoruz
+a.operator T() -->  değeri elde ediyoruz
+a.load() -->  değeri elde ediyoruz
+
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+
+CAS
+---
+2 tane funcımız var.Aralarındaki fark 200 satır sonra açıklandı
+compare_exchange_strong
+compare_exchange_weak
+
+compare_exchange_strong
+1. parametresi T&
+
+atomic<int> a;
+bool result = a.compare_exchange_strong(expected, desired);
+excepted int türden
+desired 2. parametre. Olması gereken değer.
+
+- Bu function çağrılmadan önce a nın değeri expected ise, a nın değerini değiştirip desired yapıyor.
+  Bu durumda function true değer döndürüyor(değer değiştirildiyse eğer).
+- Eğer a nın değeri expected değilse(yani 1. parametreye geçilen değer değilse) false dönüyor ve
+  expected değerini a nın değeri yapıyor. ?????? hatalı olabilir
+
+   
+expected = 4, a = 7; // olsun
+bool result = a.compare_exchange_strong(expected, 50);
+a(7) nın değeri 4 olmadığı için functionun return değeri false olacak, expecteda ise a nın değeri olan 7 yi yazıyor.
+
+expected = 4, a = 4; // olsun
+bool result = a.compare_exchange_strong(expected, 50)
+a nın değeri expected ile aynı ikiside 4. a nın değerini desired yapıyor ve true dönüyor.
+
+Aşağıda 1 örnek daha var.
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR:
+
+#include <atomic>
+#include <iostream>
 
+int main()
+{
+	using namespace std;
+
+	cout << boolalpha;
+	atomic<int> a;
+
+	cout << "a = " << a << "\n"; // c++20 ile a = 0
+	cout << "a.load() = " << a.load() << "\n";
 
+	a.store(10); // a ya 10 değeri store edildi
+	cout << "a = " << a << "\n"; // 10
 
+	int expected = 20; // expected 20 yapıldı
+	cout << "expected = " << expected << "\n"; //20
 
+	bool result = a.compare_exchange_strong(expected, 50); // a ile expected farklı değerlerde
+															// functionun return değeri false olacak
+															// a değişkeni set edilmeyecek.
+															// result false olacak yani return değeri olan bool
+															// expected ise a nın değeri olan 10 olacak
 
+	// a has not the expected value and will not be set
+	cout << "a = " << a << "\n"; // 10
+	
+	//result will be false
+	cout << "result = " << result << "\n"; // false
 
+	//expected will be set to the value of a
+	cout << "expected = " << expected << "\n"; // 10. expected a nın değerine set ediliyor.
+}
 
 
+-------------------------------------------------------------------------------------------------------------------
 
+ÖR:
 
+#include <atomic>
+#include <iostream>
 
+int main()
+{
+	using namespace std;
 
+	cout << boolalpha;
+	atomic<int> a;
 
+	cout << "a = " << a << "\n";
+	cout << "a.load() = " << a.load() << "\n";
 
+	a.store(10); 
+	cout << "a = " << a << "\n";
 
+	int expected = 10; 
+	cout << "expected = " << expected << "\n";
 
+	bool result = a.compare_exchange_strong(expected, 50); // Artık expected ile a aynı değerde. 
+															// true return edecek
+															// a nın değerini 50 yaptı
+															//expecteda dokunmadı bu sefer.
 
+	// a has not the expected value and will not be set
+	cout << "a = " << a << "\n"; // 10
+	
+	//result will be false
+	cout << "result = " << result << "\n"; 
 
+	//expected will be set to the value of a
+	cout << "expected = " << expected << "\n";
+}
 
+-------------------------------------------------------------------------------------------------------------------
 
+ÖNEMLİ ÖRNEK
 
+#include <atomic>
+#include <iostream>
 
+using namespace std;
 
+int main()
+{
+	atomic<int> a = 10;
 
+	// a *= 50; işlemini yapmak istiyorum ama *= işlemi atomik değil
+	// sınıfında operator*= funcı yok
+	// Bunu yapmak için a = a * 50; şeklinde yapmamız gerekir
+	// ++x ile x = x+1; tamsayı olsaydı şey derdik ama atomik değişkenlerde böyle değil
+	// ++a yazınca sınıfın operator++ funcı çağrılıyor ve bu işlemi atomik olarak yapıyor
+	// a = a + 1; yapınca iki işlem yapıyor. a = a.load() + 1; demek.bir load birde atama işlemi var.
 
+	// ----------------------------------------------------------------------------------------------
 
+	//a yı 5 katına çıkarmak istiyoruz.
 
+	atomic<int> a = 10;
 
+	int temp = a.load();
 
+ 	a.store(temp * 50); // Buraya kadar olan kodda sorun yok ama burada problem çıkabilir.
+						// Bu diğer threadler tarafından da modifiye ediliyor.
+						// Bu satıra gelmeden önce başka bir thread a nın değerini 10 iken 100 yaptı diyelim
+						// Bizde bu durumda 10*50 değilde 100*50 yapmış oluruz.
 
+	// Burada bir araca ihtiyaç var. Bu işlemi yaparken başka threadler modifiye etse dahi
+	// modifiye edilmiş değeri kullanmam gerekiyor.(istediğimiz değeri)
 
+	// ----------------------------------------------------------------------------------------------
 
+	//Burada idiyom var.
 
+	atomic<int> a = 10;
 
+	int temp = a.load();
 
+	// diyelimki a nın değerini başka thread değiştirdi, a = 200 yaptı diyelim
+	// ilk turda a = 200, temp = 10. değerler aynı değil.false döndü. !false ile döngü devam etti.
+	// bu durumda expected yani temp değerinide 200 yaptı
+	// 2. turda a =200 ve temp = 200, değerler aynı, bu durumda temp*50 = 10000 dğeri a ya store edildi
+	while(!a.compare_exchange_weak(temp,temp*50))
+		;
+		
+}
 
+-------------------------------------------------------------------------------------------------------------------
 
+FUNCTIONLARA BAKALIM
+--------------------
+Operator funcları doğrudan atomik olarak desteklenen işlemler için var.
 
+#include <atomic>
+#include <iostream>
 
+using namespace std;
 
+int main()
+{
+	atomic<int> a = 10;
 
+	//Aşağıdaki funclar var
+	++a;
+	a++;
+	a--;
+	--a;
+	a = 5; // başka bir atomic atanamıyor tabi.
+	a.load();
+	a += 5;
+	a -= 10;
+	a &= 4;
+	a ^= 4;
+	a |= 4;
 
+	auto result = a.exchange(450);
 
+	//----------------------------------------------------------------------------------------
 
+	COMPARE_EXCHANGE_WEAK İLE COMPARE_EXCHANGE_STRONG FARKI 
 
+	a.compare_exchange_strong ->  a nın değeri expected ise set garantisini veriyor
+	a.compare_exchange_weak ->  Spurious olarak eşit olsada yani a nın değeri expected olsada
+								a nın değerini set etmeyip yine false döndürebiliyor. 
+								Compare exchange weak i doğrudan çağırırsak başırılı olup olmadığını
+								test etmemiz gerekiyor.
 
+	Bizim örneğimizde compare_exchange_weak kullandık ama zaten her turda kontrol ediyoruz.
+	Bizim örnekte sıkıntılı bir durum yok. Döngüsel yapılarda compare_exchange_weak kullnılabilir
+	Döngüsel olmayan yapılarda compare_exchange_strong kullanılabilir.Kontrol etmeye gerek kalmıyor
+	garanti veriyor çünkü. compare_exchange_weak kullansaydık değerini kontrol etmek gerekirdi.
 
+	compare_exchange_weak bazı sistemlerde compare_exchange_stronga göre daha düşük maliyetli olabilir.
+	döngüsel yapılarda weak kullanmak daha avantajlı oluyor.
+}
 
+-------------------------------------------------------------------------------------------------------------------
 
+ÖR
 
+#include <atomic>
+#include <iostream>
 
+int main()
+{
+	std::atomic<int> x; // C++20 ile 0
 
+	int val = ++x; //atomic<T>::operator++()
+	std::cout << "val = " << val << "\n";    1
+	std::cout << "x = " << x << "\n";    1
 
+	val = x++; //atomic<T>::operator++(int)   
+	std::cout << "val = " << val << "\n";   1
+	std::cout << "x = " << x << "\n";    2
+}
 
+Hatırlatma
+++x ile x = x + 1 aynı anlamda değil.
 
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
 
+OPERATOR FUNCLARININ HEPSI MEMORY ARGÜMANI OLARAK SEQUENCIAL CONSISTENCY ALIYOR
 
+#include <atomic>
+#include <iostream>
 
+int main()
+{
+	std::atomic<int> x;
 
+	int val = ++x; // atomic<t>::operator++()
 
+	x.fetch_add(1, std::); // bunun operator += ten tek farkı memory order parametresi alması
+							// doğrudan operator overloading olanlar memory order parametresi almıyorlar
+							// memory order parametresi almaması demek default olarak olarak sequencial
+							// consistency modelini temsil eden memory order parametresini alıyor demek.
 
+}
 
+-------------------------------------------------------------------------------------------------------------------
 
+ÖR:
 
+#include <atomic>
+#include <concepts>
 
+template <std::integral T>
+void atomic_inc(std::atomic<T> &x)
+{
+	T val{x};
+	while(!x.compare_exchange_weak(val,val+1))
+	{
+	}
+}
 
+Burada c++17 için olan operasyonların ekran görüntüsünü aldım.
+20de çok daha geniş. 
 
+-------------------------------------------------------------------------------------------------------------------
 
+ÖR:
+Hoca yazmış bu sınıfı
 
+NOT : Normalde atama operator funclarının return değerleri referans türüdür.
+Atomik türlerde ise hiçbir zaman atama operator funclarının yada diğer funclarının
+return değeri referans değil, doğrudan value.
 
+#include <atomic>
+#include <thread>
+#include <iostream>
 
+class AtomicCounter {
+public:
+	AtomicCounter() : m_c(0) {}
+	AtomicCounter(int val) : m_c{val}{}
+	int operator++() { return ++m_c; }
+	int operator++(int) { return m_c++; }
+	int operator--() { return --m_c; }
+	int operator--(int) { return m_c--; }
+	int get() const { return m_c.load(); }
+	operator int()const { return m_c.load(); }
+private:
+	std::atomic<int> m_c;
+};
 
+AtomicCounter cnt;
 
+void foo() // testi burada yapıyoruz.Değişkeni 1 milyon kere artırıyoruz
+{
+	for (int i = 0; i < 1'000'000; ++i) {
+		++cnt;
+	}
+}
 
+int main()
+{
+	std::thread ta[10];
 
+	for (auto& th : ta)
+		th = std::thread{ foo };
 
+	for (auto& th : ta)
+		th.join();
 
+	std::cout << "cnt = " << cnt.get() << '\n';
+	std::cout << "cnt = " << cnt << '\n'; 
+}
 
+-------------------------------------------------------------------------------------------------------------------
 
+Pointerda bir atomik tür olabilir. User defined türde atomik olabilir.
 
+int main()
+{
+	using namespace std;
 
+	int a[] = {1,3,5,7,9,11};
+	// int *p{a}; // Burada pointer kullanacağız diyelim ama atomik olmasını istiyoruz 
+					// herhangibir sebepten ötürü
 
+	atomic<int *> ax{a}; // bu şekilde kulanılır.
 
+	std::cout << *ax.load(); // pointer gibi kullandık
+	std::cout << *ax; // yine pointer gibi kullandık
 
+	++ax;
+	std::cout << *ax;
 
+	ax += 2;
+	
+}
 
+-------------------------------------------------------------------------------------------------------------------
 
+Standartların verdiği örnek
+Buna bak.
 
+#include <atomic>
+#include <iostream>
+#include <thread>
+#include <cassert>
 
+std::atomic_bool x_flag, y_flag; //false değerlerde
+std::atomic<int> ival; // 0 değerinde
 
 
+void set_x()
+{
+	x_flag.store(true);
+}
 
+void set_y()
+{
+	y_flag.store(true);
+}
 
+void read_x_then_y()
+{
+	while (!x_flag.load())
+		;
 
+	if (y_flag.load())
+		++ival;
+}
 
+void read_y_then_x()
+{
+	while (!y_flag.load())
+		;
 
+	if (x_flag.load())
+		++ival;
+}
 
+//test kodu
+void func()
+{
+	x_flag = false;
+	y_flag = false;
+	ival = 0;
 
+	std::thread t1{ set_x };
+	std::thread t2{ set_y };
+	std::thread t3{ read_x_then_y};
+	std::thread t4{ read_y_then_x};
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
 
+	assert(ival != 0);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+	for (int i = 0; i < 10000; ++i) {
+		func();
+	}
+}
 
 */
