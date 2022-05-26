@@ -681,13 +681,13 @@ public:
 	void lock()
 	{
 		while (m_f.test_and_set()) // lock funcını return etmesi için bu funcın false dönmesi gerekir
-		{							// set edilen değerde true olur
-									// bu funcı çağırdığımızda zaten false dönerse demekki eski değeri false
-									// set edip döngüden çıkacak.
-									// mutexi başkası edinmişse o zaman zaten set edilmiş durumda
-									// set edilmiş durumda olduğundan bu func çağrıldığında true dönecek
-									// ne zaman mutex bırakıldığında atomic flag false ve olacak bu döngüden
-									// çıkacak.
+		{			   // set edilen değerde true olur
+					   // bu funcı çağırdığımızda zaten false dönerse demekki eski değeri false
+					   // set edip döngüden çıkacak.
+					   // mutexi başkası edinmişse o zaman zaten set edilmiş durumda
+					   // set edilmiş durumda olduğundan bu func çağrıldığında true dönecek
+					   // ne zaman mutex bırakıldığında atomic flag false ve olacak bu döngüden
+					   // çıkacak.
 
 
 			; //null statement      
