@@ -59,7 +59,7 @@ C++ IN TARTIŞMASIZ EN KARMAŞIK KONUSU BU KONU
 Burada birinci kullanım seviyesi productionda çalışan programcıya ilişkin.Standart programcı.
 İkinci seviyede ise low level interface var.Yani lock free denen programlama modeli.
 Lock free, program runtimeda birden fazla thread kullanıyor olsada hiçbiri bloke olmayacak
-her an bir thread ilerliyor olacak.
+her an bir thread ilerliyor olacak. Tüm threadler aynı anda da çalışabilir 1 threadde çalışabilir.
 Bir sonraki aşama wait free programming, hiçbir thread beklemeyecek.
 
 -------------------------------------------------------------------------------------------------------------------
