@@ -501,13 +501,13 @@ std::mutex m;
 int x = 0;
 int y = 0;
 
-	A									B
-thread 1 code                      thread 2 code
---------------					   --------------
-m.lock();						   m.lock();
-x = 1;			  |------------->  y = x;
-m.unlock)---------|				   m.unlock)
-			Synchronizes with
+     A				  B
+thread 1 code               thread 2 code
+--------------		   --------------
+m.lock();			   m.lock();
+x = 1;		  |------------->  y = x;
+m.unlock)---------|		   m.unlock)
+	   Synchronizes with
 	
 
 kiliti thread 1 alsın, x = 1; yapılacak ve sonrasında thread unlock edildiğinde,
@@ -566,8 +566,7 @@ int main()
 
 ATOMIC FLAG
 -----------
-Bu öyle bir sınıfki minimal olarak heryerde lock free olma garantisinde
-Ayrı bir interface e sahip.
+Bu öyle bir sınıfki minimal olarak heryerde lock free olma garantisinde. Ayrı bir interface e sahip.
 
 Her platformda lock free olmak zorunda ama atomik flag lock free olması implementasyon tarafında
 lock mekanizması mutex mekanizması kullanılmıyor anlamında. Yani işlemler gerçekten bir mutex kullanmadan
