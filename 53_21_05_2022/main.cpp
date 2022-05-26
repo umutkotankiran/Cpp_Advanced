@@ -946,9 +946,9 @@ int main()
 	int temp = a.load();
 
  	a.store(temp * 50); // Buraya kadar olan kodda sorun yok ama burada problem çıkabilir.
-						// Bu diğer threadler tarafından da modifiye ediliyor.
-						// Bu satıra gelmeden önce başka bir thread a nın değerini 10 iken 100 yaptı diyelim
-						// Bizde bu durumda 10*50 değilde 100*50 yapmış oluruz.
+			    // Bu diğer threadler tarafından da modifiye ediliyor.
+			    // Bu satıra gelmeden önce başka bir thread a nın değerini 10 iken 100 yaptı diyelim
+			    // Bizde bu durumda 10 * 50 değilde 100 * 50 yapmış oluruz.
 
 	// Burada bir araca ihtiyaç var. Bu işlemi yaparken başka threadler modifiye etse dahi
 	// modifiye edilmiş değeri kullanmam gerekiyor.(istediğimiz değeri)
@@ -960,16 +960,20 @@ int main()
 	atomic<int> a = 10;
 
 	int temp = a.load();
-
+	
+	
 	// diyelimki a nın değerini başka thread değiştirdi, a = 200 yaptı diyelim
-	// ilk turda a = 200, temp = 10. değerler aynı değil.false döndü. !false ile döngü devam etti.
-	// bu durumda expected yani temp değerinide 200 yaptı
-	// 2. turda a =200 ve temp = 200, değerler aynı, bu durumda temp*50 = 10000 dğeri a ya store edildi
 	while(!a.compare_exchange_weak(temp,temp*50))
 		;
-		
+	// ilk turda a = 200, temp = 10. değerler aynı değil.false döndü. !false ile döngü devam etti.
+	// bu durumda expected yani temp değerinide 200 yaptı.
+	// 2. turda a = 200 ve temp(expected aslında) = 200, değerler aynı, bu durumda temp * 50 = 10000 değeri a ya store edildi
+					
 }
 
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 
 FUNCTIONLARA BAKALIM
@@ -997,18 +1001,20 @@ int main()
 	a &= 4;
 	a ^= 4;
 	a |= 4;
-
+	
+	// a *= 4;  BU YOK !!!!!!!!!!!
+	
 	auto result = a.exchange(450);
 
 	//----------------------------------------------------------------------------------------
 
-	COMPARE_EXCHANGE_WEAK İLE COMPARE_EXCHANGE_STRONG FARKI 
+	COMPARE_EXCHANGE_WEAK İLE COMPARE_EXCHANGE_STRONG FARKI
 
 	a.compare_exchange_strong ->  a nın değeri expected ise set garantisini veriyor
 	a.compare_exchange_weak ->  Spurious olarak eşit olsada yani a nın değeri expected olsada
-								a nın değerini set etmeyip yine false döndürebiliyor. 
-								Compare exchange weak i doğrudan çağırırsak başırılı olup olmadığını
-								test etmemiz gerekiyor.
+				    a nın değerini set etmeyip yine false döndürebiliyor. 
+			  	    Compare exchange weak i doğrudan çağırırsak başırılı olup olmadığını
+				    test etmemiz gerekiyor.
 
 	Bizim örneğimizde compare_exchange_weak kullandık ama zaten her turda kontrol ediyoruz.
 	Bizim örnekte sıkıntılı bir durum yok. Döngüsel yapılarda compare_exchange_weak kullnılabilir
