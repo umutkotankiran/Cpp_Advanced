@@ -903,9 +903,9 @@ int main()
 	cout << "expected = " << expected << "\n";
 
 	bool result = a.compare_exchange_strong(expected, 50); // Artık expected ile a aynı değerde. 
-															// true return edecek
-															// a nın değerini 50 yaptı
-															//expecteda dokunmadı bu sefer.
+								// true return edecek
+								// a nın değerini 50 yaptı
+								//expecteda dokunmadı bu sefer.
 
 	// a has not the expected value and will not be set
 	cout << "a = " << a << "\n"; // 10
