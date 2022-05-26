@@ -753,18 +753,19 @@ int main()
 	cout << boolalpha;
 	atomic<bool> flag_1;
 	atomic<bool> flag_2; //indetermined value before before C++20. false value since C++20
-						 // atomik türlerin tamsayı ve bool açılımlarını default construct
-						 // ettiğimizde C++20 öncesi indetermined value idi. C++20 ile
-						 // value initialize edilmesi söz konusu.
+			     // atomik türlerin tamsayı ve bool açılımlarını default construct
+			     // ettiğimizde C++20 öncesi indetermined value idi. C++20 ile
+			     // value initialize edilmesi söz konusu.
 
 	// atomic flag1 = false; // CTAD ile geçerli.
 
 	cout << flag_1 << '\n'; // burada operator T gibi bir func var. tür dönüşt. operator func.
-							// değeri doğrudan get ediyor. Bunun yerine load funcıda çağrılabilir.
-							// fark şu, isimlendirilmiş funclar memory order parametresi alıyor
-							// bu atomik işlemin hangi güvenceleri verdiğini belirliyor
-							// Eğer bir func operator funcı olduğu için ilave argüman alamıyor
-							// bu durumda consistency model doğrudan sequencial consistency
+				// değeri doğrudan get ediyor. Bunun yerine load funcıda çağrılabilir.
+				// fark şu, isimlendirilmiş funclar memory order parametresi alıyor
+				// bu atomik işlemin hangi güvenceleri verdiğini belirliyor
+				// Eğer bir func operator funcı olduğu için ilave argüman alamıyor
+				// bu durumda consistency model doğrudan sequencial consistency
+				
 	cout << flag_2 << '\n';
 	 
 	// ------------------------------------------------------------------------------------------------------
