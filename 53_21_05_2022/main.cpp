@@ -826,7 +826,7 @@ desired 2. parametre. Olması gereken değer.
 - Bu function çağrılmadan önce a nın değeri expected ise, a nın değerini değiştirip desired yapıyor.
   Bu durumda function true değer döndürüyor(değer değiştirildiyse eğer).
 - Eğer a nın değeri expected değilse(yani 1. parametreye geçilen değer değilse) false dönüyor ve
-  expected değerini a nın değeri yapıyor. ?????? hatalı olabilir
+  expected değerini a nın değeri yapıyor.
 
    
 expected = 4, a = 7; // olsun
@@ -863,10 +863,10 @@ int main()
 	cout << "expected = " << expected << "\n"; //20
 
 	bool result = a.compare_exchange_strong(expected, 50); // a ile expected farklı değerlerde
-															// functionun return değeri false olacak
-															// a değişkeni set edilmeyecek.
-															// result false olacak yani return değeri olan bool
-															// expected ise a nın değeri olan 10 olacak
+								// functionun return değeri false olacak
+								// a değişkeni set edilmeyecek.
+								// result false olacak yani return değeri olan bool
+								// expected ise a nın değeri olan 10 olacak
 
 	// a has not the expected value and will not be set
 	cout << "a = " << a << "\n"; // 10
