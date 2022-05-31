@@ -11,26 +11,26 @@ ilişkisi yok ise.
 Ne şekilde koruma yapabiliyoruz.
 1 - Kilit sistemleriyle koruma yapabiliyoruz. lock_guard ve mutex kullanımı gibi...
 2 - Atomic türleri kullanmak. Bunlar bölünemez işlemler. Yani değişkenşi ya değişmeden
-	önceki haliyle görecek, yada değiştikten sonraki haliyle görecek.
-	Bazı durumlarda mutex kullanmaya göre atomic değişkenler kullanmak faydalar sağlıyor olabilir.
-	Sağladığı faydalar arasında bir mutex kullanmanın dezavantajlarının olduğu 
-	yada maliyet açısından kilit sistemlerini doğrudan kullanmanın getirdiği dezavantaj
-	Ör: multithread olarak kullanılacak veri yapıları buna iyi örnek olabilir.
+    önceki haliyle görecek, yada değiştikten sonraki haliyle görecek.
+    Bazı durumlarda mutex kullanmaya göre atomic değişkenler kullanmak faydalar sağlıyor olabilir.
+    Sağladığı faydalar arasında bir mutex kullanmanın dezavantajlarının olduğu 
+    yada maliyet açısından kilit sistemlerini doğrudan kullanmanın getirdiği dezavantaj
+    Ör: multithread olarak kullanılacak veri yapıları buna iyi örnek olabilir.
 	
-	Mutex kullanınca critical region denen kod alanını koruma altına alıyoruz.
-	Bu alan ne kadar dar tutulursa verim o ölçüde daha yüksek olacak muhtemelen.
-	İşte bu alanı daraltmanın belkide en fazla daratabileceğimiz nokta bu alanı
-	sadece bir atomic instructiona indirgemek. Bunuda atomic variables larla yapıyoruz.
+    Mutex kullanınca critical region denen kod alanını koruma altına alıyoruz.
+    Bu alan ne kadar dar tutulursa verim o ölçüde daha yüksek olacak muhtemelen.
+    İşte bu alanı daraltmanın belkide en fazla daratabileceğimiz nokta bu alanı
+    sadece bir atomic instructiona indirgemek. Bunuda atomic variables larla yapıyoruz.
 	
 Atomic değişkenler bize 2 olanak sağlıyor.
 	2.1 - Indivisable olduğundan data race ten arındırılmış durumdalar.
 	2.2 - Diğeride senkronizsyon aracı olarak kulanılıyor.
-		  Bu noktada iş senkronizasyon kısmına gelince happens before ilişkisini
-		  hatırlamamız gerekiyor. Bir çok durumda threadler arasında veri alışverişi yani
-		  producer/consumer ilişkisi olmalı. Birşekilde bu ilişkiyi düzenlememiz gerekecek.
-		  Yani producer veriyi ürettikten sonra consumer o veriyi alıp kullanabilmeli.
-		  Bu amaçla atomic değişkenleri kullanıyoruz. Bunun için bir happens before
-		  ilişkisi kurmak gerekiyor. Bu happenin before-in time anlamında değil.
+	      Bu noktada iş senkronizasyon kısmına gelince happens before ilişkisini
+	      hatırlamamız gerekiyor. Bir çok durumda threadler arasında veri alışverişi yani
+	      producer/consumer ilişkisi olmalı. Birşekilde bu ilişkiyi düzenlememiz gerekecek.
+	      Yani producer veriyi ürettikten sonra consumer o veriyi alıp kullanabilmeli.
+	      Bu amaçla atomic değişkenleri kullanıyoruz. Bunun için bir happens before
+	      ilişkisi kurmak gerekiyor. Bu happenin before-in time anlamında değil.
 
 
 HAPPENS BEFORE NEDIR
