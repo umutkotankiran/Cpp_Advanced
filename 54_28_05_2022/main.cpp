@@ -22,15 +22,15 @@ Ne şekilde koruma yapabiliyoruz.
     İşte bu alanı daraltmanın belkide en fazla daratabileceğimiz nokta bu alanı
     sadece bir atomic instructiona indirgemek. Bunuda atomic variables larla yapıyoruz.
 	
-Atomic değişkenler bize 2 olanak sağlıyor.
-	2.1 - Indivisable olduğundan data race ten arındırılmış durumdalar.
-	2.2 - Diğeride senkronizsyon aracı olarak kulanılıyor.
-	      Bu noktada iş senkronizasyon kısmına gelince happens before ilişkisini
-	      hatırlamamız gerekiyor. Bir çok durumda threadler arasında veri alışverişi yani
-	      producer/consumer ilişkisi olmalı. Birşekilde bu ilişkiyi düzenlememiz gerekecek.
-	      Yani producer veriyi ürettikten sonra consumer o veriyi alıp kullanabilmeli.
-	      Bu amaçla atomic değişkenleri kullanıyoruz. Bunun için bir happens before
-	      ilişkisi kurmak gerekiyor. Bu happenin before-in time anlamında değil.
+    Atomic değişkenler bize 2 olanak sağlıyor.
+    2.1 - Indivisable olduğundan data race ten arındırılmış durumdalar.
+    2.2 - Diğeride senkronizsyon aracı olarak kulanılıyor.
+	  Bu noktada iş senkronizasyon kısmına gelince happens before ilişkisini
+	  hatırlamamız gerekiyor. Bir çok durumda threadler arasında veri alışverişi yani
+	  producer/consumer ilişkisi olmalı. Birşekilde bu ilişkiyi düzenlememiz gerekecek.
+	  Yani producer veriyi ürettikten sonra consumer o veriyi alıp kullanabilmeli.
+	  Bu amaçla atomic değişkenleri kullanıyoruz. Bunun için bir happens before
+	  ilişkisi kurmak gerekiyor. Bu happenin before-in time anlamında değil.
 
 
 HAPPENS BEFORE NEDIR
