@@ -2,8 +2,6 @@
 
 BIR ÖNCEKI DERS KONUŞTUĞUMUZ KONULARI KISACA ÖZETLIYORUZ
 
-
-
 Multithread programlarda variables, shared sources, shared data...
 Bunları en az bir thread yazma amaçlı kullanacaksa önlem almak gerekiyor.
 Eğer bir thread en az yazma amaçlı erişiyorsa ve birden fazla thread varsa
