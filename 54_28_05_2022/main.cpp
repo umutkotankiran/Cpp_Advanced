@@ -680,7 +680,7 @@ RELEASE CONSUME
 
 Release Consume biraz farklı ve eleştiriliyor. Productionda en çok acquire release kullanacağız
 Bazende relaxed kullanacağız.
-Require release de bazı operasyonlar kaydırılabiliyordu bazıları ise kaydırılamıyor.
+Acquire release de bazı operasyonlar kaydırılabiliyordu bazıları ise kaydırılamıyor.
 AcquireRelease3 isimli resimde var.
 
 Release consume da sadece atomik değişkene bağlı dependent işlem için bir garanti var.
