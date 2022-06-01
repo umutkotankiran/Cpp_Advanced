@@ -217,42 +217,42 @@ CPPREFERENCE NOTLAR
 Value					Explanation
 ------------------------------------
 memory_order_relaxed : 	Relaxed operation: there are no synchronization or ordering constraints imposed 
-						on other reads or writes, only this operation's atomicity is guaranteed 
-						(see Relaxed ordering below)
+			on other reads or writes, only this operation's atomicity is guaranteed 
+			(see Relaxed ordering below)
 
 memory_order_consume :  A load operation with this memory order performs a consume operation 
-						on the affected memory location: no reads or writes in the current thread 
-						dependent on the value currently loaded can be reordered before this load.
-						Writes to data-dependent variables in other threads that release the same 
-						atomic variable are visible in the current thread. On most platforms, 
-						this affects compiler optimizations only (see Release-Consume ordering below)
+			on the affected memory location: no reads or writes in the current thread 
+			dependent on the value currently loaded can be reordered before this load.
+			Writes to data-dependent variables in other threads that release the same 
+			atomic variable are visible in the current thread. On most platforms, 
+			this affects compiler optimizations only (see Release-Consume ordering below)
 
 memory_order_acquire : 	A load operation with this memory order performs the acquire operation on 
-						the affected memory location: no reads or writes in the current thread can 
-						be reordered before this load. All writes in other threads that release the
-						same atomic variable are visible in the current thread (see Release-Acquire ordering below)
+			the affected memory location: no reads or writes in the current thread can 
+			be reordered before this load. All writes in other threads that release the
+			same atomic variable are visible in the current thread (see Release-Acquire ordering below)
 
 memory_order_release :	A store operation with this memory order performs the release operation:
-						no reads or writes in the current thread can be reordered after this store. 
-						All writes in the current thread are visible in other threads that acquire 
-						the same atomic variable (see Release-Acquire ordering below) and writes 
-						that carry a dependency into the atomic variable become visible in other 
-						threads that consume the same atomic (see Release-Consume ordering below).
+			no reads or writes in the current thread can be reordered after this store. 
+			All writes in the current thread are visible in other threads that acquire 
+			the same atomic variable (see Release-Acquire ordering below) and writes 
+			that carry a dependency into the atomic variable become visible in other 
+			threads that consume the same atomic (see Release-Consume ordering below).
 
 memory_order_acq_rel : 	A read-modify-write operation with this memory order is both an acquire 
-						operation and a release operation. No memory reads or writes in the current 
-						thread can be reordered before the load, nor after the store. 
-						All writes in other threads that release the same atomic variable are 
-						visible before the modification and the modification is visible in other 
-						threads that acquire the same atomic variable.
+			operation and a release operation. No memory reads or writes in the current 
+			thread can be reordered before the load, nor after the store. 
+			All writes in other threads that release the same atomic variable are 
+			visible before the modification and the modification is visible in other 
+			threads that acquire the same atomic variable.
 
 
 
 memory_order_seq_cst :	A load operation with this memory order performs an acquire operation, 
-						a store performs a release operation, and read-modify-write performs 
-						both an acquire operation and a release operation, plus a single 
-						total order exists in which all threads observe all modifications in 
-						the same order (see Sequentially-consistent ordering below)
+			a store performs a release operation, and read-modify-write performs 
+			both an acquire operation and a release operation, plus a single 
+			total order exists in which all threads observe all modifications in 
+			the same order (see Sequentially-consistent ordering below)
 
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
@@ -263,7 +263,7 @@ DERSTEKI NOTLARDAN DEVAM
 memory_order_seq_cst : Tüm operasyonlar için load(read) yada store(writee) operasyonuysa default değer bu.
 
 memory_order_relaxed : Read, modify, write işlemlerinde ise 2 tane birden memory order değerine ihtiyaç var.
-				       Hem okuma hemde yazma tarafı için.
+		       Hem okuma hemde yazma tarafı için.
 
 
 - Bir read işlemi yapılacaksa aşağıdakiler geçilebilir
@@ -322,10 +322,10 @@ std::atomic<int> x{ 0 }, y{ 0 };
 void foo()
 {
 	x.store(1, std::memory_order_seq_cst); // memory_order_seq_cst zaten default parameter
-											// seq con. kaç thread olursa olsun, tüm threadler sanki
-											// program akışını tek bir thread olarak görüyor.Araya girebilir 
-											// farklı threadlerdeli işlemler ama tüm threadler aynı şekilde görüyorlar
-							 				// programın tek bir threadde çalışması gibi düşünülebilir.
+						// seq con. kaç thread olursa olsun, tüm threadler sanki
+						// program akışını tek bir thread olarak görüyor.Araya girebilir 
+						// farklı threadlerdeli işlemler ama tüm threadler aynı şekilde görüyorlar
+						// programın tek bir threadde çalışması gibi düşünülebilir.
 
 // Önce foo çalışmışsa x e 1 değerini store edecek ve artık diğer threadlerde 
 // görünür durumda olacak
