@@ -287,7 +287,7 @@ Bu model kullanmaktaki amaç syncronization + order sağlamak
 
 Acquire Release
 ---------------
-Bu modeldeki amaç ise syncronization.
+Bu modeldeki amaç ise syncronization.Ordering yok.
 
 Bu yazı aşağıdaki ömrnektede yazıldı !!!!!
 Eğer bir atomic işlem bir atomic değişken üzerinde release modda store yaparsa
