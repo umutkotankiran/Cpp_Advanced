@@ -449,7 +449,7 @@ void func()
 	// Ben veriyi hazırladım ve bunu release ediyorum.
 	// Yani atomic değişkenden okuma yapacak diğer threadlere
 	// bunu bildiriyorum anlamında.
-	// 1. Bu senkronizasyon runtime a ilişkin değil. kaynak koda ilişkin değil
+	// 1. Bu senkronizasyon runtime a ilişkin. kaynak koda ilişkin değil
 	// Bu işlemin yapılmasından sonra başka bir thread bizim atomik değişkenimizden
 	// load işlemi yaparsa yani okuma yaparsa ve bu okuma acquire memory order ile yapılırsa
 	// bir senkronizasyon oluşacak. Yani acquire ile load eden operasyon ile store arasında
