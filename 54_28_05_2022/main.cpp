@@ -203,7 +203,7 @@ int main()
 {
 	std::atomic<int> x;
 
-	x.store(1, std::order_order::seq_cst);
+	x.store(1, std::memory_order::seq_cst);
 
 	x.store(1,std::memory_order_seq_cst); // C++20
 }
