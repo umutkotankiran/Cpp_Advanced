@@ -156,7 +156,7 @@ auto temp = at.load();
 //..
 
 at.compare_exchange_strong(temp,desired); // Burası atomik ama bir üstte başka threadler işlem yapabilir
-										   // loadun çağrılmasından sonra başka bir thread müdahale edebilir.
+				          // loadun çağrılmasından sonra başka bir thread müdahale edebilir.
 
 Araya giren thread atomik değişkenin değerini değiştirdi fakat compare exchange strong çalışmaya
 başlamadan önce tekrar değiştirdi eski haline getirdi.
