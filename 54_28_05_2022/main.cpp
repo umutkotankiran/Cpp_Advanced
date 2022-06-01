@@ -116,10 +116,10 @@ ACQUIRE RELEASE
 C++ 11 ve sonrasında bunu yapabilmek için atomic türler kullanılıyor.
 acquirerelease.jpg file githubda
  
-Thread 1					Thread 2
---------					--------
-X();		   |------------>	B();
-A(); ----------|				Y();
+Thread 1			Thread 2
+--------			--------
+X();	       |------------>	B();
+A(); ----------|		Y();
 
 
 If A() syncronizes with B(),
