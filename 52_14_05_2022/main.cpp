@@ -119,7 +119,7 @@ int main()
 
 	for(int i = 0; i < 10; ++i)
 	{
-		a[i] % 2 == 0 ? std::thread{foo} : std::thread{bar};
+		a[i] = i % 2 == 0 ? std::thread{ func } : std::thread{ foo };
 	}
 
 	for(auto &th : a)
