@@ -16,27 +16,36 @@ GITHUB NOTLARI
 --------------
 - Coroutin'ler 1958 yılında Mel Konvoy tarafından icad edildi.
 
-- Coroutine kendi çalışmasını durdurabilen (suspend) daha sonra çalışması tekrar devam ettirilebilen bir fonksiyon. Bu nedenle coroutine'lere "resumable function" da deniyor. 
+- Coroutine kendi çalışmasını durdurabilen (suspend) daha sonra çalışması tekrar devam ettirilebilen bir fonksiyon. 
+  Bu nedenle coroutine'lere "resumable function" da deniyor. 
   Bu açıdan bakarsak fonksiyonları 2 kategoriye ayırabiliriz:
 	-- Subroutines (normal fonksiyonlar)
 	-- Coroutines (çalışması durdurulup sonra tekrar devam ettirilebilen fonksiyonlar)
 
-- C++20 standartları ile dile bu konuda eklemeler yapıldı. Hem dile bazı temel araçlar (core features) hem de standart kütüphaneye bazı öğeler eklendi. Ancak yine de bu araçtan faydalanmak için en basit kullanım senaryolarında dahi bazı bileşenlerin programcılar tarafından yazılması gerekiyor. C++23 ile standart kütüphaneye destekleyici bazı öğelerin eklenmesi planlanıyor.
+- C++20 standartları ile dile bu konuda eklemeler yapıldı. Hem dile bazı temel araçlar (core features) hem de standart kütüphaneye bazı öğeler eklendi. 
+  Ancak yine de bu araçtan faydalanmak için en basit kullanım senaryolarında dahi bazı bileşenlerin programcılar tarafından yazılması gerekiyor. 
+  C++23 ile standart kütüphaneye destekleyici bazı öğelerin eklenmesi planlanıyor.
 
-- Normal fonksiyonlar, çağrıldıkları zaman kodlarının tamamı çalışıyor. Yani fonksiyonun çalışması ya bir return deyimi ile ya da bir exception gönderilmesi ile sonlanıyor. Oysa bir coroutine birden fazla adıma bölünerek çalıştırılabiliyor. Yani fonksiyonun çalışması durdurulup (suspend) tekrar başlatılabiliyor. Bu işlem akışı birden fazla kez gerçekleştirilebiliyor.
+- Normal fonksiyonlar, çağrıldıkları zaman kodlarının tamamı çalışıyor. Yani fonksiyonun çalışması ya bir return deyimi ile ya da 
+  bir exception gönderilmesi ile sonlanıyor. Oysa bir coroutine birden fazla adıma bölünerek çalıştırılabiliyor. 
+  Yani fonksiyonun çalışması durdurulup (suspend) tekrar başlatılabiliyor. Bu işlem akışı birden fazla kez gerçekleştirilebiliyor.
 
 - Neden bir fonksiyonu bu şekilde çalıştırmak isteyelim?
 	-- Fonksiyon belirli bazı işlemleri gerçekleştirdikten sonra işine devam etmek için bazı başka işlemlerin yapılmasını bekleyebilir.
 	-- Fonksiyon belirli bir basamakta elde ettiği ara veri ya da verileri kendisini çağıran fonksiyona iletebilir.
-	-- Bir coroutine çağırdığımızda onun kodunu basamaklar (steps) halinde çalıştırabiliyoruz. Bu paralel çalıştırma (parallelism) ile karıştırılmamlı. (ping pong oyunu gibi düşünebiliriz.)
+	-- Bir coroutine çağırdığımızda onun kodunu basamaklar (steps) halinde çalıştırabiliyoruz. 
+	   Bu paralel çalıştırma (parallelism) ile karıştırılmamlı. (ping pong oyunu gibi düşünebiliriz.)
 
-- Hem ana kontrol akışı hem de coroutine'in kendi kontrol akışı aynı thread içinde gerçekleşiyor. multi-thread programlama ya da eş zamanlı erişim oluşturmak zorunda değiliz. Ancak coroutine'leri farklı thread'lerde çalıştırmak da mümkün.
+- Hem ana kontrol akışı hem de coroutine'in kendi kontrol akışı aynı thread içinde gerçekleşiyor. 
+  multi-thread programlama ya da eş zamanlı erişim oluşturmak zorunda değiliz. Ancak coroutine'leri farklı thread'lerde çalıştırmak da mümkün.
 
 - Genel olarak programlama dillerindeki coroutine'ler iki ana kategoriye ayrılıyor:
 	-- Stackless coroutine'ler
 		--- stackful coroutine'ler C++ dili stackless coroutin'ler sunuluyor.
 
--- C++ dilinde, bir fonksiyonun coroutine olup olmadığı bildiriminden değil tanımından (implementation) anlaşılıyor. Yani bir fonksiyonun sadece bildirimine bakarak onun coroutine olup olmadığını anlayamıyoruz. Eğer fonksiyon tanımı içinde aşağıdaki anahtar sözcüklerden biri var ise derleyici söz konusu fonksiyonu bir coroutine olarak ele alıyor:
+-- C++ dilinde, bir fonksiyonun coroutine olup olmadığı bildiriminden değil tanımından (implementation) anlaşılıyor. 
+   Yani bir fonksiyonun sadece bildirimine bakarak onun coroutine olup olmadığını anlayamıyoruz. 
+   Eğer fonksiyon tanımı içinde aşağıdaki anahtar sözcüklerden biri var ise derleyici söz konusu fonksiyonu bir coroutine olarak ele alıyor:
 	-- co_await
 	-- co_yield
 	-- co_return
@@ -59,7 +68,8 @@ Derleyici bir coroutine için nasıl bir kod üretiyor?.
   Konunun daha iyi anlaşılmasına fayda sağlayacağını düşündüğümden coroutine'lerin gerçekleştiriminde kullanılan bileşenlerin 
   her birini daha sonra ayrı ayrı ele alacağım.
 
-- Derleyicinin coroutine için bir "coroutine frame" oluşturması gerekiyor. Bunun için bir bellek alanına ihtiyacı var. coroutine frame'de hangi bilgiler tutuluyor?
+- Derleyicinin coroutine için bir "coroutine frame" oluşturması gerekiyor. Bunun için bir bellek alanına ihtiyacı var.
+  Coroutine frame'de hangi bilgiler tutuluyor?
 	-- coroutine parametre değişkenleri
 	-- tüm yerel değişkenler
 	-- bazı geçici nesneler
