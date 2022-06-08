@@ -105,7 +105,7 @@ struct coroutine_handle<void> {
 };
 
 template <typename Promise>
-struct coroutine_handle : coroutine_handle<Promise> {
+struct coroutine_handle : coroutine_handle<void> {
 	Promise& promise()const noexcept;
 	static coroutine_handle from_promise(Promise&)noexcept;
 };
