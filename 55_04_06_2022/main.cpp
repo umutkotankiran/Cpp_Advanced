@@ -301,14 +301,14 @@ class suspend_never
 
 CO_AWAIT.JPG YI BURAYA DA KOYUYORUM !!!
 
-										  auto && __a = expression;
-										  if(!__a.await_Ready())
-										  {
+						  auto && __a = expression;
+						  if(!__a.await_Ready())
+						  {
 auto result = co_await expression; --->			__a.await_suspend(coroutine-handle);
-												//suspend/resume point
-										  }
+							//suspend/resume point
+						  }
 
-										  auto result = __a.await_resume();
+						  auto result = __a.await_resume();
 
 
 Bazı durumlarda co_await i biz kullnırken bazı durumlarda da derleyici bir ifadeyi co_await operatörünün
