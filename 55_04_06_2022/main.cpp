@@ -575,12 +575,12 @@ public:
 	struct promise_type;  // 3. Olmazsa olmaz nested type olan bir promise type olmak zorunda
 
 	using CoroHandle = std::coroutine_handle<promise_type>;  // 4. Olmazsa olmaz 2 nokta bir coroutine handle değeri
-															// bu coroutine handle tamamen bizi coroutine frameine eriştirecek nesne
-															// std library coroutine_handle isimli bir sınıf şablonu var
-															// Bu sınıf şablonunun önce void specializationu yapılmış, dolayısıyla
-															// void special. ın bir interface i var, void dışındaki specializationlar
-															// voidden kalıtımla elde edilmiş. Yani coroutine_handle ın void açılımının interfacei
-															// coroutine_handle ın başka bir açılımının interfaceinin bir parçası ama 2 funcı daha var.
+								// bu coroutine handle tamamen bizi coroutine frameine eriştirecek nesne
+								// std library coroutine_handle isimli bir sınıf şablonu var
+								// Bu sınıf şablonunun önce void specializationu yapılmış, dolayısıyla
+								// void special. ın bir interface i var, void dışındaki specializationlar
+								// voidden kalıtımla elde edilmiş. Yani coroutine_handle ın void açılımının interfacei
+								// coroutine_handle ın başka bir açılımının interfaceinin bir parçası ama 2 funcı daha var.
 
 private:
 	CoroHandle mp_handle{ nullptr };  // 5. Aslında birçok şeyi yönlendiren bu olacak
@@ -630,7 +630,7 @@ struct Coret::promise_type {
 	auto get_return_object() // Bu bir coret interface nesnesi döndürecek.
 	{
 		return Coret{ CoroHandle::from_promise(*this) }; // Derleyici promise nesnesinin konumunu biliyor ve promiseten hareketle
-														// doğrudan handle ın gösterdiği nesnenin adresini elde ediyor.
+								// doğrudan handle ın gösterdiği nesnenin adresini elde ediyor.
 	}
 
 	std::suspend_always initial_suspend()		// Resumable_thing.jpg de bunlarada ihtiyaç olduğu görülüyor.
@@ -689,19 +689,19 @@ Coret cofunc(int n)
 	{
 		std::cout << "cofunc suspends i = " << i << '\n';
 		co_await std::suspend_always{}; // döngünün her turunda program akışı buraya gelince
-										// funcın çalışması durdurulacak
-										// co_await bir operator. Yanındaki ifadenin ait olduğu türün
-										// bazı funcları olmak zorunda çünkü derleyici co_await kullanımını
-										// bir koda dönüştürüyor.co_await isimli resim yüklendi
-										// co await burada suspend edilmesini sağlıyor.
-										// bunu özelleştirebiliyoruz. Yani beklemesini,durmasını
-										// tekrar kontrolün çağıran tarafa geçmesi durumda ilave birtakım
-										// işlemlerin yapılmasını sağlayan co_awaitin operandı olan tür.
-										// bu türlere awaitable türler demiş standartlar.
-										// Derleyici await_ready, await_suspend ve await_resume kullanıyor.
-										// Bunlardan biri olmasa sentaks hatası verir.
-										// await_resume çağrıldığında kontrol geri dönmüyor
-										// Bu isimlendirme hatası.
+						// funcın çalışması durdurulacak
+						// co_await bir operator. Yanındaki ifadenin ait olduğu türün
+						// bazı funcları olmak zorunda çünkü derleyici co_await kullanımını
+						// bir koda dönüştürüyor.co_await isimli resim yüklendi
+						// co await burada suspend edilmesini sağlıyor.
+						// bunu özelleştirebiliyoruz. Yani beklemesini,durmasını
+						// tekrar kontrolün çağıran tarafa geçmesi durumda ilave birtakım
+						// işlemlerin yapılmasını sağlayan co_awaitin operandı olan tür.
+						// bu türlere awaitable türler demiş standartlar.
+						// Derleyici await_ready, await_suspend ve await_resume kullanıyor.
+						// Bunlardan biri olmasa sentaks hatası verir.
+						// await_resume çağrıldığında kontrol geri dönmüyor
+						// Bu isimlendirme hatası.
 	}
 
 	// Burada da suspend oluyor.
