@@ -599,8 +599,15 @@ int main()
   getchar();
 }
 
-BU İKİ ÖRNEĞİ HOCAYA SORDUM. ÇOK AÇIKLAYICI.
+Output
+------
+B destructor
+A destructor
 
+A destructor
+
+
+BU İKİ ÖRNEĞİ HOCAYA SORDUM. ÇOK AÇIKLAYICI.
 BUrada ise getchar dan sonra bir nesne daha destructor çağrılacak yanni reference scopeu bittiğinde bir 
 destructor daha çağrılacak. Demekki referans dangling değil.Life extension olmuş 
 
