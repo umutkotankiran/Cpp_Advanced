@@ -558,8 +558,6 @@ destroy olurdu !!!!!!!!!!!!!!
 -----
 B destructor
 A destructor
-B destructor
-A destructor
 
 getchar() çağrısı
 
