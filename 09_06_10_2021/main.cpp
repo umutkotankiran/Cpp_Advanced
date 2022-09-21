@@ -655,7 +655,7 @@ int main()
 	
 	string_biew sv(str,6);
 
-	std::cout << sv.size() << "\n"; // 26
+	std::cout << sv.size() << "\n"; // 6
 	std::cout << sv<< "\n"; //necati. 
 
 	std::cout << sv.data(); // Buradaki çağrılan func cstring parametreli func oldupunda bu yazı nullchar görene
