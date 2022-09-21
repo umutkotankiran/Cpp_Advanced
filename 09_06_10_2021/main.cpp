@@ -653,7 +653,7 @@ int main()
 
 	------------------------------------------------------------------------------------------------
 	
-	string_biew sv(str,6);
+	string_view sv(str.data(),6);
 
 	std::cout << sv.size() << "\n"; // 6
 	std::cout << sv<< "\n"; //necati. 
