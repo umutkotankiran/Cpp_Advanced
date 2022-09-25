@@ -4,9 +4,9 @@ Bir referans bir nesneye bağlandığında bir nesne oluşturmuyoruz.
 Referans nesnenin yerine geçen isim. Sorulan sorular üzerine anlatıldı.
 
 Myclass &&r = Myclass{}; Burada life extension var. Geçici nesneyi sağ taraf referansına bağlarsak
-						 normalde ifade ne zaman biterse o zaman ölecek nesne, referans ne zaman biterse o zaman bitecek hale gelir
+			 normalde ifade ne zaman biterse o zaman ölecek nesne, referans ne zaman biterse o zaman bitecek hale gelir
 
-const Myclass &r = Myclass{}; burada da aynısı var.
+const Myclass &r = Myclass{}; // burada da aynısı var.
 
 Myclass &r = Myclass{}; // burası zaten sentaks hatası
 
