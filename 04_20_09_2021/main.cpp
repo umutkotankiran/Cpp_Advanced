@@ -562,8 +562,8 @@ int main()
 	std::array<Nec,20>ay = ax; // copy cotlar çağrıldı 20 adet
 	
 	std::array<Nec,20>ay = std::move(ax); // Burada Move ctorlar çağrıldı bu sefer.Bu vector değil.Array içinde bildiğimiz nesneler var herbirine move ctorlar ile
-											// taşımalar yapılacak. İçinde pointerlar falan yok. :D:D:D . Linear complexity her eleman taşınacak. 
-											// Vector gibi 3 poitner taşınmıyor. Zaten pointer yok. 
+						// taşımalar yapılacak. İçinde pointerlar falan yok. :D:D:D . Linear complexity her eleman taşınacak. 
+						// Vector gibi 3 poitner taşınmıyor. Zaten pointer yok. 
 }
 
 Array aşağıdaki gibi.
