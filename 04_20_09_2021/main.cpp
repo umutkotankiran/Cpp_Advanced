@@ -290,8 +290,8 @@ int main()
 	cout << is_nothrow_move_constructible_v<Myclass> << "\n";
 	cout << is_nothrow_copy_assignable_v<Myclass> << "\n";
 	cout << is_nothrow_move_assignable_v<Myclass> << "\n"; // Bu durumda hepsi true. Çünkü noexcept operator ile baktı ve hepsi noexcept olarak yazılabilir
-}															// zaten neye bakacak eleman yok :D:D:D mesela int x gibi birşey olsaydı primitive tür zaten bu
-															// yine tüm special member funclar 
+}								// zaten neye bakacak eleman yok :D:D:D mesela int x gibi birşey olsaydı primitive tür zaten bu
+								// yine tüm special member funclar 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
