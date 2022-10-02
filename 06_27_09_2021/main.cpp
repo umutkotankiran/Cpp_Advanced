@@ -115,12 +115,12 @@ BURADA DA BAŞKA BİR MESELE VAR :D:D:D
 
 template <typename Func,typename ...Args>
 ?? call(Func f, Args&&... args)					// Bu functionun return değeri lvalue ref ise 
-{												// bizim funcında lvalue ref olacak. Rvalue ise rvalue olacak
-												// doğrudan değer ise değer olacak
+{								// bizim funcında lvalue ref olacak. Rvalue ise rvalue olacak
+								// doğrudan değer ise değer olacak
 
 	f(std::forward<Args>(args)...);				// Bu durumda return değeri burada çağrılan funcın return değeri olsa fakat return değerini f in forward edeceğiz				 
-}												// Yani f in return değeri lvalue reference ise bizim call func ın return değeride lvalue ref olacak.
-												// f, rvalue ref return ederse call da rvalue ref dönecek, f eğer value dönerse call da value dönecek...
+}								// Yani f in return değeri lvalue reference ise bizim call func ın return değeride lvalue ref olacak.
+								// f, rvalue ref return ederse call da rvalue ref dönecek, f eğer value dönerse call da value dönecek...
 
 
 BURADA NE ŞEKILDE FUNC ÇAĞRISINDAN ELDE EDILEN RETURN DEĞERINI VALUE CATEGORY VE CONSLUK KAYBEDILMEDEN CALL FUNCTIONU KENDISINI ÇAĞIRANA DOĞRU ŞEKILDE ILETECEK?
