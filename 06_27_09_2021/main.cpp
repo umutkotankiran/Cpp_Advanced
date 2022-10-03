@@ -132,6 +132,7 @@ auto& olmaz, neden ? bu sol taraf referansı, rvalue expr gelirse sentaks hatas�
 auto&& olmaz, neden ? Forwarding reference kurallarına göre return değeri ya sol ya sağ taraf referansı olur. Mesela bir string türü olma ihtimali yok.referans olmayan tür olamıyor :D:D
 
 AŞAĞIDAKİ DURUMLARI İNCELEYİP SORUYA GERİ DÖNECEĞİZ!!!!
+BU ÖRNEK 5. VE 4. DERSTEKİYLE AYNI ÖRNEK. ORADA SINIF VARDI SADECE YOKSA KONSEPT TAMAMEN AYNI.
 
 int foo()
 {
