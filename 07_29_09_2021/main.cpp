@@ -125,13 +125,13 @@ Her standartta birşeyler katıldı lambda ifadelerine.11 14 17 20 standartları
 C ve C++ ta copiler extensio kullanmazsak nested function yok. Nested function olsaydı belkide lambda ifadeleri dile eklenmeyecekti.
 Lambda ifadeleri öyle ifadeki bu ifade karşılığı bir sınıf kodu oluşturuyor. İfadeyide o sınıf türünden bir prvalue expressiona döndürüyor.
 
-Derleyicinin lambda ifadesi karşlığı oluşturduğu sınıfa closure type deniyor.
+Derleyicinin lambda ifadesi karşlığı oluşturduğu sınıfa closure object deniyor.Türü ise closure type.
 Bİr çok programcı doğrudan closure diyor. Sınıf türünden nesneyi ifade edersek 
 closure hem türün hemde nesne karşılığı olarak kullanıyoır.Ama bunlardan biri
 closure type diğeri closure object.
 
 Derleyicinin oluşturduğu bu sınıfın doğrudan kodda bir ismi yok ama derleyicinin id olarak
-kullandığı bir isim var. Böylece derleyiciyue bir sınıf yazdırmış oluyoruz ve bu sınıf aslında bir
+kullandığı bir isim var. Böylece derleyiciye bir sınıf yazdırmış oluyoruz ve bu sınıf aslında bir
 functor sınıf. Çünkü compiler oluşturduğu sınıf için function call operator func yazıyor
 ve duruma göre sınıfın special member funclarını yazıyor(standartlara göre).
 
