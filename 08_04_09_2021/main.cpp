@@ -330,6 +330,15 @@ int main()
 
 SINIFLARIN MEMBER FUNCI İÇİNDE LAMBDA İFADESİ KULLANIMI
 
+-----------------------------------------------------------
+-----------------------------------------------------------
+-----------------------------------------------------------
+ÇOK ÖNEMLİ !!!!!!!!!!!!!!!!!!!!!!!!!!
+FOO İÇİNDE MX KULLANINCA DERLEYİCİ ONU THİS->MX E ÇEVİRİYOR.
+-----------------------------------------------------------
+-----------------------------------------------------------
+-----------------------------------------------------------
+
 Lambda funcın kodu içinde this pointerını kullanamıyoruz.Oradaki this keywordu sınıfın member kodunu yazdığımızdaki this ile aynı değil.
 
 class Myclass
