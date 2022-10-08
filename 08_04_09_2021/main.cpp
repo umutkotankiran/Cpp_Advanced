@@ -719,7 +719,7 @@ public:
 		D{}(mp);
 	}
 private:
-	T* mt;
+	T* mp;
 };
 
 int main()
