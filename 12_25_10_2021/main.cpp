@@ -367,7 +367,7 @@ int main()
 				
 SADECE TYPE IÇIN DEĞIL NONTYPE IÇINDE GEÇERLI.
 template<typename T, size_t n>
-void func(Ta[n]);
+void func(Ta (&r)[n]);
 
 int main()
 {
