@@ -348,202 +348,201 @@ Substitution, T yerine gerçek bir koyması anlamında.
 
 Buna yönelik 3 araç var.
 1 - Deduction : Çıkarım. Derleyici template kullanıldığı contexe bakarak dilin kurallarını uygulayarak template parametresine karşılık gelen argümanın hangi sabit olduğunu anlamaya çalışacak.
-				Template argümanlarının contexten çıkarım yoluyla elde edilmesi sürecine template argument deduction deniyor. C++17 de ciddi farklılık oldu. C++17 den önce bu sadece func 
-				template için vardı, C++17 ile CTAD geldi.Class template argument deduction ile belli bir seviyede sınıflar içinde deduction imkanıda var.
+		Template argümanlarının contexten çıkarım yoluyla elde edilmesi sürecine template argument deduction deniyor. C++17 de ciddi farklılık oldu. C++17 den önce bu sadece func 
+		template için vardı, C++17 ile CTAD geldi.Class template argument deduction ile belli bir seviyede sınıflar içinde deduction imkanıda var.
 
 
-				int main()
-				{
-					vector x = {1,2,3,4,5};
-					vector y = {x,x}; // y nin türü vector<vector<int>>; Ctad var.
+int main()
+{
+	vector x = {1,2,3,4,5};
+	vector y = {x,x}; // y nin türü vector<vector<int>>; Ctad var.
+
+	optional x = 5; // CTAD. Constructora bakarak derleyici deduction yapıyor compiler burada.
+			
+	pair p1 = {23 ,45};
+	pair p2 = {2.3f ,'t'}; //İkiside CTAD
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 				
-					optional x = 5; // CTAD. Constructora bakarak derleyici deduction yapıyor compiler burada.
-					
-					pair p1 = {23 ,45};
-					pair p2 = {2.3f ,'t'}; //İkiside CTAD
-				}
+SADECE TYPE IÇIN DEĞIL NONTYPE IÇINDE GEÇERLI.
+template<typename T, size_t n>
+void func(Ta[n]);
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
-				
-				SADECE TYPE IÇIN DEĞIL NONTYPE IÇINDE GEÇERLI.
-				template<typename T, size_t n>
-				void func(Ta[n]);
+int main()
+{
+	int a[10]{};
+	func(a); //CTAD VAR YİNE
+}
 
-				int main()
-				{
-					int a[10]{};
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-					func(a); //CTAD VAR YİNE
-				}
+ÖR:
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+int foo(double)
+{
+	return 1;
+}
 
-				ÖR:
+template<typename T,typename U>
+void func(T(*p)(U))
+{
+	std::cout << typeid(T).name() <<"\n";
+	std::cout << typeid(U).name() <<"\n";
+}
 
-				int foo(double)
-				{
-					return 1;
-				}
+int main()
+{
+	func(foo); // decay olacak. Function to pointer conversion.return değeri int parametresi double olan func adresi olacak template te duduce edilecek.
+}
 
-				template<typename T,typename U>
-				void func(T(*p)(U))
-				{
-					std::cout << typeid(T).name() <<"\n";
-					std::cout << typeid(U).name() <<"\n";
-				}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				int main()
-				{
-					func(foo); // decay olacak. Function to pointer conversion.return değeri int parametresi double olan func adresi olacak template te duduce edilecek.
-				}
+MEMBER FUNCTION POINTER 
+class Nec {
+public:
+	int foo(double) { return 1; }
+};
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+template <typename C, typename T, typename U>
+void func(T(C::*)(U))
+{
+	std::cout << typeid(C).name() << '\n';
+	std::cout << typeid(T).name() << '\n';
+	std::cout << typeid(U).name() << '\n';
+}
 
-				MEMBER FUNCTION POINTER 
-				class Nec {
-				public:
-					int foo(double) { return 1; }
-				};
-
-				template <typename C, typename T, typename U>
-				void func(T(C::*)(U))
-				{
-					std::cout << typeid(C).name() << '\n';
-					std::cout << typeid(T).name() << '\n';
-					std::cout << typeid(U).name() << '\n';
-				}
-
-				int main()
-				{
-					func(&Nec::foo);
-				}
+int main()
+{
+	func(&Nec::foo);
+}
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2 - Explicit Template Argument : Derleyici sen çıkarım yapma ben template parametresi karşılık gelecek argümanın ne olacağını ben yazacağım.
 								 
-				template<typename T, typename U>
-				void func(T,U)
-				{
-				}
+template<typename T, typename U>
+void func(T,U)
+{
+}
 
-				int main()
-				{
-				func<int, double>(12,2.4); // Burada çıkarım olmayacak.
-				}
+int main()
+{
+	func<int, double>(12,2.4); // Burada çıkarım olmayacak.
+}
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				int main()
-				{
-				make_unique<int>(12); //Neden explicit yazdık. Çünkü öyle senaryolar varki derleyici ilgili türü deduction yapma şansı yok.
-				}
+int main()
+{
+	make_unique<int>(12); //Neden explicit yazdık. Çünkü öyle senaryolar varki derleyici ilgili türü deduction yapma şansı yok.
+}
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				Make Unique bakalım.T türü çıkarımı yapılamıyor bunda
+Make Unique bakalım.T türü çıkarımı yapılamıyor bunda
 
-				template <typename T, typename ...Types>
-				std::unique_ptr Make_Unique(Types&&... args)
-				{
-					return std::unique_ptr<T>{new T{std::forward<Types>(Args)...}}; 
-				}
+template <typename T, typename ...Types>
+std::unique_ptr Make_Unique(Types&&... args)
+{
+	return std::unique_ptr<T>{new T{std::forward<Types>(Args)...}}; 
+}
 
-				------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				EXPLICIT TEMPLATE ARGUMENT KULLANDIĞIMIZDA BÜTÜM TEMPLATE PARAMETRELERI IÇIN ARGÜMAN VERMEK ZORUNDA DEĞILIZ
+EXPLICIT TEMPLATE ARGUMENT KULLANDIĞIMIZDA BÜTÜM TEMPLATE PARAMETRELERI IÇIN ARGÜMAN VERMEK ZORUNDA DEĞILIZ
 
-				template<typename T, typename U>
-				void func(T x, U y)
-				{
-					
-				}
+template<typename T, typename U>
+void func(T x, U y)
+{
+			
+}
 
-				int main()
-				{
-					func<int>('A',4.5); // 1. template tür parametresinin int olduğunu biz belirtmişiz ama 2. temp arg. için biz söylemedik deduction yapacak.
-				}
+int main()
+{
+	func<int>('A',4.5); // 1. template tür parametresinin int olduğunu biz belirtmişiz ama 2. temp arg. için biz söylemedik deduction yapacak.
+}
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				NONTYPE PARAMETERDA OLABİLİR.
-				
-				template<int x, int y>
-				void func()
-				{
-					// değerler burada kullanılacak.
-				}
+NONTYPE PARAMETERDA OLABİLİR.
+			
+template<int x, int y>
+void func()
+{
+	// değerler burada kullanılacak.
+}
 
-				int main()
-				{
-					func<5.10>(); //
-				}
+int main()
+{
+	func<5.10>(); //
+}
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3 - Default Template Argument
 	
-				template<typename T, typename U = int>
-				class Myclass{
-	
-				};
+template<typename T, typename U = int>
+class Myclass{
 
-				int main()
-				{
-					Myclass<std::string, double> // T için string, U için double 
-					Myclass<std::string> // T için string, U int
-				}
+};
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+int main()
+{
+	Myclass<std::string, double> // T için string, U için double 
+	Myclass<std::string> // T için string, U int
+}
 
-				NOT : VARSAYILAN TEMPLATE ARGÜMANI MODERN C++ ÖNCESİNDE FUNC ŞABLONLARI İÇİN GEÇERLİ DEĞİLDİ.SADECE SINIF ŞABLONLARI VARSAYILAN ARGÜMAN ALABİLİRDİ. C++11 ILE BIRLIKTE FUNC ŞABLONLARINDA 
-				KULLANILIYOR.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+NOT : VARSAYILAN TEMPLATE ARGÜMANI MODERN C++ ÖNCESİNDE FUNC ŞABLONLARI İÇİN GEÇERLİ DEĞİLDİ.SADECE SINIF ŞABLONLARI VARSAYILAN ARGÜMAN ALABİLİRDİ.
+C++11 ILE BIRLIKTE FUNC ŞABLONLARINDA KULLANILIYOR.
 
-				SET : template<class Key,class Compare = std::less<Key>,class Allocator = std::allocator<Key>> class Set;
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+SET : template<class Key,class Compare = std::less<Key>,class Allocator = std::allocator<Key>> class Set;
 
-				vector<int> ; // vector<int,std::allocator<int>> demek
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+vector<int> ; // vector<int,std::allocator<int>> demek
 
-				set<int> ; // set<int, std::less<int>,allocator<int>> demek. Not: less functional header file içinde
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+set<int> ; // set<int, std::less<int>,allocator<int>> demek. Not: less functional header file içinde
 
-				template <typename T>
-				struct DefaultDelete {
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-					void operator()(T* p)
-					{
-						delete p;
+template <typename T>
+struct DefaultDelete {
+
+	void operator()(T* p)
+	{
+		delete p;
+	}
+};
+
+
+template <typename T, typename D = DefaultDelete<T>>
+class UniquePtr {
+public:
+	//...
+	~UniquePtr()
+	{
+		//...
+		D{}(mp);
 					}
-				};
+	private:
+	T* mp;
+};
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-				template <typename T, typename D = DefaultDelete<T>>
-				class UniquePtr {
-				public:
-					//...
-					~UniquePtr()
-					{
-						//...
-						D{}(mp);
-					}
-				private:
-					T* mp;
-				};
+template <typename Ch, typename Trait = std::char_traits<Ch>, typename Alloc = std::allocator<Ch>>
+class BasicString {
 
-				---------------------------------------------------------------------------------------------------------------------------------------------------------------
+};
 
-				template <typename Ch, typename Trait = std::char_traits<Ch>, typename Alloc = std::allocator<Ch>>
-				class BasicString {
-
-				};
-
-				using String = BasicString<char>; // Burada da typedef ismi.
+using String = BasicString<char>; // Burada da typedef ismi.
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
