@@ -372,8 +372,8 @@ template<typename T>
 void t(T const*, T*, T* = nullptr);
 
 Variadic parametre yokmuş gibi ele alınacak.
-Varsayılan argüman varsa ve varsayılandan gelen değer kullanılmamışsa o parametreyi tamamen çıkartıyoruz,
 Varsayılan argüman varsa ve varsayılandan gelen değer kullanılmışsa sadece varsayılanlık siliniyor parametre kalıyor.
+Yukarıdaki 2 kuralı zaten yazmıştık
 
 
 ASIL DEĞERLENDİRİLECEK ŞEKLİ
