@@ -516,10 +516,10 @@ BURADA 3 TEKNIĞEDE BAKALIM.
 1. TAG DISPATCH TEKNIĞI.
    FUNCTİON OVERLOADING İLE YAPILACAK
 
-
 NOT !!!!!!!!!!!!! TEMELDE DETAYLI GÖRÜLDÜ
 typename Iter::iterator_category; Iterator categorysini veriyordu.Mesela random access iterator ise iterator categorisi random_access_iterator_tag
 bidirectional iterator ise bidirectional_iterator_tag
+iterator_traits kullanınca ayrıca tag'leride gösteriyor.
 
 NOT !!!!!!!!!!!!!
 typename Iter::iterator_category
