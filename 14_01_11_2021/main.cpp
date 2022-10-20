@@ -519,7 +519,12 @@ BURADA 3 TEKNIĞEDE BAKALIM.
 NOT !!!!!!!!!!!!! TEMELDE DETAYLI GÖRÜLDÜ
 typename Iter::iterator_category; Iterator categorysini veriyordu.Mesela random access iterator ise iterator categorisi random_access_iterator_tag
 bidirectional iterator ise bidirectional_iterator_tag
+
+NOT!!!!!!!!!!!!!!!!!!!!!!!!!!
 iterator_traits kullanınca ayrıca tag'leride gösteriyor.
+Tagleri görmek için ayrıca Iter::iterator_category isimli type ına erişerekte tag bilgisini alırız.
+iterator traits pointerlar içinde tagleme yapabiliyor.Aşağıda yazıldı.
+
 
 NOT !!!!!!!!!!!!!
 typename Iter::iterator_category
