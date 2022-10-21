@@ -653,15 +653,19 @@ Yani template substitution kısmında enable if kullanırsak ve type ın olmamas
 overload setten çıkartacak
 
 ÖR:
+
+#include <iostream>
+#include <vector>
+
 template<typename Iter>
-enable_if_t<is_same_v<std::random_access_iterator_tag,typename Iter::iterator_category>>
+std::enable_if_t<std::is_same_v<std::random_access_iterator_tag,typename Iter::iterator_category>>
 Advance(Iter &iter, int n)
 {
 	std::cout << "for random access iterator\n";
 }
 
 template<typename Iter>
-enable_if_t<is_same_v<std:bidirectional_iterator_tag,typename Iter::iterator_category>>
+std::enable_if_t<std::is_same_v<std::bidirectional_iterator_tag,typename Iter::iterator_category>>
 Advance(Iter &iter, int n)
 {
 	std::cout << "Bidirectional access iterator\n";
