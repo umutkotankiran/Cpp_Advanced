@@ -188,6 +188,9 @@ tanımnlanan türlerden. Yani (10 <=> 5) bu bir sınıf türden ifade ve bu ifad
 (10 <=> 5) == 0
 (10 <=> 5) != 0  hepsi yazılabilir.
 
+NOT!!!!!!!!
+Yukarıdaki karşılaştırma örnekleri anlaşılmamış olabilir. Aşağıdaki kısımlarda çok güzel açıklandı !!!!!!!
+
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 KARŞILAŞTIRILAN VARLIKLARIN TÜRÜNE BAĞLI OLARAK YENİ BAŞLIK DOSYAMIZ COMPARE DOSYASINDA OLAN TÜRLER
