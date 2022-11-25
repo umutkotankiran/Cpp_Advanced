@@ -47,8 +47,10 @@ a.operator(b) yerine b.operator(a) olabiliyor
 ------------------------
 1 - C++ 20 ile artık biz operator== yazarsak derleyici
     operator!= funcını kendisi yazıyor.
+    
 2 - C++ 20 ile biz operator<=> yazarsak <, <=, >, >=
     operatorlerini derleyici kendisi yazıyor.
+    
 3 - C++20 ile eğer operator<=>'i default ettirirsek
     6 operatörün tamamını derleyici kendisi yazıyor.
 ------------------------------------------------------
