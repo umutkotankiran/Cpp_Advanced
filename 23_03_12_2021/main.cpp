@@ -831,6 +831,25 @@ GELELİM C++20 YE YANİ SPACESHIP OPERATÖRÜNE
 C++ 20 ile sınıfların temel olarak 2 tane karşılaştırma operatörü olabiliyor.Bunlar == ve <=> operatörü.
 Bir sınıfa == funcını eklersek derleyici artık != funcını kendisi yazıyor.Eskiden herşeyi kendimiz yazardık :D
 
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+ÇOK ÖNEMLİ !!!!!!!!!!!!!
+------------------------
+1 - C++ 20 ile artık biz operator== yazarsak derleyici
+    operator!= funcını kendisi yazıyor.
+
+2 - C++ 20 ile biz operator<=> yazarsak <, <=, >, >=
+    operatorlerini derleyici kendisi yazıyor.
+
+3 - C++20 ile eğer operator<=>'i default ettirirsek
+    6 operatörün tamamını derleyici kendisi yazıyor.
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+
 1. Biz sınıfa operator== yazarsak operator!= i de kendimiz yazacaktık ama artık operator!= i derleyici bizim için yazıyor.
 
 class Nec{
