@@ -796,7 +796,7 @@ void func(T x) requires (std::is_integral_v<T>)
 
 ÖR:
 
-template<typename>
+template<typename T>
 requires (std::is_integral_v<T>)
 class Myclass{
 	
