@@ -840,6 +840,10 @@ requires(sizeof(T) > 8) &&
 		p[0];    // bununda geçerli olması gerekiyor
 	} 
 	&& std::integral<T> // en yukarıda requires olduğundan burada requires'a gerek yok.
+			    // DİKKAT !!!!!!!!!!!!!!!!!!!! ÇOK ÖNEMLİ bir üst satır !!!!!!!!!!!!!
+			    // std::integral zaten bir concept bu sebeple requires keyword yazılmadı.
+			    // Concept değilde type trait kullansaydık aşağıdakini yazabilirdik
+			    // requires (std::is_integral<T>)
 
 
 REQUIRES IÇIN ALIAS OLUŞTURMAMıZA GEREK YOK. ZATEN REQUIRES IÇIN OLUŞTURULAN ALIAS
