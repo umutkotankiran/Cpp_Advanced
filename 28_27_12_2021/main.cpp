@@ -37,6 +37,9 @@ Sentaks
 requires { requirement-seq}
 requires(parameter-list-optional) {requirement-seq}
 
+NOT!!!!!!!!!!
+Requires expression içerisindeki ifadelerin true false gibi değerler olması gerekmiyor.
+İşlemler yapıldığında sentaks hatası varmı yok mu buna bakılıyor. Hata varsa concept satisfied olmadı demek.
 
 - En çok kullanılan türe ilişkin bir bildirimin bulunması
 
