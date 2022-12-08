@@ -832,6 +832,11 @@ void foo()
 REQUIRES CLAUSE
 --------------
 
+ÇOK ÖNEMLİ !!!!!!!!!!!!!!!!!!
+Requires clauseta verilen türün açılımı true olacak.Yani satisfied edecek.
+Requires expressionda is true veya false önemsiz. Sentaks hatası olmayacak
+
+
 template<typename T>
 requires(sizeof(T) > 8) && 
 	requires {
