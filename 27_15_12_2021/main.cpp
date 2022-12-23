@@ -869,7 +869,7 @@ Concept requirementların toplamının isimlendirilmiş hali
 template<typename T>
 requires(sizeof(T) > 10) && requires(std::is_integral_v<T>);  
 
-//Konsept kullanınca isimlendirmiş oluyoruz.
+//Concept kullanınca isimlendirmiş oluyoruz.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
