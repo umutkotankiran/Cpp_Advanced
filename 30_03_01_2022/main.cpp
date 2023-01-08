@@ -1,5 +1,12 @@
 ﻿/*
 
+NOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+31. DERSİN BAŞINDA AŞAĞIDA YAZILAN IDENTITY PROJECTION INVOKE OLAYLARININ KODU YAZILMIŞ ZATEN.
+ORADAKİ KODLARI İLK ÖNCE OKURSAK DAHA NET ANLAŞILIR
+
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
 Sentinel Kavramını inceliyorduk.
 Daha önceden STL de range'i 2 iterator olarak gönderiyorduk algoritmaya.
 Daha önceden algoritmaların range parametreleri aynı türdendi. begin ve end aynı iterator türünden olmalıydı.
