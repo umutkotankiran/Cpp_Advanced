@@ -654,7 +654,7 @@ int main()
 
 	auto v = view::take(
 	views::transform(
-	views::filter(ivec, [](int x){return x % 5 == 0;}), [](int x){ return x * x;}), 5);
+	views::filter(ivec, [](int x){return x % 5 == 0;}), [](int x){ return x * x;}), 10);
 
 	for(auto i : v)
 	{
