@@ -634,7 +634,7 @@ int main()
 								    // aşağıdakine argüman olarak gitti.transform da take e argüman olarak gitti.
 	
 	ranges::take_view v { 
-	ranges::transform_view{ ranges::filter_view(ivec, [](int x) {return x % 5 == 0; }), [](int x) { return x * x; }}, 5};
+	ranges::transform_view{ ranges::filter_view(ivec, [](int x) {return x % 5 == 0; }), [](int x) { return x * x; }}, 10};
 
 	for(auto i : v)
 	{
