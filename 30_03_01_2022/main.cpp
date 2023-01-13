@@ -652,7 +652,7 @@ int main()
 	auto ivec = getvec(100,0,1000);
 	print(ivec);
 
-	auto v = view::take(
+	auto v = views::take(
 	views::transform(
 	views::filter(ivec, [](int x){return x % 5 == 0;}), [](int x){ return x * x;}), 10);
 
