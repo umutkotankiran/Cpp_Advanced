@@ -116,7 +116,7 @@ Yapılmazsa sentaks hatası oluşur.
 
 constinit int x = expr; // static init olacaksa geçerli yapılamazsa sentaks hatası
 
-constexpr int foo()
+constexpr int foo(int a)
 {
 	return a * a;
 }
