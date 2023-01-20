@@ -125,7 +125,7 @@ constinit int x = foo(5); // GEÇERLİ. foo(5) sabit ifadesi.x constant initiali
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-int foo(int 5)
+int foo(int a)
 {
 	return a * a;
 }
