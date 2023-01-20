@@ -107,8 +107,8 @@ Biz bir değişkenin static init edileceğinden yani dynamic initialize edilmeye
 static initin constant init olarak yapılacağından emin olmak istiyoruz.BİRAZ KARMAŞIK OLDU :D:D
 
 int x = expr;	// expr bir sabit ifadesiyse constant init olacak, değilse dynamic inite gidecek
-				// Biz bunun sadece constant expr olmasından ve dolayısıyla constant init edilmesinden ve
-				// dolayısıyla sadece statiac init edilmesinden emin olmak istiyorsak constinit yapacağız :D:D::D:D:D:D:
+		// Biz bunun sadece constant expr olmasından ve dolayısıyla constant init edilmesinden ve
+		// dolayısıyla sadece statiac init edilmesinden emin olmak istiyorsak constinit yapacağız :D:D::D:D:D:D:
 
 
 Constinit yapıldığında legal olması için sadece static initialize yapılması lazım.
