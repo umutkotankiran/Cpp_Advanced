@@ -543,7 +543,7 @@ static struct StreamInitializer{  // gstreamInitializer türünden nesne yaratı
 
 //stream.cpp
 #include"stream.h"
-#include<new> // placement new
+#include<memory> // placement new
 #include<type_traits> // aligned_storage
 
 static int g_nifty_counter;   // dışarı kapalı bir değişken.Zero init olacak tabi
