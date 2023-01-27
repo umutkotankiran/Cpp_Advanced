@@ -30,7 +30,7 @@ Aynı zamanda birden fazla işin fiilen/fiziksel olarak yönetilmesi.
 Aynı anda birden fazla işin yapılması için birden fazla çekirdek veya birden fazla
 CPU gerekir.
 
-Yada Cpu da bir core vardır fakat bu complex switcing ile belirli sürelerde farklı farklı
+Yada Cpu da bir core vardır fakat bu context switcing ile belirli sürelerde farklı farklı
 kodları çalıştırır. Biraz ondan biraz diğerinden ... Buradaki OS faaliyetine context switching deniyor.
 Gerçek anlamda paralellik işlerin fiilen aynı yapılması. 
 
