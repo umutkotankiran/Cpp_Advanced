@@ -302,7 +302,7 @@ int main()  // tek thread kullanacağız bu örnekte
 	try{
 		val = ftr.get();
 	}
-	catch(const future_error& ex)
+	catch(const std::future_error& ex)
 	{
 		std::cout << ex.what() <<'\n';
 	}
