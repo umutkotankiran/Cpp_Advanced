@@ -13,4 +13,5 @@
 5 - std::forward Implementation, Type traits, Make_unique Implementation, Lambda Expressions,
     Range Base for loop deep dive.
 
-6 - 
+6 - Value category Data Type, Decltype(auto), Variable Template, Move Semantic, Scott Meyers vs Herb Sutter, 
+    Move Copy Algorithm
