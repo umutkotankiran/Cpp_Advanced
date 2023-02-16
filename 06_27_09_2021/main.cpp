@@ -460,25 +460,25 @@ Herb sutter scott meyers tartışma olayı
 
 
 HERB SUTTER VERSION
-
+-------------------
 using usptr = std::unique_ptr<std::string>;
 
 void sink(usptr uptr) // bu function herzaman mülkiyeti alacak çünkü mnove only type parametreli
 {
-
+	std::cout << uptr->c_str();
 }
 
 int main()
 {
-	auto ptr = std::make_unique<usptr>(std::string("Necati ergin"));
-	sink(ptr); // SENTAKS HATASI olur çünkü kopyalamaya karşı kapalı
+	auto ptr = std::make_unique<std::string>(std::string("Necati ergin"));
+	sink(ptr); 	      // SENTAKS HATASI olur çünkü kopyalamaya karşı kapalı
 	sink(std::move(ptr)); // GEÇERLI. BUrada taşıma semantiği devreye girecek ve nesnenin kaynağını çalacak. ptr mülkiyeti bırakacak. functaki uptr kaynağı alacak
 			      // function bloğundan çıktığı an o da kaynağı bırakacak.
 }
 
 
 SCOTT MEYERS VERSION
-
+--------------------
 using usptr = std::unique_ptr<std::string>;
 
 void sink(usptr &&uptr) // DİKKAT!! Func rvalue expr ile çağrılacak ama nesne sadece referansa bağlandı kaynağı alınmadı.
