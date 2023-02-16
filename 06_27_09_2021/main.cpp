@@ -470,10 +470,10 @@ void sink(usptr uptr) // bu function herzaman mülkiyeti alacak çünkü mnove o
 
 int main()
 {
-	auto ptr = make_unique<string("Necati ergin")>; 
+	auto ptr = std::make_unique<usptr>(std::string("Necati ergin"));
 	sink(ptr); // SENTAKS HATASI olur çünkü kopyalamaya karşı kapalı
 	sink(std::move(ptr)); // GEÇERLI. BUrada taşıma semantiği devreye girecek ve nesnenin kaynağını çalacak. ptr mülkiyeti bırakacak. functaki uptr kaynağı alacak
-							// function bloğundan çıktığı an o da kaynağı bırakacak.
+			      // function bloğundan çıktığı an o da kaynağı bırakacak.
 }
 
 
