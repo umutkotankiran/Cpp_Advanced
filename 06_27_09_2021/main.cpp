@@ -114,13 +114,13 @@ TEMPLATE KODLARDA IHTIYAÇ OLUYOR BUNA
 BURADA DA BAŞKA BİR MESELE VAR :D:D:D
 
 template <typename Func,typename ...Args>
-?? call(Func f, Args&&... args)					// Bu functionun return değeri lvalue ref ise 
-{								// bizim funcında lvalue ref olacak. Rvalue ise rvalue olacak
-								// doğrudan değer ise değer olacak
+?? call(Func f, Args&&... args)			// Bu functionun return değeri lvalue ref ise 
+{						// bizim funcında lvalue ref olacak. Rvalue ise rvalue olacak
+						// doğrudan değer ise değer olacak
 
-	f(std::forward<Args>(args)...);				// Bu durumda return değeri burada çağrılan funcın return değeri olsa fakat return değerini f in forward edeceğiz				 
-}								// Yani f in return değeri lvalue reference ise bizim call func ın return değeride lvalue ref olacak.
-								// f, rvalue ref return ederse call da rvalue ref dönecek, f eğer value dönerse call da value dönecek...
+	f(std::forward<Args>(args)...);		// Bu durumda return değeri burada çağrılan funcın return değeri olsa fakat return değerini f in forward edeceğiz				 
+}						// Yani f in return değeri lvalue reference ise bizim call func ın return değeride lvalue ref olacak.
+						// f, rvalue ref return ederse call da rvalue ref dönecek, f eğer value dönerse call da value dönecek...
 
 
 BURADA NE ŞEKILDE FUNC ÇAĞRISINDAN ELDE EDILEN RETURN DEĞERINI VALUE CATEGORY VE CONSLUK KAYBEDILMEDEN CALL FUNCTIONU KENDISINI ÇAĞIRANA DOĞRU ŞEKILDE ILETECEK?
@@ -241,20 +241,20 @@ int main()
 	Myclass& r = mx;
 	const Myclass& cr = mx;
 
-	decltype(auto) m1 = mx;					//Myclass m1 = mx;
-	decltype(auto) m2 = cmx;				//const Myclass m2 = cmx;
-	decltype(auto) m3 = r;					//Myclass& m3 = r;
-	decltype(auto) m4 = cr;					//const Myclass& m4 = cr;
-	decltype(auto) m5 = foo();				//Myclass m5 = foo();
-	decltype(auto) m6 = bar();				//Myclass& m6 = bar();
-	decltype(auto) m7 = baz();				//Myclass&& m7 = baz();
-	decltype(auto) m8 = (mx);				//Myclass& m8 = mx;
-	decltype(auto) m9 = (cmx);				//const Myclass& m9 = cmx;
-	decltype(auto) m10 = (r);				//Myclass& m10 = r;
-	decltype(auto) m11 = (cr);				//const Myclass& m11 = cr;
-	decltype(auto) m12 = std::move(mx);		//Myclass&& m12 = std::move(mx);
+	decltype(auto) m1 = mx;			//Myclass m1 = mx;
+	decltype(auto) m2 = cmx;		//const Myclass m2 = cmx;
+	decltype(auto) m3 = r;			//Myclass& m3 = r;
+	decltype(auto) m4 = cr;			//const Myclass& m4 = cr;
+	decltype(auto) m5 = foo();		//Myclass m5 = foo();
+	decltype(auto) m6 = bar();		//Myclass& m6 = bar();
+	decltype(auto) m7 = baz();		//Myclass&& m7 = baz();
+	decltype(auto) m8 = (mx);		//Myclass& m8 = mx;
+	decltype(auto) m9 = (cmx);		//const Myclass& m9 = cmx;
+	decltype(auto) m10 = (r);		//Myclass& m10 = r;
+	decltype(auto) m11 = (cr);		//const Myclass& m11 = cr;
+	decltype(auto) m12 = std::move(mx);	//Myclass&& m12 = std::move(mx);
 	decltype(auto) m13 = std::move(cmx);	//const Myclass&& m13 = std::move(cmx);
-	decltype(auto) m14 = Myclass{};			//Myclass m14 = Myclass{}
+	decltype(auto) m14 = Myclass{};		//Myclass m14 = Myclass{}
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ decltype(auto) call(Func f, Args&&... args)
 	if constexpr (std::is_rvalue_reference_v<decltype(retval)>) // retval rvalue reference ise
 	{
 		return std::move(retval); // if e girerse burada retval rvalue reference. func return type decltype(auto). move a çağrıda x value expr olduğuna göre.Burada bu func ın return
-									// değeri yani call ın return değeri yine rvalue reference olacak.
+					  // değeri yani call ın return değeri yine rvalue reference olacak.
 	}
 	else
 	{
@@ -555,7 +555,7 @@ int main()
 {
     auto uptr = std::make_unique<std::string>("dogukan");
 
-	std::vector<usptr> vec{usptr{new std::string}, std::make_unique<std::string>("Necati")}; //Burada da init list var .SENTAKS HATASI
+    std::vector<usptr> vec{usptr{new std::string}, std::make_unique<std::string>("Necati")}; //Burada da init list var .SENTAKS HATASI
     //Move only sınıfları tutan containerların init list parametreli constuctorlarını çağırmak sentaks hatası
 
     ----------------------------------------------------------------------------------------
@@ -686,8 +686,8 @@ int main()
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
  NOT !!!!!!!!!!!!!!
-BUNLARIN DIŞINDAKİ FUNCLAR İÇİN YANİ DOĞRUDAN BU ALGORİTMA YOKSA
-YAZMA ALGORITMASINI COPY YERINE MOVE YAPMAK ISTERSEK MOVE_ITERATOR KULLANMALIYIZ.
+ BUNLARIN DIŞINDAKİ FUNCLAR İÇİN YANİ DOĞRUDAN BU ALGORİTMA YOKSA
+ YAZMA ALGORITMASINI COPY YERINE MOVE YAPMAK ISTERSEK MOVE_ITERATOR KULLANMALIYIZ.
  MOVE ITEARTOR KULANINCA ITERATOR KONUMUNDAKI NESNEYI BIRDEN FAZLA KERE KULLANIYOR OLMAMALI ALGORITMA
  EĞER ITARATOR KONUMUNDAKI NESNEYI BIRDEN FAZLA KEZ KULLANMA RISKI VARSA O ZAMAN TAŞINMIŞ NESNEYI
  KULLANMA RISKI OLACAK. INPUT ITERATOR KATEGORISININ BU GARANTISI VAR ZATEN.
@@ -756,7 +756,7 @@ Container size ı değişmeyecek yani.
 
  auto ptr = std::move(svec[5]); // svec[5] bir unique ptr nesnesi ve sağ taraf değerine çevirdik.
                                 // bu durumda uptr için move ctor çağrıldı. DOlayısı ile uptr dolu ama
-                                 // vectorun 5 indisli öğesi boşa çıktı.
+                                // vectorun 5 indisli öğesi boşa çıktı.
 
  cout << (svec[5] ? "not empty" : "empty"); / boş çıkar. Main içinde yazdı hoca ben orada yazmadım bunu.
 
