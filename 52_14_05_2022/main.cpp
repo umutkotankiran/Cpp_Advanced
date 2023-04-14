@@ -647,7 +647,7 @@ mutexi bırakıyor sanırım release bak ve yaz.
 #include <thread>
 #include <chrono>
 
-std::conditional_variable cv;
+std::condition_variable cv;
 std::mutex cv_m;
 // mutexin kullanılma sebepleri
 // 1 - i ye erişimi senkronize etmek.
