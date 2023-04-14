@@ -638,7 +638,10 @@ Josuttis in kitabında hata var. Ona bakıldı.
 
 Release lock olayına bak.
 release ile unlock farkına bak.cppreference ta yazıyor.
-mutexi bırakıyor sanırım release bak ve yaz.
+
+cppreference tan bakıldı
+release, unique_lock gibi bir sınıf için edinilmiş mutexi, unlock functionunu çağırmadan bırakıyor.
+unlock ise herhangibir mutexi bırakmıyor, sadece unlock işlemini yapıyor yani kilidi açıyor.
 
 ----------------------------------------------------------------------------------------------------------------------
 
