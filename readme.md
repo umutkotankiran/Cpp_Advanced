@@ -15,3 +15,25 @@
 
 6 - Value category Data Type, Decltype(auto), Variable Template, Move Semantic, Scott Meyers vs Herb Sutter, 
     Move Copy Algorithm
+
+7 - Life extension, Lambda Expressions Professional
+
+8 - Lambda Expressions, Lambda Expressions C++20 and idioms
+
+9 - Lambda Expressions, String View
+
+10 - String View, Literal Operator
+
+11 - Literal Operator Cooked/Uncooked
+
+12 - Templates, Integral Constant, Template Argument Type Deduction
+
+13 - Templates, Partion Ordering Rules, Explicit/Partial Specialization, Enable if, Sfinae
+
+14 - Templates, Type Traits, Sfinae
+
+15 - Templates, If Constexpr, Advance, conditional_t, Variadic Templates, sizeof..., Fold Expressions
+
+16 - Fold Expressions, Instantiation, Qualified/Unqualified Name
+
+17 - Order of Evaluation, Template Explicit Instantiation Definition/Decleration, Stact-Queue-Oriority Queue
