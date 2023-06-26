@@ -1,7 +1,7 @@
 ﻿/*
 
 
-Konu Policy Based Designed.
+Konu Policy Based Design.
 Sınıf tasarımında burada amaç esnek ve genişletilebilir bir yapı oluşturmak.
 Sınıf tasarlandıktan sonra bile daha sonra çıkan ihtiyaçları gereksinimleri karşılayabilecek
 sınıflar oluşturmak.Avantajı ve dezavantajları var tabi.
