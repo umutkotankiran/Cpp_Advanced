@@ -37,3 +37,15 @@
 16 - Fold Expressions, Instantiation, Qualified/Unqualified Name
 
 17 - Order of Evaluation, Template Explicit Instantiation Definition/Decleration, Stact-Queue-Oriority Queue
+
+18 - Deduction Guide, Friend Decleration, 
+
+19 - CRTP, Object Counting, Mixin Class, Poor man Spaceship Operator, Fluent Api, Covariance
+
+20 - CRTP, Static Polymorphism, Singleton, Type Erasure, 
+
+21 - Optional
+
+
+
+
