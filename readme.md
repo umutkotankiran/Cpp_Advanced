@@ -46,6 +46,18 @@
 
 21 - Optional
 
+22 - Optional, Variant, Visitor Pattern
 
+23 - Variant, Dynamic Polymorphism vs Variant, Any, any_cast, SPACESHIP / THREE-WAY COMPARISON OPERATOR
 
+24 - SPACESHIP / THREE-WAY COMPARISON OPERATOR 
+
+25 - Exchange, Using Enum, Designated Initializer, Aggregate Type Rules, FORMAT
+
+26 - FORMAT, Format_to, Format_to_n, formatted_size, Aggregate Type Rules C++20
+
+27 - Aggregate Type Rules C++20, Concepts
+
+28 - Concepts
+ 
 
