@@ -1437,9 +1437,46 @@ int main()
  	std::jthread t2{consumer};
 }
 
+-------------------------------------------------------------------------------------------------------------------
 
+ÖR:
 
+#include <iostream>
+#include <chrono>
+#include <semaphore>
+#include <syncstream>
+#include <string>
+#include <thread>
 
+int main()
+{
+    using namespace std;
+    binary_semaphore smp{0};
+
+    jthread th{
+        [&smp](){
+            osyncstream (cout) << "thread " << this_thread::get_id() << " bekliyor\n";
+            smp.acquire();
+            osyncstream (cout) << "thread " << this_thread::get_id() << " calisiyor\n";
+        }
+    };
+
+    this_thread::sleep_for(1250ms);
+
+    osyncstream(cout) << "thread " << this_thread::get_id() << " thread " << th.get_id() << " i uyandiracak\n";
+    smp.release();
+}
+
+ÇIKTI
+-----
+thread 136832499054144 bekliyor
+thread 136832505914304 thread 136832499054144 i uyandiracak
+thread 136832499054144 calisiyor
+
+-------------------------------------------------------------------------------------------------------------------
+
+43. ders
+1:33
 
 
 
