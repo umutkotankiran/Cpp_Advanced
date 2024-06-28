@@ -1257,4 +1257,100 @@ int main()
 	}
 }
 
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+
+SEMAPHORES / SEMAFORLAR
+-----------------------
+Semaforda bir senkronizasyon primitivi. Mutexten farkı semaphore un kullanım senaryolarını oluştuyor.
+C++20 ile geldi. Template olarak bulunuyor ve bir explicit specialization'ı var binary semaphore için.
+
+N tane threade ya da bir koda ulaşma şansı vermek. Mutexte de yapılabilir ama temel farkı, mutexte bir kilitleyen sahibi var
+ve o sahibi kilidi açıyor. Başka threadlerin critical sectiona girebilmesi için kilitleyen/sahibi olan threadin o threadi unlock
+etmesi gerekiyor.  
+
+Semaforda ise farklı bir durum var. Semafor bir tamsayı değişkeni ve bir kuyruğu sarmalıyor. Sarmaladığı tamsayı deüğişken 
+kaç tane threadin o koda gireceği değeridir. Semaphore da bu değer 5 ise buraya 5 tane thread girebilir demek.
+2 tane işlem var burada. Bir tanesi bekleme işlemi, bekleme işlemini bitirip giren semaphore tamsayı değerini azaltıyor,
+Release eden tarafta semaphore tamsayı değişkenini artırıyor. Eğer bir thread kritik bölgeye girmek için semaphore kullandığında
+semaphore değeri 0 ise artık giriş kapalıdır demek bu. Giriş hakkını alana kadar o thread bloke olacak. Semaphore release değeri
+çağrıldığında semaphore değeri 1 artırılacak ve bekleyen threadlerden biri girecek. Tamsayı değişkeni 0 dahil herhangibir şey olabilir.
+
+Bu durumda bir den fazla thread üzerinde kontrol sağlanabiliyor. 5 ise bu değer 5 thread girebilir. Threadlerden biri release funcı çağırdığında
+bu tamsayı değeri artacak ve başka threadlerde çalışabilecek.Release bir sinyal aslında. POSIX'te de detaylı var.
+
+Kritik nokta,
+Semaforu birden fazla thread kullanabilir. Wait ve Release işlemini yapan threadler farklı threadler olabilir(tamsayı değerini değiştiren işlem Wait ve Release)
+Mutex'te ise lock eden thread unlock etmeli.
+
+semaphore header file var. Bunun içerisinde bulunuyor semaphore.
+İçerisinde counting_semaphore ve binary_semaphore var.
+
+counting_semaphore<100> yada counting_semaphore<> yazıp default template argümanı kullanılabilir
+counting_semaphore<> sem(10) de olabilir. Burada da 10 vermiş olduk.
+counting_semaphore<> sem(0) da olabilir.Burada herşey bloke olur ancak biri release ederse başka thread çalışabilir.
+
+binary_semaphore x(1) böyle yazmakla aşağıdaki aynı
+counting_semaphore<1> x(1)
+
+-------------------------------------------------------------------------------------------------------------------
+
+Interfaceteki fonksiyonlar
+--------------------------
+
+int main()
+{	
+	using namespace std;
+	counting_semaphore smp(5);
+ 
+ 	smp.acquire(); // Semaphoreun sayacı 0 ise bloke olur
+  			// Eğer sayaç değeri 5 ise bu değeri 1 azaltır ve yoluna devam eder.
+
+     	smp.release(); // Bu da semaphoreun itamsayı değerini 1 artırır.
+      	smp.release(3); // Burada da semaphore un değeri 3 artırırız.
+
+        smp.max(); // Bu değer template argümanı ya da ondan daha büyük bir değer. o yüzden least max diye birşey kullanmışlar.
+
+ 	smp.try_acquire(); // Boolean döndürüyor, bloke etmiyor. Yani acquire edebiliyor mu ona bakıyor.
+  	smp.try_acquire_for(1300ms); // Buna duration veriyoruz. Bu süre içerisinde alıp alamama durumuna göre boolean değer döndürüyor.
+   	smp.try_acquire_until(bir_timepoint); // bu da timepoint istiyor
+}
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 */
+
+
