@@ -1327,7 +1327,115 @@ int main()
 
 ÖR:
 
+#include <iostream>
+#include <chrono>
+#include <semaphore>
+#include <syncstream>
 
+using namespace std;
+counting_semaphore smp{3};
+
+void foo()
+{
+	using namespace literals;
+ 	smp.acquire();
+  	osyncsatream{cout} << "thread id :" << std::this_thread::get_id() << '\n';
+   	this_thread::sleep_for(2500ms);	
+    	smp.release();
+}
+ 
+int main()
+{
+	vector<jthread> tvec;
+	for(int i = 0;i < 27; ++i)
+ 	{
+  		tvec.emplac_back(foo);
+	}
+}
+
+3'er 3'er giriyor threadler çalışıyor.
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR:
+
+#include <iostream>
+#include <chrono>
+#include <semaphore>
+#include <syncstream>
+
+using namespace std;
+counting_semaphore smp{3};
+
+void foo()
+{
+	using namespace literals;
+ 	smp.acquire();
+  	osyncsatream{cout} << "thread id :" << std::this_thread::get_id() << '\n';
+   	this_thread::sleep_for(2500ms);	
+    	smp.release();
+}
+
+void bar()
+{
+	using namespace literals;
+ 	smp.acquire();
+  	osyncsatream{cout} << "thread id :" << std::this_thread::get_id() << '\n';
+   	this_thread::sleep_for(2500ms);	
+    	smp.release();
+}
+ 
+
+int main()
+{
+	vector<jthread> tvec;
+	for(int i = 0;i < 27; ++i)
+ 	{	
+  		if(i % 2 == 0)
+  			tvec.emplac_back(foo);
+     		else	
+       			tvec.emplac_back(bar);
+	}
+}
+
+2 fonksiyonda aynı semaphoreu kullanıp acquire ve release yapabiliyor.Çokta hızlı çalışıyor.
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+ÖR:
+
+#include <iostream>
+#include <chrono>
+#include <semaphore>
+#include <syncstream>
+#include <string>
+
+using namespace std;
+
+std::string name{};
+binary_semaphore smp{0}; // ancak release edilip kritik bölgeye girilebilir.
+
+void producer()
+{
+	name = "Mustafa Berkay Ince";
+ 	std::cout << "Data is ready to consume\n"; 
+  	smp.release();
+}
+
+void consumer()
+{
+	std::cout << "consumer is waiting for the data\n";
+ 	smp.acquire();
+  	std::cout << "name is :" << name << '\n';
+}
+ 
+
+int main()
+{	
+	std::jthread t1{producer};
+ 	std::jthread t2{consumer};
+}
 
 
 
