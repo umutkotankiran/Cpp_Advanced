@@ -659,9 +659,20 @@ void func(const Myclass&)
 	
 }
 
+void func2(Myclass&)
+{
+	
+}
+
+
 void foo(Myclass&&)
 {
 	
+}
+
+void bar(Myclass)
+{
+
 }
 
 int main()
@@ -670,6 +681,7 @@ int main()
 
 	Myclass m;
 	Myclass n;
+ 	const Myclass k;
 
 	thread tx{func,m}; // Copy Ctor çağrıldı
 	
@@ -677,10 +689,31 @@ int main()
 
 	thread tz{foo,std::move(m)}; // Move Ctor çağrıldı
 
+ 	thread tk{bar,m}; // Copy ctor + Move ctor
+
+  	thread tl{foo,Myclass{}}; // Move Ctor. Zaten sağ taraf değeri.
+
+   	thread tm{func2,m}; // Syntax Error
+
+     	thread ta{func,Myclass{}}; // Move Ctor
+
+ 	thread tb{bar, k}; // Copy ctor + Move Ctor 
+
+  	thread tc{func, Myclass{}}; // Move Ctor 
+
+   	thread td{bar, Myclass{}}; // Move Ctor + Move Ctor
+
+
 	tx.join();
 	ty.join();
 	tz.join();
-
+ 	tk.join();
+  	tl.join();
+	tm.join();
+ 	ta.join();
+  	tb.join();
+   	tc.join();
+    	td.join();
 }
 
 
