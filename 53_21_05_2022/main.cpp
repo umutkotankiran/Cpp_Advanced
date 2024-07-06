@@ -1475,26 +1475,72 @@ thread 136832499054144 calisiyor
 
 -------------------------------------------------------------------------------------------------------------------
 
-43. ders
-1:33
+Ör:
+
+#include <iostream>
+#include <thread>
+#include <semaphore>
+
+std::binary_semaphore smping{0};
+std::binary_semaphore smpong{0};
+std::atomic counter{0};
+constexpr int n{100};
+
+void ping()
+{
+    while(counter <= n)
+    {
+        smping.acquire();
+        ++counter;
+        std::cout << "ping\n";
+        smpong.release();
+    }
+
+}
+
+void pong()
+{
+    while(counter <= n)
+    {
+        smpong.acquire();
+        ++counter;
+        std::cout << "pong\n";
+        smping.release();
+    }
+
+}
 
 
 
+int main()
+{
+    smping.release();
+    {
+        std::jthread t1{ping};
+        std::jthread t2{pong};
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Output
+------
+ping
+pong
+ping
+pong
+ping
+pong
+ping
+pong
+ping
+pong
+ping
+pong
+ping
+pong
+ping
+.
+.
+.
 
 */
 
