@@ -32,8 +32,8 @@ Bir kısmıda tamamen trait in kendisini kullanıyor.
 REQUIRES EXPRESSION
 -------------------
 
-Sentaks
--------
+Sentakslar
+----------
 requires { requirement-seq}
 requires(parameter-list-optional) {requirement-seq}
 
@@ -109,6 +109,19 @@ int main()
 
 	func(mx); //GEÇERLİ
 	func(s); //SENTAKS HATASI çünkü stringin key ve value type ı yok
+}
+
+-------------------------------------------------------------------------------------------------
+
+template <typename T>
+concept myconcept = requires(T x) {
+    *x;
+    **x;
+};
+
+int main()
+{
+    constexpr auto val = myconcept<int**>; // val true değerinde geçerli.
 }
 
 -------------------------------------------------------------------------------------------------
@@ -288,11 +301,13 @@ void func(T x); // Burada T tüm constaintleri sağlamak zorunda
 -------------------------------------------------------------------------------------------------
 
 ÖR
+ÇOK ÖNEMLİ!!!!!
 
 template <typename T>
 requires requires(T x)		// 2 requries kullanınca hata yok burada. 1. requires, requires clause un requiresı.
-{ x + x; }
-void foo(T x)
+{ x + x; } && 			// 2. requires ise requires expression. Requires clause bir compile time sabiti alabilir.
+std::integral<T>		// Requires expression ise bir compile time sabiti oluşturuyor zaten. Bu durumda valid.		
+void foo(T x)			// 3. std::integral ise yine bir concept
 {
 	
 }
