@@ -272,6 +272,15 @@ int main()
 }
 
 
+
+Yukarıdaki örneğin geçerli olması için aşağıdaki gibi yazılabilir concept kısmı
+template<typename T, typename U>
+concept nec = requires(T x) {
+	x.foo();
+} && requires(U y) {
+	y.bar();
+};
+
 -------------------------------------------------------------------------------------------------
 
 template <typename T>
