@@ -783,7 +783,16 @@ kullanılacak
 template<typename T>
 concept myconcept = sizeof(T) > 10 && std::is_integral_v<T>;
 
-Concept requirementların toplamının isimlendirilmiş hali
+Concept requirementların toplamının isimlendirilmiş hali.
+
+
+Concept oluştururken type trait kullanabiliriz ayrıca başka conceptlerden de faydalanabiliriz.
+
+template <typename T>
+concept myconcept = std::integral<T>;
+
+Burada std::is_integral değil std::integral conceptini kullanarak kendi conceptimi de oluşturabildim.
+
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
