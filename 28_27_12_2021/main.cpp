@@ -365,6 +365,49 @@ Yukarıdaki  requires std::integral<T>; // BURASI REQURIES CLAUSE
 				requires std::integral<T>; 
 			};
 
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+ÖR:
+ÇOK ÖNEMLİ ÖRNEK BU !!!!!!!!!
+
+template<typename T>
+concept Nec = requires {
+	sizeof(int) > 100;
+ 	std::is_integral_v<int>;
+};
+
+int main()
+{
+	auto constexpr a = Nec<char>; //satisfied durumda
+ 	auto constexpr b = Nec<float>; // burasıda satisfied
+  	std::cout << a << '\n'; // 1
+   	std::cout << b << '\n'; // 1
+}
+Yukarıda hiçbir constraint yok. Requires expression içerisindeki ifadeler 
+sentaks hatası değil valid ifadeler.true ya da false olmasının 
+bir durum haricinde önemi kalmıyor !!!
+
+
+
+ÖR:
+template<typename T>
+concept Nec = requires {
+	requires sizeof(int) > 100;  // Burada bir nested requires clause var artık. Durum değişti
+ 				     // Burasının artık satisfied olması gerekiyor. Yoksa false döner
+ 	std::is_integral_v<int>;
+};
+
+int main()
+{
+	auto constexpr a = Nec<char>; // Artık burası satisfied olmadı.
+ 	auto constexpr b = Nec<float>; // burasıda değil
+
+   	std::cout << a << '\n'; // 0
+   	std::cout << b << '\n'; // 0
+}
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
