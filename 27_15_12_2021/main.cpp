@@ -1142,4 +1142,33 @@ struct Data{
 
 static_assert(Neco<Data>); // Data nın foo func ı var. Bir hata olmayacak.
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+template<typename T>
+concept additive = requires (T x, T y) {
+	x + x;
+ 	x - x;
+};
+
+template<typename T>
+void func(T x) {
+	if constexpr(additive<T>) {
+		std::cout << "Necati Ergin\n"; 
+	}
+ 	else
+  	{
+   		std::cout << "Ali Yılmaz\n";
+	}
+}
+
+int main()
+{
+	int x = 10;
+ 	int *p = &x;
+
+   	func(p); // constraint x + x; te sağlanmayacak. else bloğundaki kod seçilecek. Ali Yılmaz
+    	func(x); // Burada ise constraint sağlanır. Necati Ergin
+
+}
+
 */
