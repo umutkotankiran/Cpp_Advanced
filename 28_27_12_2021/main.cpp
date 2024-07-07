@@ -250,6 +250,30 @@ int main()
 
 -------------------------------------------------------------------------------------------------
 
+ÖR:
+template<typename T, typename U>
+concept nec = requires(T x, U y) {
+	x.foo() || y.bar(); // BUradaki ifade ya foo ya da bar çağrılabilsin demek değil
+ 			    // Bu ifade yazılabilsin demek. Burada da 2si birden gerekiyor.
+			    // Enteresan
+};
+
+struct A{
+	void foo();
+};
+
+struct B{
+	
+};
+
+int main()
+{
+	constexpr auto b = nec<A,B>; // False
+}
+
+
+-------------------------------------------------------------------------------------------------
+
 template <typename T>
 concept nec = requires(T x)
 {
