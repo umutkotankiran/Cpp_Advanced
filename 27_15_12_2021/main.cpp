@@ -680,6 +680,14 @@ Template parametresi tamsayı olmak zorunda gibi. Çok basit kısıtlamadan çok
 
 Eski teknikler var. Bunlar birçok problemi barındırıyor.
 
+Burada olan kavramları yazalım. Birbirine karıştırılıyor bunlar.
+1 - Requires Clause
+    Prefix veya Trailing olarak kullanılır
+2 - Requires Expression
+3 - Named Constraints/Concepts
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
 Eski Tekniklerin Dezavantajları
 -------------------------------
 1. Çok zor ve karmaşık.Template kodları yazabilmek için uzman seviyesinde olmak gerekiyor
@@ -720,10 +728,12 @@ Header file concepts
 #include<iostream>
 #include<concepts>
 
+CONCEPT KULLANIM SENTAKSI
+-------------------------
+
 1. KULLANIM
 -----------
 template<typename T> yazardık eskiden, artık aşağıdakini kullanıyoruz.
-
 template <std::integral T>	// alternatif sentakslardan biri bu.Burada std::integral bir concept !!!!!!!!!
 void func(T x)
 {
@@ -760,14 +770,40 @@ void func(std::integral<T> x)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+CONCEPT OLUŞTURMA SENTAKSI
+--------------------------
+template<typename T>
+concept myconcept = sizeof(T) > 10;
+
+Concept zaten constraintlerin isimlendirilmiş biçimi
+Conceptleri oluştururken requires expressionları yada başka conceptler 
+kullanılacak
+
+template<typename T>
+concept myconcept = sizeof(T) > 10 && std::is_integral_v<T>;
+
+Concept requirementların toplamının isimlendirilmiş hali
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
 
 CONSTAINT OLUŞTURMA YOLLARINDAN BIRIDE REQUIRES KEYWORDÜ ILE OLUŞTURULAN YAPI.
 Requires keywordü ile oluşturulan ifadeyse bir concept oluşturuyoruz. Constraint oluşturmanın yollarından biri concept diğeride requires keyword ile 
 oluşturulan bir requires clause.Argüman olarak 3 farklı sentaks olabiliyor.
 
+NOT!!!!!!
+Requires'tan sonra gelen ifade compile time'da constant expression olmalı !!!!!
+
+
+REQUIRES CLAUSE KULLANIM SENTAKSI
+---------------------------------
 
 SENTAKS - 1
 -----------
+Prefix kullanım
+
 template<typename T>
 requires (sizeof(T) > 2)  // doğruysa constraint sağlanacak yanlışsa sağlanmayacak.ad-hoc boolean expression diyorlar
 void func(T x)
@@ -777,6 +813,8 @@ void func(T x)
 
 SENTAKS - 2
 ------------
+Trailing kullanım
+
 template<typename T>
 void func(T x) requires (sizeof(T) > 2) // requires ifadesi bir compile time expression olmalı
 {
@@ -784,8 +822,33 @@ void func(T x) requires (sizeof(T) > 2) // requires ifadesi bir compile time exp
 }
 
 Her iki durumda da requires ı izleyen ifade compile time da true olmak zorunda.
-İster 1. ister 2. sentaks kullanalım anlamsal farklılık yok.
 Bu template bu constrainti sağlamak zorunda.
+1.ve 2. sentaks arasında bir tane farklılık var.
+Aşağıda yazdım
+
+SENTAKS - 3
+-----------
+Prefix ve trailing kullanımı beraber olabilir.
+
+template<typename T>
+requires std::is_integra_v<T> void foo(T x) requires std::is_signed_v<T>
+{
+
+
+}
+
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
+ÖNEMLİ NOT!!!!
+--------------
+Prefix kullanımda func'ın parametresinin adı x.
+Bu x i prefixte kullanamam
+Trailing'te ise kullanabilirim.
+T yi ise her durumda kullanırım.
+-----------------------------------------------
+-----------------------------------------------
+-----------------------------------------------
 
 ÖR:
 template<typename T>
@@ -833,8 +896,12 @@ REQUIRES CLAUSE
 --------------
 
 ÇOK ÖNEMLİ !!!!!!!!!!!!!!!!!!
-Requires clauseta verilen türün açılımı true olacak.Yani satisfied edecek.
-Requires expressionda is true veya false önemsiz. Sentaks hatası olmayacak
+-----------------------------
+Requires clauseta verilen türün açılımı true olacak.
+Yani satisfied edecek.
+
+Requires expressionda is true veya false önemsiz. 
+Sentaks hatası olmayacak
 
 
 template<typename T>
@@ -850,21 +917,7 @@ requires(sizeof(T) > 8) &&
 REQUIRES IÇIN ALIAS OLUŞTURMAMıZA GEREK YOK. ZATEN REQUIRES IÇIN OLUŞTURULAN ALIAS
 CONCEPTIN KENDISI. CONCEPTIN AMACI CONSTRAINTLERI ISIMLENDIRMEK. !!!!!!!!!!
 
------------------------------------------------------------------------------------------------------------------------------------------------
 
-template<typename T>
-concept myconcept = sizeof(T) > 10;
-
-Concept zaten constraintlerin isimlendirilmiş biçimi
-Conceptleri oluştururken requires expressionları yada başka conceptler 
-kullanılacak
-
-template<typename T>
-concept myconcept = sizeof(T) > 10 && std::is_integral_v<T>;
-
-Concept requirementların toplamının isimlendirilmiş hali
-
------------------------------------------------------------------------------------------------------------------------------------------------
 
 template<typename T>
 requires(sizeof(T) > 10) && requires(std::is_integral_v<T>);  
