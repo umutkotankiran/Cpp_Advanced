@@ -733,6 +733,8 @@ CONCEPT KULLANIM SENTAKSI
 
 1. KULLANIM
 -----------
+Constrained Template Parameter
+------------------------------
 template<typename T> yazardık eskiden, artık aşağıdakini kullanıyoruz.
 template <std::integral T>	// alternatif sentakslardan biri bu.Burada std::integral bir concept !!!!!!!!!
 void func(T x)
@@ -755,8 +757,14 @@ Standart conceptlerin büyük çoğunluğu concepts içinde tanımlanmış.Hepsi
 2. KULLANIM
 -----------
 void func(std::integral auto x)		// Template <typename> yok !!! C++20 ile gelmişti buradaki auto
-{
+{					// Burada auto ya da T ye gelen tür integral'a tür açılımı olarak verildi.
 	
+}
+
+return türü de concept olabilir.
+std::integral auto func(int x)
+{
+	return x*2; // satisfied etmezse hata verir.	
 }
 
 
@@ -768,6 +776,16 @@ void func(std::integral<T> x)
 
 }
 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+NOT!!!!!!!!!!!!!!
+Nontype parameterda kullanılabilir.
+
+template<auto N>
+requires(N > 10)
+class Myclass{
+
+};
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -792,6 +810,9 @@ template <typename T>
 concept myconcept = std::integral<T>;
 
 Burada std::is_integral değil std::integral conceptini kullanarak kendi conceptimi de oluşturabildim.
+
+Standart kütüphanedeki conceptler:
+https://en.cppreference.com/w/cpp/concepts
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -1065,17 +1086,30 @@ Requires closse ta bir sabit ifade ve bir concept kullanabiliriz,
 3. ihtimal özel bir sentaksla bir veya daha fazla koşulu velirtecek yapıyı oluşturmak.
 buna requires expression deniyor.
 
-SENTAKS
--------
+Requires Expressiondaki ifadeler geçerli olmak zorunda. True olmak zorunda değil.
+İfade geçerli olacak. Mesela ptr+ptr geçersiz ama ptr+value geçerli gibi.
+
+SENTAKS - 1
+-----------
 template <typename T>
-	requires {
+requires {
 	expr1;			//Burada ; ile ayrılmış ifadeler olacak 
 	expr2;			// ; ler ile ayrılmış her yapı bir constrainti belirleyecek
 	// ..
-	}
+}
+
+SENTAKS - 2
+-----------
+template <typename T>
+requires (T lhs, T rhs){
+	expr1;			//Burada ; ile ayrılmış ifadeler olacak 
+	expr2;			// ; ler ile ayrılmış her yapı bir constrainti belirleyecek
+	// ..
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ÖR:
-
 template <typename T>
 concept Neco = requires(T x){
 	
