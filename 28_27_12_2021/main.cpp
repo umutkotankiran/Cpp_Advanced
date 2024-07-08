@@ -441,6 +441,31 @@ int main()
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
+ÖR:
+template<typename T>
+concept Pointer = std::is_pointer_v<T>;
+
+template<typename T>
+concept Reference = std::is_reference_v<T>;
+
+template<typename T>
+concept PointerOrReference = Pointer<T> && Reference<T>;
+
+
+Yukarıdaki ile aşağıdaki aynı. Nested Requirements ile yapıyoruz
+
+
+template<typename T>
+concept Pointer = std::is_pointer_v<T>;
+
+template<typename T>
+concept Reference = std::is_reference_v<T>;
+
+template<typename T>
+concept Nec = requires {
+	requires Pointer<T> || Reference<T>;
+};
+
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
@@ -472,6 +497,32 @@ concept nec = requires(T x) {
 --------------------------------------------------------------------------------------------------
 
 ÖR:
+template<typename T>
+concept nec = requires(T x){
+	{x.foo()} noexcept -> std::same_as<int>;
+};
+
+struct A{};
+
+struct B{
+    void foo()noexcept;
+};
+
+struct C{
+    int foo()noexcept;
+};
+
+int main()
+{
+    std::cout << nec<A> << '\n'; // False
+    std::cout << nec<B> << '\n'; // False
+    std::cout << nec<C> << '\n'; // True
+    
+}
+
+--------------------------------------------------------------------------------------------------
+
+ÖR:
 
 template<typename T>
 concept nec = requires(T c){
@@ -489,6 +540,7 @@ concept nec = requires(T c){
 };
 
 --------------------------------------------------------------------------------------------------
+ÖR
 
 template <typename T,typename U>
 concept Nec = requires{
@@ -503,6 +555,25 @@ concept nec = requires(T x, U y){
 	{x + y } -> Nec<double>;  // x + x ifadesinin türü Nec conceptini satisfied etmeli. 
 				  // Nec<int,double> gibi bir ifade gönderirsek bunların int::xtype double::type valid olmalı gibi...
 }; 
+
+--------------------------------------------------------------------------------------------------
+
+ÖR
+template<typename T, typename U>
+concept nec = requires(T x, U y) {
+	{x+y} -> std::common_with<U>;
+};
+
+struct A{
+};
+
+int main()
+{
+	static_assert(nec<int,double>); // geçerli
+ 	static_assert(nec<const char *,std::string>); // geçerli
+  	static_assert(nec<int,A>); // burası hata
+
+}
 
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
