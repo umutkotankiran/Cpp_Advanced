@@ -575,6 +575,67 @@ int main()
 
 }
 
+--------------------------------------------------------------------------------------------------
+ÖR:
+
+template<std::integral T>
+class Myclass<T>;
+
+template<typename T>
+concept c1 = std::integral<T>;
+
+template<typename T>
+concept c2 = requires {
+	std::integral<T>; // dikkat !! requires başta yok.
+};
+
+template<typename T>
+concept c3 = requires {
+	requires std::integral<T>;
+};
+
+template<typename T>
+concept c4 = requires {
+	typename Myclass<T>;
+};
+
+int main()
+{
+	 std::cout << c1<double> << '\n'; // false
+	 std::cout << c2<double> << '\n'; // true
+	 std::cout << c3<double> << '\n'; // false
+	 std::cout << c4<double> << '\n'; // false
+}
+
+--------------------------------------------------------------------------------------------------
+
+ÖR:
+
+template<typename T>
+concept Dereferencable = requires(T x) {
+	*x;
+};
+
+template<typename T>
+concept Subcribtable = requires(T x) {
+	*[0];
+};
+
+template<typename T>
+concept nec = Dereferencable<T> || Subscribtable<T>;  // Burası aşağıdaki gibi de yazılabilir.
+
+template<typename T>    // Bu template geçerli yukarıdakini sağlıyor
+concept nec = requires(T x) {
+	*x;
+} || requires(T x) {
+	x[0];
+};
+
+template<typename T>     // Bu template ise sağlamıyor. Yukarıdaki ile aynı anlamda değil
+concept nec = requires(T x){ 
+	*x || x[0];
+};
+
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
