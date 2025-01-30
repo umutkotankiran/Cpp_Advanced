@@ -501,8 +501,8 @@ for(auto beg = r.begin(), auto end = r.end(); beg != end; ++beg)
 Bizim kodumu aşağıdakine dönüştü yani.
 
 auto &&r = create_person().get_name();
-//BURAYA GELDIĞIMIZDE R DANGLING DURUMDA.HAYATI BİTMİŞ FUNCTIONUN FUNC INA ÇAĞRI İFADESİNİ TUTAN REFERENCE
-CREATE_PERSON() DAN HEMEN SONRA . YA GELDIĞIMIZ ANDA HAYATI BIRMIŞ BIR FUNCTION OLUYOR.
+//BURAYA GELDIĞIMIZDE R DANGLING DURUMDA.
+CREATE_PERSON().GET_NAME()'DEN SONRA HAYATI BITMIŞ BIR NESNEYE REFERANS OLUYOR.
 
 for(auto beg = r.begin(), auto end = r.end(); beg != end; ++beg)
 {
