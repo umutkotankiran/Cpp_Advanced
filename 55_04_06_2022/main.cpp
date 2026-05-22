@@ -763,7 +763,7 @@ co_await :  Bu sadece suspend edilmesini istediğimizde kullanıyoruz.Suspension
 
 co_yield :	Bu return ün özel birimi gibi görülebilir ama teknik olarak öyle değil aslında.
 			co_await ile neredeyse aynı farkı ise co_await sadece suspendi sağlıyor, 
-			co_await suspend etmekle birlikte çağıran koda bir değer iletiyor.
+			co_yield suspend etmekle birlikte çağıran koda bir değer iletiyor.
 			yani suspend oldum 5 değerini gönderdim, tekrar suspend oldum 15 değerini gönderdim gibi.
 			  
 
