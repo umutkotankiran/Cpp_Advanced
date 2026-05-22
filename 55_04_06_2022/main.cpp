@@ -846,8 +846,9 @@ struct coroutine_handle<void>
 	void* to_address()const noexcept;	// void * a döndüren func
 	void resume()const; // ÖNEMLİ !!! İsimlendirme tuhaf. Bu resume ile awaiter sınıfının resume karıştırılmamalı
 						// awaiterın resume funcı, resume edildikten sonra customizasyon amaçlı başka şeylerde yapan func
-	void destroy();		// coroutine handle resume ise doğrudan resume işlemini yapıyor.
-	void done()const;  // buda destroy ediyor. 
+						// coroutine handle resume ise doğrudan resume işlemini yapıyor.
+	void destroy();		//buda destroy ediyor. 
+	void done()const;  //   coroutine'in çalışmasının tamamlanmış olup olmadığını sınar
 };
 
 Diğer açılımlarda coroutine handle ın void açılımından elde edilmiş.
